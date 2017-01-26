@@ -19,6 +19,13 @@ export function createNewPortfolio() {
     };
 }
 
+export function modelPortfolioNameTextFieldChange(value) {
+    return {
+        type: types.MODEL_PORTFOLIO_NAME_TEXT_FIELD_CHANGE,
+        value: value
+    };
+}
+
 export function addSecurity() {
     return {
         type: types.ADD_SECURITY,

@@ -15,13 +15,13 @@ const SecurityRow = ({security, removeSecurity, onSecurityTextFieldChange, onSec
 
     return (
 	<TableRow id={'securityRow'+security.ticker} className={cx('TableRow')}>
-		<TableRowColumn className={cx('TableRowColumnTextField')}>
+		<TableRowColumn >
 			<TickerTextFieldImmutable
 				index={security.index}
 				value={security.ticker.value}
 				onSecurityTextFieldChange={onSecurityTextFieldChange} />
 		</TableRowColumn>
-		<TableRowColumn className={cx('TableRowColumnTextField')}>
+		<TableRowColumn >
 			<AllocationTextFieldImmutable
 				index={security.index}
 				value={security.allocation.value}
@@ -31,7 +31,7 @@ const SecurityRow = ({security, removeSecurity, onSecurityTextFieldChange, onSec
 				onSecurityTextFieldValid={onSecurityTextFieldValid}
 				onSecurityTextFieldError={onSecurityTextFieldError} />
 		</TableRowColumn>
-		<TableRowColumn className={cx('TableRowColumnPriceTextField')}>
+		<TableRowColumn >
 			<PriceTextFieldImmutable w
 				index={security.index}
 				value={security.price.value}
@@ -41,11 +41,7 @@ const SecurityRow = ({security, removeSecurity, onSecurityTextFieldChange, onSec
 				onSecurityTextFieldValid={onSecurityTextFieldValid}
 				onSecurityTextFieldError={onSecurityTextFieldError} />
 		</TableRowColumn>
-        <TableRowColumn className={cx('TableRowColumnPriceProgress')}>
-        </TableRowColumn>
-        <TableRowColumn className={cx('TableRowColumnPriceRightSpace')}>
-        </TableRowColumn>
-		<TableRowColumn  className={cx('TableRowColumnTextField')}>
+		<TableRowColumn>
 			<UnitsTextFieldImmutable
 				index={security.index}
 				value={security.units.value}

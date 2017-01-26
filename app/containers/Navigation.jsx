@@ -19,15 +19,11 @@ const cx = classNames.bind(styles);
 
 const Navigation = ({ user, logOut }) => {
 
-    /*return (
-		<MuiThemeProvider>		
-			<Toolbar >
-				<ToolbarGroup firstChild={true}>
+    return (
+<div>
 					<FlatButton labelStyle={{ fontSize: '16px' }}
 					  containerElement={<Link to="/" />}
-					  label='PORTFOLIO REBALANCER' />
-				</ToolbarGroup>
-				<ToolbarGroup>	
+					  label='PORTFOLIO REBALANCER' />	
 					<FlatButton labelStyle={{ fontSize: '16px' }}
 					  containerElement={<Link to="/about" />}
 					  label='GITHUB' />
@@ -38,10 +34,9 @@ const Navigation = ({ user, logOut }) => {
 						onClick={user.authenticated ? logOut : ''}
 					  containerElement={ user.authenticated ? (<Link to="/"></Link>) : (<Link to="/login"></Link> )}
 						label={ user.authenticated ? 'LOG OUT' : 'LOG IN'} />
-				</ToolbarGroup>
-			  </Toolbar>
-		</MuiThemeProvider>
-    ); */
+</div>
+    );
+	/*
     return (
       <nav className={cx('navigation')} role="navigation">
         <Link
@@ -58,7 +53,7 @@ className={cx('item')} to="/">Logout</Link>
 <Link className={cx('item')} to="/dashboard">Dashboard</Link>
 <Link to="/about" className={cx('item')} activeClassName={cx('active')}>About</Link>
 </nav>
-    );
+    ); */
 };
 
 Navigation.propTypes = {

@@ -2,6 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import ModelPortfoliosAutoCompleteImmutable from '../components/ModelPortfoliosAutoCompleteImmutable';
 import NewPortfolioButton from '../components/NewPortfolioButton';
+import ModelPortfolioNameTextField from '../components/ModelPortfolioNameTextField';
+import SaveModelPortfolioButton from '../components/SaveModelPortfolioButton';
 import PortfolioTableImmutable from '../components/PortfolioTableImmutable';
 import InvestmentAmountTextField from '../components/InvestmentAmountTextField';
 import GenerateStepsButton from '../components/GenerateStepsButton';
@@ -9,7 +11,7 @@ import StepsList from '../components/StepsList';
 import TickerTextFieldImmutable from '../components/TickerTextFieldImmutable';
 import { createTopic, typing, incrementCount,
   decrementCount, destroyTopic,
-  selectModelPortfolio, createNewPortfolio, addSecurity, removeSecurity,
+  selectModelPortfolio, createNewPortfolio, modelPortfolioNameTextFieldChange, addSecurity, removeSecurity,
   onSecurityTextFieldChange, onSecurityTextFieldValid, onSecurityTextFieldError} from '../actions/topics';
 import { investmentAmountTextFieldChange, investmentAmountTextFieldValid, investmentAmountTextFieldError } from '../actions/investmentAmount';
 import { generateSteps } from '../actions/investmentSteps';
@@ -27,8 +29,8 @@ class Vote extends Component {
 	}
 	
   render() {
-      const {newTopic, topics, portfolio, investmentAmount, investmentSteps, view, createTopic, destroyTopic, incrementCount, decrementCount, 
-	  selectModelPortfolio, createNewPortfolio, addSecurity, removeSecurity,
+      const {newTopic, topics, modelPortfolioName, portfolio, investmentAmount, investmentSteps, view, createTopic, destroyTopic, incrementCount, decrementCount, 
+	  selectModelPortfolio, createNewPortfolio, modelPortfolioNameTextFieldChange, addSecurity, removeSecurity,
           onSecurityTextFieldChange, onSecurityTextFieldValid, onSecurityTextFieldError,
       investmentAmountTextFieldChange, investmentAmountTextFieldValid, investmentAmountTextFieldError,
       generateSteps }= this.props;
@@ -64,7 +66,15 @@ class Vote extends Component {
 			<NewPortfolioButton createNewPortfolio={createNewPortfolio} />
 			</div>
 			<br></br>
-				<TickerTextFieldImmutable />
+			<div style={{
+              display: 'table',
+              width: '100%',
+              height: '20px'
+          }}>
+              <ModelPortfolioNameTextField
+				value={modelPortfolioName.value}
+				modelPortfolioNameTextFieldChange={modelPortfolioNameTextFieldChange}/>
+          </div>
 			<PortfolioTableImmutable
 			portfolio={portfolio}
 			addSecurity={addSecurity}
@@ -141,6 +151,7 @@ Vote.propTypes = {
     newTopic: PropTypes.string,
     topics: PropTypes.array.isRequired,
 
+	modelPortfolioName: PropTypes.object.isRequired,
     portfolio: PropTypes.array.isRequired,
     investmentAmount: PropTypes.object.isRequired,
     investmentSteps: PropTypes.object.isRequired,
@@ -154,6 +165,7 @@ Vote.propTypes = {
 
     selectModelPortfolio: PropTypes.func.isRequired,
     createNewPortfolio: PropTypes.func.isRequired,
+	modelPortfolioNameTextFieldChange: PropTypes.func.isRequired,
     addSecurity: PropTypes.func.isRequired,
     removeSecurity: PropTypes.func.isRequired,
     investmentAmountTextFieldChange: PropTypes.func.isRequired,
@@ -169,6 +181,7 @@ function mapStateToProps(state) {
   return {
     topics: state.topic.topics,
     newTopic: state.topic.newTopic,
+	modelPortfolioName: state.topic.modelPortfolioName,
     portfolio: state.topic.portfolio,
     investmentAmount: state.investmentAmount.investmentAmount,
 	investmentSteps: state.investmentSteps.investmentSteps,
@@ -179,7 +192,7 @@ function mapStateToProps(state) {
 // Read more about where to place `connect` here:
 // https://github.com/rackt/react-redux/issues/75#issuecomment-135436563
 export default connect(mapStateToProps, { createTopic, typing, incrementCount, decrementCount, destroyTopic,
-    selectModelPortfolio, createNewPortfolio, addSecurity, removeSecurity, 
+    selectModelPortfolio, createNewPortfolio, modelPortfolioNameTextFieldChange, addSecurity, removeSecurity, 
     onSecurityTextFieldChange, onSecurityTextFieldValid, onSecurityTextFieldError,
     investmentAmountTextFieldChange, investmentAmountTextFieldValid, investmentAmountTextFieldError,
     generateSteps })(Vote);

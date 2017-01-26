@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
+import SaveModelPortfolioButton from '../components/SaveModelPortfolioButton';
 import SecurityRow from '../components/SecurityRow';
 import AddSecurityButton from '../components/AddSecurityButton';
 import classNames from 'classnames/bind';
@@ -23,13 +24,13 @@ const PortfolioTableImmutable = ({portfolio, addSecurity, removeSecurity, onSecu
       <Table  wrapperStyle={{ overflow: 'hidden' }}>
 		<TableHeader displaySelectAll={false} adjustForCheckbox={false}>
 		  <TableRow>
-              <TableHeaderColumn className={cx('TableHeaderColumn')} tooltip="Ticker symbol as shown on https://finance.yahoo.com/. ">Ticker</TableHeaderColumn>
-              <TableHeaderColumn className={cx('TableHeaderColumn')} tooltip="Percentage allocation of the portfolio this security should be.">Allocation</TableHeaderColumn>
-              <TableHeaderColumn className={cx('TableHeaderColumPrice')} tooltip="Price at which each unit will be bought.">Price</TableHeaderColumn>
-              <TableHeaderColumn className={cx('TableHeaderColumPriceProgress')} ></TableHeaderColumn>
-              <TableHeaderColumn className={cx('TableHeaderColumPriceRightSpace')}></TableHeaderColumn>
-              <TableHeaderColumn className={cx('TableHeaderColumn')} tooltip="Number of units of the security you currently have.">Units</TableHeaderColumn>
-              <TableHeaderColumn className={cx('TableHeaderColumnRemoveSecurity')} ></TableHeaderColumn>
+              <TableHeaderColumn >Ticker</TableHeaderColumn>
+              <TableHeaderColumn >Allocation</TableHeaderColumn>
+              <TableHeaderColumn >Price</TableHeaderColumn>
+              <TableHeaderColumn>Units</TableHeaderColumn>
+              <TableHeaderColumn >
+				<SaveModelPortfolioButton saveModelPortfolio={addSecurity}/>
+			  </TableHeaderColumn>
 			  </TableRow>
 		</TableHeader>
 		<TableBody  displayRowCheckbox={false}>

@@ -63,6 +63,20 @@ const newTopic = (
   }
 };
 
+const modelPortfolioName = (
+  state = {value: 'Model Portfolio Name'},
+  action
+) => {
+    switch (action.type) {
+		case types.SELECT_MODEL_PORTFOLIO:
+			return { ...state, id: action.selectedModelPortfolio._id, value: action.selectedModelPortfolio.name };
+        case types.MODEL_PORTFOLIO_NAME_TEXT_FIELD_CHANGE:
+			return { ...state, value: action.value };
+        default:
+            return state;
+    }
+};
+
 const portfolio = (
   state = [],
   action
@@ -89,7 +103,6 @@ const portfolio = (
               newPortfolio[i].index--;
           }
           return newPortfolio;
-      case types.TICKER_TYPING:
 	  case types.SECURITY_TEXT_FIELD_CHANGE:
 	  case types.SECURITY_TEXT_FIELD_VALID:
       case types.SECURITY_TEXT_FIELD_ERROR:
@@ -122,7 +135,6 @@ const security = (
                 allocation: allocation(undefined, action),
                 price: price(undefined, action),
                 units: units(undefined, action)};
-        case types.TICKER_TYPING:
 		case types.SECURITY_TEXT_FIELD_CHANGE:
 		case types.SECURITY_TEXT_FIELD_VALID:
 		case types.SECURITY_TEXT_FIELD_ERROR:
@@ -185,7 +197,7 @@ const allocation = (
 						errorText = 'Required';
 						break;
 				  case 'invalidSymbol':
-						errorText = 'Must be number';
+						errorText = 'Number required';
 						break;
 				  case 'incompleteNumber':
 						errorText = 'Incomplete number';
@@ -200,10 +212,10 @@ const allocation = (
 						errorText = 'Floating point expected';
 						break;
 				  case 'min':
-						errorText = 'Min 0';
+						errorText = '0 minimum';
 						break;
 				  case 'max':
-						errorText = 'Max 100';
+						errorText = '100 maximum';
 						break;
 			  }
 			  return { ...state, valid: 0, errorText: errorText };
@@ -240,7 +252,7 @@ const price = (
 					errorText = 'Required';
 					break;
 				  case 'invalidSymbol':
-					errorText = 'Must be number';
+					errorText = 'Number required';
 					break;
 				  case 'incompleteNumber':
 					errorText = 'Incomplete number';
@@ -255,7 +267,7 @@ const price = (
 					errorText = 'Floating point expected';
 					break;
 				  case 'min':
-					errorText = 'Min 0.01';
+					errorText = '0.01 minimum';
 					break;
 				  }
 			  return { ...state, valid: 0, errorText: errorText };
@@ -292,7 +304,7 @@ const units = (
 					errorText = 'Required';
 					break;
 				  case 'invalidSymbol':
-					errorText = 'NMust be number';
+					errorText = 'Number required';
 					break;
 				  case 'incompleteNumber':
 					errorText = 'Incomplete number';
@@ -307,7 +319,7 @@ const units = (
 					errorText = 'Floating point expected';
 					break;
 				  case 'min':
-					errorText = 'Min 0';
+					errorText = '0 minimum';
 					break;
 				  }
 			  return { ...state, valid: 0, errorText: errorText };
@@ -319,6 +331,7 @@ const units = (
 const topicReducer = combineReducers({
   topics,
   newTopic,
+  modelPortfolioName,
     portfolio
 });
 

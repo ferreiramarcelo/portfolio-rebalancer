@@ -94,7 +94,7 @@ const ModelPortfoliosAutoCompleteImmutable = ({selectModelPortfolio, modelPortfo
 				fullWidth={true}
 				style={{
 					paddingRight: '5px',
-				display: 'table-cell',
+					display: 'table-cell',
 				}}
 			/>
   );
