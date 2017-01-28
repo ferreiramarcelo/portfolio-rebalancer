@@ -1,0 +1,24 @@
+@import '../../common/typography';
+@import '../../common/input';
+
+.TableRow {
+  border-bottom: 0px !important;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+
+.TableRowColumn {
+  padding-bottom: 11px !important;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+
+.TableRowColumnRemoveSecurity {
+  margin-bottom: 11px !important;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+  width: 52px !important;
+  text-align: right !important;
+}
+
+

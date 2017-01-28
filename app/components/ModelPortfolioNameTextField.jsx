@@ -24,9 +24,7 @@ const ModelPortfolioNameTextField = ({value, modelPortfolioNameTextFieldChange})
     return (
 		<TextField className={cx('textfield')}
                 errorStyle={{
-                    float: "left",
-					textAlign: 'center',
-                }}
+                    float: "left"                }}
                 type='text'
                 value={value}
                 errorText={errorText}
@@ -34,10 +32,6 @@ const ModelPortfolioNameTextField = ({value, modelPortfolioNameTextFieldChange})
 				      fullWidth={true}
 				inputStyle={{
 			  textAlign: 'center',
-				}}
-				style={{
-					paddingRight: '5px',
-					display: 'table-cell',
 				}}
         />
     );

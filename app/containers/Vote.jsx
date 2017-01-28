@@ -2,9 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import ModelPortfoliosAutoCompleteImmutable from '../components/ModelPortfoliosAutoCompleteImmutable';
 import NewPortfolioButton from '../components/NewPortfolioButton';
-import ModelPortfolioNameTextField from '../components/ModelPortfolioNameTextField';
-import SaveModelPortfolioButton from '../components/SaveModelPortfolioButton';
-import PortfolioTableImmutable from '../components/PortfolioTableImmutable';
+import Portfolio from '../components/Portfolio';
 import InvestmentAmountTextField from '../components/InvestmentAmountTextField';
 import GenerateStepsButton from '../components/GenerateStepsButton';
 import StepsList from '../components/StepsList';
@@ -12,7 +10,7 @@ import TickerTextFieldImmutable from '../components/TickerTextFieldImmutable';
 import { createTopic, typing, incrementCount,
   decrementCount, destroyTopic,
   selectModelPortfolio, createNewPortfolio, modelPortfolioNameTextFieldChange, addSecurity, removeSecurity,
-  onSecurityTextFieldChange, onSecurityTextFieldValid, onSecurityTextFieldError} from '../actions/topics';
+  securityTextFieldChange, securityTextFieldValid, securityTextFieldError} from '../actions/topics';
 import { investmentAmountTextFieldChange, investmentAmountTextFieldValid, investmentAmountTextFieldError } from '../actions/investmentAmount';
 import { generateSteps } from '../actions/investmentSteps';
 import classNames from 'classnames/bind';
@@ -31,7 +29,7 @@ class Vote extends Component {
   render() {
       const {newTopic, topics, modelPortfolioName, portfolio, investmentAmount, investmentSteps, view, createTopic, destroyTopic, incrementCount, decrementCount, 
 	  selectModelPortfolio, createNewPortfolio, modelPortfolioNameTextFieldChange, addSecurity, removeSecurity,
-          onSecurityTextFieldChange, onSecurityTextFieldValid, onSecurityTextFieldError,
+          securityTextFieldChange, securityTextFieldValid, securityTextFieldError,
       investmentAmountTextFieldChange, investmentAmountTextFieldValid, investmentAmountTextFieldError,
       generateSteps }= this.props;
       if (!view.displayTable && !view.displaySteps) {
@@ -65,23 +63,17 @@ class Vote extends Component {
 				/>
 			<NewPortfolioButton createNewPortfolio={createNewPortfolio} />
 			</div>
-			<br></br>
-			<div style={{
-              display: 'table',
-              width: '100%',
-              height: '20px'
-          }}>
-              <ModelPortfolioNameTextField
-				value={modelPortfolioName.value}
-				modelPortfolioNameTextFieldChange={modelPortfolioNameTextFieldChange}/>
-          </div>
-			<PortfolioTableImmutable
-			portfolio={portfolio}
-			addSecurity={addSecurity}
-			removeSecurity={removeSecurity}
-				onSecurityTextFieldChange={onSecurityTextFieldChange} 
-				onSecurityTextFieldValid={onSecurityTextFieldValid} 
-				onSecurityTextFieldError={onSecurityTextFieldError}	/>
+			<Portfolio
+				modelPortfolioName={modelPortfolioName}
+				modelPortfolioNameTextFieldChange={modelPortfolioNameTextFieldChange}
+				portfolio={portfolio}
+				addSecurity={addSecurity}
+				removeSecurity={removeSecurity}
+				securityTextFieldChange={securityTextFieldChange}
+				securityTextFieldValid={securityTextFieldValid}
+				securityTextFieldError={securityTextFieldError}
+				addSecurity={addSecurity} />
+			<br/><br/>
             <p style={{
                 display: 'inline-block',
                 paddingRight: '10px',
@@ -122,9 +114,9 @@ class Vote extends Component {
 			portfolio={portfolio}
 			addSecurity={addSecurity}
 			removeSecurity={removeSecurity}
-			onSecurityTextFieldChange={onSecurityTextFieldChange} 
-			onSecurityTextFieldValid={onSecurityTextFieldValid} 
-			onSecurityTextFieldError={onSecurityTextFieldError}	/>
+			securityTextFieldChange={securityTextFieldChange} 
+			securityTextFieldValid={securityTextFieldValid} 
+			securityTextFieldError={securityTextFieldError}	/>
         <p style={{
             display: 'inline-block',
             paddingRight: '10px',
@@ -171,9 +163,9 @@ Vote.propTypes = {
     investmentAmountTextFieldChange: PropTypes.func.isRequired,
     investmentAmountTextFieldValid: PropTypes.func.isRequired,
     investmentAmountTextFieldError: PropTypes.func.isRequired,
-	onSecurityTextFieldChange: PropTypes.func.isRequired,
-	onSecurityTextFieldValid: PropTypes.func.isRequired,
-	onSecurityTextFieldError: PropTypes.func.isRequired,
+	securityTextFieldChange: PropTypes.func.isRequired,
+	securityTextFieldValid: PropTypes.func.isRequired,
+	securityTextFieldError: PropTypes.func.isRequired,
 	generateSteps: PropTypes.func.isRequired,
 };
 
@@ -193,6 +185,6 @@ function mapStateToProps(state) {
 // https://github.com/rackt/react-redux/issues/75#issuecomment-135436563
 export default connect(mapStateToProps, { createTopic, typing, incrementCount, decrementCount, destroyTopic,
     selectModelPortfolio, createNewPortfolio, modelPortfolioNameTextFieldChange, addSecurity, removeSecurity, 
-    onSecurityTextFieldChange, onSecurityTextFieldValid, onSecurityTextFieldError,
+    securityTextFieldChange, securityTextFieldValid, securityTextFieldError,
     investmentAmountTextFieldChange, investmentAmountTextFieldValid, investmentAmountTextFieldError,
     generateSteps })(Vote);

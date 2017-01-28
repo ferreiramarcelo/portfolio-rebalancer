@@ -1,0 +1,28 @@
+@import '../../common/typography';
+@import '../../common/input';
+
+.Table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  table-layout: fixed !important; 
+}
+
+.TableHeaderColumn {
+  font-size: 14px !important;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+
+.TableHeaderColumnRemoveSecurity {
+  color: #000000 !important;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+  width: 52px !important;
+  text-align: right !important;
+}
+
+.TableRowAddSecurityButton {
+  text-align: center !important;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}

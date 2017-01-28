@@ -7,8 +7,9 @@ const NewPortfolioButton = ({createNewPortfolio}) => {
     return (
 		<FlatButton
 		  label="NEW"
-            onClick={createNewPortfolio}
+            onTouchTap={createNewPortfolio}
 		  labelPosition="before"
+		  secondary={true}
 		  icon={<ContentCreate />}
 		  style={{
 			  width: 'auto',

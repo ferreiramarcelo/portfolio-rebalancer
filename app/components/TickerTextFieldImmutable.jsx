@@ -6,7 +6,7 @@ import styles from '../css/components/security-text-field';
 const cx = classNames.bind(styles);
 
 
-const TickerTextFieldImmutable = ({index, value, onSecurityTextFieldChange}) => {
+const TickerTextFieldImmutable = ({index, value, securityTextFieldChange}) => {
 
     const getErrorText = (value) => {
         if (value)
@@ -18,7 +18,7 @@ const TickerTextFieldImmutable = ({index, value, onSecurityTextFieldChange}) => 
     const errorText = getErrorText(value);
 
     const handleOnChange = (event, value) => {       
-        onSecurityTextFieldChange(index, 'ticker', value);
+        securityTextFieldChange(index, 'ticker', value);
     }
 
     return (
@@ -38,7 +38,7 @@ const TickerTextFieldImmutable = ({index, value, onSecurityTextFieldChange}) => 
 TickerTextFieldImmutable.propTypes = {
     index: PropTypes.number.isRequired,
     value: PropTypes.string.isRequired,
-    onSecurityTextFieldChange: PropTypes.func.isRequired,
+    securityTextFieldChange: PropTypes.func.isRequired,
 };
 
 export default TickerTextFieldImmutable;

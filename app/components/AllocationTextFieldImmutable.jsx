@@ -2,18 +2,18 @@ import React, { Component, PropTypes } from 'react';
 import TextField from 'material-ui/TextField';
 import NumberInput from 'material-ui-number-input';
 
-const AllocationTextFieldImmutable = ({index, value, errorText, onSecurityTextFieldChange, onSecurityTextFieldValid, onSecurityTextFieldError}) => {
+const AllocationTextFieldImmutable = ({index, value, errorText, securityTextFieldChange, securityTextFieldValid, securityTextFieldError}) => {
 
 	const handleOnChange = (event, value) => {
-	    onSecurityTextFieldChange(index, 'allocation', value);
+	    securityTextFieldChange(index, 'allocation', value);
 	}
 	
 	const handleOnValid = () => {
-	    onSecurityTextFieldValid(index, 'allocation');
+	    securityTextFieldValid(index, 'allocation');
 	}
 	
 	const handleOnError = (error) => {
-	    onSecurityTextFieldError(index, 'allocation', error);
+	    securityTextFieldError(index, 'allocation', error);
 	}
 
     return (
@@ -39,9 +39,9 @@ AllocationTextFieldImmutable.propTypes = {
     index: PropTypes.number.isRequired,
     value: PropTypes.string.isRequired,
     errorText: PropTypes.string.isRequired,
-	onSecurityTextFieldChange: PropTypes.func.isRequired,
-	onSecurityTextFieldValid: PropTypes.func.isRequired,
-    onSecurityTextFieldError: PropTypes.func.isRequired,
+	securityTextFieldChange: PropTypes.func.isRequired,
+	securityTextFieldValid: PropTypes.func.isRequired,
+    securityTextFieldError: PropTypes.func.isRequired,
 };
 
 export default AllocationTextFieldImmutable;

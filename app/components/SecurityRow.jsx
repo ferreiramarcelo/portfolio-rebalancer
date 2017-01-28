@@ -7,49 +7,49 @@ import UnitsTextFieldImmutable from '../components/UnitsTextFieldImmutable';
 import RemoveSecurityButton from '../components/RemoveSecurityButton';
 import CircularProgress from 'material-ui/CircularProgress';
 import classNames from 'classnames/bind';
-import styles from '../css/components/security-row';
+import styles from '../css/components/portfolio-table/security-row';
 
 const cx = classNames.bind(styles);
 
-const SecurityRow = ({security, removeSecurity, onSecurityTextFieldChange, onSecurityTextFieldValid, onSecurityTextFieldError}) => {
+const SecurityRow = ({security, removeSecurity, securityTextFieldChange, securityTextFieldValid, securityTextFieldError}) => {
 
     return (
 	<TableRow id={'securityRow'+security.ticker} className={cx('TableRow')}>
-		<TableRowColumn >
+		<TableRowColumn className={cx('TableRowColumn')}>
 			<TickerTextFieldImmutable
 				index={security.index}
 				value={security.ticker.value}
-				onSecurityTextFieldChange={onSecurityTextFieldChange} />
+				securityTextFieldChange={securityTextFieldChange} />
 		</TableRowColumn>
-		<TableRowColumn >
+		<TableRowColumn className={cx('TableRowColumn')}>
 			<AllocationTextFieldImmutable
 				index={security.index}
 				value={security.allocation.value}
 				valid={security.allocation.valid}
 				errorText={security.allocation.errorText}
-				onSecurityTextFieldChange={onSecurityTextFieldChange}
-				onSecurityTextFieldValid={onSecurityTextFieldValid}
-				onSecurityTextFieldError={onSecurityTextFieldError} />
+				securityTextFieldChange={securityTextFieldChange}
+				securityTextFieldValid={securityTextFieldValid}
+				securityTextFieldError={securityTextFieldError} />
 		</TableRowColumn>
-		<TableRowColumn >
+		<TableRowColumn className={cx('TableRowColumn')}>
 			<PriceTextFieldImmutable w
 				index={security.index}
 				value={security.price.value}
 				valid={security.price.valid}
 				errorText={security.price.errorText}
-				onSecurityTextFieldChange={onSecurityTextFieldChange}
-				onSecurityTextFieldValid={onSecurityTextFieldValid}
-				onSecurityTextFieldError={onSecurityTextFieldError} />
+				securityTextFieldChange={securityTextFieldChange}
+				securityTextFieldValid={securityTextFieldValid}
+				securityTextFieldError={securityTextFieldError} />
 		</TableRowColumn>
-		<TableRowColumn>
+		<TableRowColumn className={cx('TableRowColumn')}>
 			<UnitsTextFieldImmutable
 				index={security.index}
 				value={security.units.value}
 				valid={security.units.valid}
 				errorText={security.units.errorText}
-				onSecurityTextFieldChange={onSecurityTextFieldChange}
-				onSecurityTextFieldValid={onSecurityTextFieldValid}
-				onSecurityTextFieldError={onSecurityTextFieldError} />
+				securityTextFieldChange={securityTextFieldChange}
+				securityTextFieldValid={securityTextFieldValid}
+				securityTextFieldError={securityTextFieldError} />
 		</TableRowColumn>
         <TableRowColumn className={cx('TableRowColumnRemoveSecurity')}>
             <RemoveSecurityButton
@@ -63,9 +63,9 @@ const SecurityRow = ({security, removeSecurity, onSecurityTextFieldChange, onSec
 SecurityRow.propTypes = {
     security: PropTypes.object.isRequired,
     removeSecurity: PropTypes.func.isRequired,
-    onSecurityTextFieldChange: PropTypes.func.isRequired,
-	onSecurityTextFieldValid: PropTypes.func.isRequired,
-    onSecurityTextFieldError: PropTypes.func.isRequired,
+    securityTextFieldChange: PropTypes.func.isRequired,
+	securityTextFieldValid: PropTypes.func.isRequired,
+    securityTextFieldError: PropTypes.func.isRequired,
 };
 
 export default SecurityRow;

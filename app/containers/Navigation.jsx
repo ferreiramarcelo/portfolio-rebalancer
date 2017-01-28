@@ -5,36 +5,36 @@ import classNames from 'classnames/bind';
 import { logOut } from '../actions/users';
 import styles from '../css/components/navigation';
 
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-
-import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
-import MenuItem from 'material-ui/MenuItem';
-import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
-import injectTapEventPlugin from 'react-tap-event-plugin'; injectTapEventPlugin();
-
-
 
 const cx = classNames.bind(styles);
 
 const Navigation = ({ user, logOut }) => {
 
     return (
-<div>
-					<FlatButton labelStyle={{ fontSize: '16px' }}
+<nav className={cx('Navigation')} role="navigation">
+
+					<FlatButton
+					  labelStyle={{ color: 'white', fontSize: '16px'}}
 					  containerElement={<Link to="/" />}
 					  label='PORTFOLIO REBALANCER' />	
-					<FlatButton labelStyle={{ fontSize: '16px' }}
+					<FlatButton
+					labelStyle={{ color: 'white', fontSize: '16px'}}
+					className={cx('NavigationButtonRight')}
 					  containerElement={<Link to="/about" />}
 					  label='GITHUB' />
-					<FlatButton labelStyle={{ fontSize: '16px' }}
+					<FlatButton
+					labelStyle={{ color: 'white', fontSize: '16px'}}
+					className={cx('NavigationButtonRight')}
 					  containerElement={<Link to="/about" />}
 					  label='ABOUT' />
-					<FlatButton labelStyle={{ fontSize: '16px' }}
-						onClick={user.authenticated ? logOut : ''}
+					<FlatButton
+					labelStyle={{ color: 'white', fontSize: '16px'}}
+					className={cx('NavigationButtonRight')}
+						onTouchTap={user.authenticated ? logOut : ''}
 					  containerElement={ user.authenticated ? (<Link to="/"></Link>) : (<Link to="/login"></Link> )}
 						label={ user.authenticated ? 'LOG OUT' : 'LOG IN'} />
-</div>
+</nav>
     );
 	/*
     return (

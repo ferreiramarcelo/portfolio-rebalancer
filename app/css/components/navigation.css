@@ -1,21 +1,12 @@
 @import '../common/colors';
 @import '../common/typography';
 
-.navigation {
-  padding: 0 28px;
-}
-
-.item {
+.Navigation {
+  background-color: #512DA8;
   display: inline-block;
-  text-decoration: none;
-  padding: 16px 32px;
-  color: var(--colorBlack);
+  width: 100%;
 }
 
-.logo {
-  font-size: var(--fontHuge);
-}
-
-.active {
-  color: var(--colorDodgerBlue);
+.NavigationButtonRight {
+  float: right;
 }

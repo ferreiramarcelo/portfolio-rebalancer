@@ -3,18 +3,18 @@ import TextField from 'material-ui/TextField';
 import NumberInput from 'material-ui-number-input';
 import CircularProgress from 'material-ui/CircularProgress';
 
-const PriceTextFieldImmutable = ({index, value, errorText, onSecurityTextFieldChange, onSecurityTextFieldValid, onSecurityTextFieldError}) => {
+const PriceTextFieldImmutable = ({index, value, errorText, securityTextFieldChange, securityTextFieldValid, securityTextFieldError}) => {
 
 	const handleOnChange = (event, value) => {
-	    onSecurityTextFieldChange(index, 'price', value);
+	    securityTextFieldChange(index, 'price', value);
 	}
 	
 	const handleOnValid = () => {
-	    onSecurityTextFieldValid(index, 'price');
+	    securityTextFieldValid(index, 'price');
 	}
 	
 	const handleOnError = (error) => {
-	    onSecurityTextFieldError(index, 'price', error);
+	    securityTextFieldError(index, 'price', error);
 	}
 
 	return (
@@ -39,9 +39,9 @@ PriceTextFieldImmutable.propTypes = {
     index: PropTypes.number.isRequired,
     value: PropTypes.string.isRequired,
     errorText: PropTypes.string.isRequired,
-	onSecurityTextFieldChange: PropTypes.func.isRequired,
-	onSecurityTextFieldValid: PropTypes.func.isRequired,
-    onSecurityTextFieldError: PropTypes.func.isRequired,
+	securityTextFieldChange: PropTypes.func.isRequired,
+	securityTextFieldValid: PropTypes.func.isRequired,
+    securityTextFieldError: PropTypes.func.isRequired,
 };
 
 export default PriceTextFieldImmutable;

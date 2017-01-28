@@ -1,15 +1,15 @@
 import React, { Component, PropTypes } from 'react';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
+import FlatButton from 'material-ui/FlatButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 
 const AddSecurityButton = ({addSecurity}) => {
 
     return (
-            <FloatingActionButton
-                mini={true}
+            <FlatButton
+				secondary={true}
                 onClick={addSecurity} >
               <ContentAdd />
-            </FloatingActionButton>
+            </FlatButton>
     );
 };
 

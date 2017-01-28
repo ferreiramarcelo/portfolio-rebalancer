@@ -39,7 +39,7 @@ export function removeSecurity(index) {
     };
 }
 
-export function onSecurityTextFieldChange(index, column, value) {
+export function securityTextFieldChange(index, column, value) {
     return {
         type: types.SECURITY_TEXT_FIELD_CHANGE,
         index: index,
@@ -48,7 +48,7 @@ export function onSecurityTextFieldChange(index, column, value) {
     };
 }
 
-export function onSecurityTextFieldValid(index, column) {
+export function securityTextFieldValid(index, column) {
     return {
         type: types.SECURITY_TEXT_FIELD_VALID,
         index: index,
@@ -56,7 +56,7 @@ export function onSecurityTextFieldValid(index, column) {
     };
 }
 
-export function onSecurityTextFieldError(index, column, error) {
+export function securityTextFieldError(index, column, error) {
     return {
         type: types.SECURITY_TEXT_FIELD_ERROR,
         index: index,
