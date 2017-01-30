@@ -1,0 +1,5 @@
+@import '../common/typography';
+
+* {
+  font-family: var(--fontRoboto);
+}

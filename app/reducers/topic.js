@@ -7,11 +7,17 @@ const topic = (
 ) => {
   switch (action.type) {
     case types.CREATE_TOPIC_REQUEST:
-      return {
+      /*return {
         id: action.id,
         count: action.count,
         text: action.text
-      };
+      }; */
+	  return {
+       _id: action._id,
+        name: action.name,
+        userEmail: action.userEmail,
+        securities: action.securities
+		};
     case types.INCREMENT_COUNT:
       if (state.id === action.id) {
         return { ...state, count: state.count + 1 };
@@ -69,7 +75,7 @@ const modelPortfolioName = (
 ) => {
     switch (action.type) {
 		case types.SELECT_MODEL_PORTFOLIO:
-			return { ...state, id: action.selectedModelPortfolio._id, value: action.selectedModelPortfolio.name };
+			return { ...state, id: action.selectedModelPortfolio._id, value: action.selectedModelPortfolio.name, email: action.selectedModelPortfolio.email };
         case types.MODEL_PORTFOLIO_NAME_TEXT_FIELD_CHANGE:
 			return { ...state, value: action.value };
         default:
@@ -183,9 +189,9 @@ const allocation = (
         case types.SELECT_MODEL_PORTFOLIO:
             return {number: Number(action.security.allocation), value: action.security.allocation.toString(), valid: 1, errorText: ''}
         case types.CREATE_NEW_PORTFOLIO:
-            return {number: 0, value: '', valid: 1, errorText: ''}
+            return {value: '', valid: 0, errorText: ''}
         case types.ADD_SECURITY:
-            return {number: 0, value: '', valid: 1, errorText: ''}
+            return {value: '', valid: 0, errorText: ''}
         case types.SECURITY_TEXT_FIELD_CHANGE:
 			return { ...state, number: Number(action.value), value: action.value };
 		case types.SECURITY_TEXT_FIELD_VALID:
@@ -203,7 +209,7 @@ const allocation = (
 						errorText = 'Incomplete number';
 						break;
 				  case 'singleMinus':
-				        errorText = 'Minus sign already present';
+				        errorText = 'Minus sign not expected';
 						break;
 				  case 'singleFloatingPoint':
 						errorText = 'Floating point already present';
@@ -235,12 +241,12 @@ const price = (
 				value = action.security.price;
 			}
 			else
-				value = '0';
+				value = '0.01';
 			return {number: Number(value), value: value, valid: 1, errorText: ''}
         case types.CREATE_NEW_PORTFOLIO:
-            return {value: '', valid: 1, errorText: ''}
+            return {value: '', valid: 0, errorText: ''}
         case types.ADD_SECURITY:
-            return {value: '', valid: 1, errorText: ''}
+            return {value: '', valid: 0, errorText: ''}
         case types.SECURITY_TEXT_FIELD_CHANGE:
             return { ...state, number: Number(action.value), value: action.value };
 		case types.SECURITY_TEXT_FIELD_VALID:
@@ -290,9 +296,9 @@ const units = (
 				value = '0';
 			return {number: Number(value), value: value, valid: 1, errorText: ''}
         case types.CREATE_NEW_PORTFOLIO:
-            return {value: '', valid: 1, errorText: ''}
+            return {value: '', valid: 0, errorText: ''}
         case types.ADD_SECURITY:
-            return {value: '', valid: 1, errorText: ''}
+            return {value: '', valid: 0, errorText: ''}
         case types.SECURITY_TEXT_FIELD_CHANGE:
 			return { ...state, number: Number(action.value), value: action.value };
 		case types.SECURITY_TEXT_FIELD_VALID:

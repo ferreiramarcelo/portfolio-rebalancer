@@ -7,7 +7,11 @@ import styles from '../css/components/portfolio-table/save-model-portfolio-butto
 
 const cx = classNames.bind(styles);
 
-const SaveModelPortfolioButton = ({saveModelPortfolio}) => {
+const SaveModelPortfolioButton = ({modelPortfolioName, portfolio, saveModelPortfolio}) => {
+
+	const handleOnClick = () => {
+		saveModelPortfolio(modelPortfolioName, portfolio);
+	}
 
     return (
 	<IconButton
@@ -15,7 +19,7 @@ const SaveModelPortfolioButton = ({saveModelPortfolio}) => {
 		tooltipPosition={'bottom-left'}
 		tooltip="Save model portfolio"
 		touch={true}
-		onClick={saveModelPortfolio}>
+		onTouchTap={handleOnClick}>
       <ContentSave />
 </IconButton>
 
@@ -23,6 +27,8 @@ const SaveModelPortfolioButton = ({saveModelPortfolio}) => {
 };
 
 SaveModelPortfolioButton.propTypes = {
+	modelPortfolioName: PropTypes.object.isRequired,
+	portfolio: PropTypes.array.isRequired,
     saveModelPortfolio: PropTypes.func.isRequired,
 };
 

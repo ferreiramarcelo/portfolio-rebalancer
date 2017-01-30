@@ -10,7 +10,8 @@ import styles from '../css/components/portfolio-table/portfolio-table';
 
 const cx = classNames.bind(styles);
 
-const PortfolioTableImmutable = ({portfolio, addSecurity, removeSecurity, securityTextFieldChange, securityTextFieldValid, securityTextFieldError}) => {
+const PortfolioTableImmutable = ({modelPortfolioName, portfolio, addSecurity, removeSecurity, securityTextFieldChange, securityTextFieldValid, securityTextFieldError,
+									saveModelPortfolio}) => {
 
 
     const securityRows = portfolio.map(security => {
@@ -30,8 +31,11 @@ const PortfolioTableImmutable = ({portfolio, addSecurity, removeSecurity, securi
               <TableHeaderColumn className={cx('TableHeaderColumn')}>Allocation</TableHeaderColumn>
               <TableHeaderColumn className={cx('TableHeaderColumn')}>Price</TableHeaderColumn>
               <TableHeaderColumn className={cx('TableHeaderColumn')}>Units</TableHeaderColumn>
-              <TableHeaderColumn className={cx('TableHeaderColumnRemoveSecurity')} >
-				<SaveModelPortfolioButton saveModelPortfolio={addSecurity}/>
+              <TableHeaderColumn className={cx('TableHeaderColumnLast')} >
+				<SaveModelPortfolioButton
+					modelPortfolioName={modelPortfolioName}
+					portfolio={portfolio}
+					saveModelPortfolio={saveModelPortfolio}/>
 				<DeleteModelPortfolioButton deleteModelPortfolio={addSecurity}/>
 			  </TableHeaderColumn>
 		</TableRow>
@@ -44,12 +48,15 @@ const PortfolioTableImmutable = ({portfolio, addSecurity, removeSecurity, securi
 };
 
 PortfolioTableImmutable.propTypes = {
+	modelPortfolioName: PropTypes.object.isRequired,
     portfolio: PropTypes.array.isRequired,
     addSecurity: PropTypes.func.isRequired,
     removeSecurity: PropTypes.func.isRequired,
 	securityTextFieldChange: PropTypes.func.isRequired,
 	securityTextFieldValid: PropTypes.func.isRequired,
     securityTextFieldError: PropTypes.func.isRequired,
+	saveModelPortfolio: PropTypes.func.isRequired,
+	modelPortfolioName: PropTypes.func.isRequired,
 };
 
 export default PortfolioTableImmutable;

@@ -5,9 +5,10 @@
 import mongoose from 'mongoose';
 
 const Topic = new mongoose.Schema({
-  id: String,
+  _id: String,
   name: String,
-  stocks: [{
+  userEmail: String,
+  securities: [{
 		ticker: String,
 		allocation: {type: Number, min: 0, max: 100},
 	}]

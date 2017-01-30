@@ -38,6 +38,14 @@ if (ENV === 'development') {
  */
 expressConfig(app);
 
+// For server-side rendering
+app.use(function(req, res, next) {
+    GLOBAL.navigator = {
+        userAgent: req.headers['user-agent']
+    }
+    next();
+});
+
 /*
  * REMOVE if you do not need any routes
  *

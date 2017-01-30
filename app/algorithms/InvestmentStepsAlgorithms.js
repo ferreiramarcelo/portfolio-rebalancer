@@ -14,8 +14,8 @@ function sortDiffValuePerSecurityDescending(security1, security2) {
 	}
 };
 
-export function getBalanceByInvestingValues(investmentAmount, valuePerSecurityCurrent, valuePerSecurityTotal) {
-	var valueDifferencePerSecurity = getValueDifferenPerSecurityWithIndex(valuePerSecurityCurrent, valuePerSecurityTotal);
+export function getValuesForInvesting(investmentAmount, valuePerSecurityCurrent, valuePerSecurityTotal) {
+	var valueDifferencePerSecurity = getValueDifferencePerSecurityWithIndex(valuePerSecurityCurrent, valuePerSecurityTotal);
 	valueDifferencePerSecurity.sort(sortDiffValuePerSecurityAscending);
 	
 	var cashRemainingToSpend = investmentAmount;
@@ -44,8 +44,8 @@ export function getBalanceByInvestingValues(investmentAmount, valuePerSecurityCu
 	return valueAdditionPerSecurity;
 };
 
-export function getBalanceByTakingOutValues(investmentAmount, valuePerSecurityCurrent, valuePerSecurityTotal) {
-	var valueDifferencePerSecurity = getValueDifferenPerSecurityWithIndex(valuePerSecurityCurrent, valuePerSecurityTotal);
+export function getValuesForDisvesting(investmentAmount, valuePerSecurityCurrent, valuePerSecurityTotal) {
+	var valueDifferencePerSecurity = getValueDifferencePerSecurityWithIndex(valuePerSecurityCurrent, valuePerSecurityTotal);
 	valueDifferencePerSecurity.sort(sortDiffValuePerSecurityDescending);
 	
 	var cashRemainingToGet = -1 * investmentAmount;
@@ -82,7 +82,7 @@ export function getUpdatedValuePerSecurityArray(valuePerSecurityCurrent, valueDi
 	return updatedValuePerSecurityArray;
 };
 
-export function getValueDifferenPerSecurity(valuePerSecurityCurrent, valuePerSecurityTotal) {
+export function getValueDifferencePerSecurity(valuePerSecurityCurrent, valuePerSecurityTotal) {
 	var valueDifferencePerSecurity = [];
 	for (var i = 0; i < valuePerSecurityCurrent.length; i++) {
 		valueDifferencePerSecurity.push(valuePerSecurityCurrent[i] - valuePerSecurityTotal[i]);
@@ -90,10 +90,26 @@ export function getValueDifferenPerSecurity(valuePerSecurityCurrent, valuePerSec
 	return valueDifferencePerSecurity;
 };
 
-export function getValueDifferenPerSecurityWithIndex(valuePerSecurityCurrent, valuePerSecurityTotal) {
+export function getValueAdjustmentsNeededPerSecurity(valuePerSecurityCurrent, valuePerSecurityTotal) {
+	var valueDifferencePerSecurity = [];
+	for (var i = 0; i < valuePerSecurityCurrent.length; i++) {
+		valueDifferencePerSecurity.push(valuePerSecurityTotal[i] - valuePerSecurityCurrent[i]);
+	}
+	return valueDifferencePerSecurity;
+};
+
+export function getValueDifferencePerSecurityWithIndex(valuePerSecurityCurrent, valuePerSecurityTotal) {
 	var valueDifferencePerSecurity = [];
 	for (var i = 0; i < valuePerSecurityTotal.length; i++) {
 		valueDifferencePerSecurity.push([i, valuePerSecurityCurrent[i] - valuePerSecurityTotal[i]]);
 	}
 	return valueDifferencePerSecurity;
 };
+
+export function getUnitsForValuePerSecurity(valuePerSecurity, portfolio) {
+	var unitsForValuePerSecurity = [];
+	for (var i = 0; i < valuePerSecurity.length; i++) {
+		unitsForValuePerSecurity.push(valuePerSecurity[i] / portfolio[i].price.number);
+	}
+	return unitsForValuePerSecurity;
+}

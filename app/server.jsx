@@ -23,7 +23,8 @@ export default function render(req, res) {
       authenticated,
       isWaiting: false,
       message: '',
-      isLogin: true
+      isLogin: true,
+	  userEmail: req.user.email,
     }
   }, history);
   const routes = createRoutes(store);

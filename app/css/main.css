@@ -2,7 +2,7 @@
 @import 'common/layout';
 @import 'common/typography';
 
-@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
+@import url(https://fonts.googleapis.com/css?family=Roboto);
 
 
 * { box-sizing: border-box; }
@@ -23,7 +23,6 @@ body {
   padding: 20px;
 }
 
-
 /* Add your global styles below... */
 
 /* ex:
@@ -34,3 +33,7 @@ body {
 }
 
 */
+
+input:invalid {
+  box-shadow: none;
+}

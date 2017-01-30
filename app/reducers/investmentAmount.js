@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 import * as types from '../types';
 
 const investmentAmount = (
-  state = {},
+  state = {number: 0, value: '0', valid: 1, errorText: ''},
   action
 ) => {
     switch (action.type) {

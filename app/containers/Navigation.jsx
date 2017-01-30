@@ -17,13 +17,14 @@ const Navigation = ({ user, logOut }) => {
 					<FlatButton
 					  labelStyle={{ color: 'white', fontSize: '16px'}}
 					  containerElement={<Link to="/" />}
-					  label='PORTFOLIO REBALANCER' />	
-					<FlatButton
+					  label='PORTFOLIO REBALANCER' />
+					  <FlatButton
 					labelStyle={{ color: 'white', fontSize: '16px'}}
 					className={cx('NavigationButtonRight')}
-					  containerElement={<Link to="/about" />}
-					  label='GITHUB' />
-					<FlatButton
+						onTouchTap={user.authenticated ? logOut : ''}
+					  containerElement={ user.authenticated ? (<Link to="/"></Link>) : (<Link to="/login"></Link> )}
+						label={ user.authenticated ? 'LOG OUT' : 'LOG IN'} />
+						<FlatButton
 					labelStyle={{ color: 'white', fontSize: '16px'}}
 					className={cx('NavigationButtonRight')}
 					  containerElement={<Link to="/about" />}
@@ -31,9 +32,8 @@ const Navigation = ({ user, logOut }) => {
 					<FlatButton
 					labelStyle={{ color: 'white', fontSize: '16px'}}
 					className={cx('NavigationButtonRight')}
-						onTouchTap={user.authenticated ? logOut : ''}
-					  containerElement={ user.authenticated ? (<Link to="/"></Link>) : (<Link to="/login"></Link> )}
-						label={ user.authenticated ? 'LOG OUT' : 'LOG IN'} />
+					  containerElement={<Link to="/about" />}
+					  label='GITHUB' />
 </nav>
     );
 	/*

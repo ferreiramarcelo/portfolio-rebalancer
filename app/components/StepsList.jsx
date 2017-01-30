@@ -2,32 +2,63 @@ import React, { Component, PropTypes } from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import ActionBuild from 'material-ui/svg-icons/action/build';
 
+import styles from '../css/components/steps-list';
 
 
-const StepsList = ({investmentSteps}) => {
+const StepsList = ({investmentSteps, portfolio}) => {
 
-const generateStepsList = (investmentSteps) => {
+const generateStepsList = (investmentSteps, portfolio) => {
 		var stepsList = [];
-		if (!investmentSteps) {
+		/*if (!investmentSteps) {
 			stepsList.push(<p>No steps</p>);
 			return stepsList;
+		} */
+		stepsList.push(<h3> Instructions List</h3>);
+		var stepNumber = 1;
+		if (investmentSteps.cashStillMissing) {
+			stepsList.push(<p>Sell the entire portfolio. You will still be missing ${investmentSteps.cashStillMissing}. </p>);
 		}
-		stepsList.push(<h5> Instructions List</h5>);
-		if (investmentSteps.balanceWithCash != null) {
-			stepsList.push(<p>Balance by spending cash: {investmentSteps.balanceWithCash.toString()} </p>);
+		if (investmentSteps.balanceByInvesting != null) {
+			stepsList.push(<h4>Balance by investing</h4>);
+			for (var i = 0; i < portfolio.length; i++) {
+				if (investmentSteps.balanceByInvesting[i] > 0) {
+					stepsList.push(<p>{stepNumber}. Purchase {investmentSteps.balanceByInvesting[i]} units of {portfolio[i].ticker.value}</p>);
+					stepNumber++;
+				}
+			}
+			stepNumber = 1;
 		}
-		if (investmentSteps.balanceBySellingAndBuying != null) {
-			stepsList.push(<p>Balance by selling and buying: {investmentSteps.balanceBySellingAndBuying.toString()} </p>);
+		if (investmentSteps.balanceByTakingOut != null) {
+			stepsList.push(<h4>Balance by taking out</h4>);
+			for (var i = 0; i < portfolio.length; i++) {
+				if (investmentSteps.balanceByTakingOut[i] < 0) {
+					stepsList.push(<p>{stepNumber}. Sell {-1 * investmentSteps.balanceByTakingOut[i]} units of {portfolio[i].ticker.value}</p>);
+					stepNumber++;
+				}
+			}
+			stepNumber = 1;
+		}
+		if (investmentSteps.balanceByTakingOutAndInvesting != null) {
+			stepsList.push(<h4>Balance by taking out and investing</h4>);
+			for (var i = 0; i < portfolio.length; i++) {
+				if (investmentSteps.balanceByTakingOutAndInvesting[i] > 0) {
+					stepsList.push(<p>{stepNumber}. Purchase {investmentSteps.balanceByTakingOutAndInvesting[i]} units of {portfolio[i].ticker.value}</p>);
+					stepNumber++;
+				}
+				else if (investmentSteps.balanceByTakingOutAndInvesting[i] < 0) {
+					stepsList.push(<p>{stepNumber}. Sell {-1 * investmentSteps.balanceByTakingOutAndInvesting[i]} units of {portfolio[i].ticker.value}</p>);
+					stepNumber++;
+				}
+			}
 		}
 		return stepsList;
 	}
 	
-	const stepsListElements = generateStepsList(investmentSteps);
+	const stepsListElements = generateStepsList(investmentSteps, portfolio);
 
 	
     return (
 	<div>
-		<p>Test </p>
 		{stepsListElements}
 		</div>
 		
@@ -36,6 +67,7 @@ const generateStepsList = (investmentSteps) => {
 
 StepsList.propTypes = {
     investmentSteps: PropTypes.object.isRequired,
+	portfolio: PropTypes.object.isRequired,
 };
 
 export default StepsList;

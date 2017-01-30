@@ -51,7 +51,7 @@ const SecurityRow = ({security, removeSecurity, securityTextFieldChange, securit
 				securityTextFieldValid={securityTextFieldValid}
 				securityTextFieldError={securityTextFieldError} />
 		</TableRowColumn>
-        <TableRowColumn className={cx('TableRowColumnRemoveSecurity')}>
+        <TableRowColumn className={cx('TableRowColumnRemoveLast')}>
             <RemoveSecurityButton
 				index={security.index}
 				removeSecurity={removeSecurity} />

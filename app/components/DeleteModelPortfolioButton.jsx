@@ -10,20 +10,20 @@ const cx = classNames.bind(styles);
 
 const DeleteModelPortfolioButton = ({deleteModelPortfolio}) => {
 
-    return (
-	<IconButton
-		className={cx('DeleteModelPortfolioButton')}
-		tooltipPosition={'bottom-left'}
-		tooltip="Delete model portfolio"
-		touch={true}
-		onClick={deleteModelPortfolio}>
-      <ActionDeleteForever />
-</IconButton>
-    );
+  return (
+    <IconButton
+    className={cx('DeleteModelPortfolioButton')}
+    tooltipPosition={'bottom-left'}
+    tooltip="Delete model portfolio"
+    touch={true}
+    onClick={deleteModelPortfolio}>
+    <ActionDeleteForever />
+    </IconButton>
+  );
 };
 
 DeleteModelPortfolioButton.propTypes = {
-    deleteModelPortfolio: PropTypes.func.isRequired,
+  deleteModelPortfolio: PropTypes.func.isRequired,
 };
 
 export default DeleteModelPortfolioButton;

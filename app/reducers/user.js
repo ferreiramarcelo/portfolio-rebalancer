@@ -72,11 +72,29 @@ const authenticated = (
   }
 };
 
+const userEmail = (
+  state = '',
+  action
+) => {
+  switch (action.type) {
+    case types.LOGIN_SUCCESS_USER:
+    case types.SIGNUP_SUCCESS_USER:
+      return action.email;
+    case types.LOGIN_ERROR_USER:
+    case types.SIGNUP_ERROR_USER:
+    case types.LOGOUT_SUCCESS_USER:
+      return '';
+    default:
+      return state;
+  }
+};
+
 const userReducer = combineReducers({
   isLogin,
   isWaiting,
   authenticated,
-  message
+  message,
+  userEmail
 });
 
 export default userReducer;

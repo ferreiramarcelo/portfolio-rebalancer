@@ -12,7 +12,7 @@ import styles from '../css/components/portfolio-table/portfolio-table';
 const cx = classNames.bind(styles);
 
 const Portfolio = ({modelPortfolioName, modelPortfolioNameTextFieldChange, portfolio, removeSecurity, securityTextFieldChange,
-						securityTextFieldValid, securityTextFieldError, addSecurity}) => {
+						securityTextFieldValid, securityTextFieldError, addSecurity, saveModelPortfolio}) => {
 
   return (
   <div >
@@ -21,14 +21,15 @@ const Portfolio = ({modelPortfolioName, modelPortfolioNameTextFieldChange, portf
 					value={modelPortfolioName.value}
 					modelPortfolioNameTextFieldChange={modelPortfolioNameTextFieldChange}/>
 			<PortfolioTableImmutable
+			modelPortfolioName={modelPortfolioName}
 			portfolio={portfolio}
 			addSecurity={addSecurity}
 			removeSecurity={removeSecurity}
 				securityTextFieldChange={securityTextFieldChange} 
 				securityTextFieldValid={securityTextFieldValid} 
-				securityTextFieldError={securityTextFieldError}	/>
+				securityTextFieldError={securityTextFieldError}
+				saveModelPortfolio={saveModelPortfolio} />
 				<div style={{textAlign: 'center'}}>
-				<br/><br/>
 			<AddSecurityButton
                             addSecurity={addSecurity} />
 							</div>
@@ -45,6 +46,7 @@ Portfolio.propTypes = {
 	securityTextFieldValid: PropTypes.func.isRequired,
     securityTextFieldError: PropTypes.func.isRequired,
 	addSecurity: PropTypes.func.isRequired,
+	saveModelPortfolio: PropTypes.func.isRequired,
 };
 
 export default Portfolio;

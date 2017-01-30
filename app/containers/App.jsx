@@ -32,7 +32,6 @@ const muiTheme = getMuiTheme({
   avatar: {
     borderColor: null,
   },
-  userAgent: 'all',
 });
 
 /*

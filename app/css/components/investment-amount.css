@@ -1,0 +1,8 @@
+@import '../common/typography';
+
+.InvestmentAmountText {
+  font-size: var(--fontMedium);
+  font-family: var(--fontRoboto);
+  display: inline-block;
+  padding-right: 10px;
+}
