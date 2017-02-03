@@ -4,22 +4,8 @@ import ActionBuild from 'material-ui/svg-icons/action/build';
 
 
 
-const GenerateStepsButton = ({portfolio, investmentAmount, generateSteps}) => {
+const GenerateStepsButton = ({isDisabled, generateSteps}) => {
 
-	const determineIfIsDisabled = (portfolio) => {
-		if (investmentAmount.valid == 0) {
-			return true;
-		}
-		for (var security of portfolio) {
-			if (security.allocation.valid == 0 || security.price.valid == 0 || security.units.valid == 0) {
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	const isDisabled = determineIfIsDisabled(portfolio);
-	
     const handleOnClick = () => {
         generateSteps(portfolio, investmentAmount);
     }
@@ -38,8 +24,7 @@ const GenerateStepsButton = ({portfolio, investmentAmount, generateSteps}) => {
 };
 
 GenerateStepsButton.propTypes = {
-    portfolio: PropTypes.array.isRequired,
-    investmentAmount: PropTypes.object.isRequired,
+    isDisabled: PropTypes.bool.isRequired,
     generateSteps: PropTypes.func.isRequired,
 };
 

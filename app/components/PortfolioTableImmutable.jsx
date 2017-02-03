@@ -10,53 +10,56 @@ import styles from '../css/components/portfolio-table/portfolio-table';
 
 const cx = classNames.bind(styles);
 
-const PortfolioTableImmutable = ({modelPortfolioName, portfolio, addSecurity, removeSecurity, securityTextFieldChange, securityTextFieldValid, securityTextFieldError,
-									saveModelPortfolio}) => {
+const PortfolioTableImmutable = ({componentAvailability, portfolio, addSecurity, removeSecurity, securityTextFieldChange, securityTextFieldValid, securityTextFieldError,
+	saveModelPortfolio, deleteModelPortfolio, selectedModelPortfolio}) => {
 
 
-    const securityRows = portfolio.map(security => {
-        return <SecurityRow
-        security={security}
-                    removeSecurity={removeSecurity}
-					securityTextFieldChange={securityTextFieldChange} 
-					securityTextFieldValid={securityTextFieldValid} 
-					securityTextFieldError={securityTextFieldError} />;
-    });
+		const securityRows = portfolio.map(security => {
+			return <SecurityRow
+				security={security}
+				removeSecurity={removeSecurity}
+				securityTextFieldChange={securityTextFieldChange}
+				securityTextFieldValid={securityTextFieldValid}
+				securityTextFieldError={securityTextFieldError} />;
+		});
 
-  return (
-      <Table className={cx('Table')} wrapperStyle={{ overflow: 'hidden' }}>
-		<TableHeader displaySelectAll={false} adjustForCheckbox={false}>
-		  <TableRow>
-              <TableHeaderColumn className={cx('TableHeaderColumn')}>Ticker</TableHeaderColumn>
-              <TableHeaderColumn className={cx('TableHeaderColumn')}>Allocation</TableHeaderColumn>
-              <TableHeaderColumn className={cx('TableHeaderColumn')}>Price</TableHeaderColumn>
-              <TableHeaderColumn className={cx('TableHeaderColumn')}>Units</TableHeaderColumn>
-              <TableHeaderColumn className={cx('TableHeaderColumnLast')} >
-				<SaveModelPortfolioButton
-					modelPortfolioName={modelPortfolioName}
-					portfolio={portfolio}
-					saveModelPortfolio={saveModelPortfolio}/>
-				<DeleteModelPortfolioButton deleteModelPortfolio={addSecurity}/>
-			  </TableHeaderColumn>
-		</TableRow>
-		</TableHeader>
-		<TableBody  displayRowCheckbox={false}>
-            {securityRows}
-		</TableBody>
-	  </Table>
-  );
+		return (
+			<Table className={cx('Table')} wrapperStyle={{ overflow: 'hidden' }}>
+				<TableHeader displaySelectAll={false} adjustForCheckbox={false}>
+					<TableRow>
+						<TableHeaderColumn className={cx('TableHeaderColumn')}>Ticker</TableHeaderColumn>
+					<TableHeaderColumn className={cx('TableHeaderColumn')}>Allocation</TableHeaderColumn>
+				<TableHeaderColumn className={cx('TableHeaderColumn')}>Price</TableHeaderColumn>
+			<TableHeaderColumn className={cx('TableHeaderColumn')}>Units</TableHeaderColumn>
+		<TableHeaderColumn className={cx('TableHeaderColumnLast')} >
+			<SaveModelPortfolioButton
+				isDisabled={componentAvailability.saveModelPortfolioButtonIsDisabled}
+				portfolio={portfolio}
+				selectedModelPortfolio={selectedModelPortfolio}
+				saveModelPortfolio={saveModelPortfolio}/>
+			<DeleteModelPortfolioButton id={selectedModelPortfolio.id} deleteModelPortfolio={deleteModelPortfolio} isDisabled={componentAvailability.deleteModelPortfolioButtonisDisabled}/>
+	</TableHeaderColumn>
+</TableRow>
+</TableHeader>
+<TableBody  displayRowCheckbox={false}>
+	{securityRows}
+</TableBody>
+</Table>
+);
 };
 
 PortfolioTableImmutable.propTypes = {
-	modelPortfolioName: PropTypes.object.isRequired,
-    portfolio: PropTypes.array.isRequired,
-    addSecurity: PropTypes.func.isRequired,
-    removeSecurity: PropTypes.func.isRequired,
+	componentAvailability: PropTypes.object.isRequired,
+	portfolio: PropTypes.array.isRequired,
+	addSecurity: PropTypes.func.isRequired,
+	removeSecurity: PropTypes.func.isRequired,
 	securityTextFieldChange: PropTypes.func.isRequired,
 	securityTextFieldValid: PropTypes.func.isRequired,
-    securityTextFieldError: PropTypes.func.isRequired,
+	securityTextFieldError: PropTypes.func.isRequired,
 	saveModelPortfolio: PropTypes.func.isRequired,
-	modelPortfolioName: PropTypes.func.isRequired,
+	selectedModelPortfolio: PropTypes.func.isRequired,
+	deleteModelPortfolio: PropTypes.func.isRequired,
+	selectedModelPortfolio: PropTypes.object.isRequired
 };
 
 export default PortfolioTableImmutable;

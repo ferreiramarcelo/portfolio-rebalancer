@@ -6,28 +6,19 @@ import styles from '../css/components/security-text-field';
 const cx = classNames.bind(styles);
 
 
-const ModelPortfolioNameTextField = ({value, modelPortfolioNameTextFieldChange}) => {
+const ModelPortfolioNameTextField = ({selectedModelPortfolio, selectedModelPortfolioTextFieldChange}) => {
 
-    const getErrorText = (value) => {
-        if (value)
-            return '';
-        else
-            return 'Required';
-    }
-
-    const errorText = getErrorText(value);
-
-    const handleOnChange = (event, value) => {       
-        modelPortfolioNameTextFieldChange(value);
+    const handleOnChange = (event, value) => {
+        selectedModelPortfolioTextFieldChange(value);
     }
 
     return (
 		<TextField className={cx('textfield')}
                 errorStyle={{
-                    float: "left"                }}
+                    float: "left"}}
                 type='text'
-                value={value}
-                errorText={errorText}
+                value={selectedModelPortfolio.name}
+                errorText={selectedModelPortfolio.errorText}
                 onChange={handleOnChange}
 				      fullWidth={true}
 				inputStyle={{
@@ -38,7 +29,9 @@ const ModelPortfolioNameTextField = ({value, modelPortfolioNameTextFieldChange})
 };
 
 ModelPortfolioNameTextField.propTypes = {
+  selectedModelPortfolio: PropTypes.object.isRequired,
     ModelPortfolioNameTextField: PropTypes.func.isRequired,
+
 };
 
 export default ModelPortfolioNameTextField;

@@ -13,10 +13,9 @@ export function investmentAmountTextFieldChange(value) {
     };
 }
 
-export function investmentAmountTextFieldValid(valid) {
+export function investmentAmountTextFieldValid() {
     return {
-        type: types.INVESTMENT_AMOUNT_TEXT_FIELD_VALID,
-        valid: valid
+        type: types.INVESTMENT_AMOUNT_TEXT_FIELD_VALID
     };
 }
 

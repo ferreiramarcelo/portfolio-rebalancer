@@ -8,21 +8,28 @@ import styles from '../css/components/portfolio-table/delete-model-portfolio-but
 
 const cx = classNames.bind(styles);
 
-const DeleteModelPortfolioButton = ({deleteModelPortfolio}) => {
+const DeleteModelPortfolioButton = ({id, deleteModelPortfolio, isDisabled}) => {
+
+  const handleOnClick = () => {
+      deleteModelPortfolio(id);
+  }
 
   return (
     <IconButton
     className={cx('DeleteModelPortfolioButton')}
     tooltipPosition={'bottom-left'}
     tooltip="Delete model portfolio"
+    disabled={isDisabled}
     touch={true}
-    onClick={deleteModelPortfolio}>
+    onTouchTap={handleOnClick}>
     <ActionDeleteForever />
     </IconButton>
   );
 };
 
 DeleteModelPortfolioButton.propTypes = {
+  isDisabled: PropTypes.bool.isRequired,
+  id: PropTypes.string.isRequired,
   deleteModelPortfolio: PropTypes.func.isRequired,
 };
 

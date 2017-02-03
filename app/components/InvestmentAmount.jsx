@@ -13,20 +13,15 @@ const InvestmentAmount = ({investmentAmount, investmentAmountTextFieldChange, in
 		 <p className={cx('InvestmentAmountText')}>
 			How much cash are you investing? (Negative to take out)</p>
             <InvestmentAmountTextField
-                    value={investmentAmount.value}
-                    investmentAmountTextFieldChange={investmentAmountTextFieldChange}
-                    investmentAmountTextFieldValid={investmentAmountTextFieldValid}
-                    investmentAmountTextFieldError={investmentAmountTextFieldError} />
+                    investmentAmount={investmentAmount}
+                    investmentAmountTextFieldChange={investmentAmountTextFieldChange} />
 					</div>
     );
 };
 
 InvestmentAmount.propTypes = {
     investmentAmount: PropTypes.object.isRequired,
-    errorText: PropTypes.string.isRequired,
     investmentAmountTextFieldChange: PropTypes.func.isRequired,
-    investmentAmountTextFieldValid: PropTypes.func.isRequired,
-    investmentAmountTextFieldError: PropTypes.func.isRequired,
 };
 
 export default InvestmentAmount;

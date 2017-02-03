@@ -12,16 +12,16 @@ import EditorModeEdit from 'material-ui/svg-icons/editor/mode-edit';
 // to grandchild. To make it cleaner, you could consider:
 // 1. moving `connect` down to this component so you could mapStateToProps and dispatch
 // 2. Move TopicTextInput up to EntryBox so it's less confusing
-const ModelPortfoliosAutoCompleteImmutable = ({selectModelPortfolio, modelPortfolios, userEmail}) => {
+const ModelPortfoliosAutoCompleteImmutable = ({selectModelPortfolio, modelPortfolios, email}) => {
 	
-	const generateDisplayModelPortfolios = (modelPortfolios, userEmail) => {
+	const generateDisplayModelPortfolios = (modelPortfolios, email) => {
 		var defaultModelPortfolios = [];
 		var userModelPortfolios = [];
 		var displayModelPortfolios = [];
 		for (var i = 0; i < modelPortfolios.length; i++) {
-			if (modelPortfolios[i].userEmail == null)
+			if (modelPortfolios[i].email == null)
 				defaultModelPortfolios.push(modelPortfolios[i]);
-			else if (modelPortfolios[i].userEmail == userEmail)
+			else if (modelPortfolios[i].email == email)
 				userModelPortfolios.push(modelPortfolios[i]);
 		}
 		defaultModelPortfolios.sort(function(a, b) {
@@ -52,7 +52,7 @@ const ModelPortfoliosAutoCompleteImmutable = ({selectModelPortfolio, modelPortfo
 		return displayModelPortfolios;
 	}
 	
-	const displayModelPortfolios = generateDisplayModelPortfolios(modelPortfolios, userEmail);
+	const displayModelPortfolios = generateDisplayModelPortfolios(modelPortfolios, email);
 	
 	const displayModelPortfoliosElements = displayModelPortfolios.map(modelPortfolio => {
 	    switch (modelPortfolio.name) {
@@ -103,7 +103,7 @@ const ModelPortfoliosAutoCompleteImmutable = ({selectModelPortfolio, modelPortfo
 ModelPortfoliosAutoCompleteImmutable.propTypes = {
   selectModelPortfolio: PropTypes.func.isRequired,
   modelPortfolios: PropTypes.array.isRequired,
-  userEmail: PropTypes.string.isRequired
+  email: PropTypes.string.isRequired
 };
 
 export default ModelPortfoliosAutoCompleteImmutable;

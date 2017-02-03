@@ -18,9 +18,9 @@ axios.defaults.baseURL = `http://${host}:${port}`;
 export default function render(req, res) {
   const authenticated = req.isAuthenticated();
   const history = createMemoryHistory();
-  var userEmail = '';
+  var email = '';
   if (req.user) {
-	  userEmail = req.userEmail;
+	  email = req.user.email;
   }
   const store = configureStore({
     user: {
@@ -28,7 +28,7 @@ export default function render(req, res) {
       isWaiting: false,
       message: '',
       isLogin: true,
-	  userEmail: userEmail,
+	    email: email,
     }
   }, history);
   const routes = createRoutes(store);

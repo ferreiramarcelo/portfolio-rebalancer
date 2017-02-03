@@ -22,10 +22,19 @@ export function createNewPortfolio() {
 	};
 }
 
-export function modelPortfolioNameTextFieldChange(value) {
+export function selectedModelPortfolioNameChange(data) {
 	return {
 		type: types.MODEL_PORTFOLIO_NAME_TEXT_FIELD_CHANGE,
-		value: value
+		value: data.value,
+		modelPortfolios: data.modelPortfolios,
+		email: data.email
+	};
+}
+
+export function selectedModelPortfolioTextFieldChange(value) {
+	return (dispatch, getState) => {
+		const { user, topic } = getState();
+		dispatch(selectedModelPortfolioNameChange( { value: value, modelPortfolios: topic.topics, email: user.email }));
 	};
 }
 
@@ -42,6 +51,7 @@ export function removeSecurity(index) {
 	};
 }
 
+/*
 export function securityTextFieldChange(index, column, value) {
 	return {
 		type: types.SECURITY_TEXT_FIELD_CHANGE,
@@ -49,80 +59,94 @@ export function securityTextFieldChange(index, column, value) {
 		column: column,
 		value: value
 	};
+} */
+
+export function setPriceToFetching(index) {
+	return {
+		index,
+		type: types.SET_PRICE_TO_FETCHING,
+	}
 }
 
-export function securityTextFieldValid(index, column) {
-	return {
-		type: types.SECURITY_TEXT_FIELD_VALID,
-		index: index,
-		column: column
+
+export function securityTextFieldChange(index, column, value) {
+	if (column !== 'ticker') {
+		return {
+			type: types.SECURITY_TEXT_FIELD_CHANGE,
+			index: index,
+			column: column,
+			value: value
+		};
+	}
+	else {
+	return (dispatch, getState) => {
+		//Set to 'isFetching'
+  dispatch(setPriceToFetching(index));
+
+
+
+
+		return fetchSecurityPrice(value)
+    .then(data => {
+      if (data  === 200) {
+        return dispatch(deleteModelPortfolioSuccess());
+      }
+    })
+    .catch ((jqxhr, textStatus, error) => {
+      return dispatch(deleteModelPortfolioSuccess());
+    });
 	};
 }
-
-export function securityTextFieldError(index, column, error) {
-	return {
-		type: types.SECURITY_TEXT_FIELD_ERROR,
-		index: index,
-		column: column,
-		error: error
-	};
 }
 
-export function makeTopicRequest(method, id, data, api = '/topic') {
-	return request[method](api + (id ? ('/' + id) : ''), data);
+export function fetchSecurityPrice(symbol) {
+		let api = "https://query.yahooapis.com/v1/public/yql";
+	  let query = encodeURIComponent("select LastTradePriceOnly from yahoo.finance.quotes where symbol in ('" + symbol + "')");
+		let yqlStatement = 'q=' + query + "&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
+		let uri = api + '?' + yqlStatement;
+		return request['get'](uri);
 }
 
 export function makeModelPortfolioRequest(method, id, data, api = '/topic') {
 	return request[method](api + (id ? ('/' + id) : ''), data);
 }
 
-export function increment(id) {
+export function createModelPortfolioRequest(data) {
 	return {
-		type: types.INCREMENT_COUNT,
-		id
-	};
-}
-
-export function decrement(id) {
-	return {
-		type: types.DECREMENT_COUNT,
-		id
-	};
-}
-
-export function destroy(id) {
-	return {
-		type: types.DESTROY_TOPIC,
-		id
-	};
-}
-
-export function typing(text) {
-	return {
-		type: types.TYPING,
-		newTopic: text
-	};
-}
-
-/*
-* @param data
-* @return a simple JS object
-*/
-export function createTopicRequest(data) {
-	return {
-		type: types.CREATE_TOPIC_REQUEST,
+		type: types.CREATE_MODEL_PORTFOLIO_REQUEST,
 		id: data.id,
-		count: data.count,
-		text: data.text
+		name: data.name,
+		email: data.email,
+		securities: data.securities
+	};
+}
+
+export function createModelPortfolioSuccess() {
+	return {
+		type: types.CREATE_MODEL_PORTFOLIO_SUCCESS
+	};
+}
+
+export function createModelPortfolioFailure(data) {
+	return {
+		type: types.CREATE_MODEL_PORTFOLIO_FAILURE,
+		id: data.id,
+		error: data.error
+	};
+}
+
+export function createModelPortfolioDuplicate() {
+	return {
+		type: types.CREATE_MODEL_PORTFOLIO_DUPLICATE
 	};
 }
 
 export function saveModelPortfolioRequest(data) {
 	return {
-		type: types.CREATE_TOPIC_REQUEST,
-		_id: data._id,
+		type: types.SAVE_MODEL_PORTFOLIO_REQUEST,
+		id: data.id,
 		name: data.name,
-		userEmail: data.userEmail,
+		email: data.email,
 		securities: data.securities
 	};
 }
@@ -136,6 +160,8 @@ export function saveModelPortfolioSuccess() {
 export function saveModelPortfolioFailure(data) {
 	return {
 		type: types.SAVE_MODEL_PORTFOLIO_FAILURE,
+		id: data.id,
+		error: data.error
 	};
 }
 
@@ -145,83 +171,30 @@ export function saveModelPortfolioDuplicate() {
 	};
 }
 
-export function createTopicSuccess() {
+export function deleteModelPortfolioRequest(id) {
 	return {
-		type: types.CREATE_TOPIC_SUCCESS
+		type: types.DELETE_MODEL_PORTFOLIO_REQUEST,
+		id: id
 	};
 }
 
-export function createTopicFailure(data) {
+export function deleteModelPortfolioSuccess() {
 	return {
-		type: types.CREATE_TOPIC_FAILURE,
+		type: types.SAVE_MODEL_PORTFOLIO_SUCCESS
+	};
+}
+
+export function deleteModelPortfolioFailure(data) {
+	return {
+		type: types.deleteModelPortfolioFailure,
 		id: data.id,
 		error: data.error
 	};
 }
 
-export function createTopicDuplicate() {
-	return {
-		type: types.CREATE_TOPIC_DUPLICATE
-	};
-}
-
-// This action creator returns a function,
-// which will get executed by Redux-Thunk middleware
-// This function does not need to be pure, and thus allowed
-// to have side effects, including executing asynchronous API calls.
-export function createTopic(text) {
+export function saveModelPortfolio(selectedModelPortfolio, portfolio) {
 	return (dispatch, getState) => {
-		// If the text box is empty
-		if (text.trim().length <= 0) {
-			return;
-		}
-
-		const id = md5.hash(text);
-		// Redux thunk's middleware receives the store methods `dispatch`
-		// and `getState` as parameters
-		const {
-			topic
-		} = getState();
-		const data = {
-			count: 1,
-			id,
-			text
-		};
-
-		// Conditional dispatch
-		// If the topic already exists, make sure we emit a dispatch event
-		if (topic.topics.filter(topicItem => topicItem.id === id).length > 0) {
-			// Currently there is no reducer that changes state for this
-			// For production you would ideally have a message reducer that
-			// notifies the user of a duplicate topic
-			return dispatch(createTopicDuplicate());
-		}
-
-		// First dispatch an optimistic update
-		dispatch(createTopicRequest(data));
-
-		return makeTopicRequest('post', id, data)
-		.then(res => {
-			if (res.status === 200) {
-				// We can actually dispatch a CREATE_TOPIC_SUCCESS
-				// on success, but I've opted to leave that out
-				// since we already did an optimistic update
-				// We could return res.json();
-				return dispatch(createTopicSuccess());
-			}
-		})
-		.catch (() => {
-			return dispatch(createTopicFailure({
-				id,
-				error: 'Oops! Something went wrong and we couldn\'t create your topic'
-			}));
-		});
-	};
-}
-
-export function saveModelPortfolio(modelPortfolioName, portfolio) {
-	return (dispatch, getState) => {
-		if (modelPortfolioName.value.trim().length <= 0 || portfolio.length <= 0) {
+		if (selectedModelPortfolio.name.trim().length <= 0 || portfolio.length <= 0) {
 			return;
 		}
 		var securities = [];
@@ -231,26 +204,19 @@ export function saveModelPortfolio(modelPortfolioName, portfolio) {
 				allocation: security.allocation.number
 			});
 		}
-		// If there is an email associated, do an PUT
-		// Otherwise, do a POST
-		const { user} = getState();
-		if (modelPortfolioName.userEmail) {
+		if (selectedModelPortfolio.email) {
 			// Update existing
-			const id = modelPortfolioName._id;
+			const id = selectedModelPortfolio.id;
 			const data = {
-				_id: id,
-				name: modelPortfolioName.value,
-				userEmail: user.userEmail,
+				id: id,
+				name: selectedModelPortfolio.name,
+				email: selectedModelPortfolio.email,
 				securities: securities
 			}
 			dispatch(saveModelPortfolioRequest(data));
 			return makeModelPortfolioRequest('put', id, data)
 			.then(res => {
 				if (res.status === 200) {
-					// We can actually dispatch a CREATE_TOPIC_SUCCESS
-					// on success, but I've opted to leave that out
-					// since we already did an optimistic update
-					// We could return res.json();
 					return dispatch(saveModelPortfolioSuccess());
 				}
 			})
@@ -261,26 +227,24 @@ export function saveModelPortfolio(modelPortfolioName, portfolio) {
 			});
 		}
 		// New model portfolio
-		const id = md5.hash(modelPortfolioName.value);
+		const { user } = getState();
+		const id = md5.hash(selectedModelPortfolio.name);
 		const data = {
-			_id: id,
-			name: modelPortfolioName.value,
-			userEmail: user.userEmail,
+			id: id,
+			name: selectedModelPortfolio.name,
+			email: user.email,
 			securities: securities
 		}
-		dispatch(saveModelPortfolioRequest(data));
+		dispatch(createModelPortfolioRequest(data));
 		return makeModelPortfolioRequest('post', id, data)
 		.then(res => {
 			if (res.status === 200) {
-				// We can actually dispatch a CREATE_TOPIC_SUCCESS
-				// on success, but I've opted to leave that out
-				// since we already did an optimistic update
-				// We could return res.json();
-				return dispatch(saveModelPortfolioSuccess());
+				return dispatch(createModelPortfolioSuccess());
 			}
 		})
 		.catch (() => {
-			return dispatch(saveModelPortfolioFailure({
+			return dispatch(createModelPortfolioFailure({
+				id,
 				error: 'Oops! Something went wrong and we couldn\'t save your topic'
 			}));
 		});
@@ -323,5 +287,22 @@ export function destroyTopic(id) {
 			id,
 			error: 'Oops! Something went wrong and we couldn\'t add your vote'
 		})));
+	};
+}
+
+export function deleteModelPortfolio(id) {
+	return (dispatch, getState) => {
+  dispatch(deleteModelPortfolioRequest(id));
+		return makeModelPortfolioRequest('delete', id)
+    .then(res => {
+      if (res.status === 200) {
+        return dispatch(deleteModelPortfolioSuccess());
+      }
+    })
+    .catch (() => {
+      return dispatch(deleteModelPortfolioFailure({id: id,
+        error: 'Oops! Something went wrong and we couldn\'t save your topic'
+      }));
+    });
 	};
 }

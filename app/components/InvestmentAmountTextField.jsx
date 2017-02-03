@@ -1,43 +1,29 @@
 import React, { Component, PropTypes } from 'react';
-import NumberInput from 'material-ui-number-input';
+import TextField from 'material-ui/TextField';
 
-const InvestmentAmountTextField = ({value, errorText, investmentAmountTextFieldChange, investmentAmountTextFieldValid, investmentAmountTextFieldError}) => {
+const InvestmentAmountTextFieldImmutable = ({investmentAmount, investmentAmountTextFieldChange}) => {
 
 	const handleOnChange = (event, value) => {
 	    investmentAmountTextFieldChange(value);
 	}
-	
-	const handleOnValid = () => {
-	    investmentAmountTextFieldValid();
-	}
-	
-	const handleOnError = (error) => {
-	    investmentAmountTextFieldError(error);
-	}
 
-	return (
-		 <NumberInput
+    return (
+		 <TextField
                     errorStyle={{
                         float: "left"
                     }}
-                    id="investmentAmountTextField"
-                    value={value}
-                    errorText={errorText}					
+					value={investmentAmount.value}
+          errorText={investmentAmount.errorText}
 					onChange={handleOnChange}
-					onValid={handleOnValid}
-					onError={handleOnError}
-                    strategy="allow"
-                    required
+
                 />
     );
 };
 
-InvestmentAmountTextField.propTypes = {
-    value: PropTypes.string.isRequired,
-    errorText: PropTypes.string.isRequired,
-    investmentAmountTextFieldChange: PropTypes.func.isRequired,
-    investmentAmountTextFieldValid: PropTypes.func.isRequired,
-    investmentAmountTextFieldError: PropTypes.func.isRequired,
+InvestmentAmountTextFieldImmutable.propTypes = {
+    investmentAmount: PropTypes.object.isRequired,
+		investmentAmountTextFieldChange: PropTypes.func.isRequired,
+
 };
 
-export default InvestmentAmountTextField;
+export default InvestmentAmountTextFieldImmutable;

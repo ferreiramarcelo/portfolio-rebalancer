@@ -72,7 +72,7 @@ const authenticated = (
   }
 };
 
-const userEmail = (
+const email = (
   state = '',
   action
 ) => {
@@ -94,7 +94,7 @@ const userReducer = combineReducers({
   isWaiting,
   authenticated,
   message,
-  userEmail
+  email
 });
 
 export default userReducer;
