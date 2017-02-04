@@ -8,10 +8,21 @@
 }
 
 .TableRowColumn {
+  height: 150px !important;
   padding-bottom: 11px !important;
   padding-left: 0px !important;
   padding-right: 0px !important;
 }
+
+.TableRowColumnProgress {
+  height: 70px !important;
+  margin-bottom: 11px !important;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+  width: 30px !important;
+  text-align: center !important;
+}
+
 
 .TableRowColumnRemoveLast {
   margin-bottom: 11px !important;
@@ -20,5 +31,3 @@
   width: 96px !important;
   text-align: right !important;
 }
-
-

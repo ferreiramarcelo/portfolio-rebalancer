@@ -146,8 +146,9 @@ const portfolio = (state = [], action) => {
             }
             return newPortfolio;
         case types.SECURITY_TEXT_FIELD_CHANGE:
-        case types.SECURITY_TEXT_FIELD_VALID:
-        case types.SECURITY_TEXT_FIELD_ERROR:
+        case types.SET_PRICE_TO_FETCHING:
+        case types.SET_PRICE_FROM_FETCH:
+        case types.SET_PRICE_TO_FETCH_FAILED:
             return state.map(s => security(s, action));
         default:
             return state;
@@ -167,7 +168,7 @@ const security = (state = {}, action) => {
         case types.CREATE_NEW_PORTFOLIO:
         case types.DELETE_MODEL_PORTFOLIO_REQUEST:
             return {
-                index: action.index,
+                index: 0,
                 ticker: ticker(undefined, action),
                 allocation: allocation(undefined, action),
                 price: price(undefined, action),
@@ -182,8 +183,6 @@ const security = (state = {}, action) => {
                 units: units(undefined, action)
             };
         case types.SECURITY_TEXT_FIELD_CHANGE:
-        case types.SECURITY_TEXT_FIELD_VALID:
-        case types.SECURITY_TEXT_FIELD_ERROR:
             if (state.index === action.index) {
                 switch (action.column) {
                     case 'ticker':
@@ -210,6 +209,15 @@ const security = (state = {}, action) => {
                         return state;
                 }
             }
+        case types.SET_PRICE_TO_FETCHING:
+        case types.SET_PRICE_FROM_FETCH:
+        case types.SET_PRICE_TO_FETCH_FAILED:
+          if (state.index === action.index) {
+            return {
+                ...state,
+                price: price(state.allocation, action)
+            };
+          }
         default:
             return state;
     }
@@ -246,13 +254,12 @@ const allocation = (state = {}, action) => {
                 number: Number(action.security.allocation),
                 value: action.security.allocation.toString(),
                 valid: 1,
-                errorText: ''
+                errorText: '',
             }
         case types.CREATE_NEW_PORTFOLIO:
         case types.DELETE_MODEL_PORTFOLIO_REQUEST:
-            return {value: '', valid: 0, errorText: ''}
         case types.ADD_SECURITY:
-            return {value: '', valid: 0, errorText: ''}
+            return {value: '', valid: 0, errorText: 'Required'}
         case types.SECURITY_TEXT_FIELD_CHANGE:
             var errorText = '';
             var valid = 1;
@@ -296,32 +303,50 @@ const price = (state = {}, action) => {
             return {number: Number(value), value: value, valid: 1, errorText: ''}
         case types.CREATE_NEW_PORTFOLIO:
         case types.DELETE_MODEL_PORTFOLIO_REQUEST:
-            return {value: '', valid: 0, errorText: ''}
         case types.ADD_SECURITY:
-            return {value: '', valid: 0, errorText: ''}
+            return {value: '', valid: 0, errorText: 'Required', fetch: 'DONE'}
         case types.SECURITY_TEXT_FIELD_CHANGE:
-        var errorText = '';
-        var valid = 1;
-        var number = Number(action.value);
-        if (action.value === '') {
-          errorText = 'Required';
-          valid = 0;
-        }
-        else if (typeof number != 'number' || isNaN(number) || !isFinite(number)) {
-          errorText = 'Number required';
-          valid = 0;
-        }
-        else if (number < 0.01) {
-          errorText = '0.01 minimum';
-          valid = 0;
-        }
-        return {
-            ...state,
-            value: action.value,
-            errorText: errorText,
-            valid: valid,
-            number: number
-        };
+          var errorText = '';
+          var valid = 1;
+          var number = Number(action.value);
+          if (action.value === '') {
+            errorText = 'Required';
+            valid = 0;
+          }
+          else if (typeof number != 'number' || isNaN(number) || !isFinite(number)) {
+            errorText = 'Number required';
+            valid = 0;
+          }
+          else if (number < 0.01) {
+            errorText = '0.01 minimum';
+            valid = 0;
+          }
+          return {
+              ...state,
+              value: action.value,
+              errorText: errorText,
+              valid: valid,
+              number: number
+          };
+        case types.SET_PRICE_TO_FETCHING:
+          return {
+              ...state,
+              fetch: 'IN_PROGRESS'
+          };
+          case types.SET_PRICE_FROM_FETCH:
+            return {
+                ...state,
+                number: Number(action.price),
+                value: action.price,
+                errorText: '',
+                valid: 1,
+                fetch: 'DONE'
+            };
+            case types.SET_PRICE_TO_FETCH_FAILED:
+              return {
+                  ...state,
+                  fetch: 'FAILED'
+              };
         default:
             return state;
     }
@@ -338,9 +363,8 @@ const units = (state = {}, action) => {
             return {number: Number(value), value: value, valid: 1, errorText: ''}
         case types.CREATE_NEW_PORTFOLIO:
         case types.DELETE_MODEL_PORTFOLIO_REQUEST:
-            return {value: '', valid: 0, errorText: ''}
         case types.ADD_SECURITY:
-            return {value: '', valid: 0, errorText: ''}
+            return {value: '', valid: 0, errorText: 'Required'}
         case types.SECURITY_TEXT_FIELD_CHANGE:
         var errorText = '';
         var valid = 1;

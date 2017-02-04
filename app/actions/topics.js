@@ -68,32 +68,55 @@ export function setPriceToFetching(index) {
 	}
 }
 
+export function setPriceFromFetch(index, price) {
+	return {
+		index,
+		price,
+		type: types.SET_PRICE_FROM_FETCH,
+	}
+}
+
+export function setPriceToFetchFailed(index) {
+	return {
+		index,
+		type: types.SET_PRICE_TO_FETCH_FAILED,
+	}
+}
+
+export function setSecurityTextFieldValue(index, column, value) {
+	return {
+		type: types.SECURITY_TEXT_FIELD_CHANGE,
+		index: index,
+		column: column,
+		value: value
+	};
+}
 
 export function securityTextFieldChange(index, column, value) {
 	if (column !== 'ticker') {
-		return {
-			type: types.SECURITY_TEXT_FIELD_CHANGE,
-			index: index,
-			column: column,
-			value: value
-		};
+		return setSecurityTextFieldValue(index, column, value);
 	}
 	else {
 	return (dispatch, getState) => {
-		//Set to 'isFetching'
-  dispatch(setPriceToFetching(index));
-
-
-
-
+		//Dispatch ticker change
+		dispatch(setSecurityTextFieldValue(index, column, value));
+		//Set isFethcing to 0
+  	dispatch(setPriceToFetching(index));
 		return fetchSecurityPrice(value)
     .then(data => {
-      if (data  === 200) {
-        return dispatch(deleteModelPortfolioSuccess());
+      if (data.status  === 200) {
+				let price = data.data.query.results.quote.LastTradePriceOnly;
+				let priceNumber = Number(price);
+				if (!price || typeof priceNumber != 'number' || isNaN(priceNumber) || !isFinite(priceNumber)) {
+					return dispatch(setPriceToFetchFailed(index));
+				}
+				//Set price and set isFetching to 0
+        return dispatch(setPriceFromFetch(index, price));
       }
     })
     .catch ((jqxhr, textStatus, error) => {
-      return dispatch(deleteModelPortfolioSuccess());
+			// Set isFetching to 0
+      return dispatch(setPriceToFetchFailed(index));
     });
 	};
 }

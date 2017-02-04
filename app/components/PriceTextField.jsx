@@ -1,31 +1,35 @@
 import React, { Component, PropTypes } from 'react';
 import TextField from 'material-ui/TextField';
+import PriceProgress from '../components/PriceProgress';
 
-const PriceTextFieldImmutable = ({index, price, securityTextFieldChange}) => {
+import classNames from 'classnames/bind';
+import styles from '../css/components/portfolio-table/price-cell';
+const cx = classNames.bind( styles );
 
-	const handleOnChange = (event, value) => {
-	    securityTextFieldChange(index, 'price', value);
-	}
+const PriceTextField = ({index, price, securityTextFieldChange}) => {
 
-    return (
-		 <TextField
-                    errorStyle={{
-                        float: "left"
-                    }}
-					id={'priceTextField'+index}
-					value={price.value}
-                    errorText={price.errorText}
-					onChange={handleOnChange}
+  const handleOnChange = (event, value) => {
+    securityTextFieldChange( index, 'price', value );
+  }
 
-                />
-    );
+  return (
+  <div style={ { display: 'table', } }>
+    <div style={ { paddingRight: '5px', display: 'table-cell', } }>
+      <TextField
+                 id={ 'priceTextField' + index }
+                 value={ price.value }
+                 errorText={ price.errorText }
+                 onChange={ handleOnChange } />
+    </div>
+    <PriceProgress price={ price } />
+  </div>
+  );
 };
 
-PriceTextFieldImmutable.propTypes = {
-    index: PropTypes.number.isRequired,
-    price: PropTypes.object.isRequired,
-	securityTextFieldChange: PropTypes.func.isRequired,
-
+PriceTextField.propTypes = {
+  index: PropTypes.number.isRequired,
+  price: PropTypes.object.isRequired,
+  securityTextFieldChange: PropTypes.func.isRequired,
 };
 
-export default PriceTextFieldImmutable;
+export default PriceTextField;
