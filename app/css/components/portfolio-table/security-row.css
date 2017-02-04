@@ -2,30 +2,36 @@
 @import '../../common/input';
 
 .TableRow {
+  table-layout: fixed !important;
   border-bottom: 0px !important;
   padding-left: 0px !important;
   padding-right: 0px !important;
 }
 
 .TableRowColumn {
-  height: 150px !important;
-  padding-bottom: 11px !important;
+  padding: 12px 0px 12px 0px !important;
   padding-left: 0px !important;
   padding-right: 0px !important;
 }
 
+.TableRowColumnPrice {
+  padding: 12px 0px 12px 0px !important;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+  max-width: 256px !important;
+  text-align: center !important;
+}
+
 .TableRowColumnProgress {
-  height: 70px !important;
-  margin-bottom: 11px !important;
+  padding: 12px 0px 12px 0px !important;
   padding-left: 0px !important;
   padding-right: 0px !important;
   width: 30px !important;
   text-align: center !important;
 }
 
-
 .TableRowColumnRemoveLast {
-  margin-bottom: 11px !important;
+  padding: 12px 0px 12px 0px !important;
   padding-left: 0px !important;
   padding-right: 0px !important;
   width: 96px !important;

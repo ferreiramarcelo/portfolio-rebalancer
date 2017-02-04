@@ -12,17 +12,30 @@ const PriceTextField = ({index, price, securityTextFieldChange}) => {
     securityTextFieldChange( index, 'price', value );
   }
 
+  const getWidth = () => {
+    if (document.getElementById("testerino") !== null)
+      return document.getElementById("testerino").offsetWidth
+      else {
+        return 300;
+      }
+  }
+
+  const newWidth = getWidth() - 30;
+
   return (
-  <div style={ { display: 'table', } }>
-    <div style={ { paddingRight: '5px', display: 'table-cell', } }>
+  //<div style={ { display: 'table', } }>
+  //<div style={ { paddingRight: '5px', display: 'table-cell', } }>
+  //<div style={ { display: 'table', width: '100%' } }>
+  <div>
       <TextField
+                 className={ cx( 'PriceTextField' ) }
                  id={ 'priceTextField' + index }
                  value={ price.value }
                  errorText={ price.errorText }
                  onChange={ handleOnChange } />
-    </div>
-    <PriceProgress price={ price } />
+      <PriceProgress price={price} />
   </div>
+  //</div>
   );
 };
 

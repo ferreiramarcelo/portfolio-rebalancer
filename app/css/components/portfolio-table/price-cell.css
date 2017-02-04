@@ -1,12 +1,14 @@
 @import '../../common/typography';
 @import '../../common/input';
 
-.TableRow {
-  border-bottom: 0px !important;
-  padding-left: 0px !important;
-  padding-right: 0px !important;
-}
 
+.PriceTextField {
+  width: calc(100% - 30px) !important;
+  max-width: 256px !important;
+  float: left !important;
+}
 .PriceProgress {
-  text-align: right !important;
+  width: 30px !important;
+  float: left !important;
+  margin-top: 12px !important;
 }

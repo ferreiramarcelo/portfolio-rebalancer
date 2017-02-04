@@ -2,7 +2,5 @@
 @import '../../common/input';
 
 .AddSecurityButton {
-  padding: 0px !important;
-  width: 66px !important;
+  padding: 24px !important;
 }
-

@@ -29,11 +29,13 @@ const SecurityRow = ({security, removeSecurity, securityTextFieldChange}) => {
                                    allocation={ security.allocation }
                                    securityTextFieldChange={ securityTextFieldChange } />
             </TableRowColumn>
-            <TableRowColumn className={ cx( 'TableRowColumn' ) }>
+            <TableRowColumn id='testerino' className={ cx( 'TableRowColumn' ) }>
+              <div id='testerino'>
               <PriceTextField
                               index={ security.index }
                               price={ security.price }
                               securityTextFieldChange={ securityTextFieldChange } />
+                            </div>
             </TableRowColumn>
             <TableRowColumn className={ cx( 'TableRowColumn' ) }>
               <UnitsTextField

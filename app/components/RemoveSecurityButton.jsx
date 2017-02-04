@@ -8,23 +8,20 @@ const cx = classNames.bind(styles);
 
 const RemoveSecurityButton = ({index, removeSecurity}) => {
 
-    const handleRemoveSecurity = () => {
-        removeSecurity(index);
-    }
+  const handleRemoveSecurity = () => {
+    removeSecurity(index);
+  }
 
-    return (
-	<IconButton
-	className={cx('RemoveSecurityButton')}
-	onClick={handleRemoveSecurity}
-	touch={true}>
+  return (
+    <IconButton className={ cx('RemoveSecurityButton') } onClick={ handleRemoveSecurity } touch={ true }>
       <ContentClear />
-</IconButton>
+    </IconButton>
 
     );
 };
 
 RemoveSecurityButton.propTypes = {
-    removeSecurity: PropTypes.func.isRequired,
+  removeSecurity: PropTypes.func.isRequired,
 };
 
 export default RemoveSecurityButton;

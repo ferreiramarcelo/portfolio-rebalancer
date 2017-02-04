@@ -4,23 +4,20 @@ import ContentCreate from 'material-ui/svg-icons/content/create';
 
 const NewPortfolioButton = ({createNewPortfolio}) => {
 
-    return (
-		<FlatButton
-		  label="NEW"
-            onTouchTap={createNewPortfolio}
-		  labelPosition="before"
-		  secondary={true}
-		  icon={<ContentCreate />}
-		  style={{
-			  width: 'auto',
-				}}
-		/>
+  return (
+  <FlatButton
+              label="NEW"
+              onTouchTap={ createNewPortfolio }
+              labelPosition="before"
+              secondary={ true }
+              icon={ <ContentCreate /> }
+              style={ { width: 'auto', } } />
 
-    );
+  );
 };
 
 NewPortfolioButton.propTypes = {
-    createNewPortfolio: PropTypes.func.isRequired,
+  createNewPortfolio: PropTypes.func.isRequired,
 };
 
 export default NewPortfolioButton;

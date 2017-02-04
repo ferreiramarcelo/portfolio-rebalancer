@@ -11,20 +11,15 @@ const cx = classNames.bind(styles);
 const DeleteModelPortfolioButton = ({id, deleteModelPortfolio, isDisabled}) => {
 
   const handleOnClick = () => {
-      deleteModelPortfolio(id);
+    deleteModelPortfolio(id);
   }
 
   return (
-    <IconButton
-    className={cx('DeleteModelPortfolioButton')}
-    tooltipPosition={'bottom-left'}
-    tooltip="Delete model portfolio"
-    disabled={isDisabled}
-    touch={true}
-    onTouchTap={handleOnClick}>
-    <ActionDeleteForever />
+    <IconButton className={ cx('DeleteModelPortfolioButton') } tooltipPosition={ 'bottom-left' } tooltip="Delete model portfolio" disabled={ isDisabled } touch={ true }
+      onTouchTap={ handleOnClick }>
+      <ActionDeleteForever />
     </IconButton>
-  );
+    );
 };
 
 DeleteModelPortfolioButton.propTypes = {

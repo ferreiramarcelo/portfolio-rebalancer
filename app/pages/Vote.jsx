@@ -17,7 +17,10 @@ class Vote extends Component {
 
   pageMeta() {
     return [
-      { name: 'description', content: 'A stocks portfolio rebalancing tool' }
+      {
+        name: 'description',
+        content: 'A stocks portfolio rebalancing tool'
+      }
     ];
   }
 
@@ -30,7 +33,7 @@ class Vote extends Component {
       <Page {...this.getMetaData()}>
         <VoteContainer {...this.props} />
       </Page>
-    );
+      );
   }
 }
 

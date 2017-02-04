@@ -20,7 +20,7 @@ export default function render(req, res) {
   const history = createMemoryHistory();
   var email = '';
   if (req.user) {
-	  email = req.user.email;
+    email = req.user.email;
   }
   const store = configureStore({
     user: {
@@ -28,7 +28,7 @@ export default function render(req, res) {
       isWaiting: false,
       message: '',
       isLogin: true,
-	    email: email,
+      email: email,
     }
   }, history);
   const routes = createRoutes(store);
@@ -54,7 +54,10 @@ export default function render(req, res) {
    * If all three parameters are `undefined`, this means that there was no route found matching the
    * given location.
    */
-  match({routes, location: req.url}, (err, redirect, props) => {
+  match({
+    routes,
+    location: req.url
+  }, (err, redirect, props) => {
     if (err) {
       res.status(500).json(err);
     } else if (redirect) {
@@ -62,17 +65,22 @@ export default function render(req, res) {
     } else if (props) {
       // This method waits for all render component
       // promises to resolve before returning to browser
-      store.dispatch({ type: types.CREATE_REQUEST });
-      preRenderMiddleware(props)
-      .then(data => {
-        store.dispatch({ type: types.REQUEST_SUCCESS, data });
-        const html = pageRenderer(store, props);
-        res.status(200).send(html);
-      })
-      .catch(err => {
-        console.error(err);
-        res.status(500).json(err);
+      store.dispatch({
+        type: types.CREATE_REQUEST
       });
+      preRenderMiddleware(props)
+        .then(data => {
+          store.dispatch({
+            type: types.REQUEST_SUCCESS,
+            data
+          });
+          const html = pageRenderer(store, props);
+          res.status(200).send(html);
+        })
+        .catch(err => {
+          console.error(err);
+          res.status(500).json(err);
+        });
     } else {
       res.sendStatus(404);
     }

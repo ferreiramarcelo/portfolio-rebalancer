@@ -51,16 +51,6 @@ export function removeSecurity(index) {
 	};
 }
 
-/*
-export function securityTextFieldChange(index, column, value) {
-	return {
-		type: types.SECURITY_TEXT_FIELD_CHANGE,
-		index: index,
-		column: column,
-		value: value
-	};
-} */
-
 export function setPriceToFetching(index) {
 	return {
 		index,
@@ -93,7 +83,7 @@ export function setSecurityTextFieldValue(index, column, value) {
 }
 
 export function securityTextFieldChange(index, column, value) {
-	if (column !== 'ticker') {
+	if (column !== 'ticker' || value === '') {
 		return setSecurityTextFieldValue(index, column, value);
 	}
 	else {

@@ -10,10 +10,12 @@ const cx = classNames.bind(styles);
 
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import {cyan500, cyan700, grey400, pinkA200, grey100, grey500, darkBlack, white, grey300, fullBlack, fade} from 'material-ui/styles/colors';
+import { cyan500, cyan700, grey400, pinkA200, grey100, grey500, darkBlack, white, grey300, fullBlack, fade } from 'material-ui/styles/colors';
 
 const muiTheme = getMuiTheme({
-	fontFamily: 'Roboto, sans-serif',
+  fontFamily: 'Roboto, sans-serif',
+  zIndex: {
+    },
   palette: {
     primary1Color: '#673AB7',
     primary2Color: '#512DA8',
@@ -45,16 +47,16 @@ const muiTheme = getMuiTheme({
  */
 const App = ({children}) => {
   return (
-  <MuiThemeProvider muiTheme={muiTheme}>
-    <div className={cx('app')}>
-      <Navigation />
-      <Message />
-		<div className={cx('appChildren')}>
-			{children}
-		</div>
-    </div>
-      </MuiThemeProvider>	
-  );
+    <MuiThemeProvider muiTheme={ muiTheme }>
+      <div className={ cx('app') }>
+        <Navigation />
+        <Message />
+        <div className={ cx('appChildren') }>
+          { children }
+        </div>
+      </div>
+    </MuiThemeProvider>
+    );
 };
 
 App.propTypes = {

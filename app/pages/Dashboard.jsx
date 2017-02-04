@@ -17,7 +17,10 @@ class Dashboard extends Component {
 
   pageMeta() {
     return [
-      { name: 'description', content: 'A reactGo example of a dashboard page' }
+      {
+        name: 'description',
+        content: 'A reactGo example of a dashboard page'
+      }
     ];
   }
 
@@ -30,7 +33,7 @@ class Dashboard extends Component {
       <Page {...this.getMetaData()}>
         <DashboardContainer {...this.props} />
       </Page>
-    );
+      );
   }
 }
 

@@ -3,28 +3,19 @@ import TextField from 'material-ui/TextField';
 
 const UnitsTextFieldImmutable = ({index, units, securityTextFieldChange}) => {
 
-	const handleOnChange = (event, value) => {
-	    securityTextFieldChange(index, 'units', value);
-	}
+  const handleOnChange = (event, value) => {
+    securityTextFieldChange(index, 'units', value);
+  }
 
-    return (
-		 <TextField
-                    errorStyle={{
-                        float: "left"
-                    }}
-					id={'unitsTextField'+index}
-					value={units.value}
-                    errorText={units.errorText}
-					onChange={handleOnChange}
-
-                />
+  return (
+    <TextField errorStyle={ { float: "left" } } id={ 'unitsTextField' + index } value={ units.value } errorText={ units.errorText } onChange={ handleOnChange } />
     );
 };
 
 UnitsTextFieldImmutable.propTypes = {
-    index: PropTypes.number.isRequired,
-    units: PropTypes.object.isRequired,
-	securityTextFieldChange: PropTypes.func.isRequired,
+  index: PropTypes.number.isRequired,
+  units: PropTypes.object.isRequired,
+  securityTextFieldChange: PropTypes.func.isRequired,
 
 };
 

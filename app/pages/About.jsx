@@ -17,7 +17,10 @@ class About extends Component {
 
   pageMeta() {
     return [
-      { name: 'description', content: 'A reactGo example of life' }
+      {
+        name: 'description',
+        content: 'A reactGo example of life'
+      }
     ];
   }
 
@@ -30,7 +33,7 @@ class About extends Component {
       <Page {...this.getMetaData()}>
         <AboutContainer {...this.props} />
       </Page>
-    );
+      );
   }
 }
 

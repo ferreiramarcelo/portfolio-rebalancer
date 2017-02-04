@@ -17,7 +17,10 @@ class LoginOrRegister extends Component {
 
   pageMeta() {
     return [
-      { name: 'description', content: 'A reactGo example of a login or register page' }
+      {
+        name: 'description',
+        content: 'A reactGo example of a login or register page'
+      }
     ];
   }
 
@@ -30,7 +33,7 @@ class LoginOrRegister extends Component {
       <Page {...this.getMetaData()}>
         <LoginOrRegisterContainer {...this.props} />
       </Page>
-    );
+      );
   }
 }
 

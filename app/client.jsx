@@ -31,19 +31,24 @@ function onUpdate() {
     return;
   }
 
-  store.dispatch({ type: types.CREATE_REQUEST });
-  preRenderMiddleware(this.state)
-  .then(data => {
-    return store.dispatch({ type: types.REQUEST_SUCCESS, data });
+  store.dispatch({
+    type: types.CREATE_REQUEST
   });
+  preRenderMiddleware(this.state)
+    .then(data => {
+      return store.dispatch({
+        type: types.REQUEST_SUCCESS,
+        data
+      });
+    });
 }
 
 
 // Router converts <Route> element hierarchy to a route config:
 // Read more https://github.com/rackt/react-router/blob/latest/docs/Glossary.md#routeconfig
 render(
-  <Provider store={store}>
-    <Router history={history} onUpdate={onUpdate}>
-      {routes}
+  <Provider store={ store }>
+    <Router history={ history } onUpdate={ onUpdate }>
+      { routes }
     </Router>
   </Provider>, document.getElementById('app'));

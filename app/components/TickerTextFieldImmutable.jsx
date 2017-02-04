@@ -8,37 +8,29 @@ const cx = classNames.bind(styles);
 
 const TickerTextFieldImmutable = ({index, value, securityTextFieldChange}) => {
 
-    const getErrorText = (value) => {
-        if (value)
-            return '';
-        else
-            return 'Required';
-    }
+  const getErrorText = (value) => {
+    if (value)
+      return '';
+    else
+      return 'Required';
+  }
 
-    const errorText = getErrorText(value);
+  const errorText = getErrorText(value);
 
-    const handleOnChange = (event, value) => {       
-        securityTextFieldChange(index, 'ticker', value);
-    }
+  const handleOnChange = (event, value) => {
+    securityTextFieldChange(index, 'ticker', value);
+  }
 
-    return (
-		<TextField className={cx('textfield')}
-                errorStyle={{
-                    float: "left"
-                }}
-                id={'tickerTextField'+index}
-                type='text'
-                value={value}
-                errorText={errorText}
-                onChange={handleOnChange}
-        />
+  return (
+    <TextField className={ cx('textfield') } errorStyle={ { float: "left" } } id={ 'tickerTextField' + index } type='text' value={ value } errorText={ errorText }
+      onChange={ handleOnChange } />
     );
 };
 
 TickerTextFieldImmutable.propTypes = {
-    index: PropTypes.number.isRequired,
-    value: PropTypes.string.isRequired,
-    securityTextFieldChange: PropTypes.func.isRequired,
+  index: PropTypes.number.isRequired,
+  value: PropTypes.string.isRequired,
+  securityTextFieldChange: PropTypes.func.isRequired,
 };
 
 export default TickerTextFieldImmutable;

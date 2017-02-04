@@ -9,29 +9,24 @@ const cx = classNames.bind(styles);
 
 const SaveModelPortfolioButton = ({isDisabled, portfolio, selectedModelPortfolio, saveModelPortfolio}) => {
 
-	const handleOnClick = () => {
-		saveModelPortfolio(selectedModelPortfolio, portfolio);
-	}
+  const handleOnClick = () => {
+    saveModelPortfolio(selectedModelPortfolio, portfolio);
+  }
 
-    return (
-	<IconButton
-		className={cx('SaveModelPortfolioButton')}
-		tooltipPosition={'bottom-left'}
-		disabled={isDisabled}
-		tooltip={'Save model portfolio'}
-		touch={true}
-		onTouchTap={handleOnClick}>
+  return (
+    <IconButton className={ cx('SaveModelPortfolioButton') } tooltipPosition={ 'bottom-left' } disabled={ isDisabled } tooltip={ 'Save model portfolio' } touch={ true }
+      onTouchTap={ handleOnClick }>
       <ContentSave />
-</IconButton>
+    </IconButton>
 
     );
 };
 
 SaveModelPortfolioButton.propTypes = {
-	isDisabled: PropTypes.bool.isRequired,
-	portfolio: PropTypes.array.isRequired,
-	selectedModelPortfolio: PropTypes.object.isRequired,
-    saveModelPortfolio: PropTypes.func.isRequired,
+  isDisabled: PropTypes.bool.isRequired,
+  portfolio: PropTypes.array.isRequired,
+  selectedModelPortfolio: PropTypes.object.isRequired,
+  saveModelPortfolio: PropTypes.func.isRequired,
 };
 
 export default SaveModelPortfolioButton;

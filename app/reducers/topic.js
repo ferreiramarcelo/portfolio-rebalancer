@@ -215,7 +215,7 @@ const security = (state = {}, action) => {
           if (state.index === action.index) {
             return {
                 ...state,
-                price: price(state.allocation, action)
+                price: price(state.price, action)
             };
           }
         default:
@@ -304,7 +304,7 @@ const price = (state = {}, action) => {
         case types.CREATE_NEW_PORTFOLIO:
         case types.DELETE_MODEL_PORTFOLIO_REQUEST:
         case types.ADD_SECURITY:
-            return {value: '', valid: 0, errorText: 'Required', fetch: 'DONE'}
+            return {value: '', valid: 0, errorText: 'Required', fetch: 'NONE'}
         case types.SECURITY_TEXT_FIELD_CHANGE:
           var errorText = '';
           var valid = 1;
