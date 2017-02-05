@@ -20,10 +20,6 @@ class Vote extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      email: "test2@gmail.com",
-      initialInvestmentAmount: 0
-    };
   }
 
   render() {
