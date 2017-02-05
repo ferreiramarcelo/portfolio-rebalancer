@@ -1,34 +1,64 @@
-import {createSelector} from 'reselect';
+import { createSelector } from 'reselect';
 
 const getSelectedModelPortfolio = (state) => state.topic.selectedModelPortfolio;
 const getPortfolio = (state) => state.topic.portfolio;
 const getInvestmentAmount = (state) => state.investmentAmount.investmentAmount;
+const getAuthenticated = (state) => state.user.authenticated;
 
-export const getComponentAvailability = createSelector([
-    getSelectedModelPortfolio, getPortfolio, getInvestmentAmount
-], (selectedModelPortfolio, portfolio, investmentAmount) => {
-    var saveModelPortfolioButtonIsDisabled = false;
-    var deleteModelPortfolioButtonisDisabled = false;
-    var generateStepsButtonIsDisabled = false;
+const getSaveModelPortfolioButtonVisibility = (authenticated, selectedModelPortfolio, portfolio) => {
+  if ( !authenticated ) {
+    return 'hidden';
+  }
+  if ( selectedModelPortfolio.valid === 0 ) {
+    return 'disabled';
+  }
+  for (var security of portfolio) {
+    if ( security.ticker.valid === 0 || security.allocation.valid === 0 ) {
+      return 'disabled';
+    }
+  }
+  return 'visible';
+}
 
-    if (investmentAmount.valid === 0) {
-			generateStepsButtonIsDisabled = true;
-		}
-		for (var security of portfolio) {
-			if (security.ticker.valid === 0 || security.allocation.valid === 0) {
-        saveModelPortfolioButtonIsDisabled = true;
-        generateStepsButtonIsDisabled = true;
-			}
-      else if (security.price.valid === 0 || security.units.valid === 0) {
-        generateStepsButtonIsDisabled = true;
+const getDeleteModelPortfolioButtonVisibility = (authenticated, selectedModelPortfolio, portfolio) => {
+  if ( !authenticated ) {
+    return 'hidden';
+  }
+  if ( !selectedModelPortfolio.email ) {
+    return 'disabled';
+  }
+  for (var security of portfolio) {
+    if ( security.ticker.valid === 0 || security.allocation.valid === 0 ) {
+      return 'disabled';
+    }
+  }
+  return 'visible';
+}
 
-      }
-      if (!selectedModelPortfolio.email) {
-        deleteModelPortfolioButtonisDisabled = true;
-      }
-      if (selectedModelPortfolio.valid === 0) {
-        saveModelPortfolioButtonIsDisabled = true;
-      }
-		}
-		return {saveModelPortfolioButtonIsDisabled: saveModelPortfolioButtonIsDisabled, generateStepsButtonIsDisabled: generateStepsButtonIsDisabled, deleteModelPortfolioButtonisDisabled: deleteModelPortfolioButtonisDisabled };
-});
+const getGenerateStepsButtonVisibility = (investmentAmount, portfolio) => {
+  if ( investmentAmount.valid === 0 ) {
+    return 'disabled';
+  }
+  for (var security of portfolio) {
+    if ( security.price.valid === 0 || security.units.valid === 0 ) {
+      return 'disabled';
+    }
+  }
+  return 'visible';
+}
+
+export const getComponentAvailability = createSelector( [
+  getSelectedModelPortfolio,
+  getPortfolio,
+  getInvestmentAmount,
+  getAuthenticated
+], (selectedModelPortfolio, portfolio, investmentAmount, authenticated) => {
+  let saveModelPortfolioButtonVisibility = getSaveModelPortfolioButtonVisibility( authenticated, selectedModelPortfolio, portfolio );
+  let deleteModelPortfolioButtonVisibility = getDeleteModelPortfolioButtonVisibility( authenticated, selectedModelPortfolio, portfolio );
+  let generateStepsButtonVisibility = getGenerateStepsButtonVisibility( investmentAmount, portfolio );
+  return {
+    saveModelPortfolioButtonVisibility,
+    deleteModelPortfolioButtonVisibility,
+    generateStepsButtonVisibility
+  };
+} );

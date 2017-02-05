@@ -1,7 +1,10 @@
 @import '../../common/typography';
 @import '../../common/input';
 
+.SaveModelPortfolioDiv {
+  display: inline-block !important;
+}
+
 .SaveModelPortfolioButton {
   padding: 0px !important;
 }
-

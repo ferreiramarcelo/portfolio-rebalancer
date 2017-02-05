@@ -51,7 +51,7 @@ class Vote extends Component {
             investmentAmountTextFieldError={ investmentAmountTextFieldError } />
           <br></br>
           <br></br>
-          <GenerateStepsButton isDisabled={ componentAvailability.generateStepsButtonIsDisabled } generateSteps={ generateSteps } />
+          <GenerateStepsButton visibility={ componentAvailability.generateStepsButtonVisibility } generateSteps={ generateSteps } />
           <StepsList investmentSteps={ investmentSteps } portfolio={ portfolio } />
         </div>
       )
@@ -81,8 +81,6 @@ Vote.propTypes = {
   addSecurity: PropTypes.func.isRequired,
   removeSecurity: PropTypes.func.isRequired,
   investmentAmountTextFieldChange: PropTypes.func.isRequired,
-  investmentAmountTextFieldValid: PropTypes.func.isRequired,
-  investmentAmountTextFieldError: PropTypes.func.isRequired,
   securityTextFieldChange: PropTypes.func.isRequired,
   generateSteps: PropTypes.func.isRequired,
   saveModelPortfolio: PropTypes.func.isRequired,

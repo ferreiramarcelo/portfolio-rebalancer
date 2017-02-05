@@ -147,6 +147,7 @@ const portfolio = (state = [], action) => {
             return newPortfolio;
         case types.SECURITY_TEXT_FIELD_CHANGE:
         case types.SET_PRICE_TO_FETCHING:
+        case types.SET_PRICE_TO_NOT_FETCHING:
         case types.SET_PRICE_FROM_FETCH:
         case types.SET_PRICE_TO_FETCH_FAILED:
             return state.map(s => security(s, action));
@@ -210,6 +211,7 @@ const security = (state = {}, action) => {
                 }
             }
         case types.SET_PRICE_TO_FETCHING:
+        case types.SET_PRICE_TO_NOT_FETCHING:
         case types.SET_PRICE_FROM_FETCH:
         case types.SET_PRICE_TO_FETCH_FAILED:
           if (state.index === action.index) {
@@ -332,6 +334,11 @@ const price = (state = {}, action) => {
           return {
               ...state,
               fetch: 'IN_PROGRESS'
+          };
+          case types.SET_PRICE_TO_NOT_FETCHING:
+          return {
+              ...state,
+              fetch: 'NONE'
           };
           case types.SET_PRICE_FROM_FETCH:
             return {

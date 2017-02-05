@@ -58,6 +58,13 @@ export function setPriceToFetching(index) {
 	}
 }
 
+export function setPriceToNotFetching(index) {
+	return {
+		index,
+		type: types.SET_PRICE_TO_NOT_FETCHING,
+	}
+}
+
 export function setPriceFromFetch(index, price) {
 	return {
 		index,
@@ -83,13 +90,16 @@ export function setSecurityTextFieldValue(index, column, value) {
 }
 
 export function securityTextFieldChange(index, column, value) {
-	if (column !== 'ticker' || value === '') {
+	if (column !== 'ticker') {
 		return setSecurityTextFieldValue(index, column, value);
 	}
 	else {
 	return (dispatch, getState) => {
 		//Dispatch ticker change
 		dispatch(setSecurityTextFieldValue(index, column, value));
+		if (value === '') {
+			return dispatch(setPriceToNotFetching(index));
+		}
 		//Set isFethcing to 0
   	dispatch(setPriceToFetching(index));
 		return fetchSecurityPrice(value)

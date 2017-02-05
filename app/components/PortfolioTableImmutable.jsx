@@ -5,39 +5,97 @@ import SaveModelPortfolioButton from '../components/SaveModelPortfolioButton';
 import DeleteModelPortfolioButton from '../components/DeleteModelPortfolioButton';
 import SecurityRow from '../components/SecurityRow';
 import AddSecurityButton from '../components/AddSecurityButton';
+import ReactTooltip from 'react-tooltip'
+
 import classNames from 'classnames/bind';
 import styles from '../css/components/portfolio-table/portfolio-table';
-
-const cx = classNames.bind(styles);
+const cx = classNames.bind( styles );
 
 const PortfolioTableImmutable = ({componentAvailability, portfolio, addSecurity, removeSecurity, securityTextFieldChange, securityTextFieldValid, securityTextFieldError, saveModelPortfolio, deleteModelPortfolio, selectedModelPortfolio}) => {
 
 
-  const securityRows = portfolio.map(security => {
-    return <SecurityRow security={ security } removeSecurity={ removeSecurity } securityTextFieldChange={ securityTextFieldChange } securityTextFieldValid={ securityTextFieldValid }
-             securityTextFieldError={ securityTextFieldError } />;
-  });
+  const securityRows = portfolio.map( security => {
+    return <SecurityRow
+                        security={ security }
+                        removeSecurity={ removeSecurity }
+                        securityTextFieldChange={ securityTextFieldChange }
+                        securityTextFieldValid={ securityTextFieldValid }
+                        securityTextFieldError={ securityTextFieldError } />;
+  } );
 
   return (
-    <Table className={ cx('Table') } wrapperStyle={ { overflow: 'hidden' } }>
-      <TableHeader displaySelectAll={ false } adjustForCheckbox={ false }>
-        <TableRow>
-          <TableHeaderColumn className={ cx('TableHeaderColumn') }>Symbol</TableHeaderColumn>
-          <TableHeaderColumn className={ cx('TableHeaderColumn') }>Allocation</TableHeaderColumn>
-          <TableHeaderColumn className={ cx('TableHeaderColumn') }>Price</TableHeaderColumn>
-          <TableHeaderColumn className={ cx('TableHeaderColumn') }>Units</TableHeaderColumn>
-          <TableHeaderColumn className={ cx('TableHeaderColumnLast') }>
-            <SaveModelPortfolioButton isDisabled={ componentAvailability.saveModelPortfolioButtonIsDisabled } portfolio={ portfolio } selectedModelPortfolio={ selectedModelPortfolio } saveModelPortfolio={ saveModelPortfolio }
-            />
-            <DeleteModelPortfolioButton id={ selectedModelPortfolio.id } deleteModelPortfolio={ deleteModelPortfolio } isDisabled={ componentAvailability.deleteModelPortfolioButtonisDisabled } />
-          </TableHeaderColumn>
-        </TableRow>
-      </TableHeader>
-      <TableBody displayRowCheckbox={ false }>
-        { securityRows }
-      </TableBody>
-    </Table>
-    );
+  <Table
+         className={ cx( 'Table' ) }
+         wrapperStyle={ { overflow: 'hidden' } }>
+    <TableHeader
+                 displaySelectAll={ false }
+                 adjustForCheckbox={ false }>
+      <TableRow>
+        <TableHeaderColumn
+                           className={ cx( 'TableHeaderColumn' ) }
+                           data-tip
+                           data-for='tooltipColumnHeaderSymbol'>
+          Symbol
+        </TableHeaderColumn>
+        <ReactTooltip id='tooltipColumnHeaderSymbol'>
+          <p>
+            Ticker symbol as shown on https://finance.yahoo.com.
+          </p>
+        </ReactTooltip>
+        <TableHeaderColumn
+                           className={ cx( 'TableHeaderColumn' ) }
+                           data-tip
+                           data-for='tooltipColumnHeaderAllocation'>
+          Allocation
+        </TableHeaderColumn>
+        <ReactTooltip id='tooltipColumnHeaderAllocation'>
+          <p>
+            Percentage allocation of your portfolio this security should be.
+          </p>
+        </ReactTooltip>
+        <TableHeaderColumn
+                           className={ cx( 'TableHeaderColumn' ) }
+                           data-tip
+                           data-for='tooltipColumnHeaderPrice'>
+          Price
+        </TableHeaderColumn>
+        <ReactTooltip id='tooltipColumnHeaderPrice'>
+          <p>
+            The price at which each unit will be purchased and sold.
+          </p>
+          <p>
+            Prices are automatically fetched from https://finance.yahoo.com based on the ticker symbol provided.
+          </p>
+        </ReactTooltip>
+        <TableHeaderColumn
+                           className={ cx( 'TableHeaderColumn' ) }
+                           data-tip
+                           data-for='tooltipColumnHeaderUnits'>
+          Units
+        </TableHeaderColumn>
+        <ReactTooltip id='tooltipColumnHeaderUnits'>
+          <p>
+            How many units of the security you currently own.
+          </p>
+        </ReactTooltip>
+        <TableHeaderColumn className={ cx( 'TableHeaderColumnLast' ) }>
+          <SaveModelPortfolioButton
+                                    visibility={ componentAvailability.saveModelPortfolioButtonVisibility }
+                                    portfolio={ portfolio }
+                                    selectedModelPortfolio={ selectedModelPortfolio }
+                                    saveModelPortfolio={ saveModelPortfolio } />
+          <DeleteModelPortfolioButton
+                                      id={ selectedModelPortfolio.id }
+                                      deleteModelPortfolio={ deleteModelPortfolio }
+                                      visibility={ componentAvailability.deleteModelPortfolioButtonVisibility } />
+        </TableHeaderColumn>
+      </TableRow>
+    </TableHeader>
+    <TableBody displayRowCheckbox={ false }>
+      { securityRows }
+    </TableBody>
+  </Table>
+  );
 };
 
 PortfolioTableImmutable.propTypes = {

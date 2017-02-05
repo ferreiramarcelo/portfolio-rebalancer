@@ -30,12 +30,11 @@ const PriceProgress = ({price}) => {
       return <div>
                <IconButton
                            data-tip
-                           data-for='happyFace'>
+                           data-for='tooltipPriceFetchError'>
                  <AlertErrorOutline />
                </IconButton>
-               <ReactTooltip />
                <ReactTooltip
-                             id='happyFace'
+                             id='tooltipPriceFetchError'
                              type='error'>
                              <p>No valid price returned from https://finance.yahoo.com.</p>
                              <p>Make sure you account for differing symbols based on exchange.</p>
