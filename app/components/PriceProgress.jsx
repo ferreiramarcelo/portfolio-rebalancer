@@ -2,14 +2,14 @@ import React, { Component, PropTypes } from 'react';
 import CircularProgress from 'material-ui/CircularProgress';
 import RefreshIndicator from 'material-ui/RefreshIndicator';
 import { blue500, red500, greenA200 } from 'material-ui/styles/colors';
-
-import classNames from 'classnames/bind';
-import styles from '../css/components/portfolio-table/price-cell';
-const cx = classNames.bind( styles );
 import IconButton from 'material-ui/IconButton';
 import ActionDone from 'material-ui/svg-icons/action/done';
 import AlertErrorOutline from 'material-ui/svg-icons/alert/error-outline';
 import ReactTooltip from 'react-tooltip'
+
+import classNames from 'classnames/bind';
+import styles from '../css/components/portfolio-table/price-cell';
+const cx = classNames.bind( styles );
 
 const PriceProgress = ({price}) => {
 
@@ -18,17 +18,17 @@ const PriceProgress = ({price}) => {
       return null;
     } else if ( price.fetch === 'IN_PROGRESS' ) {
       return <CircularProgress
-                               className={ cx( 'PriceProgress' ) }
+                               className={ cx( 'PriceProgressSpinner' ) }
                                size={ 20 }
                                thickness={ 3 }
                                style={ { width: 'auto', } } />;
     } else if ( price.fetch === 'DONE' ) {
-      return <IconButton>
+      return <IconButton className={ cx( 'PriceProgressIcon' ) }>
                <ActionDone />
              </IconButton>
     } else if ( price.fetch === 'FAILED' ) {
       return <div>
-               <IconButton
+               <IconButton className={ cx( 'PriceProgressIcon' ) }
                            data-tip
                            data-for='tooltipPriceFetchError'>
                  <AlertErrorOutline />
@@ -47,7 +47,7 @@ const PriceProgress = ({price}) => {
   const progress = getProgress( price );
 
   return (
-  <div>
+  <div className={ cx( 'PriceProgressContainer' ) }>
     { progress }
   </div>
   );

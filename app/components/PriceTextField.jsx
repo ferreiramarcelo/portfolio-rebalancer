@@ -12,16 +12,6 @@ const PriceTextField = ({index, price, securityTextFieldChange}) => {
     securityTextFieldChange( index, 'price', value );
   }
 
-  const getWidth = () => {
-    if (document.getElementById("testerino") !== null)
-      return document.getElementById("testerino").offsetWidth
-      else {
-        return 300;
-      }
-  }
-
-  const newWidth = getWidth() - 30;
-
   return (
   //<div style={ { display: 'table', } }>
   //<div style={ { paddingRight: '5px', display: 'table-cell', } }>

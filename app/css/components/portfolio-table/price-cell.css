@@ -8,8 +8,25 @@
   float: left !important;
 }
 
-.PriceProgress {
+.PriceProgressContainer {
   width: 30px !important;
   float: left !important;
-  margin-top: 12px !important;
+  text-align: center !important;
+  display: inline-block !important;
+}
+
+.PriceProgressIcon {
+  margin: 0 auto !important;
+  width: 30px !important;
+  height: 48px !important;
+  padding: 0px !important;
+  float: left !important;
+}
+
+.PriceProgressSpinner {
+  margin: 0 auto !important;
+  width: 30px !important;
+  height: 48px !important;
+  padding: 0px !important;
+  float: left !important;
 }
