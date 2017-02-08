@@ -16,9 +16,18 @@ export function selectModelPortfolio(selectedModelPortfolio) {
 	};
 }
 
-export function createNewPortfolio() {
+export function createNewPortfolioAction(data) {
 	return {
 		type: types.CREATE_NEW_PORTFOLIO,
+		modelPortfolios: data.modelPortfolios,
+		email: data.email
+	};
+}
+
+export function createNewPortfolio() {
+	return (dispatch, getState) => {
+		const { topic, user } = getState();
+		dispatch(createNewPortfolioAction( { modelPortfolios: topic.topics, email: user.email }));
 	};
 }
 

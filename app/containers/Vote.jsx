@@ -47,7 +47,7 @@ class Vote extends Component {
             investmentAmountTextFieldError={ investmentAmountTextFieldError } />
           <br></br>
           <br></br>
-          <GenerateStepsButton visibility={ componentAvailability.generateStepsButtonVisibility } generateSteps={ generateSteps } />
+          <GenerateStepsButton visibility={ componentAvailability.generateStepsButtonVisibility } generateSteps={ generateSteps } investmentAmount={investmentAmount} portfolio={portfolio} />
           <StepsList investmentSteps={ investmentSteps } portfolio={ portfolio } />
         </div>
       )
