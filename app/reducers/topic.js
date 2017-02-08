@@ -79,7 +79,7 @@ const selectedModelPortfolio = (state = {}, action) => {
                 id: action.selectedModelPortfolio.id,
                 name: action.selectedModelPortfolio.name,
                 email: action.selectedModelPortfolio.email,
-                securities: action.securities,
+                securities: action.selectedModelPortfolio.securities,
                 errorText: '',
                 valid: 1
             };
