@@ -8,8 +8,6 @@ import hourGlassSvg from '../images/hourglass.svg';
 
 const cx = classNames.bind( styles );
 
-import RaisedButton from 'material-ui/RaisedButton';
-
 class LoginOrRegister extends Component {
   /*
    * This replaces getInitialState. Likewise getDefaultProps and propTypes are just
@@ -74,9 +72,6 @@ class LoginOrRegister extends Component {
     const {isWaiting, message, isLogin} = this.props.user;
 
     return (
-      <div>
-        <RaisedButton label="Continue with Google" href="/auth/google" primary={true} />
-
     <div className={ cx( 'login', {
                    waiting: isWaiting
                  } ) }>
@@ -125,7 +120,6 @@ class LoginOrRegister extends Component {
         </div>
       </div>
     </div>
-  </div>
     );
   }
 }

@@ -1,6 +1,21 @@
 @import '../../common/typography';
 @import '../../common/input';
 
+.Card {
+  @media (max-width: 767px) {
+    box-shadow: none !important;
+  }
+}
+
+.PortfolioDiv {
+  @media (max-width: 767px) {
+    margin: 0px !important;
+  }
+  @media (min-width: 768px) {
+    margin: 30px !important;
+  }
+}
+
 .Table {
   width: 100% !important;
   border-collapse: collapse !important;
@@ -16,7 +31,7 @@
 .TableHeaderColumnLast {
   padding-left: 0px !important;
   padding-right: 0px !important;
-  width: 96px !important;
+  width: 60px !important;
   text-align: right !important;
 }
 

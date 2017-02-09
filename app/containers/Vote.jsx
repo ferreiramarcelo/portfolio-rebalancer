@@ -33,7 +33,7 @@ class Vote extends Component {
       )
     } else {
       return (
-        <div>
+        <div id="PortfolioRebalancer">
           <div style={ { display: 'table', width: '100%', height: '20px' } }>
             <ModelPortfoliosAutoCompleteImmutable selectModelPortfolio={ selectModelPortfolio } modelPortfolios={ topics } email={ email } />
             <NewPortfolioButton createNewPortfolio={ createNewPortfolio } />

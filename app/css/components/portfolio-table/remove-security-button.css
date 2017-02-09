@@ -2,5 +2,7 @@
 @import '../../common/input';
 
 .RemoveSecurityButton {
+  width: 30px !important;
+  height: 30px !important;
   padding: 0px !important;
 }

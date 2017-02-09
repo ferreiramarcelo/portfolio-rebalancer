@@ -229,10 +229,12 @@ export function saveModelPortfolioDuplicate() {
 	};
 }
 
-export function deleteModelPortfolioRequest(id) {
+export function deleteModelPortfolioRequest(data) {
 	return {
 		type: types.DELETE_MODEL_PORTFOLIO_REQUEST,
-		id: id
+		id: data.id,
+		modelPortfolios: data.modelPortfolios,
+		email: data.email
 	};
 }
 
@@ -350,7 +352,8 @@ export function destroyTopic(id) {
 
 export function deleteModelPortfolio(id) {
 	return (dispatch, getState) => {
-  dispatch(deleteModelPortfolioRequest(id));
+ const { topic, user } = getState();
+   dispatch(deleteModelPortfolioRequest( {id: id, modelPortfolios: topic.topics, email: user.email} ));
 		return makeModelPortfolioRequest('delete', id)
     .then(res => {
       if (res.status === 200) {

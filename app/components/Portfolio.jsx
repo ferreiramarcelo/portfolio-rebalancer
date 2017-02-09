@@ -14,8 +14,8 @@ const cx = classNames.bind( styles );
 const Portfolio = ({componentAvailability, selectedModelPortfolio, selectedModelPortfolioTextFieldChange, portfolio, removeSecurity, securityTextFieldChange, addSecurity, saveModelPortfolio, deleteModelPortfolio}) => {
 
   return (
-  <Card>
-    <div style={ { margin: '30px' } }>
+  <Card className={ cx( 'Card' ) }>
+    <div className={ cx( 'PortfolioDiv' ) }>
       <br/>
       <ModelPortfolioNameTextField
                                    selectedModelPortfolio={ selectedModelPortfolio }
