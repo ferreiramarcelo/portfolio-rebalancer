@@ -19,8 +19,6 @@ const message = (
 ) => {
   switch (action.type) {
     case types.TOGGLE_LOGIN_MODE:
-    case types.MANUAL_LOGIN_USER:
-    case types.SIGNUP_USER:
     case types.LOGOUT_USER:
     case types.LOGIN_SUCCESS_USER:
     case types.SIGNUP_SUCCESS_USER:

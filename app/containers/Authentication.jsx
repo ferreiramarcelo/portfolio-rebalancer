@@ -2,9 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames/bind';
 import { connect } from 'react-redux';
-import { manualLogin, signUp, toggleLoginMode } from '../actions/users';
-import styles from '../css/components/login';
-import hourGlassSvg from '../images/hourglass.svg';
+import { manualLogin, register } from '../actions/users';
+import styles from '../css/components/authentication';
 
 const cx = classNames.bind( styles );
 
@@ -15,9 +14,10 @@ import FontIcon from 'material-ui/FontIcon';
 import FontAwesome from 'react-fontawesome';
 import TextField from 'material-ui/TextField';
 
-import { emailTextFieldChange, passwordTextFieldChange } from '../actions/authentications';
+import { emailTextFieldChange, passwordTextFieldChange, passwordConfirmationTextFieldChange, toggleAuthenticationMode } from '../actions/authentications';
 import EmailTextField from '../components/authentication/EmailTextField'
 import PasswordTextField from '../components/authentication/PasswordTextField'
+import PasswordConfirmationTextField from '../components/authentication/PasswordConfirmationTextField'
 import { getAuthenticationSelect } from '../selectors/index'
 
 class Authentication extends Component {
@@ -52,8 +52,7 @@ class Authentication extends Component {
   }
 
   renderHeader() {
-    const {user: {isLogin}, toggleLoginMode,
-  emailTextFieldChange} = this.props;
+    const {user: {isLogin}, toggleLoginMode, emailTextFieldChange} = this.props;
     if ( isLogin ) {
       return (
       <div className={ cx( 'header' ) }>
@@ -81,67 +80,90 @@ class Authentication extends Component {
     );
   }
 
-  renderLogin() {
-    const {isWaiting, message, isLogin, authentication, authenticationSelect, emailTextFieldChange, passwordTextFieldChange} = this.props;
+  getAuthenticationForm() {
+    const {authentication} = this.props;
+    if (authentication.isLoginMode) {
+      return this.getLoginForm();
+    }
+    return this.getRegistrationForm();
+  }
+
+  getLoginForm() {
+    const {user, manualLogin, authentication, authenticationSelect, emailTextFieldChange, passwordTextFieldChange, passwordConfirmationTextFieldChange, toggleAuthenticationMode} = this.props;
     return (
-    <div className={ cx( 'CardContainer' ) }>
+    <div className={ cx( 'CardInsides' ) }>
       Login with Email
       <EmailTextField
-                    value={authentication.emailTextField.value}
-                    errorText={authenticationSelect.emailTextFieldSelect.errorText}
-                    hintText={authenticationSelect.emailTextFieldSelect.hintText}
-                    onChange={emailTextFieldChange} />
-                    <PasswordTextField
-                                  value={authentication.passwordTextField.value}
-                                  errorText={authenticationSelect.passwordTextFieldSelect.errorText}
-                                  hintText={authenticationSelect.passwordTextFieldSelect.hintText}
-                                  onChange={passwordTextFieldChange} />
+                      value={ authentication.emailTextField.value }
+                      errorText={ authenticationSelect.emailTextFieldSelect.errorText }
+                      onChange={ emailTextFieldChange } />
+      <PasswordTextField
+                         value={ authentication.passwordTextField.value }
+                         errorText={ authenticationSelect.passwordTextFieldSelect.errorText }
+                         onChange={ passwordTextFieldChange } />
       <br/>
-      <RaisedButton className={ cx( 'SubmitButton' ) }
-                  label="Log In"
-                  fullWidth={true}
-                  primary={ true }
-                  disabled={authenticationSelect.loginButtonVisibility === 'disabled'} />
+      <p className={ cx( 'message', {
+                       'message-show': user.message && user.message.length > 0
+                     } ) }>
+        { user.message }
+      </p>
+      <RaisedButton
+                    className={ cx( 'SubmitButton' ) }
+                    label="Log In"
+                    fullWidth={ true }
+                    primary={ true }
+                    disabled={ authenticationSelect.loginButtonVisibility === 'disabled' }
+                  onTouchTap={manualLogin} />
       <br/> Don't have an account?&nbsp;
       <FlatButton
                   label="Register"
-                  secondary={ true } />
+                  secondary={ true}
+                  onTouchTap={toggleAuthenticationMode} />
     </div>
     );
   }
 
-  renderRegister() {
+  getRegistrationForm() {
+      const {user, register, authentication, authenticationSelect, emailTextFieldChange, passwordTextFieldChange, passwordConfirmationTextFieldChange, toggleAuthenticationMode} = this.props;
     return (
-    <div className={ cx( 'CardContainer' ) }>
+    <div className={ cx( 'CardInsides' ) }>
       Register
-      <TextField
-                 hintText="Email"
-                 fullWidth={ true } />
+      <EmailTextField
+                      value={ authentication.emailTextField.value }
+                      errorText={ authenticationSelect.emailTextFieldSelect.errorText }
+                      onChange={ emailTextFieldChange } />
+      <PasswordTextField
+                         value={ authentication.passwordTextField.value }
+                         errorText={ authenticationSelect.passwordTextFieldSelect.errorText }
+                         onChange={ passwordTextFieldChange } />
+      <PasswordConfirmationTextField
+                         value={ authentication.passwordConfirmationTextField.value }
+                         errorText={ authenticationSelect.passwordConfirmationTextFieldSelect.errorText }
+                         onChange={ passwordConfirmationTextFieldChange } />
       <br/>
-      <TextField
-                 hintText="Password"
-                 fullWidth={ true }
-                 type='password' />
-                 <TextField
-                            hintText="Password confirmation"
-                            fullWidth={ true }
-                            type='password' />
-      <br/>
-      <RaisedButton className={ cx( 'RegisterButton' ) }
-                  label="Register"
-                  fullWidth={true}
-                  primary={ true } />
+      <p className={ cx( 'message', {
+                       'message-show': user.message && user.message.length > 0
+                     } ) }>
+        { user.message }
+      </p>
+      <RaisedButton
+                    className={ cx( 'SubmitButton' ) }
+                    label="Register"
+                    fullWidth={ true }
+                    primary={ true }
+                    disabled={ authenticationSelect.registerButtonVisibility === 'disabled' }
+                    onTouchTap={register} />
       <br/> Already have an account?&nbsp;
       <FlatButton
                   label="Login"
-                  secondary={ true } />
+                  secondary={ true }
+                  onTouchTap={toggleAuthenticationMode} />
     </div>
     );
   }
 
   render() {
-    const {isWaiting, message, isLogin, emailTextField, emailTextFieldSelect, emailTextFieldChange} = this.props;
-
+    const {message} = this.props.user;
     return (
     <div>
       <div className={ cx( 'GoogleLoginButtonContainer' ) }>
@@ -155,60 +177,8 @@ class Authentication extends Component {
                                           className={ cx( 'GoogleIcon' ) } /> } />
       </div>
       <Card className={ cx( 'Card' ) }>
-        { this.renderLogin() }
+        { this.getAuthenticationForm() }
       </Card>
-      <Card className={ cx( 'Card' ) }>
-        { this.renderRegister() }
-      </Card>
-
-      <div className={ cx( 'login', {
-                         waiting: isWaiting
-                       } ) }>
-        <div className={ cx( 'container' ) }>
-          { this.renderHeader() }
-          <img
-               className={ cx( 'loading' ) }
-               alt="loading"
-               src={ hourGlassSvg } />
-          <div className={ cx( 'email-container' ) }>
-            <form onSubmit={ this.handleOnSubmit }>
-              <input
-                     className={ cx( 'input' ) }
-                     type="email"
-                     ref="email"
-                     placeholder="email" />
-              <input
-                     className={ cx( 'input' ) }
-                     type="password"
-                     ref="password"
-                     placeholder="password" />
-              <div className={ cx( 'hint' ) }>
-                <div>
-                  Hint
-                </div>
-                <div>
-                  email: example@ninja.com password: ninja
-                </div>
-              </div>
-              <p className={ cx( 'message', {
-                               'message-show': message && message.length > 0
-                             } ) }>
-                { message }
-              </p>
-              <input
-                     className={ cx( 'button' ) }
-                     type="submit"
-                     value={ isLogin ? 'Login' : 'Register' } />
-            </form>
-          </div>
-          <div className={ cx( 'google-container' ) }>
-            <h1 className={ cx( 'heading' ) }>Google Login Demo</h1>
-            <a
-               className={ cx( 'button' ) }
-               href="/auth/google">Login with Google</a>
-          </div>
-        </div>
-      </div>
     </div>
     );
   }
@@ -217,10 +187,14 @@ class Authentication extends Component {
 Authentication.propTypes = {
   user: PropTypes.object.isRequired,
   manualLogin: PropTypes.func.isRequired,
-  signUp: PropTypes.func.isRequired,
-  toggleLoginMode: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired,
+
   emailTextField: PropTypes.object.isRequired,
-  emailTextFieldSelect: PropTypes.object.isRequired
+  emailTextFieldSelect: PropTypes.object.isRequired,
+  passwordTextFieldChange: PropTypes.func.isRequired,
+  passwordConfirmationTextFieldChange: PropTypes.func.isRequired,
+  toggleAuthenticationMode: PropTypes.func.isRequired,
+
 };
 
 // Function passed in to `connect` to subscribe to Redux store updates.
@@ -229,7 +203,7 @@ function mapStateToProps( state ) {
   return {
     user: state.user,
     authentication: state.authentication,
-    authenticationSelect: getAuthenticationSelect(state)
+    authenticationSelect: getAuthenticationSelect( state )
   };
 }
 
@@ -238,8 +212,9 @@ function mapStateToProps( state ) {
 // Instead, it returns a new, connected component class, for you to use.
 export default connect( mapStateToProps, {
   manualLogin,
-  signUp,
-  toggleLoginMode,
+  register,
   emailTextFieldChange,
-  passwordTextFieldChange
+  passwordTextFieldChange,
+  passwordConfirmationTextFieldChange,
+  toggleAuthenticationMode
 } )( Authentication );

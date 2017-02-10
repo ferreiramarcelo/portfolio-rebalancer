@@ -19,3 +19,15 @@ export function passwordTextFieldChange(value) {
         value: value
     };
 }
+
+export function passwordConfirmationTextFieldChange(value) {
+    return {
+        type: types.PASSWORD_CONFIRMATION_TEXT_FIELD_CHANGE,
+        value: value
+    };
+}
+
+export function toggleAuthenticationMode() {
+    return {
+        type: types.CHANGE_AUTHENTICATION_MODE    };
+}

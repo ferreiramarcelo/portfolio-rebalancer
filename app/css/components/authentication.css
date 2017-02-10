@@ -11,12 +11,11 @@
 }
 
 .Card {
-  max-width: 600px;
+  max-width: 400px;
   margin: 0 auto;
-  margin-bottom: 1000px;
 }
 
-.CardContainer {
+.CardInsides {
   padding: 15px !important;
   text-align: center !important;
   margin-bottom: 0px;

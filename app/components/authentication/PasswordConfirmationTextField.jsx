@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import TextField from 'material-ui/TextField';
 
-const EmailTextField = ({value, errorText, onChange}) => {
+const PasswordConfirmationTextField = ({value, errorText, onChange}) => {
 
   const handleOnChange = (event, value) => {
     onChange( value );
@@ -11,18 +11,19 @@ const EmailTextField = ({value, errorText, onChange}) => {
   <TextField
              value={ value }
              errorText={ errorText }
-             floatingLabelText='Email'
+             floatingLabelText='Password confirmation'
              primary={ true }
              fullWidth={ true }
+             type="password"
              onChange={ handleOnChange }
              errorStyle={ { float: "left" } } />
   );
 };
 
-EmailTextField.propTypes = {
+PasswordConfirmationTextField.propTypes = {
   value: PropTypes.string.isRequired,
   errorText: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
 };
 
-export default EmailTextField;
+export default PasswordConfirmationTextField;

@@ -10,10 +10,8 @@ function validateEmailAddress(emailAddress) {
 const getEmailTextFieldSelect = (emailTextField) => {
   let errorText = '';
   let valid = 1;
-  let hintText = '';
   if (emailTextField.setOnce === 0) {
    valid = 0;
-   hintText = 'Email';
   }
   else if (!emailTextField.value) {
     errorText = 'Required';
@@ -23,26 +21,48 @@ const getEmailTextFieldSelect = (emailTextField) => {
     errorText = 'Invalid email address';
     valid = 0;
   }
-  return {errorText, valid, hintText};
+  return {errorText, valid};
 }
 
 const getPasswordTextFieldSelect = (passwordTextField) => {
   let errorText = '';
   let valid = 1;
-  let hintText = '';
   if (passwordTextField.setOnce === 0) {
    valid = 0;
-   hintText = 'Password';
   }
   else if (!passwordTextField.value) {
     errorText = 'Required';
     valid = 0;
   }
-  return {errorText, valid, hintText};
+  return {errorText, valid};
+}
+
+const getPasswordConfirmationTextFieldSelect = (passwordTextField, passwordConfirmationTextField) => {
+  let errorText = '';
+  let valid = 1;
+  if (passwordConfirmationTextField.setOnce === 0) {
+   valid = 0;
+  }
+  else if (!passwordConfirmationTextField.value) {
+    errorText = 'Required';
+    valid = 0;
+  }
+  else if (passwordTextField.value !== passwordConfirmationTextField.value) {
+    errorText = 'Passwords do not match';
+    valid = 0;
+  }
+  return {errorText, valid};
 }
 
 const getLoginButtonVisibility = (emailTextFieldSelect, passwordTextFieldSelect) => {
   if (emailTextFieldSelect.valid === 1 && passwordTextFieldSelect.valid === 1) {
+    return 'visible';
+  }
+  return 'disabled';
+}
+
+const getRegisterButtonVisibility = (emailTextFieldSelect, passwordTextFieldSelect, passwordConfirmationTextFieldSelect) => {
+  if (emailTextFieldSelect.valid === 1 && passwordTextFieldSelect.valid === 1 && passwordConfirmationTextFieldSelect.valid === 1) {
     return 'visible';
   }
   return 'disabled';
@@ -53,10 +73,14 @@ export const getAuthenticationSelect = createSelector( [
 ], (authentication) => {
   let emailTextFieldSelect = getEmailTextFieldSelect( authentication.emailTextField );
   let passwordTextFieldSelect = getPasswordTextFieldSelect( authentication.passwordTextField );
+  let passwordConfirmationTextFieldSelect = getPasswordConfirmationTextFieldSelect( authentication.passwordTextField, authentication.passwordConfirmationTextField );
   let loginButtonVisibility = getLoginButtonVisibility( emailTextFieldSelect, passwordTextFieldSelect );
+  let registerButtonVisibility = getRegisterButtonVisibility( emailTextFieldSelect, passwordTextFieldSelect, passwordConfirmationTextFieldSelect );
   return {
     emailTextFieldSelect,
     passwordTextFieldSelect,
-    loginButtonVisibility
+    passwordConfirmationTextFieldSelect,
+    loginButtonVisibility,
+    registerButtonVisibility
   };
 } );

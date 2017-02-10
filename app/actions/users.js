@@ -70,10 +70,11 @@ export function toggleLoginMode() {
   return { type: types.TOGGLE_LOGIN_MODE };
 }
 
-export function manualLogin(data) {
-  return dispatch => {
+export function manualLogin() {
+  return (dispatch, getState) => {
     dispatch(beginLogin());
-
+    const { authentication } = getState();
+    let data = {email: authentication.emailTextField.value, password: authentication.passwordTextField.value};
     return makeUserRequest('post', data, '/login')
       .then(response => {
         if (response.status === 200) {
@@ -89,10 +90,11 @@ export function manualLogin(data) {
   };
 }
 
-export function signUp(data) {
-  return dispatch => {
+export function register() {
+  return (dispatch, getState) => {
     dispatch(beginSignUp());
-
+    const { authentication } = getState();
+    let data = {email: authentication.emailTextField.value, password: authentication.passwordTextField.value};
     return makeUserRequest('post', data, '/signup')
       .then(response => {
         if (response.status === 200) {
