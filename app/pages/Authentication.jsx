@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Page from '../pages/Page';
-import LoginOrRegisterContainer from '../containers/LoginOrRegister';
+import AuthenticationContainer from '../containers/Authentication';
 
-class LoginOrRegister extends Component {
+class Authentication extends Component {
   getMetaData() {
     return {
       title: this.pageTitle(),
@@ -12,7 +12,7 @@ class LoginOrRegister extends Component {
   }
 
   pageTitle() {
-    return 'LoginOrRegister | reactGo';
+    return 'Log In';
   }
 
   pageMeta() {
@@ -31,10 +31,10 @@ class LoginOrRegister extends Component {
   render() {
     return (
       <Page {...this.getMetaData()}>
-        <LoginOrRegisterContainer {...this.props} />
+        <AuthenticationContainer {...this.props} />
       </Page>
       );
   }
 }
 
-export default LoginOrRegister;
+export default Authentication;

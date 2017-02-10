@@ -5,6 +5,7 @@ import topic from '../reducers/topic';
 import message from '../reducers/message';
 import investmentAmount from '../reducers/investmentAmount';
 import investmentSteps from '../reducers/investmentSteps';
+import authentication from '../reducers/authentication';
 import view from '../reducers/view';
 import * as types from '../types';
 
@@ -31,6 +32,7 @@ const rootReducer = combineReducers({
     investmentSteps,
     view,
   routing,
+  authentication
 });
 
 export default rootReducer;

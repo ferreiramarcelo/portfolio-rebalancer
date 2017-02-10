@@ -9,8 +9,7 @@ const NewPortfolioButton = ({createNewPortfolio}) => {
               label="NEW"
               onTouchTap={ createNewPortfolio }
               labelPosition="before"
-              primary ={ true }
-              icon={ <ContentCreate /> }
+              secondary ={ true }
               style={ { width: 'auto', } } />
 
   );

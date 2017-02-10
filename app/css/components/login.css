@@ -4,6 +4,37 @@
 @import '../common/button';
 @import '../common/input';
 
+.GoogleLoginButtonContainer {
+  max-width: 240px;
+  margin: 0 auto;
+  margin-bottom: 30px;
+}
+
+.Card {
+  max-width: 600px;
+  margin: 0 auto;
+  margin-bottom: 1000px;
+}
+
+.CardContainer {
+  padding: 15px !important;
+  text-align: center !important;
+  margin-bottom: 0px;
+}
+
+.GoogleIcon {
+  padding-bottom: 3px;
+  color: #fff;
+}
+
+.SubmitButton {
+  margin: 15px 0px 40px 0px;
+}
+
+.RegisterButton {
+  margin: 15px 0px 40px 0px;
+}
+
 .login {
   width: 420px;
   margin: 0 auto;

@@ -8,7 +8,7 @@ import hourGlassSvg from '../images/hourglass.svg';
 
 const cx = classNames.bind( styles );
 
-class LoginOrRegister extends Component {
+class Authentication extends Component {
   /*
    * This replaces getInitialState. Likewise getDefaultProps and propTypes are just
    * properties on the constructor
@@ -124,7 +124,7 @@ class LoginOrRegister extends Component {
   }
 }
 
-LoginOrRegister.propTypes = {
+Authentication.propTypes = {
   user: PropTypes.object,
   manualLogin: PropTypes.func.isRequired,
   signUp: PropTypes.func.isRequired,
@@ -146,4 +146,4 @@ export default connect( mapStateToProps, {
   manualLogin,
   signUp,
   toggleLoginMode
-} )( LoginOrRegister );
+} )( Authentication );

@@ -38,6 +38,8 @@ class Vote extends Component {
             <ModelPortfoliosAutoCompleteImmutable selectModelPortfolio={ selectModelPortfolio } modelPortfolios={ topics } email={ email } />
             <NewPortfolioButton createNewPortfolio={ createNewPortfolio } />
           </div>
+          <br></br>
+          <br></br>
           <Portfolio componentAvailability={ componentAvailability } selectedModelPortfolio={ selectedModelPortfolio } selectedModelPortfolioTextFieldChange={ selectedModelPortfolioTextFieldChange } portfolio={ portfolio }
             addSecurity={ addSecurity } removeSecurity={ removeSecurity } securityTextFieldChange={ securityTextFieldChange } addSecurity={ addSecurity } saveModelPortfolio={ saveModelPortfolio }
             deleteModelPortfolio={ deleteModelPortfolio } />

@@ -9,10 +9,10 @@
 
 .PortfolioDiv {
   @media (max-width: 767px) {
-    margin: 0px !important;
+    padding: 0px !important;
   }
   @media (min-width: 768px) {
-    margin: 30px !important;
+    padding: 0px 15px 0px 15px !important;
   }
 }
 
