@@ -20,6 +20,7 @@ const PriceTextField = ({index, price, securityTextFieldChange}) => {
       <TextField
                  className={ cx( 'PriceTextField' ) }
                  id={ 'priceTextField' + index }
+                 hintText='0.01'
                  value={ price.value }
                  errorText={ price.errorText }
                  onChange={ handleOnChange } />
