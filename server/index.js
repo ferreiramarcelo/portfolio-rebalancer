@@ -45,6 +45,8 @@ app.use(function(req, res, next) {
     }
     next();
 });
+app.use(expressForceHttps);
+
 
 /*
  * REMOVE if you do not need any routes
@@ -60,5 +62,4 @@ routesConfig(app);
  * to initialize and return the React-rendered html string
  */
 app.get('*', renderMiddleware);
-app.use(expressForceHttps);
 app.listen(app.get('port'));
