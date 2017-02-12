@@ -12,15 +12,23 @@ class About extends Component {
   }
 
   pageTitle() {
-    return 'About | reactGo';
+    return 'About | Portfolio Rebalancer';
   }
 
   pageMeta() {
     return [
       {
         name: 'description',
-        content: 'A reactGo example of life'
-      }
+        content: 'About Porfolio Rebalancer'
+      },
+      {
+        name: 'keywords',
+        content: 'portfolio, rebalance, rebalancer, stocks, securities, security, finance, investment, about, purpose, usage, technologies, contact'
+      },
+      {
+        name: 'author',
+        content: 'Alexis Deschamps'
+      },
     ];
   }
 

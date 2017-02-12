@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+mport React, { Component } from 'react';
 import Page from '../pages/Page';
 import DashboardContainer from '../containers/Dashboard';
 
@@ -38,4 +38,3 @@ class Dashboard extends Component {
 }
 
 export default Dashboard;
-

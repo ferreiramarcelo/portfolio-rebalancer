@@ -82,10 +82,16 @@ class Authentication extends Component {
 
   getAuthenticationForm() {
     const {authentication} = this.props;
-    if (authentication.isLoginMode) {
+    if ( authentication.isLoginMode ) {
       return this.getLoginForm();
     }
     return this.getRegistrationForm();
+  }
+
+  handleOnLogin = (event) => {
+    const {manualLogin} = this.props;
+    event.preventDefault();
+    manualLogin();
   }
 
   getLoginForm() {
@@ -93,71 +99,81 @@ class Authentication extends Component {
     return (
     <div className={ cx( 'CardInsides' ) }>
       Login with Email
-      <EmailTextField
-                      value={ authentication.emailTextField.value }
-                      errorText={ authenticationSelect.emailTextFieldSelect.errorText }
-                      onChange={ emailTextFieldChange } />
-      <PasswordTextField
-                         value={ authentication.passwordTextField.value }
-                         errorText={ authenticationSelect.passwordTextFieldSelect.errorText }
-                         onChange={ passwordTextFieldChange } />
-      <br/>
-      <p className={ cx( 'message', {
-                       'message-show': user.message && user.message.length > 0
-                     } ) }>
-        { user.message }
-      </p>
-      <RaisedButton
-                    className={ cx( 'SubmitButton' ) }
-                    label="Log In"
-                    fullWidth={ true }
-                    primary={ true }
-                    disabled={ authenticationSelect.loginButtonVisibility === 'disabled' }
-                  onTouchTap={manualLogin} />
+      <form onSubmit={ this.handleOnLogin }>
+        <EmailTextField
+                        value={ authentication.emailTextField.value }
+                        errorText={ authenticationSelect.emailTextFieldSelect.errorText }
+                        onChange={ emailTextFieldChange } />
+        <PasswordTextField
+                           value={ authentication.passwordTextField.value }
+                           errorText={ authenticationSelect.passwordTextFieldSelect.errorText }
+                           onChange={ passwordTextFieldChange } />
+        <br/>
+        <p className={ cx( 'message', {
+                         'message-show': user.message && user.message.length > 0
+                       } ) }>
+          { user.message }
+        </p>
+        <RaisedButton
+                      className={ cx( 'SubmitButton' ) }
+                      label="Log In"
+                      fullWidth={ true }
+                      primary={ true }
+                      disabled={ authenticationSelect.loginButtonVisibility === 'disabled' }
+                      type="submit" />
+      </form>
       <br/> Don't have an account?&nbsp;
       <FlatButton
                   label="Register"
-                  secondary={ true}
-                  onTouchTap={toggleAuthenticationMode} />
+                  secondary={ true }
+                  onTouchTap={ toggleAuthenticationMode } />
     </div>
     );
   }
 
+  handleOnRegister = (event) => {
+    const {register} = this.props;
+    event.preventDefault();
+    register();
+  }
+
   getRegistrationForm() {
-      const {user, register, authentication, authenticationSelect, emailTextFieldChange, passwordTextFieldChange, passwordConfirmationTextFieldChange, toggleAuthenticationMode} = this.props;
+    const {user, register, authentication, authenticationSelect, emailTextFieldChange, passwordTextFieldChange, passwordConfirmationTextFieldChange, toggleAuthenticationMode} = this.props;
     return (
     <div className={ cx( 'CardInsides' ) }>
-      Register
-      <EmailTextField
-                      value={ authentication.emailTextField.value }
-                      errorText={ authenticationSelect.emailTextFieldSelect.errorText }
-                      onChange={ emailTextFieldChange } />
-      <PasswordTextField
-                         value={ authentication.passwordTextField.value }
-                         errorText={ authenticationSelect.passwordTextFieldSelect.errorText }
-                         onChange={ passwordTextFieldChange } />
-      <PasswordConfirmationTextField
-                         value={ authentication.passwordConfirmationTextField.value }
-                         errorText={ authenticationSelect.passwordConfirmationTextFieldSelect.errorText }
-                         onChange={ passwordConfirmationTextFieldChange } />
-      <br/>
-      <p className={ cx( 'message', {
-                       'message-show': user.message && user.message.length > 0
-                     } ) }>
-        { user.message }
-      </p>
-      <RaisedButton
-                    className={ cx( 'SubmitButton' ) }
-                    label="Register"
-                    fullWidth={ true }
-                    primary={ true }
-                    disabled={ authenticationSelect.registerButtonVisibility === 'disabled' }
-                    onTouchTap={register} />
+      <form onSubmit={ this.handleOnRegister }>
+        Register
+        <EmailTextField
+                        value={ authentication.emailTextField.value }
+                        errorText={ authenticationSelect.emailTextFieldSelect.errorText }
+                        onChange={ emailTextFieldChange } />
+        <PasswordTextField
+                           value={ authentication.passwordTextField.value }
+                           errorText={ authenticationSelect.passwordTextFieldSelect.errorText }
+                           onChange={ passwordTextFieldChange } />
+        <PasswordConfirmationTextField
+                                       value={ authentication.passwordConfirmationTextField.value }
+                                       errorText={ authenticationSelect.passwordConfirmationTextFieldSelect.errorText }
+                                       onChange={ passwordConfirmationTextFieldChange } />
+        <br/>
+        <p className={ cx( 'message', {
+                         'message-show': user.message && user.message.length > 0
+                       } ) }>
+          { user.message }
+        </p>
+        <RaisedButton
+                      className={ cx( 'SubmitButton' ) }
+                      label="Register"
+                      fullWidth={ true }
+                      primary={ true }
+                      disabled={ authenticationSelect.registerButtonVisibility === 'disabled' }
+                      type="submit" />
+      </form>
       <br/> Already have an account?&nbsp;
       <FlatButton
                   label="Login"
                   secondary={ true }
-                  onTouchTap={toggleAuthenticationMode} />
+                  onTouchTap={ toggleAuthenticationMode } />
     </div>
     );
   }
@@ -188,13 +204,11 @@ Authentication.propTypes = {
   user: PropTypes.object.isRequired,
   manualLogin: PropTypes.func.isRequired,
   register: PropTypes.func.isRequired,
-
   emailTextField: PropTypes.object.isRequired,
   emailTextFieldSelect: PropTypes.object.isRequired,
   passwordTextFieldChange: PropTypes.func.isRequired,
   passwordConfirmationTextFieldChange: PropTypes.func.isRequired,
   toggleAuthenticationMode: PropTypes.func.isRequired,
-
 };
 
 // Function passed in to `connect` to subscribe to Redux store updates.

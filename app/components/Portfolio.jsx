@@ -11,7 +11,7 @@ import styles from '../css/components/portfolio-table/portfolio-table';
 
 const cx = classNames.bind( styles );
 
-const Portfolio = ({componentAvailability, selectedModelPortfolio, selectedModelPortfolioTextFieldChange, portfolio, removeSecurity, securityTextFieldChange, addSecurity, saveModelPortfolio, deleteModelPortfolio}) => {
+const Portfolio = ({portfolioSelect, selectedModelPortfolio, selectedModelPortfolioTextFieldChange, portfolio, removeSecurity, securityTextFieldChange, addSecurity, saveModelPortfolio, deleteModelPortfolio}) => {
 
   return (
   <Card className={ cx( 'Card' ) }>
@@ -21,7 +21,7 @@ const Portfolio = ({componentAvailability, selectedModelPortfolio, selectedModel
                                    selectedModelPortfolio={ selectedModelPortfolio }
                                    selectedModelPortfolioTextFieldChange={ selectedModelPortfolioTextFieldChange } />
       <PortfolioTableImmutable
-                               componentAvailability={ componentAvailability }
+                               portfolioSelect={ portfolioSelect }
                                portfolio={ portfolio }
                                addSecurity={ addSecurity }
                                removeSecurity={ removeSecurity }
@@ -38,7 +38,7 @@ const Portfolio = ({componentAvailability, selectedModelPortfolio, selectedModel
 };
 
 Portfolio.propTypes = {
-  componentAvailability: PropTypes.object.isRequired,
+  portfolioSelect: PropTypes.object.isRequired,
   selectedModelPortfolio: PropTypes.object.isRequired,
   selectedModelPortfolioTextFieldChange: PropTypes.func.isRequired,
   portfolio: PropTypes.object.isRequired,

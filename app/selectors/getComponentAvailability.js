@@ -13,7 +13,7 @@ const getSaveModelPortfolioButtonVisibility = (authenticated, selectedModelPortf
     return 'disabled';
   }
   for (var security of portfolio) {
-    if ( security.ticker.valid === 0 || security.allocation.valid === 0 ) {
+    if ( security.symbol.valid === 0 || security.allocation.valid === 0 ) {
       return 'disabled';
     }
   }
@@ -28,7 +28,7 @@ const getDeleteModelPortfolioButtonVisibility = (authenticated, selectedModelPor
     return 'disabled';
   }
   for (var security of portfolio) {
-    if ( security.ticker.valid === 0 || security.allocation.valid === 0 ) {
+    if ( security.symbol.valid === 0 || security.allocation.valid === 0 ) {
       return 'disabled';
     }
   }

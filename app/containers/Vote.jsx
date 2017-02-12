@@ -6,13 +6,13 @@ import Portfolio from '../components/Portfolio';
 import InvestmentAmount from '../components/InvestmentAmount';
 import GenerateStepsButton from '../components/GenerateStepsButton';
 import StepsList from '../components/StepsList';
-import TickerTextFieldImmutable from '../components/TickerTextFieldImmutable';
+import SymbolTextField from '../components/SymbolTextField';
 import { createTopic, typing, incrementCount, decrementCount, destroyTopic, selectModelPortfolio, createNewPortfolio, selectedModelPortfolioTextFieldChange, addSecurity, removeSecurity, securityTextFieldChange, saveModelPortfolio, deleteModelPortfolio } from '../actions/topics';
 import { investmentAmountTextFieldChange, investmentAmountTextFieldValid, investmentAmountTextFieldError } from '../actions/investmentAmount';
 import { generateSteps } from '../actions/investmentSteps';
 import classNames from 'classnames/bind';
 import styles from '../css/components/vote';
-import { getComponentAvailability } from '../selectors/index'
+import { getPortfolioSelect } from '../selectors/index'
 
 const cx = classNames.bind(styles);
 
@@ -23,7 +23,7 @@ class Vote extends Component {
   }
 
   render() {
-    const {newTopic, topics, selectedModelPortfolio, portfolio, investmentAmount, investmentSteps, view, email, createTopic, destroyTopic, incrementCount, decrementCount, selectModelPortfolio, createNewPortfolio, selectedModelPortfolioTextFieldChange, addSecurity, removeSecurity, securityTextFieldChange, investmentAmountTextFieldChange, investmentAmountTextFieldValid, investmentAmountTextFieldError, generateSteps, saveModelPortfolio, componentAvailability, deleteModelPortfolio} = this.props;
+    const {newTopic, topics, selectedModelPortfolio, portfolio, investmentAmount, investmentSteps, view, email, createTopic, destroyTopic, incrementCount, decrementCount, selectModelPortfolio, createNewPortfolio, selectedModelPortfolioTextFieldChange, addSecurity, removeSecurity, securityTextFieldChange, investmentAmountTextFieldChange, investmentAmountTextFieldValid, investmentAmountTextFieldError, generateSteps, saveModelPortfolio, portfolioSelect, deleteModelPortfolio} = this.props;
     if (!view.displayTable && !view.displaySteps) {
       return (
         <div style={ { display: 'table', width: '100%', height: '20px' } }>
@@ -40,16 +40,15 @@ class Vote extends Component {
           </div>
           <br></br>
           <br></br>
-          <Portfolio componentAvailability={ componentAvailability } selectedModelPortfolio={ selectedModelPortfolio } selectedModelPortfolioTextFieldChange={ selectedModelPortfolioTextFieldChange } portfolio={ portfolio }
+          <Portfolio portfolioSelect={ portfolioSelect } selectedModelPortfolio={ selectedModelPortfolio } selectedModelPortfolioTextFieldChange={ selectedModelPortfolioTextFieldChange } portfolio={ portfolio }
             addSecurity={ addSecurity } removeSecurity={ removeSecurity } securityTextFieldChange={ securityTextFieldChange } addSecurity={ addSecurity } saveModelPortfolio={ saveModelPortfolio }
             deleteModelPortfolio={ deleteModelPortfolio } />
           <br/>
           <br/>
-          <InvestmentAmount investmentAmount={ investmentAmount } errorText={ investmentAmount.errorText } investmentAmountTextFieldChange={ investmentAmountTextFieldChange } investmentAmountTextFieldValid={ investmentAmountTextFieldValid }
-            investmentAmountTextFieldError={ investmentAmountTextFieldError } />
+          <InvestmentAmount investmentAmount={ investmentAmount } investmentAmountSelect={portfolioSelect.investmentAmountSelect} investmentAmountTextFieldChange={ investmentAmountTextFieldChange } />
           <br></br>
           <br></br>
-          <GenerateStepsButton visibility={ componentAvailability.generateStepsButtonVisibility } generateSteps={ generateSteps } investmentAmount={investmentAmount} portfolio={portfolio} />
+          <GenerateStepsButton visibility={ portfolioSelect.generateStepsButtonVisibility } generateSteps={ generateSteps } investmentAmount={investmentAmount} portfolio={portfolio} />
           <StepsList investmentSteps={ investmentSteps } portfolio={ portfolio } />
         </div>
       )
@@ -95,7 +94,7 @@ function mapStateToProps(state) {
     investmentSteps: state.investmentSteps.investmentSteps,
     view: state.view.view,
     email: state.user.email,
-    componentAvailability: getComponentAvailability(state)
+    portfolioSelect: getPortfolioSelect(state)
   };
 }
 

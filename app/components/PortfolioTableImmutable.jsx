@@ -11,12 +11,13 @@ import classNames from 'classnames/bind';
 import styles from '../css/components/portfolio-table/portfolio-table';
 const cx = classNames.bind( styles );
 
-const PortfolioTableImmutable = ({componentAvailability, portfolio, addSecurity, removeSecurity, securityTextFieldChange, securityTextFieldValid, securityTextFieldError, saveModelPortfolio, deleteModelPortfolio, selectedModelPortfolio}) => {
+const PortfolioTableImmutable = ({portfolioSelect, portfolio, addSecurity, removeSecurity, securityTextFieldChange, securityTextFieldValid, securityTextFieldError, saveModelPortfolio, deleteModelPortfolio, selectedModelPortfolio}) => {
 
 
-  const securityRows = portfolio.map( security => {
+  const securityRows = portfolio.map( (security, index) => {
     return <SecurityRow
                         security={ security }
+                        securitySelect={portfolioSelect.securitiesSelect[index]}
                         removeSecurity={ removeSecurity }
                         securityTextFieldChange={ securityTextFieldChange }
                         securityTextFieldValid={ securityTextFieldValid }
@@ -64,7 +65,7 @@ const PortfolioTableImmutable = ({componentAvailability, portfolio, addSecurity,
             The price at which each unit will be purchased and sold.
           </p>
           <p>
-            Prices are automatically fetched from https://finance.yahoo.com based on the ticker symbol provided.
+            Prices are automatically fetched from https://finance.yahoo.com based on the symbol symbol provided.
           </p>
         </ReactTooltip>
         <TableHeaderColumn
@@ -80,14 +81,14 @@ const PortfolioTableImmutable = ({componentAvailability, portfolio, addSecurity,
         </ReactTooltip>
         <TableHeaderColumn className={ cx( 'TableHeaderColumnLast' ) }>
           <SaveModelPortfolioButton
-                                    visibility={ componentAvailability.saveModelPortfolioButtonVisibility }
+                                    visibility={ portfolioSelect.saveModelPortfolioButtonVisibility }
                                     portfolio={ portfolio }
                                     selectedModelPortfolio={ selectedModelPortfolio }
                                     saveModelPortfolio={ saveModelPortfolio } />
           <DeleteModelPortfolioButton
                                       id={ selectedModelPortfolio.id }
                                       deleteModelPortfolio={ deleteModelPortfolio }
-                                      visibility={ componentAvailability.deleteModelPortfolioButtonVisibility } />
+                                      visibility={ portfolioSelect.deleteModelPortfolioButtonVisibility } />
         </TableHeaderColumn>
       </TableRow>
     </TableHeader>
@@ -99,7 +100,7 @@ const PortfolioTableImmutable = ({componentAvailability, portfolio, addSecurity,
 };
 
 PortfolioTableImmutable.propTypes = {
-  componentAvailability: PropTypes.object.isRequired,
+  portfolioSelect: PropTypes.object.isRequired,
   portfolio: PropTypes.array.isRequired,
   addSecurity: PropTypes.func.isRequired,
   removeSecurity: PropTypes.func.isRequired,

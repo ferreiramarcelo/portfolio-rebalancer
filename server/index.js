@@ -6,7 +6,7 @@ import passportConfig from './config/passport';
 import expressConfig from './config/express';
 import routesConfig from './config/routes';
 import renderMiddleware from '../app/server';
-
+import expressForceHttps from 'express-force-https';
 const app = express();
 
 /*
@@ -60,5 +60,5 @@ routesConfig(app);
  * to initialize and return the React-rendered html string
  */
 app.get('*', renderMiddleware);
-
+app.use(expressForceHttps);
 app.listen(app.get('port'));

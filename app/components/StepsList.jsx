@@ -26,7 +26,7 @@ const StepsList = ({investmentSteps, portfolio}) => {
           stepsList.push(<p>
                            { stepNumber }. Purchase&nbsp;
                            { investmentSteps.balanceByInvesting[i] } units of&nbsp;
-                           { portfolio[i].ticker.value }
+                           { portfolio[i].symbol.value }
                          </p>);
           stepNumber++;
         }
@@ -40,7 +40,7 @@ const StepsList = ({investmentSteps, portfolio}) => {
           stepsList.push(<p>
                            { stepNumber }. Sell&nbsp;
                            { -1 * investmentSteps.balanceByTakingOut[i] } units of&nbsp;
-                           { portfolio[i].ticker.value }
+                           { portfolio[i].symbol.value }
                          </p>);
           stepNumber++;
         }
@@ -54,14 +54,14 @@ const StepsList = ({investmentSteps, portfolio}) => {
           stepsList.push(<p>
                            { stepNumber }. Purchase&nbsp;
                            { investmentSteps.balanceByTakingOutAndInvesting[i] } units of&nbsp;
-                           { portfolio[i].ticker.value }
+                           { portfolio[i].symbol.value }
                          </p>);
           stepNumber++;
         } else if (investmentSteps.balanceByTakingOutAndInvesting[i] < 0) {
           stepsList.push(<p>
                            { stepNumber }. Sell&nbsp;
                            { -1 * investmentSteps.balanceByTakingOutAndInvesting[i] } units of&nbsp;
-                           { portfolio[i].ticker.value }
+                           { portfolio[i].symbol.value }
                          </p>);
           stepNumber++;
         }

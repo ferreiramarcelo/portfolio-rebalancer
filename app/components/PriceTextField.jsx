@@ -6,27 +6,33 @@ import classNames from 'classnames/bind';
 import styles from '../css/components/portfolio-table/price-cell';
 const cx = classNames.bind( styles );
 
-const PriceTextField = ({index, price, securityTextFieldChange}) => {
+const PriceTextField = ({index, price, priceSelect, securityTextFieldChange}) => {
+
+    const getDisplayValue = (price) => {
+      if (!price.setOnce) {
+        return '';
+      }
+      return price.value;
+    }
+
+    const displayValue = getDisplayValue(price);
 
   const handleOnChange = (event, value) => {
     securityTextFieldChange( index, 'price', value );
   }
 
   return (
-  //<div style={ { display: 'table', } }>
-  //<div style={ { paddingRight: '5px', display: 'table-cell', } }>
-  //<div style={ { display: 'table', width: '100%' } }>
+
   <div>
       <TextField
                  className={ cx( 'PriceTextField' ) }
                  id={ 'priceTextField' + index }
-                 hintText='0.01'
-                 value={ price.value }
-                 errorText={ price.errorText }
+                 value={ displayValue }
+                 errorText={ priceSelect.errorText }
+                 hintText={ priceSelect.hintText }
                  onChange={ handleOnChange } />
       <PriceProgress price={price} />
   </div>
-  //</div>
   );
 };
 

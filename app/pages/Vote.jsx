@@ -19,8 +19,16 @@ class Vote extends Component {
     return [
       {
         name: 'description',
-        content: 'A stocks portfolio rebalancing tool'
-      }
+        content: 'Investment portfolio rebalancing tool'
+      },
+      {
+        name: 'keywords',
+        content: 'portfolio, rebalance, rebalancer, stocks, securities, security, finance, investment'
+      },
+      {
+        name: 'author',
+        content: 'Alexis Deschamps'
+      },
     ];
   }
 
@@ -38,4 +46,3 @@ class Vote extends Component {
 }
 
 export default Vote;
-

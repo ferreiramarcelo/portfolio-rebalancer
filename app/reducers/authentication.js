@@ -5,6 +5,9 @@ const isLoginMode = (state = true, action) => {
   switch (action.type) {
     case types.CHANGE_AUTHENTICATION_MODE:
       return !state;
+    case types.LOGIN_SUCCESS_USER:
+    case types.SIGNUP_SUCCESS_USER:
+      return true;
     default:
       return state;
   }

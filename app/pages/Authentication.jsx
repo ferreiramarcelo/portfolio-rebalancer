@@ -12,15 +12,23 @@ class Authentication extends Component {
   }
 
   pageTitle() {
-    return 'Log In';
+    return 'Log In | Portfolio Rebalancer';
   }
 
   pageMeta() {
     return [
       {
         name: 'description',
-        content: 'A reactGo example of a login or register page'
-      }
+        content: 'Log into Portfolio Rebalancer'
+      },
+      {
+        name: 'keywords',
+        content: 'portfolio, rebalance, rebalancer, stocks, securities, security, finance, investment, log in, sign in, register, sign up, google, oauth'
+      },
+      {
+        name: 'author',
+        content: 'Alexis Deschamps'
+      },
     ];
   }
 

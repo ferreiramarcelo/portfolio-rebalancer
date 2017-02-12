@@ -22,7 +22,7 @@ export function selectModelPortfolio(selectedModelPortfolio) {
 		const { topic } = getState();
 		for (let security of topic.portfolio) {
 			dispatch(setPriceToFetching(security.index));
-			fetchSecurityPrice(security.ticker.value)
+			fetchSecurityPrice(security.symbol.value)
 			.then(data => {
 				if (data.status  === 200) {
 					const price = data.data.query.results.quote.LastTradePriceOnly;
@@ -125,12 +125,12 @@ export function setSecurityTextFieldValue(index, column, value) {
 }
 
 export function securityTextFieldChange(index, column, value) {
-	if (column !== 'ticker') {
+	if (column !== 'symbol') {
 		return setSecurityTextFieldValue(index, column, value);
 	}
 	else {
 		return (dispatch, getState) => {
-			//Dispatch ticker change
+			//Dispatch symbol change
 			dispatch(setSecurityTextFieldValue(index, column, value));
 			if (value === '') {
 				return dispatch(setPriceToNotFetching(index));
@@ -260,7 +260,7 @@ export function saveModelPortfolio(selectedModelPortfolio, portfolio) {
 		var securities = [];
 		for (var security of portfolio) {
 			securities.push({
-				ticker: security.ticker.value,
+				symbol: security.symbol.value,
 				allocation: security.allocation.number
 			});
 		}

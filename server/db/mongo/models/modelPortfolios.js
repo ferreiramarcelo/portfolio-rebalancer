@@ -9,11 +9,11 @@ const Topic = new mongoose.Schema({
   name: String,
   email: String,
   securities: [{
-		ticker: String,
+		symbol: String,
 		allocation: {type: Number, min: 0, max: 100},
 	}]
 });
 
 // Compiles the schema into a model, opening (or creating, if
 //	nonexistent) the 'Topic' collection in the MongoDB database
-export default mongoose.model('test_modelportfolio', Topic);
+export default mongoose.model('modelportfolio', Topic);

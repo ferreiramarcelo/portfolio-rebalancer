@@ -1,7 +1,16 @@
 import React, { Component, PropTypes } from 'react';
 import TextField from 'material-ui/TextField';
 
-const AllocationTextFieldImmutable = ({index, allocation, securityTextFieldChange}) => {
+const AllocationTextFieldImmutable = ({index, allocation, allocationSelect, securityTextFieldChange}) => {
+
+  const getDisplayValue = (allocation) => {
+    if (!allocation.setOnce) {
+      return '';
+    }
+    return allocation.value;
+  }
+
+  const displayValue = getDisplayValue(allocation);
 
   const handleOnChange = (event, value) => {
     securityTextFieldChange( index, 'allocation', value );
@@ -11,9 +20,9 @@ const AllocationTextFieldImmutable = ({index, allocation, securityTextFieldChang
   <TextField
              errorStyle={ { float: "left" } }
              id={ 'allocationTextField' + index }
-             hintText='0'
-             value={ allocation.value }
-             errorText={ allocation.errorText }
+             value={ displayValue }
+             errorText={ allocationSelect.errorText }
+             hintText={ allocationSelect.hintText }
              onChange={ handleOnChange } />
   );
 };
