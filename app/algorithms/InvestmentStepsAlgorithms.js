@@ -1,18 +1,18 @@
 export function getPortfolioWithNormalizedAllocations(portfolio) {
 	let totalAllocation = 0;
 	for (let security of portfolio) {
-		totalAllocation += security.allocation.number;
+		totalAllocation += security.allocation;
 	}
 	if (totalAllocation !== 100) {
 		let normalizationScore = 100 / totalAllocation;
 		for (let security of portfolio) {
-			security.allocation.number *= normalizationScore;
+			security.allocation *= normalizationScore;
 		}
 	}
 	return portfolio;
 }
 
-function sortDiffValuePerSecurityAscending(security1, security2) {
+function sortValuePerSecurityAscending(security1, security2) {
 	if (security1[1] === security2[1]) {
 		return 0;
 	} else {
@@ -20,7 +20,7 @@ function sortDiffValuePerSecurityAscending(security1, security2) {
 	}
 };
 
-function sortDiffValuePerSecurityDescending(security1, security2) {
+function sortValuePerSecurityDescending(security1, security2) {
 	if (security1[1] === security2[1]) {
 		return 0;
 	} else {
@@ -30,7 +30,7 @@ function sortDiffValuePerSecurityDescending(security1, security2) {
 
 export function getValuesForInvesting(investmentAmount, valuePerSecurityCurrent, valuePerSecurityTotal) {
 	let valueDifferencePerSecurity = getValueDifferencePerSecurityWithIndex(valuePerSecurityCurrent, valuePerSecurityTotal);
-	valueDifferencePerSecurity.sort(sortDiffValuePerSecurityAscending);
+	valueDifferencePerSecurity.sort(sortValuePerSecurityAscending);
 
 	let cashRemainingToSpend = investmentAmount;
 	let valueAdditionPerSecurity = [];
@@ -61,7 +61,7 @@ export function getValuesForInvesting(investmentAmount, valuePerSecurityCurrent,
 
 export function getValuesForDisvesting(investmentAmount, valuePerSecurityCurrent, valuePerSecurityTotal) {
 	let valueDifferencePerSecurity = getValueDifferencePerSecurityWithIndex(valuePerSecurityCurrent, valuePerSecurityTotal);
-	valueDifferencePerSecurity.sort(sortDiffValuePerSecurityDescending);
+	valueDifferencePerSecurity.sort(sortValuePerSecurityDescending);
 
 	let cashRemainingToGet = -1 * investmentAmount;
 	let valueReductionPerSecurity = [];
@@ -106,13 +106,21 @@ export function getValueDifferencePerSecurity(valuePerSecurityCurrent, valuePerS
 	return valueDifferencePerSecurity;
 };
 
-export function getValueAdjustmentsNeededPerSecurity(valuePerSecurityCurrent, valuePerSecurityTotal) {
+export function getValueAdjustmentsPerSecurity(valuePerSecurityCurrent, valuePerSecurityTotal) {
 	let valueDifferencePerSecurity = [];
 	for (let i = 0; i < valuePerSecurityCurrent.length; i++) {
 		valueDifferencePerSecurity.push(valuePerSecurityTotal[i] - valuePerSecurityCurrent[i]);
 	}
 	return valueDifferencePerSecurity;
 };
+
+function getValuePerSecurityWithIndex(valuePerSecurity) {
+	let valuePerSecurityWithInde = [];
+	for (let i = 0; i < valuePerSecurity.length; i++) {
+		valuePerSecurityWithInde.push([i, valuePerSecurity[i]]);
+	}
+	return valuePerSecurityWithInde;
+}
 
 export function getValueDifferencePerSecurityWithIndex(valuePerSecurityCurrent, valuePerSecurityTotal) {
 	let valueDifferencePerSecurity = [];
@@ -128,15 +136,43 @@ export function getUnitsForValuePerSecurityAndExtraCash(valuePerSecurity, portfo
 	let wholeUnits = 0;
 	let extraCash = 0;
 	for (let i = 0; i < valuePerSecurity.length; i++) {
-			units = valuePerSecurity[i] / portfolio[i].price.number;
+			units = valuePerSecurity[i] / portfolio[i].price;
 			if (units >= 0) {
-				wholeUnits = Math.floor(valuePerSecurity[i] / portfolio[i].price.number);
+				wholeUnits = Math.floor(valuePerSecurity[i] / portfolio[i].price);
 			}
 		  else {
-				wholeUnits = Math.ceil(valuePerSecurity[i] / portfolio[i].price.number);
+				wholeUnits = Math.ceil(valuePerSecurity[i] / portfolio[i].price);
 		}
 		unitsForValuePerSecurity.push(wholeUnits)
-		extraCash += (units - wholeUnits) * portfolio[i].price.number;
+		extraCash += (units - wholeUnits) * portfolio[i].price;
 	}
 	return {unitsForValuePerSecurity, extraCash};
+}
+
+export function getUnitsForAdjusting(valuePerSecurity, portfolio) {
+	// Need to asending order value per security while keeping index
+	let valuePerSecurityWithIndex = getValuePerSecurityWithIndex(valuePerSecurity);
+	valuePerSecurityWithIndex.sort(sortValuePerSecurityAscending);
+
+	let unitsAdjustmentsPerSecurity = [];
+	let currentCash = 0;
+	// Go through. selling as many whole units as possible, then buying as many whole units as possible
+	for (let i = 0; i < valuePerSecurityWithIndex.length; i++) {
+			if (valuePerSecurityWithIndex[i][1] < 0) {
+				let soldUnits = Math.ceil(valuePerSecurityWithIndex[i][1] / portfolio[i].price);
+				currentCash += soldUnits * -portfolio[i].price;
+				unitsAdjustmentsPerSecurity[ valuePerSecurityWithIndex[i][0] ] = soldUnits;
+			}
+			else if (valuePerSecurityWithIndex[i][1] > 0) {
+				if (currentCash < 0) {
+					break;
+				}
+				let wholeUnits = Math.floor(valuePerSecurityWithIndex[i][1] / portfolio[i].price);
+				let maxPurchaseableUnits = Math.floor(currentCash / portfolio[i].price);
+				let purchasedUnits = Math.floor(wholeUnits, maxPurchaseableUnits);
+				currentCash -= purchasedUnits * portfolio[i].price;
+				unitsAdjustmentsPerSecurity[ valuePerSecurityWithIndex[i][0] ] = purchasedUnits;
+			}
+	}
+	return {unitsAdjustmentsPerSecurity, extraCash: currentCash};
 }

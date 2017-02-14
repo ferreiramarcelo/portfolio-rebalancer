@@ -49,7 +49,7 @@ class Vote extends Component {
           <br></br>
           <br></br>
           <GenerateStepsButton visibility={ portfolioSelect.generateStepsButtonVisibility } generateSteps={ generateSteps } investmentAmount={investmentAmount} portfolio={portfolio} />
-          <StepsList investmentSteps={ investmentSteps } portfolio={ portfolio } />
+          <StepsList investmentSteps={ investmentSteps } />
         </div>
       )
     }

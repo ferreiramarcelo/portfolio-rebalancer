@@ -261,7 +261,7 @@ export function saveModelPortfolio(selectedModelPortfolio, portfolio) {
 		for (var security of portfolio) {
 			securities.push({
 				symbol: security.symbol.value,
-				allocation: security.allocation.number
+				allocation: Number(security.allocation.value)
 			});
 		}
 		if (selectedModelPortfolio.email) {

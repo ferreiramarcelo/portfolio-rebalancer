@@ -65,7 +65,7 @@ const PortfolioTableImmutable = ({portfolioSelect, portfolio, addSecurity, remov
             The price at which each unit will be purchased and sold.
           </p>
           <p>
-            Prices are automatically fetched from https://finance.yahoo.com based on the symbol symbol provided.
+            Prices are automatically fetched from https://finance.yahoo.com based on the symbol provided.
           </p>
         </ReactTooltip>
         <TableHeaderColumn

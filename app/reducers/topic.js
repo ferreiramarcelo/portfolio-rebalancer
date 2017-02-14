@@ -309,8 +309,6 @@ const price = (state = {value: '1.00', setOnce: false, fetch: 'NONE'}, action) =
 
 const units = (state = {value: '0', setOnce: false}, action) => {
     switch (action.type) {
-        case types.SELECT_MODEL_PORTFOLIO:
-            return {value: action.security.units, setOnce: true}
         case types.SECURITY_TEXT_FIELD_CHANGE:
             return {
                 value: action.value,
