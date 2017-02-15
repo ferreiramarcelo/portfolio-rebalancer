@@ -90,10 +90,18 @@ export function getValuesForDisvesting(investmentAmount, valuePerSecurityCurrent
 	return valueReductionPerSecurity;
 };
 
-export function getUpdatedValuePerSecurityArray(valuePerSecurityCurrent, valueDifferencePerSecurity) {
+export function getUpdatedValuePerSecurityForAdditions(valuePerSecurityCurrent, unitsAdditionPerSecurity, portfolio) {
 	let updatedValuePerSecurityArray = valuePerSecurityCurrent.slice(0);
 	for (let i = 0; i < updatedValuePerSecurityArray.length; i++) {
-		updatedValuePerSecurityArray[i] += valueDifferencePerSecurity[i];
+		updatedValuePerSecurityArray[i] += unitsAdditionPerSecurity[i] * portfolio[i].price;
+	}
+	return updatedValuePerSecurityArray;
+};
+
+export function getUpdatedValuePerSecurityForReductions(valuePerSecurityCurrent, unitsReductionPerSecurity, portfolio) {
+	let updatedValuePerSecurityArray = valuePerSecurityCurrent.slice(0);
+	for (let i = 0; i < updatedValuePerSecurityArray.length; i++) {
+		updatedValuePerSecurityArray[i] -= unitsReductionPerSecurity[i] * portfolio[i].price;
 	}
 	return updatedValuePerSecurityArray;
 };
@@ -149,14 +157,43 @@ export function getUnitsForValuePerSecurityAndExtraCash(valuePerSecurity, portfo
 	return {unitsForValuePerSecurity, extraCash};
 }
 
+export function getUnitsForInvesting(valueAdditionPerSecurity, portfolio, investmentAmount) {
+	let unitsAdditionPerSecurity = [];
+	let currentCash = investmentAmount;
+	let index = 0;
+	while (index < valueAdditionPerSecurity.length && currentCash > 0) {
+				let wholeUnits = Math.floor(valueAdditionPerSecurity[index] / portfolio[index].price);
+				let maxPurchaseableUnits = Math.floor(currentCash / portfolio[index].price);
+				let purchasedUnits = Math.min(wholeUnits, maxPurchaseableUnits);
+				currentCash -= purchasedUnits * portfolio[index].price;
+				unitsAdditionPerSecurity[ index ] = purchasedUnits;
+				index++;
+	}
+	return {unitsAdditionPerSecurity, extraCash: currentCash};
+}
+
+export function getUnitsForDisvesting(valueReductionPerSecurity, portfolio, disvestmentAmount) {
+	let unitsReductionPerSecurity = [];
+	let currentCash = disvestmentAmount;
+	let index = 0;
+	while (index < valueReductionPerSecurity.length && currentCash < 0) {
+				let wholeUnits = Math.abs(Math.floor(valueReductionPerSecurity[index] / portfolio[index].price));
+				let maxSellableUnits = Math.abs(Math.floor(currentCash / portfolio[index].price));
+				let soldUnits = Math.min(wholeUnits, maxSellableUnits);
+				currentCash += soldUnits * portfolio[index].price;
+				unitsReductionPerSecurity[ index ] = soldUnits;
+				index++;
+	}
+	return {unitsReductionPerSecurity, extraCash: currentCash};
+}
+
+
 export function getUnitsForAdjusting(valuePerSecurity, portfolio) {
-	// Need to asending order value per security while keeping index
 	let valuePerSecurityWithIndex = getValuePerSecurityWithIndex(valuePerSecurity);
 	valuePerSecurityWithIndex.sort(sortValuePerSecurityAscending);
 
 	let unitsAdjustmentsPerSecurity = [];
 	let currentCash = 0;
-	// Go through. selling as many whole units as possible, then buying as many whole units as possible
 	for (let i = 0; i < valuePerSecurityWithIndex.length; i++) {
 			if (valuePerSecurityWithIndex[i][1] < 0) {
 				let soldUnits = Math.ceil(valuePerSecurityWithIndex[i][1] / portfolio[i].price);

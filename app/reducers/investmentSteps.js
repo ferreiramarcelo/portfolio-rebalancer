@@ -1,13 +1,14 @@
 import { combineReducers } from 'redux';
 import * as types from '../types';
-import { getPortfolioWithNormalizedAllocations, getValuesForInvesting, getValuesForDisvesting, getUpdatedValuePerSecurityArray, getValueAdjustmentsPerSecurity, getUnitsForValuePerSecurityAndExtraCash,
-getUnitsForAdjusting } from '../algorithms/InvestmentStepsAlgorithms';
+import { getPortfolioWithNormalizedAllocations, getValuesForInvesting, getValuesForDisvesting, getValueAdjustmentsPerSecurity, getUnitsForValuePerSecurityAndExtraCash,
+getUnitsForInvesting, getUnitsForDisvesting, getUnitsForAdjusting, getUpdatedValuePerSecurityForAdditions, getUpdatedValuePerSecurityForReductions } from '../algorithms/InvestmentStepsAlgorithms';
 
 const investmentSteps = (state = {},
   action
 ) => {
   switch (action.type) {
     case types.GENERATE_STEPS:
+      /* Compute portfolio statistics */
       let portfolio = [];
       for (let security of action.portfolio) {
         portfolio.push( {
@@ -33,6 +34,7 @@ const investmentSteps = (state = {},
       for (let security of portfolio) {
         valuePerSecurityTotal.push( security.allocation / 100 * totalEquity )
       }
+      /* Compute balancing steps */
       let valueAdjustmentsPerSecurity = [];
       let valueAdditionPerSecurity = [];
       let valueReductionPerSecurity = [];
@@ -42,45 +44,35 @@ const investmentSteps = (state = {},
       let cashStillMissing = 0;
       let extraCash = 0;
       if ( totalEquity < 0 ) {
-        //Sell everything, still missing X amount
         cashStillMissing = -1 * investmentAmount - equityFromPortfolio;
       }
       else if ( investmentAmount === 0 ) {
         valueAdjustmentsPerSecurity = getValueAdjustmentsPerSecurity( valuePerSecurityCurrent, valuePerSecurityTotal );
         let unitsAdjustmentsPerSecurityAndExtraCash = getUnitsForAdjusting(valueAdjustmentsPerSecurity, portfolio);
         unitsAdjustmentsPerSecurity = unitsAdjustmentsPerSecurityAndExtraCash.unitsAdjustmentsPerSecurity;
-        //let unitsAdjustmentsPerSecurityAndExtraCash = getUnitsForValuePerSecurityAndExtraCash( valueAdjustmentsPerSecurity, portfolio );
-        //unitsAdjustmentsPerSecurity = unitsAdjustmentsPerSecurityAndExtraCash.unitsForValuePerSecurity;
-        //extraCash = unitsAdjustmentsPerSecurityAndExtraCash.extraCash;
-        console.log("TEST");
-      // Make a new array with every security that is Purchaseble at least once, repeat process
-      // Go through array, using extra cash, buy one unit of each security
       }
       else if ( investmentAmount > 0 ) {
-        //Balance by investing, sell and buy to balance
         valueAdditionPerSecurity = getValuesForInvesting( investmentAmount, valuePerSecurityCurrent, valuePerSecurityTotal );
-        let unitsAdditionPerSecurityAndExtraCash = getUnitsForValuePerSecurityAndExtraCash( valueAdditionPerSecurity, portfolio );
-        unitsAdditionPerSecurity = unitsAdditionPerSecurityAndExtraCash.unitsForValuePerSecurity;
+        let unitsAdditionPerSecurityAndExtraCash = getUnitsForInvesting( valueAdditionPerSecurity, portfolio, investmentAmount );
+        unitsAdditionPerSecurity = unitsAdditionPerSecurityAndExtraCash.unitsAdditionPerSecurity;
         extraCash = unitsAdditionPerSecurityAndExtraCash.extraCash;
 
-        valuePerSecurityCurrent = getUpdatedValuePerSecurityArray( valuePerSecurityCurrent, valueAdditionPerSecurity );
+        valuePerSecurityCurrent = getUpdatedValuePerSecurityForAdditions( valuePerSecurityCurrent, valueAdditionPerSecurity, portfolio );
         valueAdjustmentsPerSecurity = getValueAdjustmentsPerSecurity( valuePerSecurityCurrent, valuePerSecurityTotal );
-        let unitsAdjustmentsPerSecurityAndExtraCash = getUnitsForValuePerSecurityAndExtraCash( valueAdjustmentsPerSecurity, portfolio );
-        unitsAdjustmentsPerSecurity = unitsAdjustmentsPerSecurityAndExtraCash.unitsForValuePerSecurity;
-        extraCash = unitsAdjustmentsPerSecurityAndExtraCash.extraCash;
+        let unitsAdjustmentsPerSecurityAndExtraCash = getUnitsForAdjusting(valueAdjustmentsPerSecurity, portfolio);
+        unitsAdjustmentsPerSecurity = unitsAdjustmentsPerSecurityAndExtraCash.unitsAdjustmentsPerSecurity;
       }
       else if ( investmentAmount < 0 ) {
-        //Balance by selling, sell and buy to balance
         valueReductionPerSecurity = getValuesForDisvesting( investmentAmount, valuePerSecurityCurrent, valuePerSecurityTotal );
-        unitsReductionPerSecurity = getUnitsForValuePerSecurity( valueReductionPerSecurity, portfolio );
-        valuePerSecurityCurrent = getUpdatedValuePerSecurityArray( valuePerSecurityCurrent, valueReductionPerSecurity );
+        let unitsReductionPerSecurityAndExtraCash = getUnitsForDisvesting( valueReductionPerSecurity, portfolio, investmentAmount );
+        unitsReductionPerSecurity = unitsReductionPerSecurityAndExtraCash.unitsReductionPerSecurity;
+        extraCash = unitsReductionPerSecurityAndExtraCash.extraCash;
+
+        valuePerSecurityCurrent = getUpdatedValuePerSecurityForReductions( valuePerSecurityCurrent, unitsReductionPerSecurity, portfolio );
         valueAdjustmentsPerSecurity = getValueAdjustmentsPerSecurity( valuePerSecurityCurrent, valuePerSecurityTotal );
-        unitsAdjustmentsPerSecurity = getUnitsForValuePerSecurity( valueAdjustmentsPerSecurity, portfolio );
+        let unitsAdjustmentsPerSecurityAndExtraCash = getUnitsForAdjusting(valueAdjustmentsPerSecurity, portfolio);
+        unitsAdjustmentsPerSecurity = unitsAdjustmentsPerSecurityAndExtraCash.unitsAdjustmentsPerSecurity;
       }
-      //Convert values to units
-      // Get as close as possible to cash values
-
-
       return {
         portfolio,
         cashStillMissing,
