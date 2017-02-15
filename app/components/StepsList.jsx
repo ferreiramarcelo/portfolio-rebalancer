@@ -8,11 +8,11 @@ import styles from '../css/components/steps-list';
 const StepsList = ({investmentSteps}) => {
 
   const formatMoneyAmount = (amount) => {
-    return amount.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
+    return amount.toFixed( 2 ).replace( /(\d)(?=(\d{3})+\.)/g, '$1,' );
   }
 
   const formatUnitsAmount = (amount) => {
-    return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return amount.toString().replace( /\B(?=(\d{3})+(?!\d))/g, "," );
   }
 
   const generateStepsList = (investmentSteps) => {
@@ -24,9 +24,9 @@ const StepsList = ({investmentSteps}) => {
       if ( investmentSteps.cashStillMissing ) {
         stepsList.push( <p>
                           Sell the entire portfolio. You will still be missing $
-                          { formatMoneyAmount(investmentSteps.cashStillMissing) }.
+                          { formatMoneyAmount( investmentSteps.cashStillMissing ) }.
                         </p> );
-                        return stepsList;
+        return stepsList;
       }
       if ( investmentSteps.balanceByInvesting.length > 0 ) {
         stepsList.push( <h4>Rebalance by buying</h4> );
@@ -34,7 +34,7 @@ const StepsList = ({investmentSteps}) => {
           if ( investmentSteps.balanceByInvesting[ i ] > 0 ) {
             stepsList.push( <p>
                               { stepNumber }. Buy&nbsp;
-                              { formatUnitsAmount(investmentSteps.balanceByInvesting[ i ]) } units of&nbsp;
+                              { formatUnitsAmount( investmentSteps.balanceByInvesting[ i ] ) } units of&nbsp;
                               { investmentSteps.portfolio[ i ].symbol }
                             </p> );
             stepNumber++;
@@ -48,7 +48,7 @@ const StepsList = ({investmentSteps}) => {
           if ( investmentSteps.balanceByDisvesting[ i ] > 0 ) {
             stepsList.push( <p>
                               { stepNumber }. Sell&nbsp;
-                              { formatUnitsAmount(investmentSteps.balanceByDisvesting[ i ]) } units of&nbsp;
+                              { formatUnitsAmount( investmentSteps.balanceByDisvesting[ i ] ) } units of&nbsp;
                               { investmentSteps.portfolio[ i ].symbol }
                             </p> );
             stepNumber++;
@@ -62,7 +62,7 @@ const StepsList = ({investmentSteps}) => {
           if ( investmentSteps.balanceByAdjusting[ i ] < 0 ) {
             stepsList.push( <p>
                               { stepNumber }. Sell&nbsp;
-                              { formatUnitsAmount(-1 * investmentSteps.balanceByAdjusting[ i ]) } units of&nbsp;
+                              { formatUnitsAmount( -1 * investmentSteps.balanceByAdjusting[ i ] ) } units of&nbsp;
                               { investmentSteps.portfolio[ i ].symbol }
                             </p> );
             stepNumber++;
@@ -72,7 +72,7 @@ const StepsList = ({investmentSteps}) => {
           if ( investmentSteps.balanceByAdjusting[ i ] > 0 ) {
             stepsList.push( <p>
                               { stepNumber }. Buy&nbsp;
-                              { formatUnitsAmount(investmentSteps.balanceByAdjusting[ i ]) } units of&nbsp;
+                              { formatUnitsAmount( investmentSteps.balanceByAdjusting[ i ] ) } units of&nbsp;
                               { investmentSteps.portfolio[ i ].symbol }
                             </p> );
             stepNumber++;

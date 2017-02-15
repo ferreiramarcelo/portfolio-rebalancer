@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Page from '../pages/Page';
-import VoteContainer from '../containers/Vote';
+import PortfolioRebalancerContainer from '../containers/PortfolioRebalancer';
 
-class Vote extends Component {
+class PortfolioRebalancer extends Component {
   getMetaData() {
     return {
       title: this.pageTitle(),
@@ -39,10 +39,10 @@ class Vote extends Component {
   render() {
     return (
       <Page {...this.getMetaData()}>
-        <VoteContainer {...this.props} />
+        <PortfolioRebalancerContainer {...this.props} />
       </Page>
       );
   }
 }
 
-export default Vote;
+export default PortfolioRebalancer;

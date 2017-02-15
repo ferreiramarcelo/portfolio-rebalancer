@@ -7,10 +7,6 @@ const PasswordTextField = ({value, errorText, onChange}) => {
     onChange( value );
   }
 
-  const handleOnKeyDown = (event, value) => {
-    console.log("test");
-  }
-
   return (
   <TextField
              value={ value }
@@ -20,8 +16,7 @@ const PasswordTextField = ({value, errorText, onChange}) => {
              fullWidth={ true }
              type="password"
              onChange={ handleOnChange }
-             errorStyle={ { float: "left" } }
-             />
+             errorStyle={ { float: "left" } } />
   );
 };
 

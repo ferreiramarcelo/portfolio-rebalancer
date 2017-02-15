@@ -4,7 +4,7 @@
  */
 import mongoose from 'mongoose';
 
-const Topic = new mongoose.Schema({
+const ModelPortfolio = new mongoose.Schema({
   id: String,
   name: String,
   email: String,
@@ -15,5 +15,5 @@ const Topic = new mongoose.Schema({
 });
 
 // Compiles the schema into a model, opening (or creating, if
-//	nonexistent) the 'Topic' collection in the MongoDB database
-export default mongoose.model('modelportfolio', Topic);
+//	nonexistent) the 'ModelPortfolio' collection in the MongoDB database
+export default mongoose.model('modelportfolio', ModelPortfolio);

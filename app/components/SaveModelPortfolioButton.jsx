@@ -17,19 +17,19 @@ const SaveModelPortfolioButton = ({visibility, portfolio, selectedModelPortfolio
   const getSaveModelPortfolioButton = (visibility) => {
     switch (visibility) {
       case 'visible':
-      return <div>
-               <IconButton
-                           className={ cx( 'SaveModelPortfolioButton' ) }
-                           touch={ true }
-                           onTouchTap={ handleOnClick }>
-                 <ContentSave />
-               </IconButton>
-               <ReactTooltip id='saveModelPortfolioButtonTooltip'>
-                 <p>
-                   Save model portfolio
-                 </p>
-               </ReactTooltip>
-             </div>;
+        return <div>
+                 <IconButton
+                             className={ cx( 'SaveModelPortfolioButton' ) }
+                             touch={ true }
+                             onTouchTap={ handleOnClick }>
+                   <ContentSave />
+                 </IconButton>
+                 <ReactTooltip id='saveModelPortfolioButtonTooltip'>
+                   <p>
+                     Save model portfolio
+                   </p>
+                 </ReactTooltip>
+               </div>;
       case 'disabled':
         return <div>
                  <IconButton
@@ -54,8 +54,10 @@ const SaveModelPortfolioButton = ({visibility, portfolio, selectedModelPortfolio
   const saveModelPortfolioButton = getSaveModelPortfolioButton( visibility );
 
   return (
-  <div className={ cx( 'SaveModelPortfolioDiv' ) } data-tip
-  data-for='saveModelPortfolioButtonTooltip'>
+  <div
+       className={ cx( 'SaveModelPortfolioDiv' ) }
+       data-tip
+       data-for='saveModelPortfolioButtonTooltip'>
     { saveModelPortfolioButton }
   </div>
 

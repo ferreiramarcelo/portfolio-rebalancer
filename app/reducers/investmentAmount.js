@@ -47,6 +47,6 @@ const oldinvestmentAmount = (state = {
     }
 };
 
-const topicReducer = combineReducers({investmentAmount});
+const modelPortfolioReducer = combineReducers({investmentAmount});
 
-export default topicReducer;
+export default modelPortfolioReducer;

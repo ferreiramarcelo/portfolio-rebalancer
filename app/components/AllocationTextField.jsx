@@ -4,13 +4,13 @@ import TextField from 'material-ui/TextField';
 const AllocationTextFieldImmutable = ({index, allocation, allocationSelect, securityTextFieldChange}) => {
 
   const getDisplayValue = (allocation) => {
-    if (!allocation.setOnce) {
+    if ( !allocation.setOnce ) {
       return '';
     }
     return allocation.value;
   }
 
-  const displayValue = getDisplayValue(allocation);
+  const displayValue = getDisplayValue( allocation );
 
   const handleOnChange = (event, value) => {
     securityTextFieldChange( index, 'allocation', value );

@@ -29,7 +29,7 @@ const Portfolio = ({portfolioSelect, selectedModelPortfolio, selectedModelPortfo
                                saveModelPortfolio={ saveModelPortfolio }
                                deleteModelPortfolio={ deleteModelPortfolio }
                                selectedModelPortfolio={ selectedModelPortfolio } />
-      <div style={ { textAlign: 'center', margin: '24px'} }>
+      <div style={ { textAlign: 'center', margin: '24px' } }>
         <AddSecurityButton addSecurity={ addSecurity } />
       </div>
     </div>

@@ -19,30 +19,30 @@ const SecurityRow = ({security, securitySelect, removeSecurity, securityTextFiel
                     className={ cx( 'TableRow' ) }>
             <TableRowColumn className={ cx( 'TableRowColumn' ) }>
               <SymbolTextField
-                                        index={security.index}
-                                        symbol={ security.symbol }
-                                        symbolSelect={ securitySelect.symbolSelect }
-                                        securityTextFieldChange={ securityTextFieldChange } />
+                               index={ security.index }
+                               symbol={ security.symbol }
+                               symbolSelect={ securitySelect.symbolSelect }
+                               securityTextFieldChange={ securityTextFieldChange } />
             </TableRowColumn>
             <TableRowColumn className={ cx( 'TableRowColumn' ) }>
               <AllocationTextField
-                index={security.index}
-                allocation={ security.allocation }
-                allocationSelect={ securitySelect.allocationSelect }
+                                   index={ security.index }
+                                   allocation={ security.allocation }
+                                   allocationSelect={ securitySelect.allocationSelect }
                                    securityTextFieldChange={ securityTextFieldChange } />
             </TableRowColumn>
             <TableRowColumn className={ cx( 'TableRowColumn' ) }>
               <PriceTextField
-                index={security.index}
-                price={ security.price }
-                priceSelect={ securitySelect.priceSelect }
+                              index={ security.index }
+                              price={ security.price }
+                              priceSelect={ securitySelect.priceSelect }
                               securityTextFieldChange={ securityTextFieldChange } />
             </TableRowColumn>
             <TableRowColumn className={ cx( 'TableRowColumn' ) }>
               <UnitsTextField
-                index={security.index}
-                units={ security.units }
-                unitsSelect={ securitySelect.unitsSelect }
+                              index={ security.index }
+                              units={ security.units }
+                              unitsSelect={ securitySelect.unitsSelect }
                               securityTextFieldChange={ securityTextFieldChange } />
             </TableRowColumn>
             <TableRowColumn className={ cx( 'TableRowColumnRemoveLast' ) }>

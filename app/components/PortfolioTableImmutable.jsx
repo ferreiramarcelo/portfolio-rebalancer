@@ -17,7 +17,7 @@ const PortfolioTableImmutable = ({portfolioSelect, portfolio, addSecurity, remov
   const securityRows = portfolio.map( (security, index) => {
     return <SecurityRow
                         security={ security }
-                        securitySelect={portfolioSelect.securitiesSelect[index]}
+                        securitySelect={ portfolioSelect.securitiesSelect[ index ] }
                         removeSecurity={ removeSecurity }
                         securityTextFieldChange={ securityTextFieldChange }
                         securityTextFieldValid={ securityTextFieldValid }

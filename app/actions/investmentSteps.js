@@ -6,10 +6,10 @@ import * as types from '../types';
 
 polyfill();
 
-export function generateSteps(portfolio, investmentAmount) {
-    return {
-        type: types.GENERATE_STEPS,
-        portfolio: portfolio,
-        investmentAmount: investmentAmount,
-    };
+export function generateSteps( portfolio, investmentAmount ) {
+  return {
+    type: types.GENERATE_STEPS,
+    portfolio: portfolio,
+    investmentAmount: investmentAmount,
+  };
 }

@@ -1,25 +1,25 @@
 import _ from 'lodash';
-import Topic from '../models/modelPortfolios';
+import ModelPortfolio from '../models/modelPortfolios';
 
 /**
  * List
  */
 export function all(req, res) {
-  Topic.find({}).exec((err, topics) => {
+  ModelPortfolio.find({}).exec((err, modelPortfolios) => {
     if (err) {
       console.log('Error in first query');
       return res.status(500).send('Something went wrong getting the data');
     }
 
-    return res.json(topics);
+    return res.json(modelPortfolios);
   });
 }
 
 /**
- * Add a Topic
+ * Add a ModelPortfolio
  */
 export function add(req, res) {
-  Topic.create(req.body, (err) => {
+  ModelPortfolio.create(req.body, (err) => {
     if (err) {
       console.log(err);
       return res.status(400).send(err);
@@ -30,7 +30,7 @@ export function add(req, res) {
 }
 
 /**
- * Update a topic
+ * Update a modelPortfolio
  */
 export function update(req, res) {
   const query = { id: req.params.id };
@@ -40,7 +40,7 @@ export function update(req, res) {
   const data = _.omit(req.body, omitKeys);
 
   if (isFull) {
-    Topic.findOneAndUpdate(query, data, (err) => {
+    ModelPortfolio.findOneAndUpdate(query, data, (err) => {
       if (err) {
         console.log('Error on save!');
         return res.status(500).send('We failed to save for some reason');
@@ -49,7 +49,7 @@ export function update(req, res) {
       return res.status(200).send('Updated successfully');
     });
   } else {
-    Topic.findOneAndUpdate(query, data, (err) => {
+    ModelPortfolio.findOneAndUpdate(query, data, (err) => {
       if (err) {
         console.log('Error on save!');
         return res.status(500).send('We failed to save for some reason');
@@ -61,11 +61,11 @@ export function update(req, res) {
 }
 
 /**
- * Remove a topic
+ * Remove a modelPortfolio
  */
 export function remove(req, res) {
   const query = { id: req.params.id };
-  Topic.findOneAndRemove(query, (err) => {
+  ModelPortfolio.findOneAndRemove(query, (err) => {
     if (err) {
       console.log('Error on delete');
       return res.status(500).send('We failed to delete for some reason');

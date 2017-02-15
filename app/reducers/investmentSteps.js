@@ -85,8 +85,8 @@ const investmentSteps = (state = {},
   }
 };
 
-const topicReducer = combineReducers( {
+const modelPortfolioReducer = combineReducers( {
   investmentSteps
 } );
 
-export default topicReducer;
+export default modelPortfolioReducer;

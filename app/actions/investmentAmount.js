@@ -6,22 +6,22 @@ import * as types from '../types';
 
 polyfill();
 
-export function investmentAmountTextFieldChange(value) {
-    return {
-        type: types.INVESTMENT_AMOUNT_TEXT_FIELD_CHANGE,
-        value: value
-    };
+export function investmentAmountTextFieldChange( value ) {
+  return {
+    type: types.INVESTMENT_AMOUNT_TEXT_FIELD_CHANGE,
+    value: value
+  };
 }
 
 export function investmentAmountTextFieldValid() {
-    return {
-        type: types.INVESTMENT_AMOUNT_TEXT_FIELD_VALID
-    };
+  return {
+    type: types.INVESTMENT_AMOUNT_TEXT_FIELD_VALID
+  };
 }
 
-export function investmentAmountTextFieldError(error) {
-    return {
-        type: types.INVESTMENT_AMOUNT_TEXT_FIELD_ERROR,
-        error: error
-    };
+export function investmentAmountTextFieldError( error ) {
+  return {
+    type: types.INVESTMENT_AMOUNT_TEXT_FIELD_ERROR,
+    error: error
+  };
 }

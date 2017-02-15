@@ -1,9 +1,9 @@
-import topics from './topics';
+import modelPortfolios from './modelPortfolios';
 import users from './users';
 
-export { topics, users };
+export { modelPortfolios, users };
 
 export default {
-  topics,
+  modelPortfolios,
   users
 };

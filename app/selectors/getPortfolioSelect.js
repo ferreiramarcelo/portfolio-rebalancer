@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 
-const getPortfolio = (state) => state.topic;
+const getPortfolio = (state) => state.modelPortfolio;
 const getAuthenticated = (state) => state.user.authenticated;
 const getInvestmentAmount = (state) => state.investmentAmount.investmentAmount;
 

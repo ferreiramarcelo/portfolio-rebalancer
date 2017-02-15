@@ -4,13 +4,15 @@ import classNames from 'classnames/bind';
 import { dismissMessage } from '../actions/messages';
 import styles from '../css/components/message';
 
-const cx = classNames.bind(styles);
+const cx = classNames.bind( styles );
 
 const Message = ({message, type, dismissMessage}) => (
-  <div className={ cx('message', {
-                   show: message && message.length > 0,
-                   success: type === 'SUCCESS'
-                 }) } onClick={ dismissMessage }>
+  <div
+       className={ cx( 'message', {
+                     show: message && message.length > 0,
+                     success: type === 'SUCCESS'
+                   } ) }
+       onClick={ dismissMessage }>
     { message }
   </div>
 );
@@ -21,12 +23,12 @@ Message.propTypes = {
   dismissMessage: PropTypes.func.isRequired
 };
 
-function mapStateToProps(state) {
+function mapStateToProps( state ) {
   return {
     ...state.message
   };
 }
 
-export default connect(mapStateToProps, {
+export default connect( mapStateToProps, {
   dismissMessage
-})(Message);
+} )( Message );

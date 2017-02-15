@@ -28,7 +28,8 @@ const PriceProgress = ({price}) => {
              </IconButton>
     } else if ( price.fetch === 'FAILED' ) {
       return <div>
-               <IconButton className={ cx( 'PriceProgressIcon' ) }
+               <IconButton
+                           className={ cx( 'PriceProgressIcon' ) }
                            data-tip
                            data-for='tooltipPriceFetchError'>
                  <AlertErrorOutline />
@@ -36,8 +37,12 @@ const PriceProgress = ({price}) => {
                <ReactTooltip
                              id='tooltipPriceFetchError'
                              type='error'>
-                             <p>No valid price returned from https://finance.yahoo.com.</p>
-                             <p>Make sure you account for differing symbols based on exchange.</p>
+                 <p>
+                   No valid price returned from https://finance.yahoo.com.
+                 </p>
+                 <p>
+                   Make sure you account for differing symbols based on exchange.
+                 </p>
                </ReactTooltip>
              </div>;
     }

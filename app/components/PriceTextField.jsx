@@ -8,14 +8,14 @@ const cx = classNames.bind( styles );
 
 const PriceTextField = ({index, price, priceSelect, securityTextFieldChange}) => {
 
-    const getDisplayValue = (price) => {
-      if (!price.setOnce) {
-        return '';
-      }
-      return price.value;
+  const getDisplayValue = (price) => {
+    if ( !price.setOnce ) {
+      return '';
     }
+    return price.value;
+  }
 
-    const displayValue = getDisplayValue(price);
+  const displayValue = getDisplayValue( price );
 
   const handleOnChange = (event, value) => {
     securityTextFieldChange( index, 'price', value );
@@ -24,14 +24,14 @@ const PriceTextField = ({index, price, priceSelect, securityTextFieldChange}) =>
   return (
 
   <div>
-      <TextField
-                 className={ cx( 'PriceTextField' ) }
-                 id={ 'priceTextField' + index }
-                 value={ displayValue }
-                 errorText={ priceSelect.errorText }
-                 hintText={ priceSelect.hintText }
-                 onChange={ handleOnChange } />
-      <PriceProgress price={price} />
+    <TextField
+               className={ cx( 'PriceTextField' ) }
+               id={ 'priceTextField' + index }
+               value={ displayValue }
+               errorText={ priceSelect.errorText }
+               hintText={ priceSelect.hintText }
+               onChange={ handleOnChange } />
+    <PriceProgress price={ price } />
   </div>
   );
 };

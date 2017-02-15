@@ -1,12 +1,12 @@
 import expect from 'expect';
 import md5 from 'spark-md5';
-import reducer from 'reducers/topic';
+import reducer from 'reducers/modelPortfolio';
 import * as types from 'types';
 
-describe('Topics reducer', () => {
+describe('ModelPortfolios reducer', () => {
   const s = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 
-  function createTopic() {
+  function createModelPortfolio() {
     return Array(5).join().split(',')
     .map(() => {
       return s.charAt(Math.floor(Math.random() * s.length));
@@ -14,19 +14,19 @@ describe('Topics reducer', () => {
     .join('');
   }
 
-  const topic = createTopic();
+  const modelPortfolio = createModelPortfolio();
 
   function createData() {
     return {
-      text: createTopic(),
-      id: md5.hash(createTopic()),
+      text: createModelPortfolio(),
+      id: md5.hash(createModelPortfolio()),
       count: Math.floor(Math.random() * 100)
     };
   }
 
   const data = createData();
 
-  function createTopics(x) {
+  function createModelPortfolios(x) {
     const arr = [];
     for (let i = 0; i < x; i++) {
       arr.push(createData());
@@ -39,29 +39,29 @@ describe('Topics reducer', () => {
       reducer(undefined, {})
     ).toEqual(
       {
-        topics: [],
-        newTopic: ''
+        modelPortfolios: [],
+        newModelPortfolio: ''
       }
     );
   });
 
-  it('Should add a new topic to an empty initial state', () => {
+  it('Should add a new modelPortfolio to an empty initial state', () => {
     expect(
       reducer(undefined, {
         type: types.CREATE_TOPIC_REQUEST,
         id: data.id,
         count: 1,
-        text: topic
+        text: modelPortfolio
       })
     ).toEqual({
-        topics: [
+        modelPortfolios: [
           {
             id: data.id,
             count: 1,
-            text: topic
+            text: modelPortfolio
           }
         ],
-        newTopic: ''
+        newModelPortfolio: ''
     });
   });
 
@@ -69,11 +69,11 @@ describe('Topics reducer', () => {
     expect(
       reducer(undefined, {
         type: types.TYPING,
-        newTopic: topic
+        newModelPortfolio: modelPortfolio
       })
     ).toEqual({
-        topics: [],
-        newTopic: topic
+        modelPortfolios: [],
+        newModelPortfolio: modelPortfolio
     });
   });
 
@@ -83,8 +83,8 @@ describe('Topics reducer', () => {
         type: types.CREATE_REQUEST
       })
     ).toEqual({
-        topics: [],
-        newTopic: ''
+        modelPortfolios: [],
+        newModelPortfolio: ''
     });
   });
 
@@ -92,20 +92,20 @@ describe('Topics reducer', () => {
     expect(
       reducer(undefined, {
         type: types.REQUEST_SUCCESS,
-        data: topic
+        data: modelPortfolio
       })
     ).toEqual({
-        topics: topic,
-        newTopic: ''
+        modelPortfolios: modelPortfolio,
+        newModelPortfolio: ''
     });
   });
 
   it('Should handle CREATE_TOPIC_REQUEST', () => {
-    const topics = createTopics(20);
-    const newTopics = [...topics, data];
+    const modelPortfolios = createModelPortfolios(20);
+    const newModelPortfolios = [...modelPortfolios, data];
     expect(
       reducer({
-        topics
+        modelPortfolios
       },
       {
         type: types.CREATE_TOPIC_REQUEST,
@@ -115,92 +115,92 @@ describe('Topics reducer', () => {
 
       })
     ).toEqual({
-        newTopic: '',
-        topics: newTopics
+        newModelPortfolio: '',
+        modelPortfolios: newModelPortfolios
     });
   });
 
   it('should handle CREATE_TOPIC_FAILURE', () => {
-    const topics = createTopics(20);
-    topics.push(data);
-    const newTopics = [...topics];
+    const modelPortfolios = createModelPortfolios(20);
+    modelPortfolios.push(data);
+    const newModelPortfolios = [...modelPortfolios];
     expect(
       reducer({
-        topics,
-        newTopic: topic
+        modelPortfolios,
+        newModelPortfolio: modelPortfolio
       },
       {
         type: types.CREATE_TOPIC_FAILURE,
         id: data.id
       })
     ).toEqual({
-        topics: newTopics.pop() && newTopics,
-        newTopic: topic
+        modelPortfolios: newModelPortfolios.pop() && newModelPortfolios,
+        newModelPortfolio: modelPortfolio
     });
   });
 
   it('should handle DESTROY_TOPIC', () => {
-    const topics = createTopics(20);
-    topics.push(data);
-    const newTopics = [...topics];
+    const modelPortfolios = createModelPortfolios(20);
+    modelPortfolios.push(data);
+    const newModelPortfolios = [...modelPortfolios];
     expect(
       reducer({
-        topics,
-        newTopic: topic
+        modelPortfolios,
+        newModelPortfolio: modelPortfolio
       },
       {
         type: types.DESTROY_TOPIC,
-        id: topics[topics.length - 1].id,
+        id: modelPortfolios[modelPortfolios.length - 1].id,
       })
     ).toEqual({
-        topics: newTopics.pop() && newTopics,
-        newTopic: topic
+        modelPortfolios: newModelPortfolios.pop() && newModelPortfolios,
+        newModelPortfolio: modelPortfolio
     });
   });
 
   it('should handle INCREMENT_COUNT', () => {
-    const topics = createTopics(20);
-    const newTopics = [...topics];
-    topics.push(data);
+    const modelPortfolios = createModelPortfolios(20);
+    const newModelPortfolios = [...modelPortfolios];
+    modelPortfolios.push(data);
     const newData = Object.assign({}, data);
     newData.count++;
-    newTopics.push(newData);
+    newModelPortfolios.push(newData);
 
     expect(
       reducer({
-        topics,
-        newTopic: topic
+        modelPortfolios,
+        newModelPortfolio: modelPortfolio
       },
       {
         type: types.INCREMENT_COUNT,
-        id: topics[topics.length - 1].id,
+        id: modelPortfolios[modelPortfolios.length - 1].id,
       })
     ).toEqual({
-        topics: newTopics,
-        newTopic: topic
+        modelPortfolios: newModelPortfolios,
+        newModelPortfolio: modelPortfolio
     });
   });
 
   it('should handle DECREMENT_COUNT', () => {
-    const topics = createTopics(20);
-    const newTopics = [...topics];
-    topics.push(data);
+    const modelPortfolios = createModelPortfolios(20);
+    const newModelPortfolios = [...modelPortfolios];
+    modelPortfolios.push(data);
     const newData = Object.assign({}, data);
     newData.count--;
-    newTopics.push(newData);
+    newModelPortfolios.push(newData);
 
     expect(
       reducer({
-        topics,
-        newTopic: topic
+        modelPortfolios,
+        newModelPortfolio: modelPortfolio
       },
       {
         type: types.DECREMENT_COUNT,
-        id: topics[topics.length - 1].id,
+        id: modelPortfolios[modelPortfolios.length - 1].id,
       })
     ).toEqual({
-        topics: newTopics,
-        newTopic: topic
+        modelPortfolios: newModelPortfolios,
+        newModelPortfolio: modelPortfolio
     });
   });
 });

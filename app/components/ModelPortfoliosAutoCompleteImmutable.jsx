@@ -7,11 +7,11 @@ import ContentCreate from 'material-ui/svg-icons/content/create';
 import ActionGroupWork from 'material-ui/svg-icons/action/group-work';
 import EditorModeEdit from 'material-ui/svg-icons/editor/mode-edit';
 
-// Takes callback functions from props and passes it down to TopicTextInput
+// Takes callback functions from props and passes it down to ModelPortfolioTextInput
 // Essentially this is passing the callback function two levels down from parent
 // to grandchild. To make it cleaner, you could consider:
 // 1. moving `connect` down to this component so you could mapStateToProps and dispatch
-// 2. Move TopicTextInput up to EntryBox so it's less confusing
+// 2. Move ModelPortfolioTextInput up to EntryBox so it's less confusing
 const ModelPortfoliosAutoCompleteImmutable = ({selectModelPortfolio, modelPortfolios, email}) => {
 
   const generateDisplayModelPortfolios = (modelPortfolios, email) => {

@@ -1,7 +1,7 @@
-import topics from './topics';
+import modelPortfolios from './modelPortfolios';
 import users from './users';
 
 export default {
-  topics,
+  modelPortfolios,
   users
 };

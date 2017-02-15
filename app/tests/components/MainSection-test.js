@@ -2,10 +2,10 @@ import React from 'react';
 import expect from 'expect';
 import { mount } from 'enzyme';
 import MainSection from '../components/MainSection';
-import TopicItem from '../components/TopicItem';
+import ModelPortfolioItem from '../components/ModelPortfolioItem';
 
 const emptyData = [];
-const topicItemData = [{
+const modelPortfolioItemData = [{
   text: '',
   id: '',
   index: 0,
@@ -20,15 +20,15 @@ const stubFunctions = {
 };
 
 describe('<MainSection />', () => {
-  describe('With Topics', () => {
-    it('should render <TopicItem> list items', () => {
-      expect(mount(<MainSection topics={topicItemData} {...stubFunctions} />).find(TopicItem).length).toBe(1);
+  describe('With ModelPortfolios', () => {
+    it('should render <ModelPortfolioItem> list items', () => {
+      expect(mount(<MainSection modelPortfolios={modelPortfolioItemData} {...stubFunctions} />).find(ModelPortfolioItem).length).toBe(1);
     });
   });
 
-  describe('Without Topics', () => {
-    it('should not render <TopicItem> list items', () => {
-      expect(mount(<MainSection topics={emptyData} {...stubFunctions} />).find(TopicItem).length).toBe(0);
+  describe('Without ModelPortfolios', () => {
+    it('should not render <ModelPortfolioItem> list items', () => {
+      expect(mount(<MainSection modelPortfolios={emptyData} {...stubFunctions} />).find(ModelPortfolioItem).length).toBe(0);
     });
   });
 });

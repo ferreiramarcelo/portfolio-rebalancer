@@ -34,7 +34,7 @@ const DeleteModelPortfolioButton = ({id, deleteModelPortfolio, visibility}) => {
       case 'disabled':
         return <div>
                  <IconButton
-                             disabled={true}
+                             disabled={ true }
                              className={ cx( 'DeleteModelPortfolioButton' ) }
                              touch={ true }
                              onTouchTap={ handleOnClick }>
@@ -55,7 +55,10 @@ const DeleteModelPortfolioButton = ({id, deleteModelPortfolio, visibility}) => {
   const deleteModelPortfolioButton = getDeleteModelPortfolioButton( visibility );
 
   return (
-  <div className={ cx( 'DeleteModelPortfolioDiv' ) } data-tip data-for='deleteModelPortfolioButtonTooltip'>
+  <div
+       className={ cx( 'DeleteModelPortfolioDiv' ) }
+       data-tip
+       data-for='deleteModelPortfolioButtonTooltip'>
     { deleteModelPortfolioButton }
   </div>
   );

@@ -1,5 +1,5 @@
 export default (sequelize, DataTypes) =>
-  sequelize.define('Topic', {
+  sequelize.define('ModelPortfolio', {
     id: {
       type: DataTypes.STRING,
       primaryKey: true

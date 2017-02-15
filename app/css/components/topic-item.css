@@ -2,12 +2,12 @@
 @import '../common/colors';
 @import '../common/layout';
 
-.topic-item {
+.modelPortfolio-item {
   display: flex;
   justify-content: space-between;
 }
 
-.topic {
+.modelPortfolio {
   @apply --flexNotMoreThan200;
   font-size: var(--fontMedium);
 }
