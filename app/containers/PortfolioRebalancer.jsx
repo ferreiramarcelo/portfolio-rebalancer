@@ -11,7 +11,7 @@ import { createModelPortfolio, typing, incrementCount, decrementCount, destroyMo
 import { investmentAmountTextFieldChange, investmentAmountTextFieldValid, investmentAmountTextFieldError } from '../actions/investmentAmount';
 import { generateSteps } from '../actions/investmentSteps';
 import classNames from 'classnames/bind';
-import styles from '../css/components/portfolio-rebalancer';
+import styles from '../css/containers/portfolio-rebalancer';
 import { getPortfolioSelect } from '../selectors/index'
 
 const cx = classNames.bind( styles );
@@ -26,7 +26,7 @@ class PortfolioRebalancer extends Component {
     const {newModelPortfolio, modelPortfolios, selectedModelPortfolio, portfolio, investmentAmount, investmentSteps, view, email, createModelPortfolio, destroyModelPortfolio, incrementCount, decrementCount, selectModelPortfolio, createNewPortfolio, selectedModelPortfolioTextFieldChange, addSecurity, removeSecurity, securityTextFieldChange, investmentAmountTextFieldChange, investmentAmountTextFieldValid, investmentAmountTextFieldError, generateSteps, saveModelPortfolio, portfolioSelect, deleteModelPortfolio} = this.props;
     if ( !view.displayTable && !view.displaySteps ) {
       return (
-      <div style={ { display: 'table', width: '100%', height: '20px' } }>
+      <div className={ cx( 'model-portfolio-selector-container' ) }>
         <ModelPortfoliosAutoCompleteImmutable
                                               selectModelPortfolio={ selectModelPortfolio }
                                               modelPortfolios={ modelPortfolios }

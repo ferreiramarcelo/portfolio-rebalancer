@@ -1,17 +1,14 @@
 import React, { PropTypes } from 'react';
-import classNames from 'classnames/bind';
-import styles from '../css/components/entrybox';
 import AutoComplete from 'material-ui/AutoComplete';
 import MenuItem from 'material-ui/MenuItem';
 import ContentCreate from 'material-ui/svg-icons/content/create';
 import ActionGroupWork from 'material-ui/svg-icons/action/group-work';
 import EditorModeEdit from 'material-ui/svg-icons/editor/mode-edit';
 
-// Takes callback functions from props and passes it down to ModelPortfolioTextInput
-// Essentially this is passing the callback function two levels down from parent
-// to grandchild. To make it cleaner, you could consider:
-// 1. moving `connect` down to this component so you could mapStateToProps and dispatch
-// 2. Move ModelPortfolioTextInput up to EntryBox so it's less confusing
+import classNames from 'classnames/bind';
+import styles from '../css/components/model-portfolios-autocomplete';
+const cx = classNames.bind( styles );
+
 const ModelPortfoliosAutoCompleteImmutable = ({selectModelPortfolio, modelPortfolios, email}) => {
 
   const generateDisplayModelPortfolios = (modelPortfolios, email) => {
@@ -119,6 +116,7 @@ const ModelPortfoliosAutoCompleteImmutable = ({selectModelPortfolio, modelPortfo
 
 
   return (
+    <div className={ cx( 'model-portfolios-autocomplete-container' ) }>
   <AutoComplete
                 hintText="Select model portfolio..."
                 filter={ AutoComplete.caseInsensitiveFilter }
@@ -126,7 +124,8 @@ const ModelPortfoliosAutoCompleteImmutable = ({selectModelPortfolio, modelPortfo
                 dataSource={ displayModelPortfoliosElements }
                 onNewRequest={ handleOnNewRequest }
                 fullWidth={ true }
-                style={ { paddingRight: '5px', display: 'table-cell', } } />
+                 />
+               </div>
   );
 };
 
