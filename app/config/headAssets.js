@@ -1,9 +1,9 @@
 /* Based on the template in Web Starter Kit :
 https://github.com/google/web-starter-kit/blob/master/app/index.html
 */
-import chromeFavicon from '../images/chrome-ninja192-precomposed.png';
-import appleFavicon from '../images/apple-ninja152-precomposed.png';
-import msFavicon from '../images/ms-ninja144-precomposed.png';
+import chromeFavicon from '../images/portfolio-rebalancer-logo-192px.png';
+import appleFavicon from '../images/portfolio-rebalancer-logo-152px.png';
+import msFavicon from '../images/portfolio-rebalancer-logo-144px.png';
 import favicon from '../images/favicon.png';
 import { isDev } from '../config/app';
 
