@@ -57,7 +57,7 @@ const investmentSteps = (state = {},
         unitsAdditionPerSecurity = unitsAdditionPerSecurityAndExtraCash.unitsAdditionPerSecurity;
         extraCash = unitsAdditionPerSecurityAndExtraCash.extraCash;
 
-        valuePerSecurityCurrent = getUpdatedValuePerSecurityForAdditions( valuePerSecurityCurrent, valueAdditionPerSecurity, portfolio );
+        valuePerSecurityCurrent = getUpdatedValuePerSecurityForAdditions( valuePerSecurityCurrent, unitsAdditionPerSecurity, portfolio );
         valueAdjustmentsPerSecurity = getValueAdjustmentsPerSecurity( valuePerSecurityCurrent, valuePerSecurityTotal );
         let unitsAdjustmentsPerSecurityAndExtraCash = getUnitsForAdjusting(valueAdjustmentsPerSecurity, portfolio);
         unitsAdjustmentsPerSecurity = unitsAdjustmentsPerSecurityAndExtraCash.unitsAdjustmentsPerSecurity;
