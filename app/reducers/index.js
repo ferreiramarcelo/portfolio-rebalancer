@@ -4,7 +4,7 @@ import user from '../reducers/user';
 import modelPortfolio from '../reducers/modelPortfolio';
 import message from '../reducers/message';
 import investmentAmount from '../reducers/investmentAmount';
-import investmentSteps from '../reducers/investmentSteps';
+import rebalancing from '../reducers/rebalancing';
 import authentication from '../reducers/authentication';
 import view from '../reducers/view';
 import * as types from '../types';
@@ -29,7 +29,7 @@ const rootReducer = combineReducers({
   user,
     message,
     investmentAmount,
-    investmentSteps,
+    rebalancing,
     view,
   routing,
   authentication

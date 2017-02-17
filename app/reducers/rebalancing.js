@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 import * as types from '../types';
 import { getPortfolioWithNormalizedAllocations, getValuesForInvesting, getValuesForDisvesting, getValueAdjustmentsPerSecurity, getUnitsForValuePerSecurityAndExtraCash,
-getUnitsForInvesting, getUnitsForDisvesting, getUnitsForAdjusting, getUpdatedValuePerSecurityForAdditions, getUpdatedValuePerSecurityForReductions } from '../algorithms/InvestmentStepsAlgorithms';
+getUnitsForInvesting, getUnitsForDisvesting, getUnitsForAdjusting, getUpdatedValuePerSecurityForAdditions, getUpdatedValuePerSecurityForReductions } from '../algorithms/PortfolioAlgorithms';
 
-const investmentSteps = (state = {},
+const rebalancingSteps = (state = {},
   action
 ) => {
   switch (action.type) {
@@ -86,7 +86,7 @@ const investmentSteps = (state = {},
 };
 
 const modelPortfolioReducer = combineReducers( {
-  investmentSteps
+  rebalancingSteps
 } );
 
 export default modelPortfolioReducer;
