@@ -80,6 +80,9 @@ const rebalancingSteps = (state = {},
         balanceByDisvesting: unitsReductionPerSecurity,
         balanceByAdjusting: unitsAdjustmentsPerSecurity
       };
+    case types.SELECT_MODEL_PORTFOLIO:
+    case types.CREATE_NEW_PORTFOLIO:
+      return {};
     default:
       return state;
   }

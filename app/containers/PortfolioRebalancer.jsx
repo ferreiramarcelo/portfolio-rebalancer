@@ -9,10 +9,11 @@ import StepsList from '../components/StepsList';
 import SymbolTextField from '../components/SymbolTextField';
 import { createModelPortfolio, typing, incrementCount, decrementCount, destroyModelPortfolio, selectModelPortfolio, createNewPortfolio, selectedModelPortfolioTextFieldChange, addSecurity, removeSecurity, securityTextFieldChange, saveModelPortfolio, deleteModelPortfolio } from '../actions/modelPortfolios';
 import { investmentAmountTextFieldChange, investmentAmountTextFieldValid, investmentAmountTextFieldError } from '../actions/investmentAmount';
-import { generateSteps } from '../actions/rebalancings';
+import { generateSteps, setScrolledToBttom } from '../actions/rebalancings';
 import classNames from 'classnames/bind';
 import styles from '../css/containers/portfolio-rebalancer';
 import { getPortfolioSelect } from '../selectors/index'
+import Scroll from 'react-scroll';
 
 const cx = classNames.bind( styles );
 
@@ -20,6 +21,15 @@ class PortfolioRebalancer extends Component {
 
   constructor( props ) {
     super( props );
+  }
+
+  componentDidUpdate() {
+    const {view, setScrolledToBttom} = this.props;
+    if (view.justGeneratedSteps) {
+      let scroll = Scroll.animateScroll;
+      scroll.scrollToBottom();
+      setScrolledToBttom();
+    }
   }
 
   render() {
@@ -98,6 +108,7 @@ PortfolioRebalancer.propTypes = {
   investmentAmountTextFieldChange: PropTypes.func.isRequired,
   securityTextFieldChange: PropTypes.func.isRequired,
   generateSteps: PropTypes.func.isRequired,
+  setScrolledToBttom: PropTypes.func.isRequired,
   saveModelPortfolio: PropTypes.func.isRequired,
   deleteModelPortfolio: PropTypes.func.isRequired
 };
@@ -130,6 +141,7 @@ export default connect( mapStateToProps, {
   securityTextFieldChange,
   investmentAmountTextFieldChange,
   generateSteps,
+  setScrolledToBttom,
   saveModelPortfolio,
   deleteModelPortfolio
 } )( PortfolioRebalancer );

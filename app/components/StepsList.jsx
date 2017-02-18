@@ -35,7 +35,6 @@ const StepsList = ({rebalancingSteps}) => {
         return stepsList;
       }
       if ( rebalancingSteps.balanceByInvesting.length > 0 ) {
-        stepsList.push( <h4>Rebalance by buying</h4> );
         for (var i = 0; i < rebalancingSteps.portfolio.length; i++) {
           if ( rebalancingSteps.balanceByInvesting[ i ] > 0 ) {
             investmentSteps.push( <p>
@@ -52,7 +51,6 @@ const StepsList = ({rebalancingSteps}) => {
         stepNumber = 1;
       }
       if ( rebalancingSteps.balanceByDisvesting.length > 0 ) {
-        stepsList.push( <h4>Rebalance by selling</h4> );
         for (var i = 0; i < rebalancingSteps.portfolio.length; i++) {
           if ( rebalancingSteps.balanceByDisvesting[ i ] > 0 ) {
             disvestmentSteps.push( <p>
@@ -69,7 +67,6 @@ const StepsList = ({rebalancingSteps}) => {
         stepNumber = 1;
       }
       if ( rebalancingSteps.balanceByAdjusting.length > 0 ) {
-        stepsList.push( <h4>Rebalance by selling and buying</h4> );
         for (var i = 0; i < rebalancingSteps.portfolio.length; i++) {
           if ( rebalancingSteps.balanceByAdjusting[ i ] < 0 ) {
             adjustmentSteps.push( <p>

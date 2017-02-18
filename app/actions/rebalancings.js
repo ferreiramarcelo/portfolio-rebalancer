@@ -13,3 +13,9 @@ export function generateSteps( portfolio, investmentAmount ) {
     investmentAmount: investmentAmount,
   };
 }
+
+export function setScrolledToBttom() {
+  return {
+    type: types.SET_SCROLLED_TO_BOTTOM
+  };
+}

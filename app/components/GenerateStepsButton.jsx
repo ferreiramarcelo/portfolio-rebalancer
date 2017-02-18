@@ -2,11 +2,13 @@ import React, { Component, PropTypes } from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import ActionBuild from 'material-ui/svg-icons/action/build';
 import ReactTooltip from 'react-tooltip'
+import Scroll from 'react-scroll';
 
 const GenerateStepsButton = ({visibility, generateSteps, investmentAmount, portfolio}) => {
 
   const handleOnClick = () => {
     generateSteps( portfolio, investmentAmount );
+    scroll.scrollToBottom();
   }
 
   const getGenerateStepsButton = (visibility) => {
