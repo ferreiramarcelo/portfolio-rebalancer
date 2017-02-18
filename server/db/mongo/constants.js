@@ -1,5 +1,5 @@
-import { ENV } from '../../config/appConfig';
 import dotenv from 'dotenv';
+import { ENV } from '../../config/appConfig';
 
 let dbURI = '';
 if (ENV === 'production') {

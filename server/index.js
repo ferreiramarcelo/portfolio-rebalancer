@@ -13,6 +13,7 @@ connect();
 passportConfig();
 if (ENV === 'development') {
   const webpackDevConfig = require('../webpack/webpack.config.dev-client');
+
   const compiler = webpack(webpackDevConfig);
   app.use(require('webpack-dev-middleware')(compiler, {
     noInfo: true,

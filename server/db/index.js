@@ -1,7 +1,4 @@
-import { DB_TYPE } from '../config/appConfig';
-import { DB_TYPES } from '../config/constants';
-
-let dbConfig = require('./mongo').default;
+const dbConfig = require('./mongo').default;
 
 export const connect = dbConfig.connect;
 export const controllers = dbConfig.controllers;
