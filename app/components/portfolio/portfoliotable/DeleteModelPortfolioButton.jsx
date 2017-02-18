@@ -5,7 +5,7 @@ import ActionDeleteForever from 'material-ui/svg-icons/action/delete-forever';
 import ReactTooltip from 'react-tooltip'
 
 import classNames from 'classnames/bind';
-import styles from '../css/components/portfolio-table/delete-model-portfolio-button';
+import styles from '../../../css/components/portfolio-table/delete-model-portfolio-button';
 
 const cx = classNames.bind( styles );
 

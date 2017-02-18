@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import InvestmentAmountTextField from '../components/InvestmentAmountTextField';
+import InvestmentAmountTextField from './InvestmentAmountTextField';
 
 import classNames from 'classnames/bind';
-import styles from '../css/components/investment-amount';
+import styles from '../../css/components/investment-amount';
 
 const cx = classNames.bind( styles );
 

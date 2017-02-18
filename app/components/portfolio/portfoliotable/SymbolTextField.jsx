@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import TextField from 'material-ui/TextField';
 import classNames from 'classnames/bind';
-import styles from '../css/components/security-text-field';
+import styles from '../../../css/components/security-text-field';
 
 const cx = classNames.bind( styles );
 

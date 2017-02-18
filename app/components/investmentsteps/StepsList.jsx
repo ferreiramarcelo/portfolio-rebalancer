@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import ActionBuild from 'material-ui/svg-icons/action/build';
 
-import styles from '../css/components/steps-list';
+import styles from '../../css/components/steps-list';
 
 
 const StepsList = ({rebalancingSteps}) => {

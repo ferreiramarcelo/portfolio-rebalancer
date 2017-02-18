@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import TextField from 'material-ui/TextField';
-import PriceProgress from '../components/PriceProgress';
+import PriceProgress from './PriceProgress';
 
 import classNames from 'classnames/bind';
-import styles from '../css/components/portfolio-table/price-cell';
+import styles from '../../../css/components/portfolio-table/price-cell';
 const cx = classNames.bind( styles );
 
 const PriceTextField = ({index, price, priceSelect, securityTextFieldChange}) => {

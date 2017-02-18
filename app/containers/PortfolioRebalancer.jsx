@@ -1,12 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import ModelPortfoliosAutoCompleteImmutable from '../components/ModelPortfoliosAutoCompleteImmutable';
-import NewPortfolioButton from '../components/NewPortfolioButton';
-import Portfolio from '../components/Portfolio';
-import InvestmentAmount from '../components/InvestmentAmount';
-import GenerateStepsButton from '../components/GenerateStepsButton';
-import StepsList from '../components/StepsList';
-import SymbolTextField from '../components/SymbolTextField';
+import ModelPortfoliosAutoComplete from '../components/portfolioselection/ModelPortfoliosAutoComplete';
+import NewPortfolioButton from '../components/portfolioselection/NewPortfolioButton';
+import Portfolio from '../components/portfolio/Portfolio';
+import InvestmentAmount from '../components/investmentamount/InvestmentAmount';
+import GenerateStepsButton from '../components/investmentsteps/GenerateStepsButton';
+import StepsList from '../components/investmentsteps/StepsList';
 import { createModelPortfolio, typing, incrementCount, decrementCount, destroyModelPortfolio, selectModelPortfolio, createNewPortfolio, selectedModelPortfolioTextFieldChange, addSecurity, removeSecurity, securityTextFieldChange, saveModelPortfolio, deleteModelPortfolio } from '../actions/modelPortfolios';
 import { investmentAmountTextFieldChange, investmentAmountTextFieldValid, investmentAmountTextFieldError } from '../actions/investmentAmount';
 import { generateSteps, setScrolledToBttom } from '../actions/rebalancings';
@@ -37,7 +36,7 @@ class PortfolioRebalancer extends Component {
     if ( !view.displayTable && !view.displaySteps ) {
       return (
       <div className={ cx( 'model-portfolio-selector-container' ) }>
-        <ModelPortfoliosAutoCompleteImmutable
+        <ModelPortfoliosAutoComplete
                                               selectModelPortfolio={ selectModelPortfolio }
                                               modelPortfolios={ modelPortfolios }
                                               email={ email } />
@@ -46,16 +45,14 @@ class PortfolioRebalancer extends Component {
       )
     } else {
       return (
-      <div id="PortfolioRebalancer">
-        <div style={ { display: 'table', width: '100%', height: '20px' } }>
-          <ModelPortfoliosAutoCompleteImmutable
+      <div>
+        <div className={ cx( 'model-portfolio-selector-container' ) }>
+          <ModelPortfoliosAutoComplete
                                                 selectModelPortfolio={ selectModelPortfolio }
                                                 modelPortfolios={ modelPortfolios }
                                                 email={ email } />
           <NewPortfolioButton createNewPortfolio={ createNewPortfolio } />
         </div>
-        <br></br>
-        <br></br>
         <Portfolio
                    portfolioSelect={ portfolioSelect }
                    selectedModelPortfolio={ selectedModelPortfolio }
@@ -67,14 +64,10 @@ class PortfolioRebalancer extends Component {
                    addSecurity={ addSecurity }
                    saveModelPortfolio={ saveModelPortfolio }
                    deleteModelPortfolio={ deleteModelPortfolio } />
-        <br/>
-        <br/>
         <InvestmentAmount
                           investmentAmount={ investmentAmount }
                           investmentAmountSelect={ portfolioSelect.investmentAmountSelect }
                           investmentAmountTextFieldChange={ investmentAmountTextFieldChange } />
-        <br></br>
-        <br></br>
         <GenerateStepsButton
                              visibility={ portfolioSelect.generateStepsButtonVisibility }
                              generateSteps={ generateSteps }

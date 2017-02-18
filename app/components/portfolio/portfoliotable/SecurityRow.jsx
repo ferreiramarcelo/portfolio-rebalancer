@@ -1,14 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 import { TableRow, TableRowColumn } from 'material-ui/Table';
-import SymbolTextField from '../components/SymbolTextField';
-import AllocationTextField from '../components/AllocationTextField';
-import PriceTextField from '../components/PriceTextField';
-import PriceProgress from '../components/PriceProgress';
-import UnitsTextField from '../components/UnitsTextField';
-import RemoveSecurityButton from '../components/RemoveSecurityButton';
-import CircularProgress from 'material-ui/CircularProgress';
+import SymbolTextField from './SymbolTextField';
+import AllocationTextField from './AllocationTextField';
+import PriceTextField from './PriceTextField';
+import PriceProgress from './PriceProgress';
+import UnitsTextField from './UnitsTextField';
+import RemoveSecurityButton from './RemoveSecurityButton';
 import classNames from 'classnames/bind';
-import styles from '../css/components/portfolio-table/security-row';
+import styles from '../../../css/components/portfolio-table/security-row';
 
 const cx = classNames.bind( styles );
 

@@ -3,7 +3,7 @@ import FlatButton from 'material-ui/FlatButton';
 import ContentCreate from 'material-ui/svg-icons/content/create';
 
 import classNames from 'classnames/bind';
-import styles from '../css/components/new-portfolio-button';
+import styles from '../../css/components/new-portfolio-button';
 const cx = classNames.bind( styles );
 
 const NewPortfolioButton = ({createNewPortfolio}) => {

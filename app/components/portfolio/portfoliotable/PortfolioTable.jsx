@@ -1,17 +1,16 @@
 import React, { Component, PropTypes } from 'react';
 import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
 import { Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
-import SaveModelPortfolioButton from '../components/SaveModelPortfolioButton';
-import DeleteModelPortfolioButton from '../components/DeleteModelPortfolioButton';
-import SecurityRow from '../components/SecurityRow';
-import AddSecurityButton from '../components/AddSecurityButton';
+import SecurityRow from './SecurityRow';
 import ReactTooltip from 'react-tooltip'
+import SaveModelPortfolioButton from './SaveModelPortfolioButton';
+import DeleteModelPortfolioButton from './DeleteModelPortfolioButton';
 
 import classNames from 'classnames/bind';
-import styles from '../css/components/portfolio-table/portfolio-table';
+import styles from '../../../css/components/portfolio-table/portfolio-table';
 const cx = classNames.bind( styles );
 
-const PortfolioTableImmutable = ({portfolioSelect, portfolio, addSecurity, removeSecurity, securityTextFieldChange, securityTextFieldValid, securityTextFieldError, saveModelPortfolio, deleteModelPortfolio, selectedModelPortfolio}) => {
+const PortfolioTable = ({portfolioSelect, portfolio, addSecurity, removeSecurity, securityTextFieldChange, securityTextFieldValid, securityTextFieldError, saveModelPortfolio, deleteModelPortfolio, selectedModelPortfolio}) => {
 
 
   const securityRows = portfolio.map( (security, index) => {
@@ -99,7 +98,7 @@ const PortfolioTableImmutable = ({portfolioSelect, portfolio, addSecurity, remov
   );
 };
 
-PortfolioTableImmutable.propTypes = {
+PortfolioTable.propTypes = {
   portfolioSelect: PropTypes.object.isRequired,
   portfolio: PropTypes.array.isRequired,
   addSecurity: PropTypes.func.isRequired,
@@ -113,4 +112,4 @@ PortfolioTableImmutable.propTypes = {
   selectedModelPortfolio: PropTypes.object.isRequired
 };
 
-export default PortfolioTableImmutable;
+export default PortfolioTable;

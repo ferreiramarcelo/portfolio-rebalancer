@@ -1,13 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
-import ModelPortfolioNameTextField from '../components/ModelPortfolioNameTextField';
-import SaveModelPortfolioButton from '../components/SaveModelPortfolioButton';
-import DeleteModelPortfolioButton from '../components/DeleteModelPortfolioButton';
-import PortfolioTableImmutable from '../components/PortfolioTableImmutable';
-import AddSecurityButton from '../components/AddSecurityButton';
+import ModelPortfolioNameTextField from './ModelPortfolioNameTextField';
+import PortfolioTable from './portfoliotable/PortfolioTable';
+import AddSecurityButton from './AddSecurityButton';
 
 import classNames from 'classnames/bind';
-import styles from '../css/components/portfolio-table/portfolio-table';
+import styles from '../../css/components/portfolio-table/portfolio-table';
 
 const cx = classNames.bind( styles );
 
@@ -20,7 +18,7 @@ const Portfolio = ({portfolioSelect, selectedModelPortfolio, selectedModelPortfo
       <ModelPortfolioNameTextField
                                    selectedModelPortfolio={ selectedModelPortfolio }
                                    selectedModelPortfolioTextFieldChange={ selectedModelPortfolioTextFieldChange } />
-      <PortfolioTableImmutable
+      <PortfolioTable
                                portfolioSelect={ portfolioSelect }
                                portfolio={ portfolio }
                                addSecurity={ addSecurity }

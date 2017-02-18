@@ -6,10 +6,10 @@ import ActionGroupWork from 'material-ui/svg-icons/action/group-work';
 import EditorModeEdit from 'material-ui/svg-icons/editor/mode-edit';
 
 import classNames from 'classnames/bind';
-import styles from '../css/components/model-portfolios-autocomplete';
+import styles from '../../css/components/model-portfolios-autocomplete';
 const cx = classNames.bind( styles );
 
-const ModelPortfoliosAutoCompleteImmutable = ({selectModelPortfolio, modelPortfolios, email}) => {
+const ModelPortfoliosAutoComplete = ({selectModelPortfolio, modelPortfolios, email}) => {
 
   const generateDisplayModelPortfolios = (modelPortfolios, email) => {
     var defaultModelPortfolios = [];
@@ -106,7 +106,7 @@ const ModelPortfoliosAutoCompleteImmutable = ({selectModelPortfolio, modelPortfo
   const handleOnNewRequest = (chosenRequest, index) => {
     var selectedModelPortfolio;
     for (var i = 0; i < modelPortfolios.length; i++) {
-      if ( modelPortfolios[ i ].name == chosenRequest.text ) {
+      if ( modelPortfolios[ i ].name === chosenRequest.text ) {
         selectedModelPortfolio = modelPortfolios[ i ];
         break;
       }
@@ -129,10 +129,10 @@ const ModelPortfoliosAutoCompleteImmutable = ({selectModelPortfolio, modelPortfo
   );
 };
 
-ModelPortfoliosAutoCompleteImmutable.propTypes = {
+ModelPortfoliosAutoComplete.propTypes = {
   selectModelPortfolio: PropTypes.func.isRequired,
   modelPortfolios: PropTypes.array.isRequired,
   email: PropTypes.string.isRequired
 };
 
-export default ModelPortfoliosAutoCompleteImmutable;
+export default ModelPortfoliosAutoComplete;
