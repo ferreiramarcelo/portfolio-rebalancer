@@ -4,23 +4,6 @@ const getPortfolio = (state) => state.modelPortfolio;
 const getAuthenticated = (state) => state.user.authenticated;
 const getInvestmentAmount = (state) => state.investmentAmount.investmentAmount;
 
-const getSecuritiesSelect = (portfolio) => {
-  const securitiesSelect = [];
-  for (const security of portfolio) {
-    securitiesSelect.push(getSecuritySelect(security));
-  }
-  return securitiesSelect;
-};
-
-const getSecuritySelect = (security) => {
-  return {
-    symbolSelect: getSymbolSelect(security.symbol),
-    allocationSelect: getAllocationSelect(security.allocation),
-    priceSelect: getPriceSelect(security.price),
-    unitsSelect: getUnitsSelect(security.units)
-  };
-};
-
 const getSymbolSelect = (symbol) => {
   let valid = true;
   let hintText = '';
@@ -120,6 +103,23 @@ const getUnitsSelect = (units) => {
   };
 };
 
+const getSecuritySelect = (security) => {
+  return {
+    symbolSelect: getSymbolSelect(security.symbol),
+    allocationSelect: getAllocationSelect(security.allocation),
+    priceSelect: getPriceSelect(security.price),
+    unitsSelect: getUnitsSelect(security.units)
+  };
+};
+
+const getSecuritiesSelect = (portfolio) => {
+  const securitiesSelect = [];
+  for (const security of portfolio) {
+    securitiesSelect.push(getSecuritySelect(security));
+  }
+  return securitiesSelect;
+};
+
 const getSecuritiesAreValid = (securitiesSelect) => {
   for (const securitySelect of securitiesSelect) {
     if (!securitySelect.symbolSelect.valid || !securitySelect.allocationSelect.valid || !securitySelect.priceSelect.valid || !securitySelect.unitsSelect.valid) {
@@ -184,7 +184,7 @@ const getGenerateStepsButtonVisibility = (investmentAmountSelect, securitiesAreV
 };
 
 
-export const getPortfolioSelect = createSelector([
+export default getPortfolioSelect = createSelector([
   getPortfolio,
   getAuthenticated,
   getInvestmentAmount

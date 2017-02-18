@@ -2,7 +2,6 @@
  * Routes for express app
  */
 import passport from 'passport';
-import unsupportedMessage from '../db/unsupportedMessage';
 import { controllers, passport as passportConfig } from '../db';
 
 const usersController = controllers && controllers.users;
@@ -14,8 +13,6 @@ export default (app) => {
     app.post('/login', usersController.login);
     app.post('/signup', usersController.signUp);
     app.post('/logout', usersController.logout);
-  } else {
-    console.warn(unsupportedMessage('users routes'));
   }
 
   if (passportConfig && passportConfig.google) {
@@ -49,7 +46,5 @@ export default (app) => {
     app.post('/modelPortfolio/:id', modelPortfoliosController.add);
     app.put('/modelPortfolio/:id', modelPortfoliosController.update);
     app.delete('/modelPortfolio/:id', modelPortfoliosController.remove);
-  } else {
-    console.warn(unsupportedMessage('modelPortfolios routes'));
   }
 };

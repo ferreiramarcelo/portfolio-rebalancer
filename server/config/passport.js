@@ -3,7 +3,6 @@ import passport from 'passport';
 import local from './passport/local';
 import google from './passport/google';
 import { passport as dbPassport } from '../db';
-import unsupportedMessage from '../db/unsupportedMessage';
 
 export default () => {
   // Configure Passport authenticated session persistence.
@@ -20,8 +19,6 @@ export default () => {
     });
 
     passport.deserializeUser(dbPassport.deserializeUser);
-  } else {
-    console.warn(unsupportedMessage('(de)serialize User'));
   }
 
   // use the following strategies

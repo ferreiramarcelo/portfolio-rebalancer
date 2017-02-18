@@ -47,7 +47,7 @@ const getGenerateStepsButtonVisibility = (investmentAmount, portfolio) => {
   return 'visible';
 };
 
-export const getComponentAvailability = createSelector([
+export default getComponentAvailability = createSelector([
   getSelectedModelPortfolio,
   getPortfolio,
   getInvestmentAmount,
