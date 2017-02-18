@@ -15,7 +15,7 @@ const view = (
     case types.SET_SCROLLED_TO_BOTTOM:
       return { ...state, justGeneratedSteps: false };
     default:
-      return { ...state, justGeneratedSteps: false };;
+      return { ...state, justGeneratedSteps: false };
   }
 };
 

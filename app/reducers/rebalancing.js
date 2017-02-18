@@ -10,29 +10,29 @@ const rebalancingSteps = (state = {},
     case types.GENERATE_STEPS:
       /* Compute portfolio statistics */
       let portfolio = [];
-      for (let security of action.portfolio) {
-        portfolio.push( {
+      for (const security of action.portfolio) {
+        portfolio.push({
           symbol: security.symbol.value,
-          allocation: Number( security.allocation.value ),
-          price: Number( security.price.value ),
-          units: Number( security.units.value )
+          allocation: Number(security.allocation.value),
+          price: Number(security.price.value),
+          units: Number(security.units.value)
         });
       }
-      portfolio = getPortfolioWithNormalizedAllocations( portfolio );
-      let investmentAmount = Number( action.investmentAmount.value );
+      portfolio = getPortfolioWithNormalizedAllocations(portfolio);
+      const investmentAmount = Number(action.investmentAmount.value);
       let equityFromPortfolio = 0;
-      for (let security of portfolio) {
+      for (const security of portfolio) {
         equityFromPortfolio += security.price * security.units;
       }
-      let totalEquity = investmentAmount + equityFromPortfolio;
+      const totalEquity = investmentAmount + equityFromPortfolio;
 
       let valuePerSecurityCurrent = [];
-      for (let security of portfolio) {
-        valuePerSecurityCurrent.push( security.price * security.units );
+      for (const security of portfolio) {
+        valuePerSecurityCurrent.push(security.price * security.units);
       }
-      let valuePerSecurityTotal = [];
-      for (let security of portfolio) {
-        valuePerSecurityTotal.push( security.allocation / 100 * totalEquity )
+      const valuePerSecurityTotal = [];
+      for (const security of portfolio) {
+        valuePerSecurityTotal.push(security.allocation / 100 * totalEquity);
       }
       /* Compute balancing steps */
       let valueAdjustmentsPerSecurity = [];
@@ -43,34 +43,31 @@ const rebalancingSteps = (state = {},
       let unitsReductionPerSecurity = [];
       let cashStillMissing = 0;
       let extraCash = 0;
-      if ( totalEquity < 0 ) {
+      if (totalEquity < 0) {
         cashStillMissing = -1 * investmentAmount - equityFromPortfolio;
-      }
-      else if ( investmentAmount === 0 ) {
-        valueAdjustmentsPerSecurity = getValueAdjustmentsPerSecurity( valuePerSecurityCurrent, valuePerSecurityTotal );
-        let unitsAdjustmentsPerSecurityAndExtraCash = getUnitsForAdjusting(valueAdjustmentsPerSecurity, portfolio);
+      } else if (investmentAmount === 0) {
+        valueAdjustmentsPerSecurity = getValueAdjustmentsPerSecurity(valuePerSecurityCurrent, valuePerSecurityTotal);
+        const unitsAdjustmentsPerSecurityAndExtraCash = getUnitsForAdjusting(valueAdjustmentsPerSecurity, portfolio);
         unitsAdjustmentsPerSecurity = unitsAdjustmentsPerSecurityAndExtraCash.unitsAdjustmentsPerSecurity;
-      }
-      else if ( investmentAmount > 0 ) {
-        valueAdditionPerSecurity = getValuesForInvesting( investmentAmount, valuePerSecurityCurrent, valuePerSecurityTotal );
-        let unitsAdditionPerSecurityAndExtraCash = getUnitsForInvesting( valueAdditionPerSecurity, portfolio, investmentAmount );
+      } else if (investmentAmount > 0) {
+        valueAdditionPerSecurity = getValuesForInvesting(investmentAmount, valuePerSecurityCurrent, valuePerSecurityTotal);
+        const unitsAdditionPerSecurityAndExtraCash = getUnitsForInvesting(valueAdditionPerSecurity, portfolio, investmentAmount);
         unitsAdditionPerSecurity = unitsAdditionPerSecurityAndExtraCash.unitsAdditionPerSecurity;
         extraCash = unitsAdditionPerSecurityAndExtraCash.extraCash;
 
-        valuePerSecurityCurrent = getUpdatedValuePerSecurityForAdditions( valuePerSecurityCurrent, unitsAdditionPerSecurity, portfolio );
-        valueAdjustmentsPerSecurity = getValueAdjustmentsPerSecurity( valuePerSecurityCurrent, valuePerSecurityTotal );
-        let unitsAdjustmentsPerSecurityAndExtraCash = getUnitsForAdjusting(valueAdjustmentsPerSecurity, portfolio);
+        valuePerSecurityCurrent = getUpdatedValuePerSecurityForAdditions(valuePerSecurityCurrent, unitsAdditionPerSecurity, portfolio);
+        valueAdjustmentsPerSecurity = getValueAdjustmentsPerSecurity(valuePerSecurityCurrent, valuePerSecurityTotal);
+        const unitsAdjustmentsPerSecurityAndExtraCash = getUnitsForAdjusting(valueAdjustmentsPerSecurity, portfolio);
         unitsAdjustmentsPerSecurity = unitsAdjustmentsPerSecurityAndExtraCash.unitsAdjustmentsPerSecurity;
-      }
-      else if ( investmentAmount < 0 ) {
-        valueReductionPerSecurity = getValuesForDisvesting( investmentAmount, valuePerSecurityCurrent, valuePerSecurityTotal );
-        let unitsReductionPerSecurityAndExtraCash = getUnitsForDisvesting( valueReductionPerSecurity, portfolio, investmentAmount );
+      } else if (investmentAmount < 0) {
+        valueReductionPerSecurity = getValuesForDisvesting(investmentAmount, valuePerSecurityCurrent, valuePerSecurityTotal);
+        const unitsReductionPerSecurityAndExtraCash = getUnitsForDisvesting(valueReductionPerSecurity, portfolio, investmentAmount);
         unitsReductionPerSecurity = unitsReductionPerSecurityAndExtraCash.unitsReductionPerSecurity;
         extraCash = unitsReductionPerSecurityAndExtraCash.extraCash;
 
-        valuePerSecurityCurrent = getUpdatedValuePerSecurityForReductions( valuePerSecurityCurrent, unitsReductionPerSecurity, portfolio );
-        valueAdjustmentsPerSecurity = getValueAdjustmentsPerSecurity( valuePerSecurityCurrent, valuePerSecurityTotal );
-        let unitsAdjustmentsPerSecurityAndExtraCash = getUnitsForAdjusting(valueAdjustmentsPerSecurity, portfolio);
+        valuePerSecurityCurrent = getUpdatedValuePerSecurityForReductions(valuePerSecurityCurrent, unitsReductionPerSecurity, portfolio);
+        valueAdjustmentsPerSecurity = getValueAdjustmentsPerSecurity(valuePerSecurityCurrent, valuePerSecurityTotal);
+        const unitsAdjustmentsPerSecurityAndExtraCash = getUnitsForAdjusting(valueAdjustmentsPerSecurity, portfolio);
         unitsAdjustmentsPerSecurity = unitsAdjustmentsPerSecurityAndExtraCash.unitsAdjustmentsPerSecurity;
       }
       return {
@@ -88,8 +85,8 @@ const rebalancingSteps = (state = {},
   }
 };
 
-const modelPortfolioReducer = combineReducers( {
+const modelPortfolioReducer = combineReducers({
   rebalancingSteps
-} );
+});
 
 export default modelPortfolioReducer;

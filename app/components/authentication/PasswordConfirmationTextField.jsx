@@ -2,21 +2,20 @@ import React, { Component, PropTypes } from 'react';
 import TextField from 'material-ui/TextField';
 
 const PasswordConfirmationTextField = ({value, errorText, onChange}) => {
-
   const handleOnChange = (event, value) => {
-    onChange( value );
-  }
+    onChange(value);
+  };
 
   return (
-  <TextField
-             value={ value }
-             errorText={ errorText }
-             floatingLabelText='Password confirmation'
-             primary={ true }
-             fullWidth={ true }
+    <TextField
+             value={value}
+             errorText={errorText}
+             floatingLabelText="Password confirmation"
+             primary
+             fullWidth
              type="password"
-             onChange={ handleOnChange }
-             errorStyle={ { float: "left" } } />
+             onChange={handleOnChange}
+             errorStyle={{ float: 'left' }} />
   );
 };
 

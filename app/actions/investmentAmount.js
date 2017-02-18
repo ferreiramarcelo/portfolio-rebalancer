@@ -6,10 +6,10 @@ import * as types from '../types';
 
 polyfill();
 
-export function investmentAmountTextFieldChange( value ) {
+export function investmentAmountTextFieldChange(value) {
   return {
     type: types.INVESTMENT_AMOUNT_TEXT_FIELD_CHANGE,
-    value: value
+    value
   };
 }
 
@@ -19,9 +19,9 @@ export function investmentAmountTextFieldValid() {
   };
 }
 
-export function investmentAmountTextFieldError( error ) {
+export function investmentAmountTextFieldError(error) {
   return {
     type: types.INVESTMENT_AMOUNT_TEXT_FIELD_ERROR,
-    error: error
+    error
   };
 }

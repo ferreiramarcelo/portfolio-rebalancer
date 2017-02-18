@@ -3,25 +3,24 @@ import TextField from 'material-ui/TextField';
 import classNames from 'classnames/bind';
 import styles from '../../css/components/security-text-field';
 
-const cx = classNames.bind( styles );
+const cx = classNames.bind(styles);
 
 
 const ModelPortfolioNameTextField = ({selectedModelPortfolio, selectedModelPortfolioTextFieldChange}) => {
-
   const handleOnChange = (event, value) => {
-    selectedModelPortfolioTextFieldChange( value );
-  }
+    selectedModelPortfolioTextFieldChange(value);
+  };
 
   return (
-  <TextField
-             className={ cx( 'textfield' ) }
-             errorStyle={ { float: "left" } }
-             type='text'
-             value={ selectedModelPortfolio.name }
-             errorText={ selectedModelPortfolio.errorText }
-             onChange={ handleOnChange }
-             fullWidth={ true }
-             inputStyle={ { textAlign: 'center', } } />
+    <TextField
+             className={cx('textfield')}
+             errorStyle={{ float: 'left' }}
+             type="text"
+             value={selectedModelPortfolio.name}
+             errorText={selectedModelPortfolio.errorText}
+             onChange={handleOnChange}
+             fullWidth
+             inputStyle={{ textAlign: 'center', }} />
   );
 };
 

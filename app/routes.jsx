@@ -32,11 +32,11 @@ export default (store) => {
     callback();
   };
   return (
-    <Route path="/" component={ App }>
-      <IndexRoute component={ PortfolioRebalancer } fetchData={ fetchPortfolioRebalancerData } />
-      <Route path="login" component={ Authentication } onEnter={ redirectAuth } />
-      <Route path="dashboard" component={ Dashboard } onEnter={ requireAuth } />
-      <Route path="about" component={ About } />
+    <Route path="/" component={App}>
+      <IndexRoute component={PortfolioRebalancer} fetchData={fetchPortfolioRebalancerData} />
+      <Route path="login" component={Authentication} onEnter={redirectAuth} />
+      <Route path="dashboard" component={Dashboard} onEnter={requireAuth} />
+      <Route path="about" component={About} />
     </Route>
     );
 };

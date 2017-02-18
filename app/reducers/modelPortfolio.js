@@ -9,7 +9,7 @@ const modelPortfolio = (state = {}, action) => {
             if (state.id === action.id) {
                 return {id: action.id, name: action.name, email: action.email, securities: action.securities};
             }
-            /*case types.SAVE_MODEL_PORTFOLIO_FAILURE:
+            /* case types.SAVE_MODEL_PORTFOLIO_FAILURE:
             return state.filter(t => t.id !== action.id); */
         case types.INCREMENT_COUNT:
             if (state.id === action.id) {
@@ -35,8 +35,9 @@ const modelPortfolio = (state = {}, action) => {
 const modelPortfolios = (state = [], action) => {
     switch (action.type) {
         case types.REQUEST_SUCCESS:
-            if (action.data)
-                return action.data;
+            if (action.data) {
+ return action.data;
+}
             return state;
         case types.CREATE_MODEL_PORTFOLIO_REQUEST:
             return [
@@ -90,30 +91,28 @@ const selectedModelPortfolio = (state = {}, action) => {
           var errorText = '';
           var valid = 1;
           if (action.value === '') {
-            errorText ='Required'
+            errorText = 'Required';
             valid = 0;
-          }
-          else if (action.modelPortfolios.filter(mP => (mP.name === action.value && mP.id !== state.id) && mP.email === action.email).length > 0) {
-            errorText ='Name already in use';
+          } else if (action.modelPortfolios.filter(mP => (mP.name === action.value && mP.id !== state.id) && mP.email === action.email).length > 0) {
+            errorText = 'Name already in use';
             valid = 0;
           }
             return {
                 ...state,
                 name: action.value,
-                errorText: errorText,
-                valid: valid
+                errorText,
+                valid
             };
         case types.CREATE_NEW_PORTFOLIO:
         case types.DELETE_MODEL_PORTFOLIO_REQUEST:
         let numModelPortfoliosWithDefaultName = 0;
         for (let i = 0; i < action.modelPortfolios.length; i++) {
-          if (action.modelPortfolios[i].email === action.email){
+          if (action.modelPortfolios[i].email === action.email) {
             if (numModelPortfoliosWithDefaultName === 0) {
               if (action.modelPortfolios[i].name === 'Model Portfolio Name') {
                 numModelPortfoliosWithDefaultName += 2;
               }
-            }
-            else if (action.modelPortfolios[i].name === 'Model Portfolio Name ' + numModelPortfoliosWithDefaultName) {
+            } else if (action.modelPortfolios[i].name === 'Model Portfolio Name ' + numModelPortfoliosWithDefaultName) {
               numModelPortfoliosWithDefaultName++;
             }
           }
@@ -245,7 +244,7 @@ const security = (state = {}, action) => {
 const symbol = (state = {value: '', setOnce: false}, action) => {
     switch (action.type) {
         case types.SELECT_MODEL_PORTFOLIO:
-            return {value: action.security.symbol, setOnce: true}
+            return {value: action.security.symbol, setOnce: true};
         case types.SECURITY_TEXT_FIELD_CHANGE:
             return {
                 value: action.value,
@@ -259,7 +258,7 @@ const symbol = (state = {value: '', setOnce: false}, action) => {
 const allocation = (state = {value: '0', setOnce: false}, action) => {
     switch (action.type) {
         case types.SELECT_MODEL_PORTFOLIO:
-            return {value: action.security.allocation, setOnce: true}
+            return {value: action.security.allocation, setOnce: true};
         case types.SECURITY_TEXT_FIELD_CHANGE:
             return {
                 value: action.value,
@@ -273,7 +272,7 @@ const allocation = (state = {value: '0', setOnce: false}, action) => {
 const price = (state = {value: '1.00', setOnce: false, fetch: 'NONE'}, action) => {
     switch (action.type) {
         case types.SELECT_MODEL_PORTFOLIO:
-            return {value: action.security.price, setOnce: true}
+            return {value: action.security.price, setOnce: true};
         case types.SECURITY_TEXT_FIELD_CHANGE:
             return {
                 value: action.value,
@@ -322,7 +321,7 @@ const units = (state = {value: '0', setOnce: false}, action) => {
 const oldsymbol = (state = {value: '', setOnce: false}, action) => {
     switch (action.type) {
         case types.SELECT_MODEL_PORTFOLIO:
-            return {value: action.security.symbol, setOnce: true}
+            return {value: action.security.symbol, setOnce: true};
         case types.SECURITY_TEXT_FIELD_CHANGE:
             return {
                 value: action.value,

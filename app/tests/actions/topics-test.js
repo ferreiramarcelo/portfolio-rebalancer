@@ -281,6 +281,5 @@ describe('ModelPortfolio Actions', () => {
       };
       expect(actions.createModelPortfolioDuplicate()).toEqual(expectedAction);
     });
-
   });
 });

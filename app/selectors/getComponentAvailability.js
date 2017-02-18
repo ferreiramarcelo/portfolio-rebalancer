@@ -6,59 +6,59 @@ const getInvestmentAmount = (state) => state.investmentAmount.investmentAmount;
 const getAuthenticated = (state) => state.user.authenticated;
 
 const getSaveModelPortfolioButtonVisibility = (authenticated, selectedModelPortfolio, portfolio) => {
-  if ( !authenticated ) {
+  if (!authenticated) {
     return 'hidden';
   }
-  if ( selectedModelPortfolio.valid === 0 ) {
+  if (selectedModelPortfolio.valid === 0) {
     return 'disabled';
   }
-  for (var security of portfolio) {
-    if ( security.symbol.valid === 0 || security.allocation.valid === 0 ) {
+  for (const security of portfolio) {
+    if (security.symbol.valid === 0 || security.allocation.valid === 0) {
       return 'disabled';
     }
   }
   return 'visible';
-}
+};
 
 const getDeleteModelPortfolioButtonVisibility = (authenticated, selectedModelPortfolio, portfolio) => {
-  if ( !authenticated ) {
+  if (!authenticated) {
     return 'hidden';
   }
-  if ( !selectedModelPortfolio.email ) {
+  if (!selectedModelPortfolio.email) {
     return 'disabled';
   }
-  for (var security of portfolio) {
-    if ( security.symbol.valid === 0 || security.allocation.valid === 0 ) {
+  for (const security of portfolio) {
+    if (security.symbol.valid === 0 || security.allocation.valid === 0) {
       return 'disabled';
     }
   }
   return 'visible';
-}
+};
 
 const getGenerateStepsButtonVisibility = (investmentAmount, portfolio) => {
-  if ( investmentAmount.valid === 0 ) {
+  if (investmentAmount.valid === 0) {
     return 'disabled';
   }
-  for (var security of portfolio) {
-    if ( security.price.valid === 0 || security.units.valid === 0 ) {
+  for (const security of portfolio) {
+    if (security.price.valid === 0 || security.units.valid === 0) {
       return 'disabled';
     }
   }
   return 'visible';
-}
+};
 
-export const getComponentAvailability = createSelector( [
+export const getComponentAvailability = createSelector([
   getSelectedModelPortfolio,
   getPortfolio,
   getInvestmentAmount,
   getAuthenticated
 ], (selectedModelPortfolio, portfolio, investmentAmount, authenticated) => {
-  let saveModelPortfolioButtonVisibility = getSaveModelPortfolioButtonVisibility( authenticated, selectedModelPortfolio, portfolio );
-  let deleteModelPortfolioButtonVisibility = getDeleteModelPortfolioButtonVisibility( authenticated, selectedModelPortfolio, portfolio );
-  let generateStepsButtonVisibility = getGenerateStepsButtonVisibility( investmentAmount, portfolio );
+  const saveModelPortfolioButtonVisibility = getSaveModelPortfolioButtonVisibility(authenticated, selectedModelPortfolio, portfolio);
+  const deleteModelPortfolioButtonVisibility = getDeleteModelPortfolioButtonVisibility(authenticated, selectedModelPortfolio, portfolio);
+  const generateStepsButtonVisibility = getGenerateStepsButtonVisibility(investmentAmount, portfolio);
   return {
     saveModelPortfolioButtonVisibility,
     deleteModelPortfolioButtonVisibility,
     generateStepsButtonVisibility
   };
-} );
+});

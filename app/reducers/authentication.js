@@ -16,7 +16,7 @@ const isLoginMode = (state = true, action) => {
 const emailTextField = (state = {
     value: '',
     setOnce: 0
-  } , action) => {
+  }, action) => {
   switch (action.type) {
     case types.EMAIL_TEXT_FIELD_CHANGE:
       return {
@@ -31,7 +31,7 @@ const emailTextField = (state = {
 const passwordTextField = (state = {
     value: '',
     setOnce: 0
-  } , action) => {
+  }, action) => {
   switch (action.type) {
     case types.PASSWORD_TEXT_FIELD_CHANGE:
       return {
@@ -46,7 +46,7 @@ const passwordTextField = (state = {
 const passwordConfirmationTextField = (state = {
     value: '',
     setOnce: 0
-  } , action) => {
+  }, action) => {
   switch (action.type) {
     case types.PASSWORD_CONFIRMATION_TEXT_FIELD_CHANGE:
       return {
@@ -58,11 +58,11 @@ const passwordConfirmationTextField = (state = {
   }
 };
 
-const modelPortfolioReducer = combineReducers( {
+const modelPortfolioReducer = combineReducers({
   isLoginMode,
   emailTextField,
   passwordTextField,
   passwordConfirmationTextField
-} );
+});
 
 export default modelPortfolioReducer;

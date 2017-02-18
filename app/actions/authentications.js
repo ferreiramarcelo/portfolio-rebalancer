@@ -6,24 +6,24 @@ import * as types from '../types';
 
 polyfill();
 
-export function emailTextFieldChange( value ) {
+export function emailTextFieldChange(value) {
   return {
     type: types.EMAIL_TEXT_FIELD_CHANGE,
-    value: value
+    value
   };
 }
 
-export function passwordTextFieldChange( value ) {
+export function passwordTextFieldChange(value) {
   return {
     type: types.PASSWORD_TEXT_FIELD_CHANGE,
-    value: value
+    value
   };
 }
 
-export function passwordConfirmationTextFieldChange( value ) {
+export function passwordConfirmationTextFieldChange(value) {
   return {
     type: types.PASSWORD_CONFIRMATION_TEXT_FIELD_CHANGE,
-    value: value
+    value
   };
 }
 

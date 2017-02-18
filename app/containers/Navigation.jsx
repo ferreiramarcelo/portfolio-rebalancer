@@ -7,50 +7,49 @@ import styles from '../css/components/navigation';
 
 import FlatButton from 'material-ui/FlatButton';
 
-const cx = classNames.bind( styles );
+const cx = classNames.bind(styles);
 
 const Navigation = ({user, logOut}) => {
-
   return (
-  <nav
-       className={ cx( 'Navigation' ) }
+    <nav
+       className={cx('Navigation')}
        role="navigation">
-    <FlatButton
-                className={ cx( 'NavigationButtonLeft' ) }
-                labelStyle={ { color: 'white', fontSize: '16px' } }
-                containerElement={ < Link to="/" /> }
-                label='PORTFOLIO REBALANCER' />
-    { user.authenticated
-        ? <span className={ cx( 'LoggedInAsIdentifier' ) }>Logged in as { user.email }</span>
+      <FlatButton
+                className={cx('NavigationButtonLeft')}
+                labelStyle={{ color: 'white', fontSize: '16px' }}
+                containerElement={< Link to="/" />}
+                label="PORTFOLIO REBALANCER" />
+      { user.authenticated
+        ? <span className={cx('LoggedInAsIdentifier')}>Logged in as { user.email }</span>
         : '' }
-    <FlatButton
-                labelStyle={ { color: 'white', fontSize: '16px' } }
-                className={ cx( 'NavigationButtonRight' ) }
-                onTouchTap={ user.authenticated
+      <FlatButton
+                labelStyle={{ color: 'white', fontSize: '16px' }}
+                className={cx('NavigationButtonRight')}
+                onTouchTap={user.authenticated
                                ? logOut
-                               : '' }
-                containerElement={ user.authenticated
+                               : ''}
+                containerElement={user.authenticated
                                      ? (
-                                     <Link to="/"></Link>
+                                       <Link to="/" />
                                      )
                                      : (
-                                     <Link to="/login"></Link>
-                                     ) }
-                label={ user.authenticated
+                                       <Link to="/login" />
+                                     )}
+                label={user.authenticated
                           ? 'LOG OUT'
-                          : 'LOG IN' } />
-    <FlatButton
-                labelStyle={ { color: 'white', fontSize: '16px' } }
-                className={ cx( 'NavigationButtonRight' ) }
-                containerElement={ <Link to="/about" /> }
-                label='ABOUT' />
-    <FlatButton
-                labelStyle={ { color: 'white', fontSize: '16px' } }
-                className={ cx( 'NavigationButtonRight' ) }
+                          : 'LOG IN'} />
+      <FlatButton
+                labelStyle={{ color: 'white', fontSize: '16px' }}
+                className={cx('NavigationButtonRight')}
+                containerElement={<Link to="/about" />}
+                label="ABOUT" />
+      <FlatButton
+                labelStyle={{ color: 'white', fontSize: '16px' }}
+                className={cx('NavigationButtonRight')}
                 href="https://github.com/AlexisDeschamps/portfolio-rebalancer/"
                 target="_blank"
-                label='GITHUB' />
-  </nav>
+                label="GITHUB" />
+    </nav>
   );
 };
 
@@ -59,12 +58,12 @@ Navigation.propTypes = {
   logOut: PropTypes.func.isRequired
 };
 
-function mapStateToProps( state ) {
+function mapStateToProps(state) {
   return {
     user: state.user
   };
 }
 
-export default connect( mapStateToProps, {
+export default connect(mapStateToProps, {
   logOut
-} )( Navigation );
+})(Navigation);

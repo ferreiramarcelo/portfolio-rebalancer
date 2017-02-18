@@ -5,13 +5,13 @@ import styles from '../css/main';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
-const cx = classNames.bind( styles );
+const cx = classNames.bind(styles);
 
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { cyan500, cyan700, grey400, pinkA200, grey100, grey500, darkBlack, white, grey300, fullBlack, fade } from 'material-ui/styles/colors';
 
-const muiTheme = getMuiTheme( {
+const muiTheme = getMuiTheme({
   fontFamily: 'Roboto, sans-serif',
   zIndex: {
   },
@@ -33,18 +33,18 @@ const muiTheme = getMuiTheme( {
   avatar: {
     borderColor: null,
   },
-} );
+});
 
 const App = ({children}) => {
   return (
-  <MuiThemeProvider muiTheme={ muiTheme }>
-    <div className={ cx( 'app' ) }>
-      <Navigation />
-      <div className={ cx( 'appChildren' ) }>
-        { children }
+    <MuiThemeProvider muiTheme={muiTheme}>
+      <div className={cx('app')}>
+        <Navigation />
+        <div className={cx('appChildren')}>
+          { children }
+        </div>
       </div>
-    </div>
-  </MuiThemeProvider>
+    </MuiThemeProvider>
   );
 };
 

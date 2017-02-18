@@ -81,7 +81,7 @@ const linkAssets = () => {
       href: '/assets/styles/main.css'
     }
   ];
-  return isDev() ? links.filter( l => l.rel !== 'stylesheet' ) : links;
+  return isDev() ? links.filter(l => l.rel !== 'stylesheet') : links;
 };
 
 export const title = 'Portfolio Rebalancer';

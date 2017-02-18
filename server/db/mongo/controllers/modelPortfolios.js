@@ -1,9 +1,6 @@
 import _ from 'lodash';
 import ModelPortfolio from '../models/modelPortfolios';
 
-/**
- * List
- */
 export function all(req, res) {
   ModelPortfolio.find({}).exec((err, modelPortfolios) => {
     if (err) {
@@ -15,9 +12,6 @@ export function all(req, res) {
   });
 }
 
-/**
- * Add a ModelPortfolio
- */
 export function add(req, res) {
   ModelPortfolio.create(req.body, (err) => {
     if (err) {
@@ -29,9 +23,6 @@ export function add(req, res) {
   });
 }
 
-/**
- * Update a modelPortfolio
- */
 export function update(req, res) {
   const query = { id: req.params.id };
   const isIncrement = req.body.isIncrement;
@@ -60,9 +51,6 @@ export function update(req, res) {
   }
 }
 
-/**
- * Remove a modelPortfolio
- */
 export function remove(req, res) {
   const query = { id: req.params.id };
   ModelPortfolio.findOneAndRemove(query, (err) => {

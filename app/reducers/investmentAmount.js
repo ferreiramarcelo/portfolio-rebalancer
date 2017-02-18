@@ -31,16 +31,16 @@ const oldinvestmentAmount = (state = {
             if (action.value === '') {
                 errorText = 'Required';
                 valid = 0;
-            } else if (typeof number != 'number' || isNaN(number) || !isFinite(number)) {
+            } else if (typeof number !== 'number' || isNaN(number) || !isFinite(number)) {
                 errorText = 'Number required';
                 valid = 0;
             }
             return {
                 ...state,
                 value: action.value,
-                errorText: errorText,
-                valid: valid,
-                number: number
+                errorText,
+                valid,
+                number
             };
         default:
             return state;

@@ -4,18 +4,17 @@ import ContentCreate from 'material-ui/svg-icons/content/create';
 
 import classNames from 'classnames/bind';
 import styles from '../../css/components/new-portfolio-button';
-const cx = classNames.bind( styles );
+const cx = classNames.bind(styles);
 
 const NewPortfolioButton = ({createNewPortfolio}) => {
-
   return (
-    <div className={ cx( 'new-portfolio-button-container' ) }>
-  <FlatButton
+    <div className={cx('new-portfolio-button-container')}>
+      <FlatButton
               label="NEW"
-              onTouchTap={ createNewPortfolio }
+              onTouchTap={createNewPortfolio}
               labelPosition="before"
-              secondary={ true } />
-            </div>
+              secondary />
+    </div>
 
   );
 };
