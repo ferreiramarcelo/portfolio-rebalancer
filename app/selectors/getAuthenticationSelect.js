@@ -63,7 +63,7 @@ const getRegisterButtonVisibility = (emailTextFieldSelect, passwordTextFieldSele
   return 'disabled';
 };
 
-export default getAuthenticationSelect = createSelector([
+export const getAuthenticationSelect = createSelector([
   getAuthentication,
 ], (authentication) => {
   const emailTextFieldSelect = getEmailTextFieldSelect(authentication.emailTextField);
