@@ -33,7 +33,7 @@ class PortfolioRebalancer extends Component {
 
   render() {
     const {newModelPortfolio, modelPortfolios, selectedModelPortfolio, portfolio, investmentAmount, rebalancingSteps, view, email, createModelPortfolio, destroyModelPortfolio, incrementCount, decrementCount, selectModelPortfolio, createNewPortfolio, selectedModelPortfolioTextFieldChange, addSecurity, removeSecurity, securityTextFieldChange, investmentAmountTextFieldChange, investmentAmountTextFieldValid, investmentAmountTextFieldError, generateSteps, saveModelPortfolio, portfolioSelect, deleteModelPortfolio} = this.props;
-    if ( !view.displayTable && !view.displaySteps ) {
+    if ( !view.displayPortfolio ) {
       return (
       <div className={ cx( 'model-portfolio-selector-container' ) }>
         <ModelPortfoliosAutoComplete

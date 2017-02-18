@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
 import classNames from 'classnames/bind';
 import Navigation from '../containers/Navigation';
-import Message from '../containers/Message';
 import styles from '../css/main';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();

@@ -24,56 +24,6 @@ class Authentication extends Component {
 
   constructor( props ) {
     super( props );
-    this.handleOnSubmit = this.handleOnSubmit.bind( this );
-  }
-
-  handleOnSubmit( event ) {
-    event.preventDefault();
-
-    const {manualLogin, signUp, user: {isLogin}} = this.props;
-    const email = ReactDOM.findDOMNode( this.refs.email ).value;
-    const password = ReactDOM.findDOMNode( this.refs.password ).value;
-
-    if ( isLogin ) {
-      manualLogin( {
-        email,
-        password
-      } );
-    } else {
-      signUp( {
-        email,
-        password
-      } );
-    }
-  }
-
-  renderHeader() {
-    const {user: {isLogin}, toggleLoginMode, emailTextFieldChange} = this.props;
-    if ( isLogin ) {
-      return (
-      <div className={ cx( 'header' ) }>
-        <h1 className={ cx( 'heading' ) }>Login with Email</h1>
-        <div className={ cx( 'alternative' ) }>
-          Not what you want?
-          <a
-             className={ cx( 'alternative-link' ) }
-             onClick={ toggleLoginMode }>Register an Account</a>
-        </div>
-      </div>
-      );
-    }
-
-    return (
-    <div className={ cx( 'header' ) }>
-      <h1 className={ cx( 'heading' ) }>Register with Email</h1>
-      <div className={ cx( 'alternative' ) }>
-        Already have an account?
-        <a
-           className={ cx( 'alternative-link' ) }
-           onClick={ toggleLoginMode }>Login</a>
-      </div>
-    </div>
-    );
   }
 
   getAuthenticationForm() {
@@ -104,7 +54,6 @@ class Authentication extends Component {
                            value={ authentication.passwordTextField.value }
                            errorText={ authenticationSelect.passwordTextFieldSelect.errorText }
                            onChange={ passwordTextFieldChange } />
-        <br/>
         <p className={ cx( 'message', {
                          'message-show': user.message && user.message.length > 0
                        } ) }>
@@ -118,7 +67,7 @@ class Authentication extends Component {
                       disabled={ authenticationSelect.loginButtonVisibility === 'disabled' }
                       type="submit" />
       </form>
-      <br/> Don't have an account?&nbsp;
+      <p>Don't have an account?&nbsp;</p>
       <FlatButton
                   label="Register"
                   secondary={ true }
@@ -151,7 +100,6 @@ class Authentication extends Component {
                                        value={ authentication.passwordConfirmationTextField.value }
                                        errorText={ authenticationSelect.passwordConfirmationTextFieldSelect.errorText }
                                        onChange={ passwordConfirmationTextFieldChange } />
-        <br/>
         <p className={ cx( 'message', {
                          'message-show': user.message && user.message.length > 0
                        } ) }>
@@ -165,7 +113,7 @@ class Authentication extends Component {
                       disabled={ authenticationSelect.registerButtonVisibility === 'disabled' }
                       type="submit" />
       </form>
-      <br/> Already have an account?&nbsp;
+      <p> Already have an account?&nbsp;</p>
       <FlatButton
                   label="Login"
                   secondary={ true }

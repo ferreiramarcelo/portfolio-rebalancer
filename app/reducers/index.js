@@ -2,7 +2,6 @@ import { combineReducers } from 'redux';
 import { routerReducer as routing } from 'react-router-redux';
 import user from '../reducers/user';
 import modelPortfolio from '../reducers/modelPortfolio';
-import message from '../reducers/message';
 import investmentAmount from '../reducers/investmentAmount';
 import rebalancing from '../reducers/rebalancing';
 import authentication from '../reducers/authentication';
@@ -21,13 +20,10 @@ const isFetching = (state = false, action) => {
   }
 };
 
-// Combine reducers with routeReducer which keeps track of
-// router state
 const rootReducer = combineReducers({
   isFetching,
   modelPortfolio,
   user,
-    message,
     investmentAmount,
     rebalancing,
     view,
