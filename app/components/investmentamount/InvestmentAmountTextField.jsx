@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import TextField from 'material-ui/TextField';
 
-const InvestmentAmountTextFieldImmutable = ({investmentAmount, investmentAmountSelect, investmentAmountTextFieldChange}) => {
+const InvestmentAmountTextField = ({investmentAmount, investmentAmountSelect, investmentAmountTextFieldChange}) => {
   const getDisplayValue = (investmentAmount) => {
     if (!investmentAmount.setOnce) {
       return '';
@@ -17,18 +17,18 @@ const InvestmentAmountTextFieldImmutable = ({investmentAmount, investmentAmountS
 
   return (
     <TextField
-             errorStyle={{ float: 'left' }}
              value={displayValue}
              errorText={investmentAmountSelect.errorText}
              hintText={investmentAmountSelect.hintText}
-             onChange={handleOnChange} />
+             onChange={handleOnChange}
+             errorStyle={{ float: 'left' }} />
   );
 };
 
-InvestmentAmountTextFieldImmutable.propTypes = {
+InvestmentAmountTextField.propTypes = {
   investmentAmount: PropTypes.object.isRequired,
   investmentAmountSelect: PropTypes.object.isRequired,
   investmentAmountTextFieldChange: PropTypes.func.isRequired,
 };
 
-export default InvestmentAmountTextFieldImmutable;
+export default InvestmentAmountTextField;

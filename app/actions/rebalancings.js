@@ -6,11 +6,17 @@ import * as types from '../types';
 
 polyfill();
 
-export function generateSteps(portfolio, investmentAmount) {
+function generateStepsDispatch(portfolio, investmentAmount) {
   return {
     type: types.GENERATE_STEPS,
     portfolio,
     investmentAmount,
+  };
+}
+export function generateSteps() {
+  return (dispatch, getState) => {
+    const {modelPortfolio, investmentAmount} = getState();
+    return dispatch(generateStepsDispatch(modelPortfolio.portfolio, investmentAmount.investmentAmount));
   };
 }
 

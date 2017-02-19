@@ -70,9 +70,7 @@ class PortfolioRebalancer extends Component {
                           investmentAmountTextFieldChange={investmentAmountTextFieldChange} />
           <GenerateStepsButton
                              visibility={portfolioSelect.generateStepsButtonVisibility}
-                             generateSteps={generateSteps}
-                             investmentAmount={investmentAmount}
-                             portfolio={portfolio} />
+                             generateSteps={generateSteps} />
           <StepsList rebalancingSteps={rebalancingSteps} />
         </div>
       );

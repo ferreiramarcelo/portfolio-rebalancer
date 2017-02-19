@@ -10,11 +10,11 @@ const PasswordTextField = ({value, errorText, onChange}) => {
     <TextField
              value={value}
              errorText={errorText}
+             onChange={handleOnChange}
+             type="password"
              floatingLabelText="Password"
              primary
              fullWidth
-             type="password"
-             onChange={handleOnChange}
              errorStyle={{ float: 'left' }} />
   );
 };

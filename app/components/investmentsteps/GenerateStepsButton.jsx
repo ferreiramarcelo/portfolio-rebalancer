@@ -3,9 +3,9 @@ import RaisedButton from 'material-ui/RaisedButton';
 import ActionBuild from 'material-ui/svg-icons/action/build';
 import ReactTooltip from 'react-tooltip';
 
-const GenerateStepsButton = ({visibility, generateSteps, investmentAmount, portfolio}) => {
+const GenerateStepsButton = ({visibility, generateSteps}) => {
   const handleOnClick = () => {
-    generateSteps(portfolio, investmentAmount);
+    generateSteps();
   };
 
   const getGenerateStepsButton = (visibility) => {
@@ -45,8 +45,6 @@ const GenerateStepsButton = ({visibility, generateSteps, investmentAmount, portf
 GenerateStepsButton.propTypes = {
   visibility: PropTypes.object.isRequired,
   generateSteps: PropTypes.func.isRequired,
-  investmentAmount: PropTypes.object.isRequired,
-  portfolio: PropTypes.array.isRequired
 };
 
 export default GenerateStepsButton;

@@ -1,8 +1,8 @@
-@import '../common/typography';
+@import '../../common/typography';
 
-.InvestmentAmountText {
+.investment-amount-prompt {
   font-size: var(--fontMedium);
   font-family: var(--fontRoboto);
   display: inline-block;
-  padding-right: 10px;
+  padding-right: 5px;
 }

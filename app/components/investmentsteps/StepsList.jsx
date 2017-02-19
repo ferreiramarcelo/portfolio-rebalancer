@@ -20,7 +20,7 @@ const StepsList = ({rebalancingSteps}) => {
       const investmentSteps = [];
       const disvestmentSteps = [];
       const adjustmentSteps = [];
-      stepsList.push(<h3>Instructions List</h3>);
+      stepsList.push(<h3>Steps List</h3>);
 
       let stepNumber = 1;
       let invested = false;
