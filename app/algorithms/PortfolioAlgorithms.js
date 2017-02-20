@@ -51,11 +51,10 @@ export function getValuesForInvesting(investmentAmount, valuePerSecurityCurrent,
   while (cashRemainingToSpend > 0 && additionPerSecurity !== 0) {
     let lastSecurityToAddToIndex = 0;
     additionPerSecurity = 0;
-    while (valueDifferencePerSecurity[lastSecurityToAddToIndex + 1] !== null &&
-       (!valueDifferencePerSecurity[lastSecurityToAddToIndex + 1] || [lastSecurityToAddToIndex][1] === valueDifferencePerSecurity[lastSecurityToAddToIndex + 1][1])) {
+    while (valueDifferencePerSecurity[lastSecurityToAddToIndex + 1] && valueDifferencePerSecurity[lastSecurityToAddToIndex][1] === valueDifferencePerSecurity[lastSecurityToAddToIndex + 1][1]) {
       lastSecurityToAddToIndex++;
     }
-    if (valueDifferencePerSecurity[lastSecurityToAddToIndex + 1] !== null) {
+    if (valueDifferencePerSecurity[lastSecurityToAddToIndex + 1]) {
       const valueDifference = Math.abs(valueDifferencePerSecurity[lastSecurityToAddToIndex][1] - valueDifferencePerSecurity[lastSecurityToAddToIndex + 1][1]);
       additionPerSecurity = Math.min(cashRemainingToSpend / (lastSecurityToAddToIndex + 1), valueDifference);
     } else {
@@ -84,11 +83,10 @@ export function getValuesForDisvesting(investmentAmount, valuePerSecurityCurrent
   while (cashRemainingToGet > 0 && reductionPerSecurity !== 0) {
     let lastSecurityToRemoveFromIndex = 0;
     reductionPerSecurity = 0;
-    while (valueDifferencePerSecurity[lastSecurityToRemoveFromIndex + 1] !== null &&
-      (!valueDifferencePerSecurity[lastSecurityToRemoveFromIndex + 1] || valueDifferencePerSecurity[lastSecurityToRemoveFromIndex][1] === valueDifferencePerSecurity[lastSecurityToRemoveFromIndex + 1][1])) {
+    while (valueDifferencePerSecurity[lastSecurityToRemoveFromIndex + 1] && valueDifferencePerSecurity[lastSecurityToRemoveFromIndex][1] === valueDifferencePerSecurity[lastSecurityToRemoveFromIndex + 1][1]) {
       lastSecurityToRemoveFromIndex++;
     }
-    if (valueDifferencePerSecurity[lastSecurityToRemoveFromIndex + 1] != null) {
+    if (valueDifferencePerSecurity[lastSecurityToRemoveFromIndex + 1]) {
       const valueDifference = Math.abs(valueDifferencePerSecurity[lastSecurityToRemoveFromIndex][1] - valueDifferencePerSecurity[lastSecurityToRemoveFromIndex + 1][1]);
       reductionPerSecurity = Math.min(cashRemainingToGet / (lastSecurityToRemoveFromIndex + 1), valueDifference);
     } else {

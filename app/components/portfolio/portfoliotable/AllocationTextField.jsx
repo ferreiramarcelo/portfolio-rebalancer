@@ -1,35 +1,42 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import TextField from 'material-ui/TextField';
+import classNames from 'classnames/bind';
+import styles from '../../../css/components/portfolio-table/price-cell';
 
-const AllocationTextFieldImmutable = ({index, allocation, allocationSelect, securityTextFieldChange}) => {
-  const getDisplayValue = (allocation) => {
-    if (!allocation.setOnce) {
-      return '';
+const cx = classNames.bind(styles);
+
+const AllocationTextField = ({index, value, setOnce, errorText, onChange}) => {
+  const getDisplayValue = function getDisplayValueFunc(givenValue, givenSetOnce) {
+    if (givenSetOnce) {
+      return givenValue;
     }
-    return allocation.value;
+    return '';
   };
 
-  const displayValue = getDisplayValue(allocation);
+  const displayValue = getDisplayValue(value, setOnce);
 
-  const handleOnChange = (event, value) => {
-    securityTextFieldChange(index, 'allocation', value);
+  const handleOnChange = function handleOnChangeFunc(event, newValue) {
+    onChange(index, 'allocation', newValue);
   };
 
   return (
     <TextField
-             errorStyle={{ float: 'left' }}
              id={'allocationTextField' + index}
              value={displayValue}
-             errorText={allocationSelect.errorText}
-             hintText={allocationSelect.hintText}
-             onChange={handleOnChange} />
+             errorText={errorText}
+             onChange={handleOnChange}
+             hintText="0"
+             errorStyle={{ float: 'left' }}
+             className={cx('textfield')} />
   );
 };
 
-AllocationTextFieldImmutable.propTypes = {
+AllocationTextField.propTypes = {
   index: PropTypes.number.isRequired,
-  allocation: PropTypes.object.isRequired,
-  securityTextFieldChange: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
+  setOnce: PropTypes.bool.isRequired,
+  errorText: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
-export default AllocationTextFieldImmutable;
+export default AllocationTextField;

@@ -1,35 +1,42 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import TextField from 'material-ui/TextField';
+import classNames from 'classnames/bind';
+import styles from '../../../css/components/portfolio-table/price-cell';
 
-const UnitsTextFieldImmutable = ({index, units, unitsSelect, securityTextFieldChange}) => {
-  const getDisplayValue = (units) => {
-    if (!units.setOnce) {
-      return '';
+const cx = classNames.bind(styles);
+
+const UnitsTextField = ({index, value, setOnce, errorText, onChange}) => {
+  const getDisplayValue = function getDisplayValueFunc(givenValue, givenSetOnce) {
+    if (givenSetOnce) {
+      return givenValue;
     }
-    return units.value;
+    return '';
   };
 
-  const displayValue = getDisplayValue(units);
+  const displayValue = getDisplayValue(value, setOnce);
 
-  const handleOnChange = (event, value) => {
-    securityTextFieldChange(index, 'units', value);
+  const handleOnChange = function handleOnChangeFunc(event, newValue) {
+    onChange(index, 'units', newValue);
   };
 
   return (
     <TextField
-             errorStyle={{ float: 'left' }}
              id={'unitsTextField' + index}
              value={displayValue}
-             errorText={unitsSelect.errorText}
-             hintText={unitsSelect.hintText}
-             onChange={handleOnChange} />
+             errorText={errorText}
+             onChange={handleOnChange}
+             hintText="0"
+             errorStyle={{ float: 'left' }}
+             className={cx('textfield')} />
   );
 };
 
-UnitsTextFieldImmutable.propTypes = {
+UnitsTextField.propTypes = {
   index: PropTypes.number.isRequired,
-  units: PropTypes.object.isRequired,
-  securityTextFieldChange: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
+  setOnce: PropTypes.bool.isRequired,
+  errorText: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
-export default UnitsTextFieldImmutable;
+export default UnitsTextField;

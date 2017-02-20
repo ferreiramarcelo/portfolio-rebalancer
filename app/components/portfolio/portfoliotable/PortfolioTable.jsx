@@ -1,24 +1,21 @@
-import React, { Component, PropTypes } from 'react';
-import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
-import { Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
-import SecurityRow from './SecurityRow';
+import React, { PropTypes } from 'react';
+import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow } from 'material-ui/Table';
 import ReactTooltip from 'react-tooltip';
+import SecurityRow from './SecurityRow';
+import classNames from 'classnames/bind';
 import SaveModelPortfolioButton from './SaveModelPortfolioButton';
 import DeleteModelPortfolioButton from './DeleteModelPortfolioButton';
-
-import classNames from 'classnames/bind';
 import styles from '../../../css/components/portfolio-table/portfolio-table';
+
 const cx = classNames.bind(styles);
 
-const PortfolioTable = ({portfolioSelect, portfolio, addSecurity, removeSecurity, securityTextFieldChange, securityTextFieldValid, securityTextFieldError, saveModelPortfolio, deleteModelPortfolio, selectedModelPortfolio}) => {
+const PortfolioTable = ({portfolioSelect, portfolio, removeSecurity, securityTextFieldChange, saveModelPortfolio, deleteModelPortfolio, selectedModelPortfolio}) => {
   const securityRows = portfolio.map((security, index) => {
     return (<SecurityRow
                         security={security}
                         securitySelect={portfolioSelect.securitiesSelect[index]}
                         removeSecurity={removeSecurity}
-                        securityTextFieldChange={securityTextFieldChange}
-                        securityTextFieldValid={securityTextFieldValid}
-                        securityTextFieldError={securityTextFieldError} />);
+                        securityTextFieldChange={securityTextFieldChange} />);
   });
 
   return (
@@ -99,13 +96,9 @@ const PortfolioTable = ({portfolioSelect, portfolio, addSecurity, removeSecurity
 PortfolioTable.propTypes = {
   portfolioSelect: PropTypes.object.isRequired,
   portfolio: PropTypes.array.isRequired,
-  addSecurity: PropTypes.func.isRequired,
   removeSecurity: PropTypes.func.isRequired,
   securityTextFieldChange: PropTypes.func.isRequired,
-  securityTextFieldValid: PropTypes.func.isRequired,
-  securityTextFieldError: PropTypes.func.isRequired,
   saveModelPortfolio: PropTypes.func.isRequired,
-  selectedModelPortfolio: PropTypes.func.isRequired,
   deleteModelPortfolio: PropTypes.func.isRequired,
   selectedModelPortfolio: PropTypes.object.isRequired
 };

@@ -1,32 +1,42 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import TextField from 'material-ui/TextField';
 import classNames from 'classnames/bind';
-import styles from '../../../css/components/security-text-field';
+import styles from '../../../css/components/portfolio-table/price-cell';
 
 const cx = classNames.bind(styles);
 
+const SymbolTextField = ({index, value, setOnce, errorText, onChange}) => {
+  const getDisplayValue = function getDisplayValueFunc(givenValue, givenSetOnce) {
+    if (givenSetOnce) {
+      return givenValue;
+    }
+    return '';
+  };
 
-const SymbolTextField = ({index, symbol, symbolSelect, securityTextFieldChange}) => {
-  const handleOnChange = (event, value) => {
-    securityTextFieldChange(index, 'symbol', value);
+  const displayValue = getDisplayValue(value, setOnce);
+
+  const handleOnChange = function handleOnChangeFunc(event, newValue) {
+    onChange(index, 'symbol', newValue);
   };
 
   return (
     <TextField
-             className={cx('textfield')}
-             errorStyle={{ float: 'left' }}
              id={'symbolTextField' + index}
-             value={symbol.value}
-             errorText={symbolSelect.errorText}
-             hintText={symbolSelect.hintText}
-             onChange={handleOnChange} />
+             value={displayValue}
+             errorText={errorText}
+             onChange={handleOnChange}
+             hintText="AAPL"
+             errorStyle={{ float: 'left' }}
+             className={cx('textfield')} />
   );
 };
 
 SymbolTextField.propTypes = {
   index: PropTypes.number.isRequired,
   value: PropTypes.string.isRequired,
-  securityTextFieldChange: PropTypes.func.isRequired,
+  setOnce: PropTypes.bool.isRequired,
+  errorText: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default SymbolTextField;

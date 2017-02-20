@@ -1,31 +1,29 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import CircularProgress from 'material-ui/CircularProgress';
-import RefreshIndicator from 'material-ui/RefreshIndicator';
-import { blue500, red500, greenA200 } from 'material-ui/styles/colors';
 import IconButton from 'material-ui/IconButton';
 import ActionDone from 'material-ui/svg-icons/action/done';
 import AlertErrorOutline from 'material-ui/svg-icons/alert/error-outline';
 import ReactTooltip from 'react-tooltip';
-
 import classNames from 'classnames/bind';
 import styles from '../../../css/components/portfolio-table/price-cell';
+
 const cx = classNames.bind(styles);
 
-const PriceProgress = ({price}) => {
-  const getProgress = (price) => {
-    if (price.fetch === 'NONE') {
+const PriceProgress = ({fetchStatus}) => {
+  const getProgress = (givenFetchStatus) => {
+    if (givenFetchStatus === 'NONE') {
       return null;
-    } else if (price.fetch === 'IN_PROGRESS') {
+    } else if (givenFetchStatus === 'IN_PROGRESS') {
       return (<CircularProgress
                                className={cx('PriceProgressSpinner')}
                                size={20}
                                thickness={3}
                                style={{ width: 'auto', }} />);
-    } else if (price.fetch === 'DONE') {
+    } else if (givenFetchStatus === 'DONE') {
       return (<IconButton className={cx('PriceProgressIcon')}>
         <ActionDone />
       </IconButton>);
-    } else if (price.fetch === 'FAILED') {
+    } else if (givenFetchStatus === 'FAILED') {
       return (<div>
         <IconButton
                            className={cx('PriceProgressIcon')}
@@ -48,7 +46,7 @@ const PriceProgress = ({price}) => {
     return null;
   };
 
-  const progress = getProgress(price);
+  const progress = getProgress(fetchStatus);
 
   return (
     <div className={cx('PriceProgressContainer')}>
@@ -58,7 +56,7 @@ const PriceProgress = ({price}) => {
 };
 
 PriceProgress.propTypes = {
-  price: PropTypes.object.isRequired,
+  fetchStatus: PropTypes.string.isRequired,
 };
 
 export default PriceProgress;

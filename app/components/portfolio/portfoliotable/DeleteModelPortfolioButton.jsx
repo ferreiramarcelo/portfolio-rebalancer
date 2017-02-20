@@ -1,9 +1,7 @@
-import React, { Component, PropTypes } from 'react';
-import FlatButton from 'material-ui/FlatButton';
+import React, { PropTypes } from 'react';
 import IconButton from 'material-ui/IconButton';
 import ActionDeleteForever from 'material-ui/svg-icons/action/delete-forever';
 import ReactTooltip from 'react-tooltip';
-
 import classNames from 'classnames/bind';
 import styles from '../../../css/components/portfolio-table/delete-model-portfolio-button';
 
@@ -19,30 +17,30 @@ const DeleteModelPortfolioButton = ({id, deleteModelPortfolio, visibility}) => {
       case 'visible':
         return (<div>
           <IconButton
-                             className={cx('DeleteModelPortfolioButton')}
-                             touch
-                             onTouchTap={handleOnClick}>
+                              className={cx('DeleteModelPortfolioButton')}
+                              touch
+                              onTouchTap={handleOnClick}>
             <ActionDeleteForever />
           </IconButton>
           <ReactTooltip id="deleteModelPortfolioButtonTooltip">
             <p>
-                     Delete model portfolio
-                   </p>
+                      Delete model portfolio
+                    </p>
           </ReactTooltip>
         </div>);
       case 'disabled':
         return (<div>
           <IconButton
-                             disabled
-                             className={cx('DeleteModelPortfolioButton')}
-                             touch
-                             onTouchTap={handleOnClick}>
+                              disabled
+                              className={cx('DeleteModelPortfolioButton')}
+                              touch
+                              onTouchTap={handleOnClick}>
             <ActionDeleteForever />
           </IconButton>
           <ReactTooltip id="deleteModelPortfolioButtonTooltip">
             <p>
-                     Delete model portfolio
-                   </p>
+                      Delete model portfolio
+                    </p>
           </ReactTooltip>
         </div>);
       case 'hidden':

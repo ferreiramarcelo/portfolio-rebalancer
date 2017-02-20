@@ -269,7 +269,7 @@ const allocation = (state = {value: '0', setOnce: false}, action) => {
     }
 };
 
-const price = (state = {value: '1.00', setOnce: false, fetch: 'NONE'}, action) => {
+const price = (state = {value: '1.00', setOnce: false, fetchStatus: 'NONE'}, action) => {
     switch (action.type) {
         case types.SELECT_MODEL_PORTFOLIO:
             return {value: action.security.price, setOnce: true};
@@ -277,29 +277,29 @@ const price = (state = {value: '1.00', setOnce: false, fetch: 'NONE'}, action) =
             return {
                 value: action.value,
                 setOnce: true,
-                fetch: 'NONE'
+                fetchStatus: 'NONE'
             };
             case types.SET_PRICE_TO_FETCHING:
               return {
                   ...state,
-                  fetch: 'IN_PROGRESS'
+                  fetchStatus: 'IN_PROGRESS'
               };
               case types.SET_PRICE_TO_NOT_FETCHING:
               return {
                   ...state,
-                  fetch: 'NONE'
+                  fetchStatus: 'NONE'
               };
               case types.SET_PRICE_FROM_FETCH:
                 return {
                     ...state,
                     value: action.price,
                     setOnce: true,
-                    fetch: 'DONE'
+                    fetchStatus: 'DONE'
                 };
                 case types.SET_PRICE_TO_FETCH_FAILED:
                   return {
                       ...state,
-                      fetch: 'FAILED'
+                      fetchStatus: 'FAILED'
                   };
         default:
             return state;
@@ -308,20 +308,6 @@ const price = (state = {value: '1.00', setOnce: false, fetch: 'NONE'}, action) =
 
 const units = (state = {value: '0', setOnce: false}, action) => {
     switch (action.type) {
-        case types.SECURITY_TEXT_FIELD_CHANGE:
-            return {
-                value: action.value,
-                setOnce: true
-            };
-        default:
-            return state;
-    }
-};
-
-const oldsymbol = (state = {value: '', setOnce: false}, action) => {
-    switch (action.type) {
-        case types.SELECT_MODEL_PORTFOLIO:
-            return {value: action.security.symbol, setOnce: true};
         case types.SECURITY_TEXT_FIELD_CHANGE:
             return {
                 value: action.value,

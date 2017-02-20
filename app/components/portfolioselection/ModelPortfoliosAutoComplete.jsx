@@ -1,36 +1,35 @@
 import React, { PropTypes } from 'react';
 import AutoComplete from 'material-ui/AutoComplete';
 import MenuItem from 'material-ui/MenuItem';
-import ContentCreate from 'material-ui/svg-icons/content/create';
 import ActionGroupWork from 'material-ui/svg-icons/action/group-work';
 import EditorModeEdit from 'material-ui/svg-icons/editor/mode-edit';
-
 import classNames from 'classnames/bind';
 import styles from '../../css/components/model-portfolios-autocomplete';
+
 const cx = classNames.bind(styles);
 
 const ModelPortfoliosAutoComplete = ({selectModelPortfolio, modelPortfolios, email}) => {
-  const generateDisplayModelPortfolios = (modelPortfolios, email) => {
+  const sortModelPortfoliosAlphabeticaly = function sortModelPortfoliosAlphabeticalyFunc(a, b) {
+    const textA = a.name.toUpperCase();
+    const textB = b.name.toUpperCase();
+    return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+  };
+
+   const generateDisplayModelPortfolios = (givenModelPortfolios, givenEmail) => {
     const defaultModelPortfolios = [];
     const userModelPortfolios = [];
     const displayModelPortfolios = [];
-    for (var i = 0; i < modelPortfolios.length; i++) {
-      if (modelPortfolios[i].email == null) {
-defaultModelPortfolios.push(modelPortfolios[i]);
-} else if (modelPortfolios[i].email == email) { userModelPortfolios.push(modelPortfolios[i]); }
+    for (let i = 0; i < givenModelPortfolios.length; i++) {
+      if (!givenModelPortfolios[i].email) {
+        defaultModelPortfolios.push(givenModelPortfolios[i]);
+      } else if (givenModelPortfolios[i].email === givenEmail) {
+        userModelPortfolios.push(givenModelPortfolios[i]);
+      }
     }
-    defaultModelPortfolios.sort((a, b) => {
-      const textA = a.name.toUpperCase();
-      const textB = b.name.toUpperCase();
-      return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
-    });
-    userModelPortfolios.sort((a, b) => {
-      const textA = a.name.toUpperCase();
-      const textB = b.name.toUpperCase();
-      return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
-    });
-    if (userModelPortfolios.length == 0) {
-      for (i = 0; i < defaultModelPortfolios.length; i++) {
+    defaultModelPortfolios.sort(sortModelPortfoliosAlphabeticaly);
+    userModelPortfolios.sort(sortModelPortfoliosAlphabeticaly);
+    if (userModelPortfolios.length === 0) {
+      for (let i = 0; i < defaultModelPortfolios.length; i++) {
         displayModelPortfolios.push({
           name: defaultModelPortfolios[i].name
         });
@@ -39,7 +38,7 @@ defaultModelPortfolios.push(modelPortfolios[i]);
       displayModelPortfolios.push({
         name: 'USER_MODEL_PORTFOLIOS_GROUP'
       });
-      for (i = 0; i < userModelPortfolios.length; i++) {
+      for (let i = 0; i < userModelPortfolios.length; i++) {
         displayModelPortfolios.push({
           name: userModelPortfolios[i].name,
           isUser: 1
@@ -48,7 +47,7 @@ defaultModelPortfolios.push(modelPortfolios[i]);
       displayModelPortfolios.push({
         name: 'DEFAULT_MODEL_PORTFOLIOS_GROUP'
       });
-      for (i = 0; i < defaultModelPortfolios.length; i++) {
+      for (let i = 0; i < defaultModelPortfolios.length; i++) {
         displayModelPortfolios.push({
           name: defaultModelPortfolios[i].name,
           isUser: 0
@@ -101,7 +100,7 @@ defaultModelPortfolios.push(modelPortfolios[i]);
     }
   });
 
-  const handleOnNewRequest = (chosenRequest, index) => {
+  const handleOnNewRequest = (chosenRequest) => {
     let selectedModelPortfolio;
     for (let i = 0; i < modelPortfolios.length; i++) {
       if (modelPortfolios[i].name === chosenRequest.text) {
@@ -116,13 +115,12 @@ defaultModelPortfolios.push(modelPortfolios[i]);
   return (
     <div className={cx('model-portfolios-autocomplete-container')}>
       <AutoComplete
-                hintText="Select model portfolio..."
-                filter={AutoComplete.caseInsensitiveFilter}
-                openOnFocus
-                dataSource={displayModelPortfoliosElements}
-                onNewRequest={handleOnNewRequest}
-                fullWidth
-                 />
+                  hintText="Select model portfolio..."
+                  filter={AutoComplete.caseInsensitiveFilter}
+                  openOnFocus
+                  dataSource={displayModelPortfoliosElements}
+                  onNewRequest={handleOnNewRequest}
+                  fullWidth />
     </div>
   );
 };

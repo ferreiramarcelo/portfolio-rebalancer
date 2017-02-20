@@ -1,9 +1,8 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import { TableRow, TableRowColumn } from 'material-ui/Table';
 import SymbolTextField from './SymbolTextField';
 import AllocationTextField from './AllocationTextField';
 import PriceTextField from './PriceTextField';
-import PriceProgress from './PriceProgress';
 import UnitsTextField from './UnitsTextField';
 import RemoveSecurityButton from './RemoveSecurityButton';
 import classNames from 'classnames/bind';
@@ -18,30 +17,35 @@ const SecurityRow = ({security, securitySelect, removeSecurity, securityTextFiel
     <TableRowColumn className={cx('TableRowColumn')}>
       <SymbolTextField
                                index={security.index}
-                               symbol={security.symbol}
-                               symbolSelect={securitySelect.symbolSelect}
-                               securityTextFieldChange={securityTextFieldChange} />
+                               value={security.symbol.value}
+                               setOnce={security.symbol.setOnce}
+                               errorText={securitySelect.symbolSelect.errorText}
+                               onChange={securityTextFieldChange} />
     </TableRowColumn>
     <TableRowColumn className={cx('TableRowColumn')}>
       <AllocationTextField
                                    index={security.index}
-                                   allocation={security.allocation}
-                                   allocationSelect={securitySelect.allocationSelect}
-                                   securityTextFieldChange={securityTextFieldChange} />
+                                   value={security.allocation.value}
+                                   setOnce={security.allocation.setOnce}
+                                   errorText={securitySelect.allocationSelect.errorText}
+                                   onChange={securityTextFieldChange} />
     </TableRowColumn>
     <TableRowColumn className={cx('TableRowColumn')}>
       <PriceTextField
                               index={security.index}
-                              price={security.price}
-                              priceSelect={securitySelect.priceSelect}
-                              securityTextFieldChange={securityTextFieldChange} />
+                              value={security.price.value}
+                              setOnce={security.price.setOnce}
+                              fetchStatus={security.price.fetchStatus}
+                              errorText={securitySelect.priceSelect.errorText}
+                              onChange={securityTextFieldChange} />
     </TableRowColumn>
     <TableRowColumn className={cx('TableRowColumn')}>
       <UnitsTextField
                               index={security.index}
-                              units={security.units}
-                              unitsSelect={securitySelect.unitsSelect}
-                              securityTextFieldChange={securityTextFieldChange} />
+                              value={security.units.value}
+                              setOnce={security.units.setOnce}
+                              errorText={securitySelect.unitsSelect.errorText}
+                              onChange={securityTextFieldChange} />
     </TableRowColumn>
     <TableRowColumn className={cx('TableRowColumnRemoveLast')}>
       <RemoveSecurityButton

@@ -1,44 +1,48 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import TextField from 'material-ui/TextField';
-import PriceProgress from './PriceProgress';
-
 import classNames from 'classnames/bind';
+import PriceProgress from './PriceProgress';
 import styles from '../../../css/components/portfolio-table/price-cell';
+
 const cx = classNames.bind(styles);
 
-const PriceTextField = ({index, price, priceSelect, securityTextFieldChange}) => {
-  const getDisplayValue = (price) => {
-    if (!price.setOnce) {
-      return '';
+const PriceTextField = ({index, value, setOnce, fetchStatus, errorText, onChange}) => {
+  const getDisplayValue = function getDisplayValueFunc(givenValue, givenSetOnce) {
+    if (givenSetOnce) {
+      return givenValue;
     }
-    return price.value;
+    return '';
   };
 
-  const displayValue = getDisplayValue(price);
+  const displayValue = getDisplayValue(value, setOnce);
 
-  const handleOnChange = (event, value) => {
-    securityTextFieldChange(index, 'price', value);
+  const handleOnChange = function handleOnChangeFunc(event, newValue) {
+    onChange(index, 'price', newValue);
   };
 
   return (
 
     <div>
       <TextField
-               className={cx('PriceTextField')}
                id={'priceTextField' + index}
                value={displayValue}
-               errorText={priceSelect.errorText}
-               hintText={priceSelect.hintText}
-               onChange={handleOnChange} />
-      <PriceProgress price={price} />
+               errorText={errorText}
+               onChange={handleOnChange}
+               hintText="1.00"
+               errorStyle={{ float: 'left' }}
+               className={cx('PriceTextField')} />
+      <PriceProgress fetchStatus={fetchStatus} />
     </div>
   );
 };
 
 PriceTextField.propTypes = {
   index: PropTypes.number.isRequired,
-  price: PropTypes.object.isRequired,
-  securityTextFieldChange: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
+  setOnce: PropTypes.bool.isRequired,
+  fetchStatus: PropTypes.string.isRequired,
+  errorText: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default PriceTextField;
