@@ -9,10 +9,15 @@ import styles from '../../css/components/model-portfolios-autocomplete';
 const cx = classNames.bind(styles);
 
 const ModelPortfoliosAutoComplete = ({selectModelPortfolio, modelPortfolios, email}) => {
-  const sortModelPortfoliosAlphabeticaly = function sortModelPortfoliosAlphabeticalyFunc(a, b) {
-    const textA = a.name.toUpperCase();
-    const textB = b.name.toUpperCase();
-    return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+  const sortModelPortfoliosAlphabeticaly = function sortModelPortfoliosAlphabeticalyFunc(modelPortfolioA, modelPortfolioB) {
+    const modelPortfolioNameA = modelPortfolioA.name.toUpperCase();
+    const modePortfolioNameB = modelPortfolioB.name.toUpperCase();
+    if (modelPortfolioNameA < modePortfolioNameB) {
+      return -1;
+    } else if (modelPortfolioNameA > modePortfolioNameB) {
+      return 1;
+    }
+    return 0;
   };
 
    const generateDisplayModelPortfolios = (givenModelPortfolios, givenEmail) => {

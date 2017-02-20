@@ -1,21 +1,21 @@
 import React, { PropTypes } from 'react';
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow } from 'material-ui/Table';
 import ReactTooltip from 'react-tooltip';
-import SecurityRow from './SecurityRow';
 import classNames from 'classnames/bind';
+import SecurityRow from './SecurityRow';
 import SaveModelPortfolioButton from './SaveModelPortfolioButton';
 import DeleteModelPortfolioButton from './DeleteModelPortfolioButton';
 import styles from '../../../css/components/portfolio-table/portfolio-table';
 
 const cx = classNames.bind(styles);
 
-const PortfolioTable = ({portfolioSelect, portfolio, removeSecurity, securityTextFieldChange, saveModelPortfolio, deleteModelPortfolio, selectedModelPortfolio}) => {
+const PortfolioTable = ({portfolio, portfolioSelect, removeSecurity, securityTextFieldChange, saveModelPortfolio, deleteModelPortfolio, selectedModelPortfolio}) => {
   const securityRows = portfolio.map((security, index) => {
     return (<SecurityRow
-                        security={security}
-                        securitySelect={portfolioSelect.securitiesSelect[index]}
-                        removeSecurity={removeSecurity}
-                        securityTextFieldChange={securityTextFieldChange} />);
+                         security={security}
+                         securitySelect={portfolioSelect.securitiesSelect[index]}
+                         removeSecurity={removeSecurity}
+                         securityTextFieldChange={securityTextFieldChange} />);
   });
 
   return (
@@ -94,8 +94,8 @@ const PortfolioTable = ({portfolioSelect, portfolio, removeSecurity, securityTex
 };
 
 PortfolioTable.propTypes = {
+  portfolio: PropTypes.object.isRequired,
   portfolioSelect: PropTypes.object.isRequired,
-  portfolio: PropTypes.array.isRequired,
   removeSecurity: PropTypes.func.isRequired,
   securityTextFieldChange: PropTypes.func.isRequired,
   saveModelPortfolio: PropTypes.func.isRequired,

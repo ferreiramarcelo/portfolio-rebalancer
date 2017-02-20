@@ -12,14 +12,14 @@ const DeleteModelPortfolioButton = ({id, deleteModelPortfolio, visibility}) => {
     deleteModelPortfolio(id);
   };
 
-  const getDeleteModelPortfolioButton = (visibility) => {
-    switch (visibility) {
+  const getDeleteModelPortfolioButton = function getDeleteModelPortfolioButtonFunc(givenVisbility) {
+    switch (givenVisbility) {
       case 'visible':
         return (<div>
           <IconButton
-                              className={cx('DeleteModelPortfolioButton')}
+                              onTouchTap={handleOnClick}
                               touch
-                              onTouchTap={handleOnClick}>
+                              className={cx('DeleteModelPortfolioButton')}>
             <ActionDeleteForever />
           </IconButton>
           <ReactTooltip id="deleteModelPortfolioButtonTooltip">
@@ -32,9 +32,9 @@ const DeleteModelPortfolioButton = ({id, deleteModelPortfolio, visibility}) => {
         return (<div>
           <IconButton
                               disabled
-                              className={cx('DeleteModelPortfolioButton')}
+                              onTouchTap={handleOnClick}
                               touch
-                              onTouchTap={handleOnClick}>
+                              className={cx('DeleteModelPortfolioButton')}>
             <ActionDeleteForever />
           </IconButton>
           <ReactTooltip id="deleteModelPortfolioButtonTooltip">
@@ -53,18 +53,18 @@ const DeleteModelPortfolioButton = ({id, deleteModelPortfolio, visibility}) => {
 
   return (
     <div
-       className={cx('DeleteModelPortfolioDiv')}
        data-tip
-       data-for="deleteModelPortfolioButtonTooltip">
+       data-for="deleteModelPortfolioButtonTooltip"
+       className={cx('DeleteModelPortfolioDiv')}>
       { deleteModelPortfolioButton }
     </div>
   );
 };
 
 DeleteModelPortfolioButton.propTypes = {
-  visibility: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   deleteModelPortfolio: PropTypes.func.isRequired,
+  visibility: PropTypes.string.isRequired
 };
 
 export default DeleteModelPortfolioButton;

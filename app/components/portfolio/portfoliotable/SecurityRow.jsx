@@ -1,11 +1,11 @@
 import React, { PropTypes } from 'react';
 import { TableRow, TableRowColumn } from 'material-ui/Table';
+import classNames from 'classnames/bind';
 import SymbolTextField from './SymbolTextField';
 import AllocationTextField from './AllocationTextField';
 import PriceTextField from './PriceTextField';
 import UnitsTextField from './UnitsTextField';
 import RemoveSecurityButton from './RemoveSecurityButton';
-import classNames from 'classnames/bind';
 import styles from '../../../css/components/portfolio-table/security-row';
 
 const cx = classNames.bind(styles);

@@ -1,26 +1,22 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import Scroll from 'react-scroll';
+import classNames from 'classnames/bind';
+import { createModelPortfolio, typing, incrementCount, decrementCount, destroyModelPortfolio, selectModelPortfolio, createNewPortfolio, modelPortfolioNameTextFieldChange, addSecurity, removeSecurity, securityTextFieldChange, saveModelPortfolio, deleteModelPortfolio } from '../actions/modelPortfolios';
+import { investmentAmountTextFieldChange } from '../actions/investmentAmount';
+import { generateSteps, setScrolledToBttom } from '../actions/rebalancings';
 import ModelPortfoliosAutoComplete from '../components/portfolioselection/ModelPortfoliosAutoComplete';
 import NewPortfolioButton from '../components/portfolioselection/NewPortfolioButton';
 import Portfolio from '../components/portfolio/Portfolio';
 import InvestmentAmount from '../components/investmentamount/InvestmentAmount';
 import GenerateStepsButton from '../components/investmentsteps/GenerateStepsButton';
 import StepsList from '../components/investmentsteps/StepsList';
-import { createModelPortfolio, typing, incrementCount, decrementCount, destroyModelPortfolio, selectModelPortfolio, createNewPortfolio, modelPortfolioNameTextFieldChange, addSecurity, removeSecurity, securityTextFieldChange, saveModelPortfolio, deleteModelPortfolio } from '../actions/modelPortfolios';
-import { investmentAmountTextFieldChange, investmentAmountTextFieldValid, investmentAmountTextFieldError } from '../actions/investmentAmount';
-import { generateSteps, setScrolledToBttom } from '../actions/rebalancings';
-import classNames from 'classnames/bind';
-import styles from '../css/containers/portfolio-rebalancer';
 import { getPortfolioSelect } from '../selectors/index';
-import Scroll from 'react-scroll';
+import styles from '../css/containers/portfolio-rebalancer';
 
 const cx = classNames.bind(styles);
 
 class PortfolioRebalancer extends Component {
-
-  constructor(props) {
-    super(props);
-  }
 
   componentDidUpdate() {
     const {view, setScrolledToBttom} = this.props;
@@ -32,65 +28,58 @@ class PortfolioRebalancer extends Component {
   }
 
   render() {
-    const {newModelPortfolio, modelPortfolios, selectedModelPortfolio, portfolio, investmentAmount, rebalancingSteps, view, email, createModelPortfolio, destroyModelPortfolio, incrementCount, decrementCount, selectModelPortfolio, createNewPortfolio, modelPortfolioNameTextFieldChange, addSecurity, removeSecurity, securityTextFieldChange, investmentAmountTextFieldChange, investmentAmountTextFieldValid, investmentAmountTextFieldError, generateSteps, saveModelPortfolio, portfolioSelect, deleteModelPortfolio} = this.props;
+    const {modelPortfolios, selectedModelPortfolio, portfolio, investmentAmount, rebalancingSteps, view, email, selectModelPortfolio, createNewPortfolio, modelPortfolioNameTextFieldChange, addSecurity, removeSecurity, securityTextFieldChange, investmentAmountTextFieldChange, generateSteps, saveModelPortfolio, portfolioSelect, deleteModelPortfolio} = this.props;
     if (!view.displayPortfolio) {
       return (
         <div className={cx('model-portfolio-selector-container')}>
           <ModelPortfoliosAutoComplete
-                                              selectModelPortfolio={selectModelPortfolio}
-                                              modelPortfolios={modelPortfolios}
-                                              email={email} />
+                                     selectModelPortfolio={selectModelPortfolio}
+                                     modelPortfolios={modelPortfolios}
+                                     email={email} />
           <NewPortfolioButton createNewPortfolio={createNewPortfolio} />
         </div>
       );
-    } else {
-      return (
-        <div>
-          <div className={cx('model-portfolio-selector-container')}>
-            <ModelPortfoliosAutoComplete
-                                                selectModelPortfolio={selectModelPortfolio}
-                                                modelPortfolios={modelPortfolios}
-                                                email={email} />
-            <NewPortfolioButton createNewPortfolio={createNewPortfolio} />
-          </div>
-          <Portfolio
-                   portfolioSelect={portfolioSelect}
-                   selectedModelPortfolio={selectedModelPortfolio}
-                   modelPortfolioNameTextFieldChange={modelPortfolioNameTextFieldChange}
-                   portfolio={portfolio}
-                   addSecurity={addSecurity}
-                   removeSecurity={removeSecurity}
-                   securityTextFieldChange={securityTextFieldChange}
-                   addSecurity={addSecurity}
-                   saveModelPortfolio={saveModelPortfolio}
-                   deleteModelPortfolio={deleteModelPortfolio} />
-          <InvestmentAmount
-                          investmentAmount={investmentAmount}
-                          investmentAmountSelect={portfolioSelect.investmentAmountSelect}
-                          investmentAmountTextFieldChange={investmentAmountTextFieldChange} />
-          <GenerateStepsButton
-                             visibility={portfolioSelect.generateStepsButtonVisibility}
-                             generateSteps={generateSteps} />
-          <StepsList rebalancingSteps={rebalancingSteps} />
-        </div>
-      );
     }
+    return (
+      <div>
+        <div className={cx('model-portfolio-selector-container')}>
+          <ModelPortfoliosAutoComplete
+                                     selectModelPortfolio={selectModelPortfolio}
+                                     modelPortfolios={modelPortfolios}
+                                     email={email} />
+          <NewPortfolioButton createNewPortfolio={createNewPortfolio} />
+        </div>
+        <Portfolio
+                 portfolioSelect={portfolioSelect}
+                 selectedModelPortfolio={selectedModelPortfolio}
+                 modelPortfolioNameTextFieldChange={modelPortfolioNameTextFieldChange}
+                 portfolio={portfolio}
+                 addSecurity={addSecurity}
+                 removeSecurity={removeSecurity}
+                 securityTextFieldChange={securityTextFieldChange}
+                 addSecurity={addSecurity}
+                 saveModelPortfolio={saveModelPortfolio}
+                 deleteModelPortfolio={deleteModelPortfolio} />
+        <InvestmentAmount
+                        investmentAmount={investmentAmount}
+                        investmentAmountSelect={portfolioSelect.investmentAmountSelect}
+                        investmentAmountTextFieldChange={investmentAmountTextFieldChange} />
+        <GenerateStepsButton
+                           visibility={portfolioSelect.generateStepsButtonVisibility}
+                           generateSteps={generateSteps} />
+        <StepsList rebalancingSteps={rebalancingSteps} />
+      </div>
+    );
   }
 }
 
 PortfolioRebalancer.propTypes = {
-  newModelPortfolio: PropTypes.string,
   modelPortfolios: PropTypes.array.isRequired,
   selectedModelPortfolio: PropTypes.object.isRequired,
   portfolio: PropTypes.array.isRequired,
   investmentAmount: PropTypes.object.isRequired,
   rebalancingSteps: PropTypes.object.isRequired,
   view: PropTypes.object.isRequired,
-  typing: PropTypes.func.isRequired,
-  createModelPortfolio: PropTypes.func.isRequired,
-  destroyModelPortfolio: PropTypes.func.isRequired,
-  incrementCount: PropTypes.func.isRequired,
-  decrementCount: PropTypes.func.isRequired,
   selectModelPortfolio: PropTypes.func.isRequired,
   createNewPortfolio: PropTypes.func.isRequired,
   modelPortfolioNameTextFieldChange: PropTypes.func.isRequired,
@@ -120,9 +109,6 @@ function mapStateToProps(state) {
 
 export default connect(mapStateToProps, {
   createModelPortfolio,
-  typing,
-  incrementCount,
-  decrementCount,
   destroyModelPortfolio,
   selectModelPortfolio,
   createNewPortfolio,

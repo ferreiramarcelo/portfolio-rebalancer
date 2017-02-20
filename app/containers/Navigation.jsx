@@ -1,11 +1,10 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
+import FlatButton from 'material-ui/FlatButton';
 import classNames from 'classnames/bind';
 import { logOut } from '../actions/users';
 import styles from '../css/components/navigation';
-
-import FlatButton from 'material-ui/FlatButton';
 
 const cx = classNames.bind(styles);
 
@@ -27,7 +26,7 @@ const Navigation = ({user, logOut}) => {
                 className={cx('NavigationButtonRight')}
                 onTouchTap={user.authenticated
                                ? logOut
-                               : ''}
+                               : null}
                 containerElement={user.authenticated
                                      ? (
                                        <Link to="/" />

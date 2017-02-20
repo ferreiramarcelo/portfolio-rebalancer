@@ -1,30 +1,24 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-import classNames from 'classnames/bind';
-import { connect } from 'react-redux';
-import { manualLogin, register } from '../actions/users';
-import styles from '../css/components/authentication';
-
-const cx = classNames.bind( styles );
-
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
-import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
+import Card from 'material-ui/Card';
 import FontIcon from 'material-ui/FontIcon';
 import FontAwesome from 'react-fontawesome';
 import TextField from 'material-ui/TextField';
-
+import { connect } from 'react-redux';
+import { manualLogin, register } from '../actions/users';
+import classNames from 'classnames/bind';
+import styles from '../css/components/authentication';
 import { emailTextFieldChange, passwordTextFieldChange, passwordConfirmationTextFieldChange, toggleAuthenticationMode } from '../actions/authentications';
 import EmailTextField from '../components/authentication/EmailTextField'
 import PasswordTextField from '../components/authentication/PasswordTextField'
 import PasswordConfirmationTextField from '../components/authentication/PasswordConfirmationTextField'
 import { getAuthenticationSelect } from '../selectors/index'
 
-class Authentication extends Component {
+const cx = classNames.bind( styles );
 
-  constructor( props ) {
-    super( props );
-  }
+class Authentication extends Component {
 
   getAuthenticationForm() {
     const {authentication} = this.props;

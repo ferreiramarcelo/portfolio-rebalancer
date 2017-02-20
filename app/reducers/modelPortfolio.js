@@ -9,24 +9,9 @@ const modelPortfolio = (state = {}, action) => {
             if (state.id === action.id) {
                 return {id: action.id, name: action.name, email: action.email, securities: action.securities};
             }
+            return state;
             /* case types.SAVE_MODEL_PORTFOLIO_FAILURE:
             return state.filter(t => t.id !== action.id); */
-        case types.INCREMENT_COUNT:
-            if (state.id === action.id) {
-                return {
-                    ...state,
-                    count: state.count + 1
-                };
-            }
-            return state;
-        case types.DECREMENT_COUNT:
-            if (state.id === action.id) {
-                return {
-                    ...state,
-                    count: state.count - 1
-                };
-            }
-            return state;
         default:
             return state;
     }
@@ -88,8 +73,8 @@ const selectedModelPortfolio = (state = {}, action) => {
         case types.SAVE_MODEL_PORTFOLIO_REQUEST:
             return { ...state, id: action.id, name: action.name, email: action.email, securities: action.securities};
         case types.MODEL_PORTFOLIO_NAME_TEXT_FIELD_CHANGE:
-          var errorText = '';
-          var valid = 1;
+          let errorText = '';
+          let valid = 1;
           if (action.value === '') {
             errorText = 'Required';
             valid = 0;
@@ -137,8 +122,8 @@ const selectedModelPortfolio = (state = {}, action) => {
 const portfolio = (state = [], action) => {
     switch (action.type) {
         case types.SELECT_MODEL_PORTFOLIO:
-            var newPortfolio = [];
-            for (var i = 0; i < action.selectedModelPortfolio.securities.length; i++) {
+            const newPortfolio = [];
+            for (let i = 0; i < action.selectedModelPortfolio.securities.length; i++) {
                 action.security = action.selectedModelPortfolio.securities[i];
                 action.index = i;
                 newPortfolio.push(security(undefined, action));
@@ -157,7 +142,7 @@ const portfolio = (state = [], action) => {
             ];
         case types.REMOVE_SECURITY:
             var newPortfolio = state.filter(s => s.index !== action.index);
-            for (var i = action.index; i < newPortfolio.length; i++) {
+            for (let i = action.index; i < newPortfolio.length; i++) {
                 newPortfolio[i].index--;
             }
             return newPortfolio;

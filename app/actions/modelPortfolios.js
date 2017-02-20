@@ -300,7 +300,7 @@ export function saveModelPortfolio(selectedModelPortfolio, portfolio) {
 		.catch(() => {
 			return dispatch(createModelPortfolioFailure({
 				id,
-				error: 'Oops! Something went wrong and we couldn\'t save your modelPortfolio'
+				error: 'Failure. Something went wrong and the model portfolio was not saved.'
 			}));
 		});
 	};
@@ -323,7 +323,7 @@ export function deleteModelPortfolio(id) {
       .catch(() => {
         return dispatch(deleteModelPortfolioFailure({
           id,
-          error: 'Oops! Something went wrong and we couldn\'t save your modelPortfolio'
+          error: 'Failure. Something went wrong and the model portfolio was not deleted.'
         }));
       });
   };

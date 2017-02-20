@@ -1,16 +1,14 @@
 import React, { PropTypes } from 'react';
 import classNames from 'classnames/bind';
-import Navigation from '../containers/Navigation';
-import styles from '../css/main';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-injectTapEventPlugin();
-
-const cx = classNames.bind(styles);
-
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import { cyan500, cyan700, grey400, pinkA200, grey100, grey500, darkBlack, white, grey300, fullBlack, fade } from 'material-ui/styles/colors';
+import { grey100, grey500, white, fullBlack, } from 'material-ui/styles/colors';
+import Navigation from '../containers/Navigation';
+import styles from '../css/main';
 
+injectTapEventPlugin();
+const cx = classNames.bind(styles);
 const muiTheme = getMuiTheme({
   fontFamily: 'Roboto, sans-serif',
   zIndex: {

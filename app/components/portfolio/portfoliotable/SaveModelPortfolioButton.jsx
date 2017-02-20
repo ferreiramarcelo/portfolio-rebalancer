@@ -1,8 +1,7 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import IconButton from 'material-ui/IconButton';
 import ContentSave from 'material-ui/svg-icons/content/save';
 import ReactTooltip from 'react-tooltip';
-
 import classNames from 'classnames/bind';
 import styles from '../../../css/components/portfolio-table/save-model-portfolio-button';
 
@@ -13,8 +12,8 @@ const SaveModelPortfolioButton = ({visibility, portfolio, selectedModelPortfolio
     saveModelPortfolio(selectedModelPortfolio, portfolio);
   };
 
-  const getSaveModelPortfolioButton = (visibility) => {
-    switch (visibility) {
+  const getSaveModelPortfolioButton = function getSaveModelPortfolioButtonFunc(givenVisibility) {
+    switch (givenVisibility) {
       case 'visible':
         return (<div>
           <IconButton
