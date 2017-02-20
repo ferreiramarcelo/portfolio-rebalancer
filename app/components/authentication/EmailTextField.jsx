@@ -1,10 +1,10 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import TextField from 'material-ui/TextField';
 
 const EmailTextField = ({value, errorText, onChange}) => {
-  function handleOnChange(event, value) {
-    onChange(value);
-  }
+  const handleOnChange = function handleOnChangeFunc(event, newValue) {
+    onChange(newValue);
+  };
 
   return (
     <TextField

@@ -1,20 +1,22 @@
-import React, { Component, PropTypes } from 'react';
-import InvestmentAmountTextField from './InvestmentAmountTextField';
+import React, { PropTypes } from 'react';
 import classNames from 'classnames/bind';
+import InvestmentAmountTextField from './InvestmentAmountTextField';
 import styles from '../../css/components/investmentamount/investment-amount';
 
 const cx = classNames.bind(styles);
 
 const InvestmentAmount = ({investmentAmount, investmentAmountSelect, investmentAmountTextFieldChange}) => {
   return (
-    <div>
+    <div className={cx('investment-amount')}>
       <p className={cx('investment-amount-prompt')}>
       How much cash are you investing? (Negative to take out)
     </p>
       <InvestmentAmountTextField
-                               investmentAmount={investmentAmount}
-                               investmentAmountSelect={investmentAmountSelect}
-                               investmentAmountTextFieldChange={investmentAmountTextFieldChange} />
+                               value={investmentAmount.value}
+                               setOnce={investmentAmount.setOnce}
+                               errorText={investmentAmountSelect.errorText}
+                               hintText={investmentAmountSelect.hintText}
+                               onChange={investmentAmountTextFieldChange} />
     </div>
   );
 };

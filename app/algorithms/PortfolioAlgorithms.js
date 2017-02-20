@@ -15,20 +15,28 @@ export function getPortfolioWithNormalizedAllocations(portfolio) {
 function sortValuePerSecurityAscending(security1, security2) {
   if (security1[1] === security2[1]) {
     return 0;
-  } else {
-    return (security1[1] > security2[1]) ? 1 : -1;
   }
+  return (security1[1] > security2[1]) ? 1 : -1;
 }
 
 
 function sortValuePerSecurityDescending(security1, security2) {
   if (security1[1] === security2[1]) {
     return 0;
-  } else {
-    return (security1[1] < security2[1]) ? 1 : -1;
   }
+  return (security1[1] < security2[1]) ? 1 : -1;
 }
 
+export function getValueDifferencePerSecurityWithIndex(valuePerSecurityCurrent, valuePerSecurityTotal) {
+  const valueDifferencePerSecurity = [];
+  for (let i = 0; i < valuePerSecurityTotal.length; i++) {
+    valueDifferencePerSecurity.push([
+      i,
+      valuePerSecurityCurrent[i] - valuePerSecurityTotal[i]
+    ]);
+  }
+  return valueDifferencePerSecurity;
+}
 
 export function getValuesForInvesting(investmentAmount, valuePerSecurityCurrent, valuePerSecurityTotal) {
   const valueDifferencePerSecurity = getValueDifferencePerSecurityWithIndex(valuePerSecurityCurrent, valuePerSecurityTotal);
@@ -40,13 +48,14 @@ export function getValuesForInvesting(investmentAmount, valuePerSecurityCurrent,
     valueAdditionPerSecurity.push(0);
   }
   let additionPerSecurity;
-  while (cashRemainingToSpend > 0 && additionPerSecurity != 0) {
+  while (cashRemainingToSpend > 0 && additionPerSecurity !== 0) {
     let lastSecurityToAddToIndex = 0;
-    let additionPerSecurity = 0;
-    while (valueDifferencePerSecurity[lastSecurityToAddToIndex + 1] != null && valueDifferencePerSecurity[lastSecurityToAddToIndex][1] == valueDifferencePerSecurity[lastSecurityToAddToIndex + 1][1]) {
+    additionPerSecurity = 0;
+    while (valueDifferencePerSecurity[lastSecurityToAddToIndex + 1] !== null &&
+       (!valueDifferencePerSecurity[lastSecurityToAddToIndex + 1] || [lastSecurityToAddToIndex][1] === valueDifferencePerSecurity[lastSecurityToAddToIndex + 1][1])) {
       lastSecurityToAddToIndex++;
     }
-    if (valueDifferencePerSecurity[lastSecurityToAddToIndex + 1] != null) {
+    if (valueDifferencePerSecurity[lastSecurityToAddToIndex + 1] !== null) {
       const valueDifference = Math.abs(valueDifferencePerSecurity[lastSecurityToAddToIndex][1] - valueDifferencePerSecurity[lastSecurityToAddToIndex + 1][1]);
       additionPerSecurity = Math.min(cashRemainingToSpend / (lastSecurityToAddToIndex + 1), valueDifference);
     } else {
@@ -72,10 +81,11 @@ export function getValuesForDisvesting(investmentAmount, valuePerSecurityCurrent
     valueReductionPerSecurity.push(0);
   }
   let reductionPerSecurity;
-  while (cashRemainingToGet > 0 && reductionPerSecurity != 0) {
+  while (cashRemainingToGet > 0 && reductionPerSecurity !== 0) {
     let lastSecurityToRemoveFromIndex = 0;
-    let reductionPerSecurity = 0;
-    while (valueDifferencePerSecurity[lastSecurityToRemoveFromIndex + 1] != null && valueDifferencePerSecurity[lastSecurityToRemoveFromIndex][1] == valueDifferencePerSecurity[lastSecurityToRemoveFromIndex + 1][1]) {
+    reductionPerSecurity = 0;
+    while (valueDifferencePerSecurity[lastSecurityToRemoveFromIndex + 1] !== null &&
+      (!valueDifferencePerSecurity[lastSecurityToRemoveFromIndex + 1] || valueDifferencePerSecurity[lastSecurityToRemoveFromIndex][1] === valueDifferencePerSecurity[lastSecurityToRemoveFromIndex + 1][1])) {
       lastSecurityToRemoveFromIndex++;
     }
     if (valueDifferencePerSecurity[lastSecurityToRemoveFromIndex + 1] != null) {
@@ -140,18 +150,6 @@ function getValuePerSecurityWithIndex(valuePerSecurity) {
   }
   return valuePerSecurityWithInde;
 }
-
-export function getValueDifferencePerSecurityWithIndex(valuePerSecurityCurrent, valuePerSecurityTotal) {
-  const valueDifferencePerSecurity = [];
-  for (let i = 0; i < valuePerSecurityTotal.length; i++) {
-    valueDifferencePerSecurity.push([
-      i,
-      valuePerSecurityCurrent[i] - valuePerSecurityTotal[i]
-    ]);
-  }
-  return valueDifferencePerSecurity;
-}
-
 
 export function getUnitsForValuePerSecurityAndExtraCash(valuePerSecurity, portfolio) {
   const unitsForValuePerSecurity = [];

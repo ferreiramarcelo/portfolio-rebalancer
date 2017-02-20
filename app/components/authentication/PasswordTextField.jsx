@@ -1,9 +1,9 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import TextField from 'material-ui/TextField';
 
 const PasswordTextField = ({value, errorText, onChange}) => {
-  const handleOnChange = (event, value) => {
-    onChange(value);
+  const handleOnChange = function handleOnChangeFunc(event, newValue) {
+    onChange(newValue);
   };
 
   return (

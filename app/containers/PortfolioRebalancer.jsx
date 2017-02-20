@@ -6,7 +6,7 @@ import Portfolio from '../components/portfolio/Portfolio';
 import InvestmentAmount from '../components/investmentamount/InvestmentAmount';
 import GenerateStepsButton from '../components/investmentsteps/GenerateStepsButton';
 import StepsList from '../components/investmentsteps/StepsList';
-import { createModelPortfolio, typing, incrementCount, decrementCount, destroyModelPortfolio, selectModelPortfolio, createNewPortfolio, selectedModelPortfolioTextFieldChange, addSecurity, removeSecurity, securityTextFieldChange, saveModelPortfolio, deleteModelPortfolio } from '../actions/modelPortfolios';
+import { createModelPortfolio, typing, incrementCount, decrementCount, destroyModelPortfolio, selectModelPortfolio, createNewPortfolio, modelPortfolioNameTextFieldChange, addSecurity, removeSecurity, securityTextFieldChange, saveModelPortfolio, deleteModelPortfolio } from '../actions/modelPortfolios';
 import { investmentAmountTextFieldChange, investmentAmountTextFieldValid, investmentAmountTextFieldError } from '../actions/investmentAmount';
 import { generateSteps, setScrolledToBttom } from '../actions/rebalancings';
 import classNames from 'classnames/bind';
@@ -32,7 +32,7 @@ class PortfolioRebalancer extends Component {
   }
 
   render() {
-    const {newModelPortfolio, modelPortfolios, selectedModelPortfolio, portfolio, investmentAmount, rebalancingSteps, view, email, createModelPortfolio, destroyModelPortfolio, incrementCount, decrementCount, selectModelPortfolio, createNewPortfolio, selectedModelPortfolioTextFieldChange, addSecurity, removeSecurity, securityTextFieldChange, investmentAmountTextFieldChange, investmentAmountTextFieldValid, investmentAmountTextFieldError, generateSteps, saveModelPortfolio, portfolioSelect, deleteModelPortfolio} = this.props;
+    const {newModelPortfolio, modelPortfolios, selectedModelPortfolio, portfolio, investmentAmount, rebalancingSteps, view, email, createModelPortfolio, destroyModelPortfolio, incrementCount, decrementCount, selectModelPortfolio, createNewPortfolio, modelPortfolioNameTextFieldChange, addSecurity, removeSecurity, securityTextFieldChange, investmentAmountTextFieldChange, investmentAmountTextFieldValid, investmentAmountTextFieldError, generateSteps, saveModelPortfolio, portfolioSelect, deleteModelPortfolio} = this.props;
     if (!view.displayPortfolio) {
       return (
         <div className={cx('model-portfolio-selector-container')}>
@@ -56,7 +56,7 @@ class PortfolioRebalancer extends Component {
           <Portfolio
                    portfolioSelect={portfolioSelect}
                    selectedModelPortfolio={selectedModelPortfolio}
-                   selectedModelPortfolioTextFieldChange={selectedModelPortfolioTextFieldChange}
+                   modelPortfolioNameTextFieldChange={modelPortfolioNameTextFieldChange}
                    portfolio={portfolio}
                    addSecurity={addSecurity}
                    removeSecurity={removeSecurity}
@@ -93,7 +93,7 @@ PortfolioRebalancer.propTypes = {
   decrementCount: PropTypes.func.isRequired,
   selectModelPortfolio: PropTypes.func.isRequired,
   createNewPortfolio: PropTypes.func.isRequired,
-  selectedModelPortfolioTextFieldChange: PropTypes.func.isRequired,
+  modelPortfolioNameTextFieldChange: PropTypes.func.isRequired,
   addSecurity: PropTypes.func.isRequired,
   removeSecurity: PropTypes.func.isRequired,
   investmentAmountTextFieldChange: PropTypes.func.isRequired,
@@ -126,7 +126,7 @@ export default connect(mapStateToProps, {
   destroyModelPortfolio,
   selectModelPortfolio,
   createNewPortfolio,
-  selectedModelPortfolioTextFieldChange,
+  modelPortfolioNameTextFieldChange,
   addSecurity,
   removeSecurity,
   securityTextFieldChange,

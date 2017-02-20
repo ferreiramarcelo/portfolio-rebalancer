@@ -1,32 +1,34 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import TextField from 'material-ui/TextField';
 import classNames from 'classnames/bind';
 import styles from '../../css/components/security-text-field';
 
-const cx = classNames.bind(styles);
+const cx = classNames.bind( styles );
 
 
-const ModelPortfolioNameTextField = ({selectedModelPortfolio, selectedModelPortfolioTextFieldChange}) => {
-  const handleOnChange = (event, value) => {
-    selectedModelPortfolioTextFieldChange(value);
+const ModelPortfolioNameTextField = ({value, errorText, onChange}) => {
+  const handleOnChange = function handleOnChangeFunc( event, newValue ) {
+    onChange( newValue );
   };
 
   return (
-    <TextField
-             className={cx('textfield')}
-             errorStyle={{ float: 'left' }}
+  <TextField
+             value={ value }
+             errorText={ errorText }
+             onChange={ handleOnChange }
+             hintText="Model Portfolio Name"
              type="text"
-             value={selectedModelPortfolio.name}
-             errorText={selectedModelPortfolio.errorText}
-             onChange={handleOnChange}
              fullWidth
-             inputStyle={{ textAlign: 'center', }} />
+             errorStyle={ { float: 'left' } }
+             inputStyle={ { textAlign: 'center', } }
+             className={ cx( 'textfield' ) } />
   );
 };
 
 ModelPortfolioNameTextField.propTypes = {
-  selectedModelPortfolio: PropTypes.object.isRequired,
-  ModelPortfolioNameTextField: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired
 };
 
 export default ModelPortfolioNameTextField;

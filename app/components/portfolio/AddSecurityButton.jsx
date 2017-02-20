@@ -1,11 +1,11 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import IconButton from 'material-ui/IconButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 
 const AddSecurityButton = ({addSecurity}) => {
   return (
     <IconButton
-              onClick={addSecurity}
+              onTouchTap={addSecurity}
               touch>
       <ContentAdd />
     </IconButton>

@@ -1,21 +1,16 @@
-import React, { Component, PropTypes } from 'react';
-import RaisedButton from 'material-ui/RaisedButton';
-import ActionBuild from 'material-ui/svg-icons/action/build';
-
-import styles from '../../css/components/steps-list';
-
+import React, { PropTypes } from 'react';
 
 const StepsList = ({rebalancingSteps}) => {
-  const formatMoneyAmount = (amount) => {
-    return amount.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
+  const formatMoneyAmount = function formatMoneyAmountFunc(moneyAmount) {
+    return moneyAmount.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
   };
 
-  const formatUnitsAmount = (amount) => {
-    return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  const formatUnitsAmount = function formatUnitsAmountFunc(unitsAmount) {
+    return unitsAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   };
 
-  const generateStepsList = (rebalancingSteps) => {
-    if (rebalancingSteps.balanceByInvesting) {
+  const generateStepsList = (givenRebalancingSteps) => {
+    if (givenRebalancingSteps.balanceByInvesting) {
       const stepsList = [];
       const investmentSteps = [];
       const disvestmentSteps = [];
@@ -26,20 +21,20 @@ const StepsList = ({rebalancingSteps}) => {
       let invested = false;
       let disvested = false;
       let adjusted = false;
-      if (rebalancingSteps.cashStillMissing) {
+      if (givenRebalancingSteps.cashStillMissing) {
         stepsList.push(<p>
                           Sell the entire portfolio. You will still be missing $
-                          { formatMoneyAmount(rebalancingSteps.cashStillMissing) }.
+                          { formatMoneyAmount(givenRebalancingSteps.cashStillMissing) }.
                         </p>);
         return stepsList;
       }
-      if (rebalancingSteps.balanceByInvesting.length > 0) {
-        for (var i = 0; i < rebalancingSteps.portfolio.length; i++) {
-          if (rebalancingSteps.balanceByInvesting[i] > 0) {
+      if (givenRebalancingSteps.balanceByInvesting.length > 0) {
+        for (let i = 0; i < givenRebalancingSteps.portfolio.length; i++) {
+          if (givenRebalancingSteps.balanceByInvesting[i] > 0) {
             investmentSteps.push(<p>
               { stepNumber }. Buy&nbsp;
-                              { formatUnitsAmount(rebalancingSteps.balanceByInvesting[i]) } units of&nbsp;
-                              { rebalancingSteps.portfolio[i].symbol }
+                              { formatUnitsAmount(givenRebalancingSteps.balanceByInvesting[i]) } units of&nbsp;
+                              { givenRebalancingSteps.portfolio[i].symbol }
             </p>);
             stepNumber++;
           }
@@ -49,13 +44,13 @@ const StepsList = ({rebalancingSteps}) => {
         }
         stepNumber = 1;
       }
-      if (rebalancingSteps.balanceByDisvesting.length > 0) {
-        for (var i = 0; i < rebalancingSteps.portfolio.length; i++) {
-          if (rebalancingSteps.balanceByDisvesting[i] > 0) {
+      if (givenRebalancingSteps.balanceByDisvesting.length > 0) {
+        for (let i = 0; i < givenRebalancingSteps.portfolio.length; i++) {
+          if (givenRebalancingSteps.balanceByDisvesting[i] > 0) {
             disvestmentSteps.push(<p>
               { stepNumber }. Sell&nbsp;
-                              { formatUnitsAmount(rebalancingSteps.balanceByDisvesting[i]) } units of&nbsp;
-                              { rebalancingSteps.portfolio[i].symbol }
+                              { formatUnitsAmount(givenRebalancingSteps.balanceByDisvesting[i]) } units of&nbsp;
+                              { givenRebalancingSteps.portfolio[i].symbol }
             </p>);
             stepNumber++;
           }
@@ -65,23 +60,23 @@ const StepsList = ({rebalancingSteps}) => {
         }
         stepNumber = 1;
       }
-      if (rebalancingSteps.balanceByAdjusting.length > 0) {
-        for (var i = 0; i < rebalancingSteps.portfolio.length; i++) {
-          if (rebalancingSteps.balanceByAdjusting[i] < 0) {
+      if (givenRebalancingSteps.balanceByAdjusting.length > 0) {
+        for (let i = 0; i < givenRebalancingSteps.portfolio.length; i++) {
+          if (givenRebalancingSteps.balanceByAdjusting[i] < 0) {
             adjustmentSteps.push(<p>
               { stepNumber }. Sell&nbsp;
-                              { formatUnitsAmount(-1 * rebalancingSteps.balanceByAdjusting[i]) } units of&nbsp;
-                              { rebalancingSteps.portfolio[i].symbol }
+                              { formatUnitsAmount(-1 * givenRebalancingSteps.balanceByAdjusting[i]) } units of&nbsp;
+                              { givenRebalancingSteps.portfolio[i].symbol }
             </p>);
             stepNumber++;
           }
         }
-        for (var i = 0; i < rebalancingSteps.portfolio.length; i++) {
-          if (rebalancingSteps.balanceByAdjusting[i] > 0) {
+        for (let i = 0; i < givenRebalancingSteps.portfolio.length; i++) {
+          if (givenRebalancingSteps.balanceByAdjusting[i] > 0) {
             adjustmentSteps.push(<p>
               { stepNumber }. Buy&nbsp;
-                              { formatUnitsAmount(rebalancingSteps.balanceByAdjusting[i]) } units of&nbsp;
-                              { rebalancingSteps.portfolio[i].symbol }
+                              { formatUnitsAmount(givenRebalancingSteps.balanceByAdjusting[i]) } units of&nbsp;
+                              { givenRebalancingSteps.portfolio[i].symbol }
             </p>);
             stepNumber++;
           }

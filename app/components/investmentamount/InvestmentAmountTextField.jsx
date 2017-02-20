@@ -1,34 +1,36 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import TextField from 'material-ui/TextField';
 
-const InvestmentAmountTextField = ({investmentAmount, investmentAmountSelect, investmentAmountTextFieldChange}) => {
-  const getDisplayValue = (investmentAmount) => {
-    if (!investmentAmount.setOnce) {
-      return '';
+const InvestmentAmountTextField = ({value, setOnce, errorText, hintText, onChange}) => {
+  const getDisplayValue = function getDisplayValueFunc(givenValue, givenSetOnce) {
+    if (givenSetOnce) {
+      return givenValue;
     }
-    return investmentAmount.value;
+    return '';
   };
 
-  const displayValue = getDisplayValue(investmentAmount);
+  const displayValue = getDisplayValue(value, setOnce);
 
-  const handleOnChange = (event, value) => {
-    investmentAmountTextFieldChange(value);
+  const handleOnChange = function handleOnChangeFunc(event, newValue) {
+    onChange(newValue);
   };
 
   return (
     <TextField
              value={displayValue}
-             errorText={investmentAmountSelect.errorText}
-             hintText={investmentAmountSelect.hintText}
+             errorText={errorText}
+             hintText={hintText}
              onChange={handleOnChange}
              errorStyle={{ float: 'left' }} />
   );
 };
 
 InvestmentAmountTextField.propTypes = {
-  investmentAmount: PropTypes.object.isRequired,
-  investmentAmountSelect: PropTypes.object.isRequired,
-  investmentAmountTextFieldChange: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
+  setOnce: PropTypes.bool.isRequired,
+  errorText: PropTypes.string.isRequired,
+  hintText: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired
 };
 
 export default InvestmentAmountTextField;
