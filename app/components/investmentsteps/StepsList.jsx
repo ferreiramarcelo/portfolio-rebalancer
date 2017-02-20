@@ -49,7 +49,7 @@ const StepsList = ({rebalancingSteps}) => {
           if (givenRebalancingSteps.balanceByDisvesting[i] > 0) {
             disvestmentSteps.push(<p>
               { stepNumber }. Sell&nbsp;
-                              { formatUnitsAmount(givenRebalancingSteps.balanceByDisvesting[i]) } unit{givenRebalancingSteps.balanceByInvesting[i] > 1 ? 's' : ''} of&nbsp;
+                              { formatUnitsAmount(givenRebalancingSteps.balanceByDisvesting[i]) } unit{givenRebalancingSteps.balanceByDisvesting[i] > 1 ? 's' : ''} of&nbsp;
                               { givenRebalancingSteps.portfolio[i].symbol }
             </p>);
             stepNumber++;
@@ -65,7 +65,7 @@ const StepsList = ({rebalancingSteps}) => {
           if (givenRebalancingSteps.balanceByAdjusting[i] < 0) {
             adjustmentSteps.push(<p>
               { stepNumber }. Sell&nbsp;
-                              { formatUnitsAmount(-1 * givenRebalancingSteps.balanceByAdjusting[i]) } unit{givenRebalancingSteps.balanceByInvesting[i] > 1 ? 's' : ''} of&nbsp;
+                              { formatUnitsAmount(-1 * givenRebalancingSteps.balanceByAdjusting[i]) } unit{givenRebalancingSteps.balanceByAdjusting[i] > 1 ? 's' : ''} of&nbsp;
                               { givenRebalancingSteps.portfolio[i].symbol }
             </p>);
             stepNumber++;
@@ -75,7 +75,7 @@ const StepsList = ({rebalancingSteps}) => {
           if (givenRebalancingSteps.balanceByAdjusting[i] > 0) {
             adjustmentSteps.push(<p>
               { stepNumber }. Buy&nbsp;
-                              { formatUnitsAmount(givenRebalancingSteps.balanceByAdjusting[i]) } unit{givenRebalancingSteps.balanceByInvesting[i] > 1 ? 's' : ''} of&nbsp;
+                              { formatUnitsAmount(givenRebalancingSteps.balanceByAdjusting[i]) } unit{givenRebalancingSteps.balanceByAdjusting[i] > 1 ? 's' : ''} of&nbsp;
                               { givenRebalancingSteps.portfolio[i].symbol }
             </p>);
             stepNumber++;
