@@ -5,11 +5,11 @@ import styles from '../../css/components/new-portfolio-button';
 
 const cx = classNames.bind(styles);
 
-const NewPortfolioButton = ({createNewPortfolio}) => {
+const NewPortfolioButton = ({createNewModelPortfolio}) => {
   return (
     <div className={cx('new-portfolio-button-container')}>
       <FlatButton
-                onTouchTap={createNewPortfolio}
+                onTouchTap={createNewModelPortfolio}
                 label="NEW"
                 labelPosition="before"
                 secondary />
@@ -19,7 +19,7 @@ const NewPortfolioButton = ({createNewPortfolio}) => {
 };
 
 NewPortfolioButton.propTypes = {
-  createNewPortfolio: PropTypes.func.isRequired,
+  createNewModelPortfolio: PropTypes.func.isRequired,
 };
 
 export default NewPortfolioButton;

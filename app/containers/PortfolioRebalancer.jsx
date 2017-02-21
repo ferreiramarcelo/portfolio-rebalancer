@@ -2,9 +2,11 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Scroll from 'react-scroll';
 import classNames from 'classnames/bind';
-import { createModelPortfolio, typing, incrementCount, decrementCount, destroyModelPortfolio, selectModelPortfolio, createNewPortfolio, modelPortfolioNameTextFieldChange, addSecurity, removeSecurity, securityTextFieldChange, saveModelPortfolio, deleteModelPortfolio } from '../actions/modelPortfolios';
 import { investmentAmountTextFieldChange } from '../actions/investmentAmount';
+import { createNewModelPortfolio, saveModelPortfolio, deleteModelPortfolio } from '../actions/modelPortfolios';
+import { selectModelPortfolio, modelPortfolioNameTextFieldChange, addSecurity, removeSecurity, securityTextFieldChange } from '../actions/portfolios';
 import { generateSteps, setScrolledToBttom } from '../actions/rebalancings';
+
 import ModelPortfoliosAutoComplete from '../components/portfolioselection/ModelPortfoliosAutoComplete';
 import NewPortfolioButton from '../components/portfolioselection/NewPortfolioButton';
 import Portfolio from '../components/portfolio/Portfolio';
@@ -28,7 +30,7 @@ class PortfolioRebalancer extends Component {
   }
 
   render() {
-    const {modelPortfolios, selectedModelPortfolio, portfolio, investmentAmount, rebalancingSteps, view, email, selectModelPortfolio, createNewPortfolio, modelPortfolioNameTextFieldChange, addSecurity, removeSecurity, securityTextFieldChange, investmentAmountTextFieldChange, generateSteps, saveModelPortfolio, portfolioSelect, deleteModelPortfolio} = this.props;
+    const {modelPortfolios, selectedModelPortfolio, portfolio, investmentAmount, rebalancingSteps, view, email, selectModelPortfolio, createNewModelPortfolio, modelPortfolioNameTextFieldChange, addSecurity, removeSecurity, securityTextFieldChange, investmentAmountTextFieldChange, generateSteps, saveModelPortfolio, portfolioSelect, deleteModelPortfolio} = this.props;
     if (!view.displayPortfolio) {
       return (
         <div className={cx('model-portfolio-selector-container')}>
@@ -36,7 +38,7 @@ class PortfolioRebalancer extends Component {
                                      selectModelPortfolio={selectModelPortfolio}
                                      modelPortfolios={modelPortfolios}
                                      email={email} />
-          <NewPortfolioButton createNewPortfolio={createNewPortfolio} />
+          <NewPortfolioButton createNewModelPortfolio={createNewModelPortfolio} />
         </div>
       );
     }
@@ -47,7 +49,7 @@ class PortfolioRebalancer extends Component {
                                      selectModelPortfolio={selectModelPortfolio}
                                      modelPortfolios={modelPortfolios}
                                      email={email} />
-          <NewPortfolioButton createNewPortfolio={createNewPortfolio} />
+          <NewPortfolioButton createNewModelPortfolio={createNewModelPortfolio} />
         </div>
         <Portfolio
                  portfolioSelect={portfolioSelect}
@@ -74,31 +76,24 @@ class PortfolioRebalancer extends Component {
 }
 
 PortfolioRebalancer.propTypes = {
-  modelPortfolios: PropTypes.array.isRequired,
-  selectedModelPortfolio: PropTypes.object.isRequired,
-  portfolio: PropTypes.array.isRequired,
-  investmentAmount: PropTypes.object.isRequired,
-  rebalancingSteps: PropTypes.object.isRequired,
-  view: PropTypes.object.isRequired,
+  investmentAmountTextFieldChange,
+  createNewModelPortfolio: PropTypes.func.isRequired,
+  saveModelPortfolio: PropTypes.func.isRequired,
+  deleteModelPortfolio: PropTypes.func.isRequired,
   selectModelPortfolio: PropTypes.func.isRequired,
-  createNewPortfolio: PropTypes.func.isRequired,
   modelPortfolioNameTextFieldChange: PropTypes.func.isRequired,
   addSecurity: PropTypes.func.isRequired,
   removeSecurity: PropTypes.func.isRequired,
-  investmentAmountTextFieldChange: PropTypes.func.isRequired,
   securityTextFieldChange: PropTypes.func.isRequired,
   generateSteps: PropTypes.func.isRequired,
   setScrolledToBttom: PropTypes.func.isRequired,
-  saveModelPortfolio: PropTypes.func.isRequired,
-  deleteModelPortfolio: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
   return {
     modelPortfolios: state.modelPortfolio.modelPortfolios,
-    newModelPortfolio: state.modelPortfolio.newModelPortfolio,
-    selectedModelPortfolio: state.modelPortfolio.selectedModelPortfolio,
-    portfolio: state.modelPortfolio.portfolio,
+    selectedModelPortfolio: state.portfolio.selectedModelPortfolio,
+    portfolio: state.portfolio.portfolio,
     investmentAmount: state.investmentAmount.investmentAmount,
     rebalancingSteps: state.rebalancing.rebalancingSteps,
     view: state.view.view,
@@ -108,17 +103,15 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, {
-  createModelPortfolio,
-  destroyModelPortfolio,
+  investmentAmountTextFieldChange,
+  createNewModelPortfolio,
+  saveModelPortfolio,
+  deleteModelPortfolio,
   selectModelPortfolio,
-  createNewPortfolio,
   modelPortfolioNameTextFieldChange,
   addSecurity,
   removeSecurity,
   securityTextFieldChange,
-  investmentAmountTextFieldChange,
   generateSteps,
   setScrolledToBttom,
-  saveModelPortfolio,
-  deleteModelPortfolio
 })(PortfolioRebalancer);

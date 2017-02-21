@@ -13,8 +13,8 @@ function generateStepsDispatch(portfolio, investmentAmount) {
 }
 export function generateSteps() {
   return (dispatch, getState) => {
-    const {modelPortfolio, investmentAmount} = getState();
-    return dispatch(generateStepsDispatch(modelPortfolio.portfolio, investmentAmount.investmentAmount));
+    const {portfolio, investmentAmount} = getState();
+    return dispatch(generateStepsDispatch(portfolio.portfolio, investmentAmount.investmentAmount));
   };
 }
 

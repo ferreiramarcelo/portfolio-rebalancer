@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 
-const getPortfolio = (state) => state.modelPortfolio;
+const getPortfolio = (state) => state.portfolio;
 const getAuthenticated = (state) => state.user.authenticated;
 const getInvestmentAmount = (state) => state.investmentAmount.investmentAmount;
 
@@ -27,7 +27,7 @@ const getAllocationSelect = (allocation) => {
   const number = Number(allocation.value);
   let hintText = '';
   let errorText = '';
-  if (allocation.value === '') {
+  if (!allocation.value) {
     errorText = 'Required';
     valid = false;
   } else if (typeof number !== 'number' || isNaN(number) || !isFinite(number)) {
@@ -56,7 +56,7 @@ const getPriceSelect = (price) => {
   const number = Number(price.value);
   let hintText = '';
   let errorText = '';
-  if (price.value === '') {
+  if (!price.value) {
     errorText = 'Required';
     valid = false;
   } else if (typeof number !== 'number' || isNaN(number) || !isFinite(number)) {
@@ -82,7 +82,7 @@ const getUnitsSelect = (units) => {
   const number = Number(units.value);
   let hintText = '';
   let errorText = '';
-  if (units.value === '') {
+  if (!units.value) {
     errorText = 'Required';
     valid = false;
   } else if (typeof number !== 'number' || isNaN(number) || !isFinite(number)) {
