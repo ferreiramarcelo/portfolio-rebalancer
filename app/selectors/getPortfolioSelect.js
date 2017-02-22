@@ -1,10 +1,12 @@
 import { createSelector } from 'reselect';
 
+const getModelPortfolios = (state) => state.modelPortfolio.modelPortfolios;
+const getEmail = (state) => state.user.email;
 const getPortfolio = (state) => state.portfolio;
 const getAuthenticated = (state) => state.user.authenticated;
 const getInvestmentAmount = (state) => state.investmentAmount.investmentAmount;
 
-const getSelectedModelPortfolioSelect = function getSelectedModelPortfolioSelectFunc(selectedModelPortfolio) {
+const getSelectedModelPortfolioSelect = function getSelectedModelPortfolioSelectFunc(selectedModelPortfolio, modelPortfolios, email) {
   let valid = true;
   let hintText = '';
   let errorText = '';
@@ -12,13 +14,20 @@ const getSelectedModelPortfolioSelect = function getSelectedModelPortfolioSelect
     valid = false;
     errorText = 'Required';
   }
+  for (let modelPortfolio of modelPortfolios) {
+    if (modelPortfolio.email === email && modelPortfolio.name === selectedModelPortfolio.name && modelPortfolio.id !== selectedModelPortfolio.id) {
+      valid = false;
+      errorText = 'Name already in use';
+    }
+  }
   return {
     valid,
     hintText,
     errorText
   };
 }
-const getSymbolSelect = (symbol) => {
+
+const getSymbolSelect = function getSymbolSelectFunc(symbol) {
   let valid = true;
   let hintText = '';
   let errorText = '';
@@ -36,7 +45,7 @@ const getSymbolSelect = (symbol) => {
   };
 };
 
-const getAllocationSelect = (allocation) => {
+const getAllocationSelect = function getAllocationSelectFunc(allocation) {
   let valid = true;
   const number = Number(allocation.value);
   let hintText = '';
@@ -65,7 +74,7 @@ const getAllocationSelect = (allocation) => {
   };
 };
 
-const getPriceSelect = (price) => {
+const getPriceSelect = function getPriceSelectFunc(price) {
   let valid = true;
   const number = Number(price.value);
   let hintText = '';
@@ -91,7 +100,7 @@ const getPriceSelect = (price) => {
   };
 };
 
-const getUnitsSelect = (units) => {
+const getUnitsSelect = function getUnitsSelectFunc(units) {
   let valid = true;
   const number = Number(units.value);
   let hintText = '';
@@ -117,7 +126,7 @@ const getUnitsSelect = (units) => {
   };
 };
 
-const getSecuritySelect = (security) => {
+const getSecuritySelect = function getSecuritySelectFunc(security) {
   return {
     symbolSelect: getSymbolSelect(security.symbol),
     allocationSelect: getAllocationSelect(security.allocation),
@@ -126,7 +135,7 @@ const getSecuritySelect = (security) => {
   };
 };
 
-const getSecuritiesSelect = (portfolio) => {
+const getSecuritiesSelect = function getSecuritiesSelectFunc(portfolio) {
   const securitiesSelect = [];
   for (const security of portfolio) {
     securitiesSelect.push(getSecuritySelect(security));
@@ -134,7 +143,7 @@ const getSecuritiesSelect = (portfolio) => {
   return securitiesSelect;
 };
 
-const getSecuritiesAreValid = (securitiesSelect) => {
+const getSecuritiesAreValid = function getSecuritiesAreValidFunc(securitiesSelect) {
   for (const securitySelect of securitiesSelect) {
     if (!securitySelect.symbolSelect.valid || !securitySelect.allocationSelect.valid || !securitySelect.priceSelect.valid || !securitySelect.unitsSelect.valid) {
       return false;
@@ -143,7 +152,7 @@ const getSecuritiesAreValid = (securitiesSelect) => {
   return true;
 };
 
-const getInvestmentAmountSelect = (investmentAmount) => {
+const getInvestmentAmountSelect = function getInvestmentAmountSelectFunc(investmentAmount) {
   let valid = true;
   const number = Number(investmentAmount.value);
   let hintText = '';
@@ -167,20 +176,29 @@ const getInvestmentAmountSelect = (investmentAmount) => {
   return true;
 };
 
-const getSaveModelPortfolioButtonVisibility = (authenticated, selectedModelPortfolio, securitiesAreValid) => {
+const getSaveModelPortfolioButtonSelect = function getSaveModelPortfolioButtonSelectFunc(authenticated, selectedModelPortfolioSelect, securitiesAreValid) {
+  let visibility = 'hidden';
+  let tooltip = '';
   if (!authenticated) {
-    return 'hidden';
+    visibility = 'disabled';
+    tooltip = 'Log in to save';
   }
-  if (selectedModelPortfolio.valid === 0) {
-    return 'disabled';
+  else if (!selectedModelPortfolioSelect.valid) {
+    visibility = 'disabled';
+    tooltip = 'Invalid model portfolio name';
   }
-  if (!securitiesAreValid) {
-    return 'disabled';
+  else if (!securitiesAreValid) {
+    visibility = 'disabled';
+    tooltip = 'Invalid securities';
   }
-  return 'visible';
+  else {
+    visibility = 'visible';
+    tooltip = 'Save';
+  }
+  return {visibility, tooltip};
 };
 
-const getDeleteModelPortfolioButtonVisibility = (authenticated, selectedModelPortfolio) => {
+const getDeleteModelPortfolioButtonVisibility = function getDeleteModelPortfolioButtonVisibilityFunc(authenticated, selectedModelPortfolio) {
   if (!authenticated) {
     return 'hidden';
   }
@@ -190,7 +208,7 @@ const getDeleteModelPortfolioButtonVisibility = (authenticated, selectedModelPor
   return 'visible';
 };
 
-const getGenerateStepsButtonVisibility = (investmentAmountSelect, securitiesAreValid) => {
+const getGenerateStepsButtonVisibility = function getGenerateStepsButtonVisibilityFunc(investmentAmountSelect, securitiesAreValid) {
   if (!investmentAmountSelect.valid || !securitiesAreValid) {
     return 'disabled';
   }
@@ -199,22 +217,24 @@ const getGenerateStepsButtonVisibility = (investmentAmountSelect, securitiesAreV
 
 
 export const getPortfolioSelect = createSelector([
+  getModelPortfolios,
+  getEmail,
   getPortfolio,
   getAuthenticated,
   getInvestmentAmount
-], (portfolio, authenticated, investmentAmount) => {
-  const selectedModelPortfolioSelect = getSelectedModelPortfolioSelect(portfolio.selectedModelPortfolio);
+], (modelPortfolios, email, portfolio, authenticated, investmentAmount) => {
+  const selectedModelPortfolioSelect = getSelectedModelPortfolioSelect(portfolio.selectedModelPortfolio, modelPortfolios, email);
   const securitiesSelect = getSecuritiesSelect(portfolio.portfolio);
   const securitiesAreValid = getSecuritiesAreValid(securitiesSelect);
   const investmentAmountSelect = getInvestmentAmountSelect(investmentAmount);
-  const saveModelPortfolioButtonVisibility = getSaveModelPortfolioButtonVisibility(authenticated, portfolio.selectedModelPortfolio, securitiesAreValid);
+  const saveModelPortfolioButtonSelect = getSaveModelPortfolioButtonSelect(authenticated, selectedModelPortfolioSelect, securitiesAreValid);
   const deleteModelPortfolioButtonVisibility = getDeleteModelPortfolioButtonVisibility(authenticated, portfolio.selectedModelPortfolio);
   const generateStepsButtonVisibility = getGenerateStepsButtonVisibility(investmentAmountSelect, securitiesAreValid);
   return {
     selectedModelPortfolioSelect,
     securitiesSelect,
     investmentAmountSelect,
-    saveModelPortfolioButtonVisibility,
+    saveModelPortfolioButtonSelect,
     deleteModelPortfolioButtonVisibility,
     generateStepsButtonVisibility
   };

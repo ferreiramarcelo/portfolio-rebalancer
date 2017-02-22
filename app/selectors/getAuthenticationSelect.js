@@ -8,7 +8,7 @@ function validateEmailAddress(emailAddress) {
     return regex.test(emailAddress);
 }
 
-const getEmailTextFieldSelect = (emailTextField) => {
+const getEmailTextFieldSelect = function getEmailTextFieldSelectFunc(emailTextField) {
   let errorText = '';
   let valid = 1;
   if (emailTextField.setOnce === 0) {
@@ -23,7 +23,7 @@ const getEmailTextFieldSelect = (emailTextField) => {
   return {errorText, valid};
 };
 
-const getPasswordTextFieldSelect = (passwordTextField) => {
+const getPasswordTextFieldSelect = function getPasswordTextFieldSelectFunc(passwordTextField) {
   let errorText = '';
   let valid = 1;
   if (passwordTextField.setOnce === 0) {
@@ -35,7 +35,7 @@ const getPasswordTextFieldSelect = (passwordTextField) => {
   return {errorText, valid};
 };
 
-const getPasswordConfirmationTextFieldSelect = (passwordTextField, passwordConfirmationTextField) => {
+const getPasswordConfirmationTextFieldSelect = function getPasswordConfirmationTextFieldSelectFunc(passwordTextField, passwordConfirmationTextField) {
   let errorText = '';
   let valid = 1;
   if (passwordConfirmationTextField.setOnce === 0) {
@@ -50,14 +50,14 @@ const getPasswordConfirmationTextFieldSelect = (passwordTextField, passwordConfi
   return {errorText, valid};
 };
 
-const getLoginButtonVisibility = (emailTextFieldSelect, passwordTextFieldSelect) => {
+const getLoginButtonVisibility = function getLoginButtonVisibilityFunc(emailTextFieldSelect, passwordTextFieldSelect) {
   if (emailTextFieldSelect.valid === 1 && passwordTextFieldSelect.valid === 1) {
     return 'visible';
   }
   return 'disabled';
 };
 
-const getRegisterButtonVisibility = (emailTextFieldSelect, passwordTextFieldSelect, passwordConfirmationTextFieldSelect) => {
+const getRegisterButtonVisibility = function getRegisterButtonVisibilityFunc(emailTextFieldSelect, passwordTextFieldSelect, passwordConfirmationTextFieldSelect) {
   if (emailTextFieldSelect.valid === 1 && passwordTextFieldSelect.valid === 1 && passwordConfirmationTextFieldSelect.valid === 1) {
     return 'visible';
   }
