@@ -19,9 +19,7 @@ export default function render(req, res) {
   const store = configureStore({
     user: {
       authenticated,
-      isWaiting: false,
       message: '',
-      isLogin: true,
       email,
     }
   }, history);
@@ -48,9 +46,9 @@ export default function render(req, res) {
           const html = pageRenderer(store, props);
           res.status(200).send(html);
         })
-        .catch(err => {
-          console.error(err);
-          res.status(500).json(err);
+        .catch(caughtError => {
+          console.error(caughtError);
+          res.status(500).json(caughtError);
         });
     } else {
       res.sendStatus(404);

@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import * as types from '../types';
-import { getPortfolioWithNormalizedAllocations, getValuesForInvesting, getValuesForDisvesting, getValueAdjustmentsPerSecurity, getUnitsForValuePerSecurityAndExtraCash, getUnitsForInvesting, getUnitsForDisvesting, getUnitsForAdjusting, getUpdatedValuePerSecurityForAdditions, getUpdatedValuePerSecurityForReductions } from '../algorithms/PortfolioAlgorithms';
+import { getPortfolioWithNormalizedAllocations, getValuesForInvesting, getValuesForDisvesting, getValueAdjustmentsPerSecurity, getUnitsForInvesting, getUnitsForDisvesting, getUnitsForAdjusting, getUpdatedValuePerSecurityForAdditions, getUpdatedValuePerSecurityForReductions } from '../algorithms/PortfolioAlgorithms';
 
 const rebalancingSteps = (state = {},
   action
@@ -31,7 +31,8 @@ const rebalancingSteps = (state = {},
       }
       const valuePerSecurityTotal = [];
       for (const security of portfolio) {
-        valuePerSecurityTotal.push(security.allocation / 100 * totalEquity);
+        const allocationPercentage = security.allocation / 100;
+        valuePerSecurityTotal.push(allocationPercentage * totalEquity);
       }
       /* Compute balancing steps */
       let valueAdjustmentsPerSecurity = [];
@@ -43,7 +44,8 @@ const rebalancingSteps = (state = {},
       let cashStillMissing = 0;
       let extraCash = 0;
       if (totalEquity < 0) {
-        cashStillMissing = -1 * investmentAmount - equityFromPortfolio;
+        const negativeInvestmentAmount = -1 * investmentAmount;
+        cashStillMissing = negativeInvestmentAmount - equityFromPortfolio;
       } else if (investmentAmount === 0) {
         valueAdjustmentsPerSecurity = getValueAdjustmentsPerSecurity(valuePerSecurityCurrent, valuePerSecurityTotal);
         const unitsAdjustmentsPerSecurityAndExtraCash = getUnitsForAdjusting(valueAdjustmentsPerSecurity, portfolio);

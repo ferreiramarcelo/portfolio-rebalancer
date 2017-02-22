@@ -8,13 +8,13 @@ const getInvestmentAmount = (state) => state.investmentAmount.investmentAmount;
 
 const getSelectedModelPortfolioSelect = function getSelectedModelPortfolioSelectFunc(selectedModelPortfolio, modelPortfolios, email) {
   let valid = true;
-  let hintText = '';
+  const hintText = '';
   let errorText = '';
   if (!selectedModelPortfolio.name) {
     valid = false;
     errorText = 'Required';
   }
-  for (let modelPortfolio of modelPortfolios) {
+  for (const modelPortfolio of modelPortfolios) {
     if (modelPortfolio.email === email && modelPortfolio.name === selectedModelPortfolio.name && modelPortfolio.id !== selectedModelPortfolio.id) {
       valid = false;
       errorText = 'Name already in use';
@@ -25,7 +25,7 @@ const getSelectedModelPortfolioSelect = function getSelectedModelPortfolioSelect
     hintText,
     errorText
   };
-}
+};
 
 const getSymbolSelect = function getSymbolSelectFunc(symbol) {
   let valid = true;
@@ -144,6 +144,9 @@ const getSecuritiesSelect = function getSecuritiesSelectFunc(portfolio) {
 };
 
 const getSecuritiesAreValid = function getSecuritiesAreValidFunc(securitiesSelect) {
+  if (securitiesSelect.length < 1) {
+    return false;
+  }
   for (const securitySelect of securitiesSelect) {
     if (!securitySelect.symbolSelect.valid || !securitySelect.allocationSelect.valid || !securitySelect.priceSelect.valid || !securitySelect.unitsSelect.valid) {
       return false;
@@ -173,7 +176,6 @@ const getInvestmentAmountSelect = function getInvestmentAmountSelectFunc(investm
     hintText,
     errorText
   };
-  return true;
 };
 
 const getSaveModelPortfolioButtonSelect = function getSaveModelPortfolioButtonSelectFunc(authenticated, selectedModelPortfolioSelect, securitiesAreValid) {
@@ -182,16 +184,13 @@ const getSaveModelPortfolioButtonSelect = function getSaveModelPortfolioButtonSe
   if (!authenticated) {
     visibility = 'disabled';
     tooltip = 'Log in to save';
-  }
-  else if (!selectedModelPortfolioSelect.valid) {
+  } else if (!selectedModelPortfolioSelect.valid) {
     visibility = 'disabled';
     tooltip = 'Invalid model portfolio name';
-  }
-  else if (!securitiesAreValid) {
+  } else if (!securitiesAreValid) {
     visibility = 'disabled';
     tooltip = 'Invalid securities';
-  }
-  else {
+  } else {
     visibility = 'visible';
     tooltip = 'Save';
   }

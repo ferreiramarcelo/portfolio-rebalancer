@@ -228,31 +228,34 @@ const security = (state = {}, action) => {
 
 const portfolio = (state = [], action) => {
   switch (action.type) {
-    case types.SELECT_MODEL_PORTFOLIO:
+    case types.SELECT_MODEL_PORTFOLIO: {
       const selectedPortoflio = [];
       for (let i = 0; i < action.selectedModelPortfolio.securities.length; i++) {
-        action.security = action.selectedModelPortfolio.securities[i];
-        action.index = i;
-        selectedPortoflio.push(security(undefined, action));
+        const securityAction = {type: types.SELECT_MODEL_PORTFOLIO, index: i, security: action.selectedModelPortfolio.securities[i]};
+        selectedPortoflio.push(security(undefined, securityAction));
       }
       return selectedPortoflio;
+    }
     case types.CREATE_NEW_PORTFOLIO:
-    case types.DELETE_MODEL_PORTFOLIO_REQUEST:
+    case types.DELETE_MODEL_PORTFOLIO_REQUEST: {
       const newPortfolio = [];
       newPortfolio.push(security(undefined, action));
       return newPortfolio;
-    case types.ADD_SECURITY:
-      action.index = state.length;
+    }
+    case types.ADD_SECURITY: {
+      const addedSecurityAction = {type: types.ADD_SECURITY, index: state.length};
       return [
         ...state,
-        security(undefined, action)
+        security(undefined, addedSecurityAction)
       ];
-    case types.REMOVE_SECURITY:
+    }
+    case types.REMOVE_SECURITY: {
       const trunkedPortfolio = state.filter(s => s.index !== action.index);
       for (let i = action.index; i < trunkedPortfolio.length; i++) {
         trunkedPortfolio[i].index--;
       }
       return trunkedPortfolio;
+    }
     case types.SECURITY_TEXT_FIELD_CHANGE:
     case types.SET_PRICE_TO_FETCHING:
     case types.SET_PRICE_TO_NOT_FETCHING:
