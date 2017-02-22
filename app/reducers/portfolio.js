@@ -206,6 +206,7 @@ const security = (state = {}, action) => {
             return state;
         }
       }
+      return state;
     case types.SET_PRICE_TO_FETCHING:
     case types.SET_PRICE_TO_NOT_FETCHING:
     case types.SET_PRICE_FROM_FETCH:
@@ -216,6 +217,7 @@ const security = (state = {}, action) => {
           price: price(state.price, action)
         };
       }
+      return state;
     default:
       return state;
   }
@@ -243,11 +245,11 @@ const portfolio = (state = [], action) => {
         security(undefined, action)
       ];
     case types.REMOVE_SECURITY:
-      var newPortfolio = state.filter(s => s.index !== action.index);
-      for (let i = action.index; i < newPortfolio.length; i++) {
-        newPortfolio[i].index--;
+      const trunkedPortfolio = state.filter(s => s.index !== action.index);
+      for (let i = action.index; i < trunkedPortfolio.length; i++) {
+        trunkedPortfolio[i].index--;
       }
-      return newPortfolio;
+      return trunkedPortfolio;
     case types.SECURITY_TEXT_FIELD_CHANGE:
     case types.SET_PRICE_TO_FETCHING:
     case types.SET_PRICE_TO_NOT_FETCHING:
@@ -259,9 +261,9 @@ const portfolio = (state = [], action) => {
   }
 };
 
-const modelPortfolioReducer = combineReducers({
+const portfolioReducer = combineReducers({
   selectedModelPortfolio,
   portfolio
 });
 
-export default modelPortfolioReducer;
+export default portfolioReducer;

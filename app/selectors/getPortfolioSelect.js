@@ -184,7 +184,7 @@ const getGenerateStepsButtonVisibility = (investmentAmountSelect, securitiesAreV
 };
 
 
-export const getPortfolioSelect = createSelector([
+export default getPortfolioSelect = createSelector([
   getPortfolio,
   getAuthenticated,
   getInvestmentAmount

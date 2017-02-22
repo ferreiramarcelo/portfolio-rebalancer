@@ -17,6 +17,6 @@ const investmentAmount = (state = {
     }
 };
 
-const modelPortfolioReducer = combineReducers({investmentAmount});
+const investmentAmountReducer = combineReducers({investmentAmount});
 
-export default modelPortfolioReducer;
+export default investmentAmountReducer;

@@ -12,13 +12,13 @@ function makeUserRequest(method, data, api = '/login') {
   return request[method](api, data);
 }
 
-export function beginLogin() {
+function beginLogin() {
   return {
     type: types.MANUAL_LOGIN_USER
   };
 }
 
-export function loginSuccess(message, email) {
+function loginSuccess(message, email) {
   return {
     type: types.LOGIN_SUCCESS_USER,
     message,
@@ -26,27 +26,27 @@ export function loginSuccess(message, email) {
   };
 }
 
-export function loginError(message) {
+function loginError(message) {
   return {
     type: types.LOGIN_ERROR_USER,
     message
   };
 }
 
-export function signUpError(message) {
+function signUpError(message) {
   return {
     type: types.SIGNUP_ERROR_USER,
     message
   };
 }
 
-export function beginSignUp() {
+function beginSignUp() {
   return {
     type: types.SIGNUP_USER
   };
 }
 
-export function signUpSuccess(message, email) {
+function signUpSuccess(message, email) {
   return {
     type: types.SIGNUP_SUCCESS_USER,
     message,
@@ -54,27 +54,21 @@ export function signUpSuccess(message, email) {
   };
 }
 
-export function beginLogout() {
+function beginLogout() {
   return {
     type: types.LOGOUT_USER
   };
 }
 
-export function logoutSuccess() {
+function logoutSuccess() {
   return {
     type: types.LOGOUT_SUCCESS_USER
   };
 }
 
-export function logoutError() {
+function logoutError() {
   return {
     type: types.LOGOUT_ERROR_USER
-  };
-}
-
-export function toggleLoginMode() {
-  return {
-    type: types.TOGGLE_LOGIN_MODE
   };
 }
 

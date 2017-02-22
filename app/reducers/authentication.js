@@ -58,11 +58,11 @@ const passwordConfirmationTextField = (state = {
   }
 };
 
-const modelPortfolioReducer = combineReducers({
+const authenticationReducer = combineReducers({
   isLoginMode,
   emailTextField,
   passwordTextField,
   passwordConfirmationTextField
 });
 
-export default modelPortfolioReducer;
+export default authenticationReducer;

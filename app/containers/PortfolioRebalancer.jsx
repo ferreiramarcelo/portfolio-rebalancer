@@ -15,64 +15,60 @@ import StepsList from '../components/investmentsteps/StepsList';
 import { getPortfolioSelect } from '../selectors/index';
 import styles from '../css/containers/portfolio-rebalancer';
 
-const cx = classNames.bind( styles );
+const cx = classNames.bind(styles);
 
 class PortfolioRebalancer extends Component {
 
-  getPortfolioView() {
-    const {view, selectedModelPortfolio, modelPortfolioNameTextFieldChange, portfolio, portfolioSelect, saveModelPortfolio, deleteModelPortfolio, addSecurity, removeSecurity, securityTextFieldChange,
-       investmentAmount, investmentAmountSelect, investmentAmountTextFieldChange,
-        generateSteps, rebalancingSteps} = this.props;
-    if ( view.displayPortfolio ) {
-      return (
-      <div>
-        <Portfolio
-                   selectedModelPortfolio={ selectedModelPortfolio }
-                   modelPortfolioNameTextFieldChange={ modelPortfolioNameTextFieldChange }
-                   portfolio={ portfolio }
-                   portfolioSelect={ portfolioSelect }
-                   saveModelPortfolio={ saveModelPortfolio }
-                   deleteModelPortfolio={ deleteModelPortfolio }
-                   addSecurity={ addSecurity }
-                   removeSecurity={ removeSecurity }
-                   securityTextFieldChange={ securityTextFieldChange } />
-        <InvestmentAmount
-                          investmentAmount={ investmentAmount }
-                          investmentAmountSelect={ portfolioSelect.investmentAmountSelect }
-                          investmentAmountTextFieldChange={ investmentAmountTextFieldChange } />
-        <GenerateStepsButton
-                             visibility={ portfolioSelect.generateStepsButtonVisibility }
-                             generateSteps={ generateSteps } />
-        <StepsList rebalancingSteps={ rebalancingSteps } />
-      </div>
-      );
-    }
-  }
-  
   componentDidUpdate() {
-    const {view, setScrolledToBttom} = this.props;
-    if ( view.justGeneratedSteps ) {
+    if (this.props.view.justGeneratedSteps) {
       const scroll = Scroll.animateScroll;
       scroll.scrollToBottom();
-      setScrolledToBttom();
+      this.props.setScrolledToBttom();
     }
   }
 
+  getPortfolioView() {
+    if (this.props.view.displayPortfolio) {
+      return (
+        <div>
+          <Portfolio
+                   selectedModelPortfolio={this.props.selectedModelPortfolio}
+                   modelPortfolioNameTextFieldChange={this.props.modelPortfolioNameTextFieldChange}
+                   portfolio={this.props.portfolio}
+                   portfolioSelect={this.props.portfolioSelect}
+                   saveModelPortfolio={this.props.saveModelPortfolio}
+                   deleteModelPortfolio={this.props.deleteModelPortfolio}
+                   addSecurity={this.props.addSecurity}
+                   removeSecurity={this.props.removeSecurity}
+                   securityTextFieldChange={this.props.securityTextFieldChange} />
+          <InvestmentAmount
+                          investmentAmount={this.props.investmentAmount}
+                          investmentAmountSelect={this.props.portfolioSelect.investmentAmountSelect}
+                          investmentAmountTextFieldChange={this.props.investmentAmountTextFieldChange} />
+          <GenerateStepsButton
+                             visibility={this.props.portfolioSelect.generateStepsButtonVisibility}
+                             generateSteps={this.props.generateSteps} />
+          <StepsList rebalancingSteps={this.props.rebalancingSteps} />
+        </div>
+      );
+    }
+    return null;
+  }
+
   render() {
-    const {modelPortfoliosAutoCompleteSearchText, modelPortfoliosAutoCompleteSearchTextChange, selectModelPortfolio, modelPortfolios, email, createNewModelPortfolio} = this.props;
     return (
-    <div>
-      <div className={ cx( 'model-portfolio-selector-container' ) }>
-        <ModelPortfoliosAutoComplete
-                                     searchText={ modelPortfoliosAutoCompleteSearchText }
-                                     onUpdateInput={ modelPortfoliosAutoCompleteSearchTextChange }
-                                     selectModelPortfolio={ selectModelPortfolio }
-                                     modelPortfolios={ modelPortfolios }
-                                     email={ email } />
-        <NewPortfolioButton createNewModelPortfolio={ createNewModelPortfolio } />
+      <div>
+        <div className={cx('model-portfolio-selector-container')}>
+          <ModelPortfoliosAutoComplete
+                                     searchText={this.props.modelPortfoliosAutoCompleteSearchText}
+                                     onUpdateInput={this.props.modelPortfoliosAutoCompleteSearchTextChange}
+                                     selectModelPortfolio={this.props.selectModelPortfolio}
+                                     modelPortfolios={this.props.modelPortfolios}
+                                     email={this.props.email} />
+          <NewPortfolioButton createNewModelPortfolio={this.props.createNewModelPortfolio} />
+        </div>
+        { this.getPortfolioView() }
       </div>
-      { this.getPortfolioView() }
-    </div>
     );
   }
 }
@@ -101,7 +97,7 @@ PortfolioRebalancer.propTypes = {
   setScrolledToBttom: PropTypes.func.isRequired,
 };
 
-function mapStateToProps( state ) {
+function mapStateToProps(state) {
   return {
     modelPortfoliosAutoCompleteSearchText: state.modelPortfolio.modelPortfoliosAutoCompleteSearchText,
     modelPortfolios: state.modelPortfolio.modelPortfolios,
@@ -109,13 +105,13 @@ function mapStateToProps( state ) {
     selectedModelPortfolio: state.portfolio.selectedModelPortfolio,
     view: state.view.view,
     portfolio: state.portfolio.portfolio,
-    portfolioSelect: getPortfolioSelect( state ),
+    portfolioSelect: getPortfolioSelect(state),
     investmentAmount: state.investmentAmount.investmentAmount,
     rebalancingSteps: state.rebalancing.rebalancingSteps,
   };
 }
 
-export default connect( mapStateToProps, {
+export default connect(mapStateToProps, {
   investmentAmountTextFieldChange,
   modelPortfoliosAutoCompleteSearchTextChange,
   createNewModelPortfolio,
@@ -128,4 +124,4 @@ export default connect( mapStateToProps, {
   securityTextFieldChange,
   generateSteps,
   setScrolledToBttom,
-} )( PortfolioRebalancer );
+})(PortfolioRebalancer);

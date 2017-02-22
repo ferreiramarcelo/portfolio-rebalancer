@@ -19,8 +19,8 @@ const view = (
   }
 };
 
-const modelPortfolioReducer = combineReducers({
+const viewReducer = combineReducers({
   view
 });
 
-export default modelPortfolioReducer;
+export default viewReducer;

@@ -59,12 +59,6 @@ function createModelPortfolioFailure(data) {
   };
 }
 
-function createModelPortfolioDuplicate() {
-  return {
-    type: types.CREATE_MODEL_PORTFOLIO_DUPLICATE
-  };
-}
-
 function saveModelPortfolioRequest(data) {
   return {
     type: types.SAVE_MODEL_PORTFOLIO_REQUEST,
@@ -86,12 +80,6 @@ function saveModelPortfolioFailure(data) {
     type: types.SAVE_MODEL_PORTFOLIO_FAILURE,
     id: data.id,
     error: data.error
-  };
-}
-
-function saveModelPortfolioDuplicate() {
-  return {
-    type: types.SAVE_MODEL_PORTFOLIO_DUPLICATE
   };
 }
 

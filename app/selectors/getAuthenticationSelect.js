@@ -1,3 +1,4 @@
+/* eslint no-useless-escape: 0*/
 import { createSelector } from 'reselect';
 
 const getAuthentication = (state) => state.authentication;

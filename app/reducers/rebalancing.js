@@ -1,13 +1,12 @@
 import { combineReducers } from 'redux';
 import * as types from '../types';
-import { getPortfolioWithNormalizedAllocations, getValuesForInvesting, getValuesForDisvesting, getValueAdjustmentsPerSecurity, getUnitsForValuePerSecurityAndExtraCash,
-getUnitsForInvesting, getUnitsForDisvesting, getUnitsForAdjusting, getUpdatedValuePerSecurityForAdditions, getUpdatedValuePerSecurityForReductions } from '../algorithms/PortfolioAlgorithms';
+import { getPortfolioWithNormalizedAllocations, getValuesForInvesting, getValuesForDisvesting, getValueAdjustmentsPerSecurity, getUnitsForValuePerSecurityAndExtraCash, getUnitsForInvesting, getUnitsForDisvesting, getUnitsForAdjusting, getUpdatedValuePerSecurityForAdditions, getUpdatedValuePerSecurityForReductions } from '../algorithms/PortfolioAlgorithms';
 
 const rebalancingSteps = (state = {},
   action
 ) => {
   switch (action.type) {
-    case types.GENERATE_STEPS:
+    case types.GENERATE_STEPS: {
       /* Compute portfolio statistics */
       let portfolio = [];
       for (const security of action.portfolio) {
@@ -77,6 +76,7 @@ const rebalancingSteps = (state = {},
         balanceByDisvesting: unitsReductionPerSecurity,
         balanceByAdjusting: unitsAdjustmentsPerSecurity
       };
+    }
     case types.SELECT_MODEL_PORTFOLIO:
     case types.CREATE_NEW_PORTFOLIO:
       return {};
@@ -85,8 +85,8 @@ const rebalancingSteps = (state = {},
   }
 };
 
-const modelPortfolioReducer = combineReducers({
+const rebalancingReducer = combineReducers({
   rebalancingSteps
 });
 
-export default modelPortfolioReducer;
+export default rebalancingReducer;

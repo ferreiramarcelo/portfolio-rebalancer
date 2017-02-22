@@ -86,7 +86,8 @@ const userModelPortfolios = (state = [], action) => {
 
 const modelPortfolioReducer = combineReducers({
   modelPortfoliosAutoCompleteSearchText,
-  modelPortfolios
+  modelPortfolios,
+  userModelPortfolios
 });
 
 export default modelPortfolioReducer;
