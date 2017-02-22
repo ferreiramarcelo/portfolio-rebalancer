@@ -6,6 +6,13 @@ import * as types from '../types';
 
 polyfill();
 
+export function modelPortfoliosAutoCompleteSearchTextChange(searchText) {
+  return {
+    searchText,
+    type: types.MODEL_PORTFOLIOS_AUTO_COMPLETE_SEARCH_TEXT_CHANGE
+  };
+}
+
 export function makeModelPortfolioRequest(method, id, data, api = '/modelPortfolio') {
   return request[method](api + (id ? ('/' + id) : ''), data);
 }

@@ -1,6 +1,17 @@
 import { combineReducers } from 'redux';
 import * as types from '../types';
 
+const modelPortfoliosAutoCompleteSearchText = (state = '', action) => {
+  switch (action.type) {
+    case types.MODEL_PORTFOLIOS_AUTO_COMPLETE_SEARCH_TEXT_CHANGE:
+      return action.searchText;
+    case types.SELECT_MODEL_PORTFOLIO:
+      return '';
+    default:
+      return state;
+  }
+};
+
 const modelPortfolio = (state = {}, action) => {
   switch (action.type) {
     case types.CREATE_MODEL_PORTFOLIO_REQUEST:
@@ -74,6 +85,7 @@ const userModelPortfolios = (state = [], action) => {
 };
 
 const modelPortfolioReducer = combineReducers({
+  modelPortfoliosAutoCompleteSearchText,
   modelPortfolios
 });
 
