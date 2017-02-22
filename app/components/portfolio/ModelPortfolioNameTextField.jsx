@@ -17,10 +17,10 @@ const ModelPortfolioNameTextField = ({value, errorText, onChange}) => {
              errorText={errorText}
              onChange={handleOnChange}
              hintText="Model Portfolio Name"
-             type="text"
              fullWidth
              errorStyle={{ float: 'left' }}
              inputStyle={{ textAlign: 'center', }}
+             hintStyle={{ textAlign: 'center', }}
              className={cx('textfield')} />
   );
 };

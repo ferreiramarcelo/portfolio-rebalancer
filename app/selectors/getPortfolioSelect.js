@@ -4,6 +4,20 @@ const getPortfolio = (state) => state.portfolio;
 const getAuthenticated = (state) => state.user.authenticated;
 const getInvestmentAmount = (state) => state.investmentAmount.investmentAmount;
 
+const getSelectedModelPortfolioSelect = function getSelectedModelPortfolioSelectFunc(selectedModelPortfolio) {
+  let valid = true;
+  let hintText = '';
+  let errorText = '';
+  if (!selectedModelPortfolio.name) {
+    valid = false;
+    errorText = 'Required';
+  }
+  return {
+    valid,
+    hintText,
+    errorText
+  };
+}
 const getSymbolSelect = (symbol) => {
   let valid = true;
   let hintText = '';
@@ -189,6 +203,7 @@ export const getPortfolioSelect = createSelector([
   getAuthenticated,
   getInvestmentAmount
 ], (portfolio, authenticated, investmentAmount) => {
+  const selectedModelPortfolioSelect = getSelectedModelPortfolioSelect(portfolio.selectedModelPortfolio);
   const securitiesSelect = getSecuritiesSelect(portfolio.portfolio);
   const securitiesAreValid = getSecuritiesAreValid(securitiesSelect);
   const investmentAmountSelect = getInvestmentAmountSelect(investmentAmount);
@@ -196,6 +211,7 @@ export const getPortfolioSelect = createSelector([
   const deleteModelPortfolioButtonVisibility = getDeleteModelPortfolioButtonVisibility(authenticated, portfolio.selectedModelPortfolio);
   const generateStepsButtonVisibility = getGenerateStepsButtonVisibility(investmentAmountSelect, securitiesAreValid);
   return {
+    selectedModelPortfolioSelect,
     securitiesSelect,
     investmentAmountSelect,
     saveModelPortfolioButtonVisibility,

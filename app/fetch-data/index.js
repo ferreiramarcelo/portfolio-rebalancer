@@ -1,1 +1,1 @@
-export { fetchPortfolioRebalancerData as default } from './fetchPortfolioRebalancerData';
+export { default as fetchPortfolioRebalancerData } from './fetchPortfolioRebalancerData';

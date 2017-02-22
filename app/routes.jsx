@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 import { fetchPortfolioRebalancerData } from './fetch-data';
-import { App, PortfolioRebalancer, Dashboard, About, Authentication } from './pages';
+import { App, PortfolioRebalancer, About, Authentication } from './pages';
 
 /*
  * @param {Redux Store}
@@ -35,7 +35,6 @@ export default (store) => {
     <Route path="/" component={App}>
       <IndexRoute component={PortfolioRebalancer} fetchData={fetchPortfolioRebalancerData} />
       <Route path="login" component={Authentication} onEnter={redirectAuth} />
-      <Route path="dashboard" component={Dashboard} onEnter={requireAuth} />
       <Route path="about" component={About} />
     </Route>
     );

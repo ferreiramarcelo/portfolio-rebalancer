@@ -14,7 +14,7 @@ const Portfolio = ({portfolioSelect, selectedModelPortfolio, modelPortfolioNameT
       <div className={cx('PortfolioDiv')}>
         <ModelPortfolioNameTextField
                                    value={selectedModelPortfolio.name}
-                                   error={selectedModelPortfolio.errorText}
+                                   errorText={portfolioSelect.selectedModelPortfolioSelect.errorText}
                                    onChange={modelPortfolioNameTextFieldChange} />
         <PortfolioTable
                       portfolioSelect={portfolioSelect}

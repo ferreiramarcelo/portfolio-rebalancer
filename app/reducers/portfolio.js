@@ -25,7 +25,7 @@ const selectedModelPortfolio = (state = {}, action) => {
         name: action.value
       };
     case types.CREATE_NEW_PORTFOLIO:
-    case types.DELETE_MODEL_PORTFOLIO_REQUEST:
+    case types.DELETE_MODEL_PORTFOLIO_REQUEST: {
       let numModelPortfoliosWithDefaultName = 0;
       for (let i = 0; i < action.modelPortfolios.length; i++) {
         if (action.modelPortfolios[i].email === action.email) {
@@ -35,6 +35,8 @@ const selectedModelPortfolio = (state = {}, action) => {
             }
           } else if (action.modelPortfolios[i].name === 'Model Portfolio Name ' + numModelPortfoliosWithDefaultName) {
             numModelPortfoliosWithDefaultName++;
+          } else {
+            break;
           }
         }
       }
@@ -48,6 +50,7 @@ const selectedModelPortfolio = (state = {}, action) => {
         email: '',
         securities: []
       };
+    }
     default:
       return state;
   }
