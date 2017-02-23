@@ -7,51 +7,51 @@ import ReactTooltip from 'react-tooltip';
 import classNames from 'classnames/bind';
 import styles from '../../../css/components/portfolio/portfolio-table/price-cell';
 
-const cx = classNames.bind(styles);
+const cx = classNames.bind( styles );
 
 const PriceProgress = ({fetchStatus}) => {
   const getProgress = (givenFetchStatus) => {
-    if (givenFetchStatus === 'NONE') {
+    if ( givenFetchStatus === 'NONE' ) {
       return null;
-    } else if (givenFetchStatus === 'IN_PROGRESS') {
+    } else if ( givenFetchStatus === 'IN_PROGRESS' ) {
       return (<CircularProgress
-                               className={cx('PriceProgressSpinner')}
-                               size={20}
-                               thickness={3}
-                               style={{ width: 'auto', }} />);
-    } else if (givenFetchStatus === 'DONE') {
-      return (<IconButton className={cx('PriceProgressIcon')}>
-        <ActionDone />
-      </IconButton>);
-    } else if (givenFetchStatus === 'FAILED') {
+                                className={ cx( 'price-progress-spinner' ) }
+                                size={ 20 }
+                                thickness={ 3 }
+                                style={ { width: 'auto', } } />);
+    } else if ( givenFetchStatus === 'DONE' ) {
+      return (<IconButton className={ cx( 'price-progress-icon' ) }>
+                <ActionDone />
+              </IconButton>);
+    } else if ( givenFetchStatus === 'FAILED' ) {
       return (<div>
-        <IconButton
-                           className={cx('PriceProgressIcon')}
-                           data-tip
-                           data-for="tooltipPriceFetchError">
-          <AlertErrorOutline />
-        </IconButton>
-        <ReactTooltip
-                             id="tooltipPriceFetchError"
-                             type="error">
-          <p>
-                   No valid price returned from https://finance.yahoo.com.
-                 </p>
-          <p>
-                   Make sure you account for differing symbols based on exchange.
-                 </p>
-        </ReactTooltip>
-      </div>);
+                <IconButton
+                            className={ cx( 'price-progress-icon' ) }
+                            data-tip
+                            data-for="tooltipPriceFetchError">
+                  <AlertErrorOutline />
+                </IconButton>
+                <ReactTooltip
+                              id="tooltipPriceFetchError"
+                              type="error">
+                  <p>
+                    No valid price returned from https://finance.yahoo.com.
+                  </p>
+                  <p>
+                    Make sure you account for differing symbols based on exchange.
+                  </p>
+                </ReactTooltip>
+              </div>);
     }
     return null;
   };
 
-  const progress = getProgress(fetchStatus);
+  const progress = getProgress( fetchStatus );
 
   return (
-    <div className={cx('PriceProgressContainer')}>
-      { progress }
-    </div>
+  <div className={ cx( 'price-progress-container' ) }>
+    { progress }
+  </div>
   );
 };
 

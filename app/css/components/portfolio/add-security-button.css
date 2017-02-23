@@ -1,6 +1,5 @@
 @import '../../common/typography';
-@import '../../common/input';
 
-.AddSecurityButton {
+.add-security-button {
   padding: 24px !important;
 }

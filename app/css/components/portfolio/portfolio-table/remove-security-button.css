@@ -1,7 +1,6 @@
 @import '../../../common/typography';
-@import '../../../common/input';
 
-.RemoveSecurityButton {
+.remove-security-button {
   width: 30px !important;
   height: 30px !important;
   padding: 0px !important;

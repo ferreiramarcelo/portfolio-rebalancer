@@ -13,17 +13,17 @@ import PasswordConfirmationTextField from '../components/authentication/Password
 import { getAuthenticationSelect } from '../selectors/index';
 import styles from '../css/containers/authentication';
 
-const cx = classNames.bind(styles);
+const cx = classNames.bind( styles );
 
 class Authentication extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleOnLogin = this.handleOnLogin.bind(this);
-    this.handleOnRegister = this.handleOnRegister.bind(this);
+  constructor( props ) {
+    super( props );
+    this.handleOnLogin = this.handleOnLogin.bind( this );
+    this.handleOnRegister = this.handleOnRegister.bind( this );
   }
 
   getAuthenticationForm() {
-    if (this.props.authentication.isLoginMode) {
+    if ( this.props.authentication.isLoginMode ) {
       return this.getLoginForm();
     }
     return this.getRegistrationForm();
@@ -31,111 +31,109 @@ class Authentication extends React.Component {
 
   getLoginForm() {
     return (
-      <div className={cx('CardInsides')}>
+    <div className={ cx( 'card-insides' ) }>
       Login with Email
-      <form onSubmit={this.handleOnLogin}>
+      <form onSubmit={ this.handleOnLogin }>
         <EmailTextField
-                        value={this.props.authentication.emailTextField.value}
-                        errorText={this.props.authenticationSelect.emailTextFieldSelect.errorText}
-                        onChange={this.props.emailTextFieldChange} />
+                        value={ this.props.authentication.emailTextField.value }
+                        errorText={ this.props.authenticationSelect.emailTextFieldSelect.errorText }
+                        onChange={ this.props.emailTextFieldChange } />
         <PasswordTextField
-                           value={this.props.authentication.passwordTextField.value}
-                           errorText={this.props.authenticationSelect.passwordTextFieldSelect.errorText}
-                           onChange={this.props.passwordTextFieldChange} />
-        <p
-className={cx('message', {
+                           value={ this.props.authentication.passwordTextField.value }
+                           errorText={ this.props.authenticationSelect.passwordTextFieldSelect.errorText }
+                           onChange={ this.props.passwordTextFieldChange } />
+        <p className={ cx( 'message', {
                          'message-show': this.props.user.message && this.props.user.message.length > 0
-                       })}>
+                       } ) }>
           { this.props.user.message }
         </p>
         <RaisedButton
-                      className={cx('SubmitButton')}
+                      className={ cx( 'submit-button' ) }
                       label="Log In"
                       fullWidth
                       primary
-                      disabled={this.props.authenticationSelect.loginButtonVisibility === 'disabled'}
+                      disabled={ this.props.authenticationSelect.loginButtonVisibility === 'disabled' }
                       type="submit" />
       </form>
-        <p>
+      <p>
         Don't have an account?&nbsp;
       </p>
-        <FlatButton
+      <FlatButton
                   label="Register"
                   secondary
-                  onTouchTap={this.props.toggleAuthenticationMode} />
-      </div>
+                  onTouchTap={ this.props.toggleAuthenticationMode } />
+    </div>
     );
   }
 
   getRegistrationForm() {
     return (
-      <div className={cx('CardInsides')}>
-        <form onSubmit={this.handleOnRegister}>
+    <div className={ cx( 'card-insides' ) }>
+      <form onSubmit={ this.handleOnRegister }>
         Register
         <EmailTextField
-                        value={this.props.authentication.emailTextField.value}
-                        errorText={this.props.authenticationSelect.emailTextFieldSelect.errorText}
-                        onChange={this.props.emailTextFieldChange} />
-          <PasswordTextField
-                           value={this.props.authentication.passwordTextField.value}
-                           errorText={this.props.authenticationSelect.passwordTextFieldSelect.errorText}
-                           onChange={this.props.passwordTextFieldChange} />
-          <PasswordConfirmationTextField
-                                       value={this.props.authentication.passwordConfirmationTextField.value}
-                                       errorText={this.props.authenticationSelect.passwordConfirmationTextFieldSelect.errorText}
-                                       onChange={this.props.passwordConfirmationTextFieldChange} />
-          <p
-className={cx('message', {
+                        value={ this.props.authentication.emailTextField.value }
+                        errorText={ this.props.authenticationSelect.emailTextFieldSelect.errorText }
+                        onChange={ this.props.emailTextFieldChange } />
+        <PasswordTextField
+                           value={ this.props.authentication.passwordTextField.value }
+                           errorText={ this.props.authenticationSelect.passwordTextFieldSelect.errorText }
+                           onChange={ this.props.passwordTextFieldChange } />
+        <PasswordConfirmationTextField
+                                       value={ this.props.authentication.passwordConfirmationTextField.value }
+                                       errorText={ this.props.authenticationSelect.passwordConfirmationTextFieldSelect.errorText }
+                                       onChange={ this.props.passwordConfirmationTextFieldChange } />
+        <p className={ cx( 'message', {
                          'message-show': this.props.user.message && this.props.user.message.length > 0
-                       })}>
-            { this.props.user.message }
-          </p>
-          <RaisedButton
-                      className={cx('SubmitButton')}
+                       } ) }>
+          { this.props.user.message }
+        </p>
+        <RaisedButton
+                      className={ cx( 'submit-button' ) }
                       label="Register"
                       fullWidth
                       primary
-                      disabled={this.props.authenticationSelect.registerButtonVisibility === 'disabled'}
+                      disabled={ this.props.authenticationSelect.registerButtonVisibility === 'disabled' }
                       type="submit" />
-        </form>
-        <p>
+      </form>
+      <p>
         Already have an account?&nbsp;
       </p>
-        <FlatButton
+      <FlatButton
                   label="Login"
                   secondary
-                  onTouchTap={this.props.toggleAuthenticationMode} />
-      </div>
+                  onTouchTap={ this.props.toggleAuthenticationMode } />
+    </div>
     );
   }
 
-  handleOnLogin(event) {
+  handleOnLogin( event ) {
     event.preventDefault();
     this.props.manualLogin();
   }
 
-  handleOnRegister(event) {
+  handleOnRegister( event ) {
     event.preventDefault();
     this.props.register();
   }
 
   render() {
     return (
-      <div>
-        <div className={cx('GoogleLoginButtonContainer')}>
-          <RaisedButton
+    <div>
+      <div className={ cx( 'google-login-button-container' ) }>
+        <RaisedButton
                       label=" Continue with Google"
                       href="/auth/google"
                       primary
                       fullWidth
-                      icon={<FontAwesome
+                      icon={ <FontAwesome
                                           name="google"
-                                          className={cx('GoogleIcon')} />} />
-        </div>
-        <Card className={cx('Card')}>
-          { this.getAuthenticationForm() }
-        </Card>
+                                          className={ cx( 'google-icon' ) } /> } />
       </div>
+      <Card className={ cx( 'card' ) }>
+        { this.getAuthenticationForm() }
+      </Card>
+    </div>
     );
   }
 }
@@ -151,19 +149,19 @@ Authentication.propTypes = {
   toggleAuthenticationMode: PropTypes.func.isRequired,
 };
 
-function mapStateToProps(state) {
+function mapStateToProps( state ) {
   return {
     user: state.user,
     authentication: state.authentication,
-    authenticationSelect: getAuthenticationSelect(state)
+    authenticationSelect: getAuthenticationSelect( state )
   };
 }
 
-export default connect(mapStateToProps, {
+export default connect( mapStateToProps, {
   manualLogin,
   register,
   emailTextFieldChange,
   passwordTextFieldChange,
   passwordConfirmationTextFieldChange,
   toggleAuthenticationMode
-})(Authentication);
+} )( Authentication );

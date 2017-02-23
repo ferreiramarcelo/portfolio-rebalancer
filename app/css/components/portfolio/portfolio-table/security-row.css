@@ -1,20 +1,19 @@
 @import '../../../common/typography';
-@import '../../../common/input';
 
-.TableRow {
+.table-row {
   table-layout: fixed !important;
   border-bottom: 0px !important;
   padding-left: 0px !important;
   padding-right: 0px !important;
 }
 
-.TableRowColumn {
+.table-row-column {
   padding: 12px 0px 12px 0px !important;
   padding-left: 0px !important;
   padding-right: 0px !important;
 }
 
-.TableRowColumnPrice {
+.table-row-column-price {
   padding: 12px 0px 12px 0px !important;
   padding-left: 0px !important;
   padding-right: 0px !important;
@@ -22,7 +21,7 @@
   text-align: center !important;
 }
 
-.TableRowColumnProgress {
+.table-row-column-progress {
   padding: 12px 0px 12px 0px !important;
   padding-left: 0px !important;
   padding-right: 0px !important;
@@ -30,7 +29,7 @@
   text-align: center !important;
 }
 
-.TableRowColumnRemoveLast {
+.table-row-column-last {
   padding: 12px 0px 12px 0px !important;
   padding-left: 0px !important;
   padding-right: 0px !important;

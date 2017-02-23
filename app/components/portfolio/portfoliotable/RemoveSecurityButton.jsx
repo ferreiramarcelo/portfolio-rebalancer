@@ -13,7 +13,7 @@ const RemoveSecurityButton = ({index, removeSecurity}) => {
 
   return (
     <IconButton
-              className={cx('RemoveSecurityButton')}
+              className={cx('remove-security-button')}
               onClick={handleRemoveSecurity}
               touch>
       <ContentClear />

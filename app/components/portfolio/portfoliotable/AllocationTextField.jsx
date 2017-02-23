@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import TextField from 'material-ui/TextField';
 import classNames from 'classnames/bind';
-import styles from '../../../css/components/portfolio/portfolio-table/price-cell';
+import styles from '../../../css/components/portfolio/portfolio-table/security-text-field';
 
 const cx = classNames.bind(styles);
 
@@ -27,7 +27,7 @@ const AllocationTextField = ({index, value, setOnce, errorText, onChange}) => {
              onChange={handleOnChange}
              hintText="0"
              errorStyle={{ float: 'left' }}
-             className={cx('textfield')} />
+             className={cx('security-text-field')} />
   );
 };
 

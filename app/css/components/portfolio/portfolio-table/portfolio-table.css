@@ -1,26 +1,25 @@
 @import '../../../common/typography';
-@import '../../../common/input';
 
-.Table {
+.table {
   width: 100% !important;
   border-collapse: collapse !important;
   table-layout: fixed !important;
 }
 
-.TableHeaderColumn {
+.table-header-column {
   font-size: 14px !important;
   padding-left: 0px !important;
   padding-right: 0px !important;
 }
 
-.TableHeaderColumnLast {
+.table-header-column-last {
   padding-left: 0px !important;
   padding-right: 0px !important;
   width: 60px !important;
   text-align: right !important;
 }
 
-.TableRowAddSecurityButton {
+.table-row-add-security-button {
   text-align: center !important;
   padding-left: 0px !important;
   padding-right: 0px !important;

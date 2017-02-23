@@ -6,7 +6,7 @@ import styles from '../../../css/components/portfolio/portfolio-table/price-cell
 
 const cx = classNames.bind(styles);
 
-const PriceTextField = ({index, value, setOnce, fetchStatus, errorText, onChange}) => {
+const PriceCell = ({index, value, setOnce, fetchStatus, errorText, onChange}) => {
   const getDisplayValue = function getDisplayValueFunc(givenValue, givenSetOnce) {
     if (givenSetOnce) {
       return givenValue;
@@ -30,13 +30,13 @@ const PriceTextField = ({index, value, setOnce, fetchStatus, errorText, onChange
                onChange={handleOnChange}
                hintText="1.00"
                errorStyle={{ float: 'left' }}
-               className={cx('PriceTextField')} />
+               className={cx('price-text-field')} />
       <PriceProgress fetchStatus={fetchStatus} />
     </div>
   );
 };
 
-PriceTextField.propTypes = {
+PriceCell.propTypes = {
   index: PropTypes.number.isRequired,
   value: PropTypes.string.isRequired,
   setOnce: PropTypes.bool.isRequired,
@@ -45,4 +45,4 @@ PriceTextField.propTypes = {
   onChange: PropTypes.func.isRequired,
 };
 
-export default PriceTextField;
+export default PriceCell;

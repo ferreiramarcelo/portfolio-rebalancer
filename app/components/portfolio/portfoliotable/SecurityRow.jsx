@@ -3,7 +3,7 @@ import { TableRow, TableRowColumn } from 'material-ui/Table';
 import classNames from 'classnames/bind';
 import SymbolTextField from './SymbolTextField';
 import AllocationTextField from './AllocationTextField';
-import PriceTextField from './PriceTextField';
+import PriceCell from './PriceCell';
 import UnitsTextField from './UnitsTextField';
 import RemoveSecurityButton from './RemoveSecurityButton';
 import styles from '../../../css/components/portfolio/portfolio-table/security-row';
@@ -13,8 +13,8 @@ const cx = classNames.bind(styles);
 const SecurityRow = ({security, securitySelect, removeSecurity, securityTextFieldChange}) => {
   return (<TableRow
                     id={'securityRow' + security.symbol}
-                    className={cx('TableRow')}>
-    <TableRowColumn className={cx('TableRowColumn')}>
+                    className={cx('table-row')}>
+    <TableRowColumn className={cx('table-row-column')}>
       <SymbolTextField
                                index={security.index}
                                value={security.symbol.value}
@@ -22,7 +22,7 @@ const SecurityRow = ({security, securitySelect, removeSecurity, securityTextFiel
                                errorText={securitySelect.symbolSelect.errorText}
                                onChange={securityTextFieldChange} />
     </TableRowColumn>
-    <TableRowColumn className={cx('TableRowColumn')}>
+    <TableRowColumn className={cx('table-row-column')}>
       <AllocationTextField
                                    index={security.index}
                                    value={security.allocation.value}
@@ -30,8 +30,8 @@ const SecurityRow = ({security, securitySelect, removeSecurity, securityTextFiel
                                    errorText={securitySelect.allocationSelect.errorText}
                                    onChange={securityTextFieldChange} />
     </TableRowColumn>
-    <TableRowColumn className={cx('TableRowColumn')}>
-      <PriceTextField
+    <TableRowColumn className={cx('table-row-column')}>
+      <PriceCell
                               index={security.index}
                               value={security.price.value}
                               setOnce={security.price.setOnce}
@@ -39,7 +39,7 @@ const SecurityRow = ({security, securitySelect, removeSecurity, securityTextFiel
                               errorText={securitySelect.priceSelect.errorText}
                               onChange={securityTextFieldChange} />
     </TableRowColumn>
-    <TableRowColumn className={cx('TableRowColumn')}>
+    <TableRowColumn className={cx('table-row-column')}>
       <UnitsTextField
                               index={security.index}
                               value={security.units.value}
@@ -47,7 +47,7 @@ const SecurityRow = ({security, securitySelect, removeSecurity, securityTextFiel
                               errorText={securitySelect.unitsSelect.errorText}
                               onChange={securityTextFieldChange} />
     </TableRowColumn>
-    <TableRowColumn className={cx('TableRowColumnRemoveLast')}>
+    <TableRowColumn className={cx('table-row-column-last')}>
       <RemoveSecurityButton
                                     index={security.index}
                                     removeSecurity={removeSecurity} />

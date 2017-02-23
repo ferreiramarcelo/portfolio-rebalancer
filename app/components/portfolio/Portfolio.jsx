@@ -10,8 +10,8 @@ const cx = classNames.bind(styles);
 
 const Portfolio = ({portfolioSelect, selectedModelPortfolio, modelPortfolioNameTextFieldChange, portfolio, removeSecurity, securityTextFieldChange, addSecurity, saveModelPortfolio, deleteModelPortfolio}) => {
   return (
-    <Card className={cx('Card')}>
-      <div className={cx('PortfolioDiv')}>
+    <Card className={cx('card')}>
+      <div className={cx('portfolio-container')}>
         <ModelPortfolioNameTextField
                                    value={selectedModelPortfolio.name}
                                    errorText={portfolioSelect.selectedModelPortfolioSelect.errorText}

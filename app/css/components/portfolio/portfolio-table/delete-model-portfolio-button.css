@@ -1,11 +1,10 @@
 @import '../../../common/typography';
-@import '../../../common/input';
 
-.DeleteModelPortfolioDiv {
+.delete-model-portfolio-container {
   display: inline-block !important;
 }
 
-.DeleteModelPortfolioButton {
+.delete-model-portfolio-button {
   width: 30px !important;
   height: 30px !important;
   padding: 0px !important;

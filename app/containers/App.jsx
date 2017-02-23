@@ -38,7 +38,7 @@ const App = ({children}) => {
     <MuiThemeProvider muiTheme={muiTheme}>
       <div className={cx('app')}>
         <Navigation />
-        <div className={cx('appChildren')}>
+        <div className={cx('app-children')}>
           { children }
         </div>
       </div>

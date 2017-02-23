@@ -1,7 +1,7 @@
 @import '../common/colors';
 @import '../common/typography';
 
-.Navigation {
+.navigation {
   background-color: #673AB7;
   display: inline-block;
   width: 100%;
@@ -9,25 +9,24 @@
   vertical-align: middle;
 }
 
-.NavigationButtonLeft {
+.navigation-button-left {
   float: left;
 }
 
-
-.LoggedInAsIdentifier:before {
+.logged-in-as-identifier:before {
   content: '';
   display: inline-block;
   height: 36px;
   vertical-align: middle;
 }
 
-.LoggedInAsIdentifier {
+.logged-in-as-identifier {
   color: #FFF;
   height: 100%;
   vertical-align: middle;
 }
 
-.NavigationButtonRight {
+.navigation-button-right {
   //float: right;
   float: right;
 }

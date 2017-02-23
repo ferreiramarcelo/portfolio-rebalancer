@@ -1,14 +1,13 @@
 @import '../../../common/typography';
-@import '../../../common/input';
 
 
-.PriceTextField {
+.price-text-field {
   width: calc(100% - 30px) !important;
   max-width: 256px !important;
   float: left !important;
 }
 
-.PriceProgressContainer {
+.price-progress-container {
   width: 30px !important;
   height: 48px !important;
   float: left !important;
@@ -16,16 +15,16 @@
   display: inline-block !important;
 }
 
-.PriceProgressIcon {
+.price-progress-icon {
   margin: 0 auto !important;
   width: 30px !important;
   height: 30px !important;
   top: 6px;
-  padding: 0px 0px 0px 0px !important;
+  padding: 0px !important;
   float: left !important;
 }
 
-.PriceProgressSpinner {
+.price-progress-spinner {
   margin: 0 auto !important;
   width: 30px !important;
   height: 30px !important;

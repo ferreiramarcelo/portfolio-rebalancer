@@ -20,14 +20,14 @@ const PortfolioTable = ({portfolio, portfolioSelect, removeSecurity, securityTex
 
   return (
     <Table
-         className={cx('Table')}
+         className={cx('table')}
          wrapperStyle={{ overflow: 'hidden' }}>
       <TableHeader
                  displaySelectAll={false}
                  adjustForCheckbox={false}>
         <TableRow>
           <TableHeaderColumn
-                           className={cx('TableHeaderColumn')}
+                           className={cx('table-header-column')}
                            data-tip
                            data-for="tooltipColumnHeaderSymbol">
           Symbol
@@ -38,7 +38,7 @@ const PortfolioTable = ({portfolio, portfolioSelect, removeSecurity, securityTex
           </p>
           </ReactTooltip>
           <TableHeaderColumn
-                           className={cx('TableHeaderColumn')}
+                           className={cx('table-header-column')}
                            data-tip
                            data-for="tooltipColumnHeaderAllocation">
           Allocation
@@ -49,7 +49,7 @@ const PortfolioTable = ({portfolio, portfolioSelect, removeSecurity, securityTex
           </p>
           </ReactTooltip>
           <TableHeaderColumn
-                           className={cx('TableHeaderColumn')}
+                           className={cx('table-header-column')}
                            data-tip
                            data-for="tooltipColumnHeaderPrice">
           Price
@@ -61,7 +61,7 @@ const PortfolioTable = ({portfolio, portfolioSelect, removeSecurity, securityTex
           </p>
           </ReactTooltip>
           <TableHeaderColumn
-                           className={cx('TableHeaderColumn')}
+                           className={cx('table-header-column')}
                            data-tip
                            data-for="tooltipColumnHeaderUnits">
           Units
@@ -71,7 +71,7 @@ const PortfolioTable = ({portfolio, portfolioSelect, removeSecurity, securityTex
             How many units of the security you currently own.
           </p>
           </ReactTooltip>
-          <TableHeaderColumn className={cx('TableHeaderColumnLast')}>
+          <TableHeaderColumn className={cx('table-header-column-last')}>
             <SaveModelPortfolioButton
                                     visibility={portfolioSelect.saveModelPortfolioButtonSelect.visibility}
                                     tooltip={portfolioSelect.saveModelPortfolioButtonSelect.tooltip}

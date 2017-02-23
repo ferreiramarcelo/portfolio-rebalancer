@@ -1,13 +1,10 @@
-@import '../../common/typography';
-@import '../../common/input';
-
-.Card {
+.card {
   @media (max-width: 767px) {
     box-shadow: none !important;
   }
 }
 
-.PortfolioDiv {
+.portfolio-container {
   @media (max-width: 767px) {
     padding: 0px !important;
   }

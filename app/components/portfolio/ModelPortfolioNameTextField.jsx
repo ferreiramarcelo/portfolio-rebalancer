@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
 import TextField from 'material-ui/TextField';
-import classNames from 'classnames/bind';
 
 const ModelPortfolioNameTextField = ({value, errorText, onChange}) => {
   const handleOnChange = function handleOnChangeFunc( event, newValue ) {

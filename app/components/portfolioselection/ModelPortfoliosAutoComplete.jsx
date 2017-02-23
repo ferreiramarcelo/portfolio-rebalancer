@@ -134,7 +134,7 @@ const ModelPortfoliosAutoComplete = ({searchText, onUpdateInput, modelPortfolios
   };
 
   return (
-    <div className={cx('model-portfolios-autocomplete-container')}>
+    <div className={cx('model-portfolios-auto-complete-container')}>
       <AutoComplete
                   searchText={searchText}
                   onUpdateInput={onUpdateInput}

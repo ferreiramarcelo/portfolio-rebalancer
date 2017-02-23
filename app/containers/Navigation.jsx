@@ -11,19 +11,19 @@ const cx = classNames.bind(styles);
 const Navigation = ({user, logOut}) => {
   return (
     <nav
-       className={cx('Navigation')}
+       className={cx('navigation')}
        role="navigation">
       <FlatButton
-                className={cx('NavigationButtonLeft')}
+                className={cx('navigation-button-left')}
                 labelStyle={{ color: 'white', fontSize: '16px' }}
                 containerElement={< Link to="/" />}
                 label="PORTFOLIO REBALANCER" />
       { user.authenticated
-        ? <span className={cx('LoggedInAsIdentifier')}>Logged in as { user.email }</span>
+        ? <span className={cx('logged-in-as-identifier')}>Logged in as { user.email }</span>
         : '' }
       <FlatButton
                 labelStyle={{ color: 'white', fontSize: '16px' }}
-                className={cx('NavigationButtonRight')}
+                className={cx('navigation-button-right')}
                 onTouchTap={user.authenticated
                                ? logOut
                                : null}
@@ -39,12 +39,12 @@ const Navigation = ({user, logOut}) => {
                           : 'LOG IN'} />
       <FlatButton
                 labelStyle={{ color: 'white', fontSize: '16px' }}
-                className={cx('NavigationButtonRight')}
+                className={cx('navigation-button-right')}
                 containerElement={<Link to="/about" />}
                 label="ABOUT" />
       <FlatButton
                 labelStyle={{ color: 'white', fontSize: '16px' }}
-                className={cx('NavigationButtonRight')}
+                className={cx('navigation-button-right')}
                 href="https://github.com/AlexisDeschamps/portfolio-rebalancer/"
                 target="_blank"
                 label="GITHUB" />
