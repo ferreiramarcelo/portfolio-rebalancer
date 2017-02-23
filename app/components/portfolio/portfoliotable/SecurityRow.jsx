@@ -6,7 +6,7 @@ import AllocationTextField from './AllocationTextField';
 import PriceTextField from './PriceTextField';
 import UnitsTextField from './UnitsTextField';
 import RemoveSecurityButton from './RemoveSecurityButton';
-import styles from '../../../css/components/portfolio-table/security-row';
+import styles from '../../../css/components/portfolio/portfolio-table/security-row';
 
 const cx = classNames.bind(styles);
 

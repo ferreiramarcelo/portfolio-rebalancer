@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import FlatButton from 'material-ui/FlatButton';
 import classNames from 'classnames/bind';
 import { logOut } from '../actions/users';
-import styles from '../css/components/navigation';
+import styles from '../css/containers/navigation';
 
 const cx = classNames.bind(styles);
 

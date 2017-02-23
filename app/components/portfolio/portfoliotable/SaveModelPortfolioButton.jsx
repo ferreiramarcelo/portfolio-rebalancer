@@ -3,7 +3,7 @@ import IconButton from 'material-ui/IconButton';
 import ContentSave from 'material-ui/svg-icons/content/save';
 import ReactTooltip from 'react-tooltip';
 import classNames from 'classnames/bind';
-import styles from '../../../css/components/portfolio-table/save-model-portfolio-button';
+import styles from '../../../css/components/portfolio/portfolio-table/save-model-portfolio-button';
 
 const cx = classNames.bind(styles);
 

@@ -5,7 +5,7 @@ import classNames from 'classnames/bind';
 import SecurityRow from './SecurityRow';
 import SaveModelPortfolioButton from './SaveModelPortfolioButton';
 import DeleteModelPortfolioButton from './DeleteModelPortfolioButton';
-import styles from '../../../css/components/portfolio-table/portfolio-table';
+import styles from '../../../css/components/portfolio/portfolio-table/portfolio-table';
 
 const cx = classNames.bind(styles);
 

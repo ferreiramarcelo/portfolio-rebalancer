@@ -4,7 +4,7 @@ import classNames from 'classnames/bind';
 import ModelPortfolioNameTextField from './ModelPortfolioNameTextField';
 import PortfolioTable from './portfoliotable/PortfolioTable';
 import AddSecurityButton from './AddSecurityButton';
-import styles from '../../css/components/portfolio-table/portfolio-table';
+import styles from '../../css/components/portfolio/portfolio';
 
 const cx = classNames.bind(styles);
 

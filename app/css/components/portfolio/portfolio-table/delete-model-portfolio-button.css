@@ -1,5 +1,5 @@
-@import '../../common/typography';
-@import '../../common/input';
+@import '../../../common/typography';
+@import '../../../common/input';
 
 .DeleteModelPortfolioDiv {
   display: inline-block !important;

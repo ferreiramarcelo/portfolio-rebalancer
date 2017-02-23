@@ -1,5 +1,5 @@
-@import '../../common/typography';
-@import '../../common/input';
+@import '../../../common/typography';
+@import '../../../common/input';
 
 .SaveModelPortfolioDiv {
   display: inline-block !important;

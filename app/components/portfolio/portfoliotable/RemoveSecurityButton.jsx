@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import IconButton from 'material-ui/IconButton';
 import ContentClear from 'material-ui/svg-icons/content/clear';
 import classNames from 'classnames/bind';
-import styles from '../../../css/components/portfolio-table/remove-security-button';
+import styles from '../../../css/components/portfolio/portfolio-table/remove-security-button';
 
 const cx = classNames.bind(styles);
 

@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import TextField from 'material-ui/TextField';
 import classNames from 'classnames/bind';
-import styles from '../../../css/components/portfolio-table/price-cell';
+import styles from '../../../css/components/portfolio/portfolio-table/price-cell';
 
 const cx = classNames.bind(styles);
 

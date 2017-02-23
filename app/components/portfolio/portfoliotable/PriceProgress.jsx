@@ -5,7 +5,7 @@ import ActionDone from 'material-ui/svg-icons/action/done';
 import AlertErrorOutline from 'material-ui/svg-icons/alert/error-outline';
 import ReactTooltip from 'react-tooltip';
 import classNames from 'classnames/bind';
-import styles from '../../../css/components/portfolio-table/price-cell';
+import styles from '../../../css/components/portfolio/portfolio-table/price-cell';
 
 const cx = classNames.bind(styles);
 

@@ -5,19 +5,17 @@ import FlatButton from 'material-ui/FlatButton';
 import Card from 'material-ui/Card';
 import FontAwesome from 'react-fontawesome';
 import classNames from 'classnames/bind';
-
 import { emailTextFieldChange, passwordTextFieldChange, passwordConfirmationTextFieldChange, toggleAuthenticationMode } from '../actions/authentications';
 import { manualLogin, register } from '../actions/users';
 import EmailTextField from '../components/authentication/EmailTextField';
 import PasswordTextField from '../components/authentication/PasswordTextField';
 import PasswordConfirmationTextField from '../components/authentication/PasswordConfirmationTextField';
 import { getAuthenticationSelect } from '../selectors/index';
-import styles from '../css/components/authentication';
+import styles from '../css/containers/authentication';
 
 const cx = classNames.bind(styles);
 
 class Authentication extends React.Component {
-
   constructor(props) {
     super(props);
     this.handleOnLogin = this.handleOnLogin.bind(this);

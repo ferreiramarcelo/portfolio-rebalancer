@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import FlatButton from 'material-ui/FlatButton';
 import classNames from 'classnames/bind';
-import styles from '../../css/components/new-portfolio-button';
+import styles from '../../css/components/portfolioselection/new-portfolio-button';
 
 const cx = classNames.bind(styles);
 

@@ -4,7 +4,7 @@ import MenuItem from 'material-ui/MenuItem';
 import ActionGroupWork from 'material-ui/svg-icons/action/group-work';
 import EditorModeEdit from 'material-ui/svg-icons/editor/mode-edit';
 import classNames from 'classnames/bind';
-import styles from '../../css/components/model-portfolios-autocomplete';
+import styles from '../../css/components/portfolioselection/model-portfolios-auto-complete';
 
 const cx = classNames.bind(styles);
 
