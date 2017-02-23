@@ -215,7 +215,7 @@ const getGenerateStepsButtonVisibility = function getGenerateStepsButtonVisibili
 };
 
 
-const getPortfolioSelect = createSelector([
+export const getPortfolioSelect = createSelector([
   getModelPortfolios,
   getEmail,
   getPortfolio,
