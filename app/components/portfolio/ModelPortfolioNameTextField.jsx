@@ -2,20 +2,20 @@ import React, { PropTypes } from 'react';
 import TextField from 'material-ui/TextField';
 
 const ModelPortfolioNameTextField = ({value, errorText, onChange}) => {
-  const handleOnChange = function handleOnChangeFunc( event, newValue ) {
-    onChange( newValue );
+  const handleOnChange = function handleOnChangeFunc(event, newValue) {
+    onChange(newValue);
   };
 
   return (
-  <TextField
-             value={ value }
-             errorText={ errorText }
-             onChange={ handleOnChange }
+    <TextField
+             value={value}
+             errorText={errorText}
+             onChange={handleOnChange}
              hintText="Model Portfolio Name"
              fullWidth
-             errorStyle={ { float: 'left' } }
-             inputStyle={ { textAlign: 'center', } }
-             hintStyle={ { textAlign: 'center', } } />
+             errorStyle={{ float: 'left' }}
+             inputStyle={{ textAlign: 'center', }}
+             hintStyle={{ textAlign: 'center', }} />
   );
 };
 
