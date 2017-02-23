@@ -64,7 +64,7 @@ const getRegisterButtonVisibility = function getRegisterButtonVisibilityFunc(ema
   return 'disabled';
 };
 
-export const getAuthenticationSelect = createSelector([
+const getAuthenticationSelect = createSelector([
   getAuthentication,
 ], (authentication) => {
   const emailTextFieldSelect = getEmailTextFieldSelect(authentication.emailTextField);

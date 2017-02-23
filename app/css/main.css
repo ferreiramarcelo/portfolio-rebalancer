@@ -17,6 +17,7 @@ body {
   height: 100%;
   font-weight: normal;
   font-smoothing: antialiased;
+  font-family: var(--fontRoboto);
 }
 
 .appChildren {

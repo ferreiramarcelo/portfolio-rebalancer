@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
-import { fetchPortfolioRebalancerData } from './fetch-data';
+import FetchData from './fetch-data';
 import { App, PortfolioRebalancer, About, Authentication } from './pages';
 
 export default (store) => {
@@ -16,7 +16,7 @@ export default (store) => {
 
   return (
     <Route path="/" component={App}>
-      <IndexRoute component={PortfolioRebalancer} fetchData={fetchPortfolioRebalancerData} />
+      <IndexRoute component={PortfolioRebalancer} fetchData={FetchData.fetchPortfolioRebalancerData} />
       <Route path="login" component={Authentication} onEnter={redirectAuth} />
       <Route path="about" component={About} />
     </Route>
