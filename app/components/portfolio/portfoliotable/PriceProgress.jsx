@@ -9,30 +9,37 @@ import styles from '../../../css/components/portfolio/portfolio-table/price-cell
 
 const cx = classNames.bind( styles );
 
-const PriceProgress = ({fetchStatus}) => {
+const PriceProgress = ({index, fetchStatus, onClick}) => {
+  const handleOnClick = function handleOnClick() {
+    onClick( index );
+  };
+
   const getProgress = function getProgress( givenFetchStatus ) {
     if ( givenFetchStatus === 'NONE' ) {
       return null;
     } else if ( givenFetchStatus === 'IN_PROGRESS' ) {
       return (<CircularProgress
-                                className={ cx( 'price-progress-spinner' ) }
+                                onTouchTap={ handleOnClick }
                                 size={ 20 }
                                 thickness={ 3 }
                                 className={ cx( 'price-progress-spinner' ) } />);
     } else if ( givenFetchStatus === 'DONE' ) {
-      return (<IconButton className={ cx( 'price-progress-icon' ) }>
+      return (<IconButton
+                          onTouchTap={ handleOnClick }
+                          className={ cx( 'price-progress-icon' ) }>
                 <ActionDone />
               </IconButton>);
     } else if ( givenFetchStatus === 'FAILED' ) {
       return (<div>
                 <IconButton
+                            onTouchTap={ handleOnClick }
                             data-tip
                             data-for="tooltipPriceFetchError"
                             className={ cx( 'price-progress-icon' ) }>
                   <AlertErrorOutline />
                 </IconButton>
                 <ReactTooltip
-                              key="tooltipPriceFetchError"
+                              id="tooltipPriceFetchError"
                               type="error">
                   <p>
                     No valid price returned from https://finance.yahoo.com.
@@ -56,7 +63,9 @@ const PriceProgress = ({fetchStatus}) => {
 };
 
 PriceProgress.propTypes = {
+  index: PropTypes.number.isRequired,
   fetchStatus: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 export default PriceProgress;

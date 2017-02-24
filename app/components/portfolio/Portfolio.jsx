@@ -8,7 +8,7 @@ import styles from '../../css/components/portfolio/portfolio';
 
 const cx = classNames.bind(styles);
 
-const Portfolio = ({selectedModelPortfolio, modelPortfolioNameTextFieldChange, portfolio, portfolioSelect, saveModelPortfolio, deleteModelPortfolio, addSecurity, removeSecurity, securityTextFieldChange}) => {
+const Portfolio = ({selectedModelPortfolio, modelPortfolioNameTextFieldChange, portfolio, portfolioSelect, saveModelPortfolio, deleteModelPortfolio, addSecurity, removeSecurity, securityTextFieldChange, fetchPrice}) => {
   return (
     <Card className={cx('card')}>
       <div className={cx('portfolio-container')}>
@@ -17,14 +17,15 @@ const Portfolio = ({selectedModelPortfolio, modelPortfolioNameTextFieldChange, p
                                    errorText={portfolioSelect.selectedModelPortfolioSelect.errorText}
                                    onChange={modelPortfolioNameTextFieldChange} />
         <PortfolioTable
-                      portfolioSelect={portfolioSelect}
+          selectedModelPortfolio={selectedModelPortfolio}
                       portfolio={portfolio}
+                      portfolioSelect={portfolioSelect}
+                      saveModelPortfolio={saveModelPortfolio}
+                      deleteModelPortfolio={deleteModelPortfolio}
                       addSecurity={addSecurity}
                       removeSecurity={removeSecurity}
                       securityTextFieldChange={securityTextFieldChange}
-                      saveModelPortfolio={saveModelPortfolio}
-                      deleteModelPortfolio={deleteModelPortfolio}
-                      selectedModelPortfolio={selectedModelPortfolio} />
+                      fetchPrice={fetchPrice} />
         <div style={{ textAlign: 'center', margin: '24px' }}>
           <AddSecurityButton addSecurity={addSecurity} />
         </div>
@@ -42,7 +43,8 @@ Portfolio.propTypes = {
   deleteModelPortfolio: PropTypes.func.isRequired,
   addSecurity: PropTypes.func.isRequired,
   removeSecurity: PropTypes.func.isRequired,
-  securityTextFieldChange: PropTypes.func.isRequired
+  securityTextFieldChange: PropTypes.func.isRequired,
+  fetchPrice: PropTypes.func.isRequired
 };
 
 export default Portfolio;

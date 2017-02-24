@@ -9,14 +9,15 @@ import styles from '../../../css/components/portfolio/portfolio-table/portfolio-
 
 const cx = classNames.bind( styles );
 
-const PortfolioTable = ({selectedModelPortfolio, portfolio, portfolioSelect, saveModelPortfolio, deleteModelPortfolio, removeSecurity, securityTextFieldChange}) => {
+const PortfolioTable = ({selectedModelPortfolio, portfolio, portfolioSelect, saveModelPortfolio, deleteModelPortfolio, removeSecurity, securityTextFieldChange, fetchPrice}) => {
   const securityRows = portfolio.map( (security, index) => {
     return (<SecurityRow
                          key={ index }
                          security={ security }
                          securitySelect={ portfolioSelect.securitiesSelect[ index ] }
                          removeSecurity={ removeSecurity }
-                         securityTextFieldChange={ securityTextFieldChange } />);
+                         securityTextFieldChange={ securityTextFieldChange }
+                         fetchPrice={ fetchPrice } />);
   } );
 
   return (
@@ -100,7 +101,8 @@ PortfolioTable.propTypes = {
   saveModelPortfolio: PropTypes.func.isRequired,
   deleteModelPortfolio: PropTypes.func.isRequired,
   removeSecurity: PropTypes.func.isRequired,
-  securityTextFieldChange: PropTypes.func.isRequired
+  securityTextFieldChange: PropTypes.func.isRequired,
+  fetchPrice: PropTypes.func.isRequired,
 };
 
 export default PortfolioTable;

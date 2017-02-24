@@ -31,8 +31,6 @@
 
 .table-row-column-last {
   padding: 12px 0px 12px 0px !important;
-  padding-left: 0px !important;
-  padding-right: 0px !important;
-  width: 60px !important;
+  width: 62px !important;
   text-align: right !important;
 }

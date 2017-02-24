@@ -10,7 +10,7 @@ import styles from '../../../css/components/portfolio/portfolio-table/security-r
 
 const cx = classNames.bind( styles );
 
-const SecurityRow = ({security, securitySelect, removeSecurity, securityTextFieldChange}) => {
+const SecurityRow = ({security, securitySelect, removeSecurity, securityTextFieldChange, fetchPrice}) => {
   return (<TableRow
                     className={ cx( 'table-row' ) }>
             <TableRowColumn
@@ -35,11 +35,11 @@ const SecurityRow = ({security, securitySelect, removeSecurity, securityTextFiel
                             className={ cx( 'table-row-column' ) }>
               <PriceCell
                          index={ security.index }
-                         value={ security.price.value }
-                         setOnce={ security.price.setOnce }
-                         fetchStatus={ security.price.fetchStatus }
-                         errorText={ securitySelect.priceSelect.errorText }
-                         onChange={ securityTextFieldChange } />
+                         price={ security.price }
+                         priceSelect={ securitySelect.priceSelect}
+                         securityTextFieldChange={ securityTextFieldChange }
+                         symbol={security.symbol.value}
+                         fetchPrice={ fetchPrice }/>
             </TableRowColumn>
             <TableRowColumn
                             className={ cx( 'table-row-column' ) }>
@@ -63,7 +63,8 @@ SecurityRow.propTypes = {
   security: PropTypes.object.isRequired,
   securitySelect: PropTypes.object.isRequired,
   removeSecurity: PropTypes.func.isRequired,
-  securityTextFieldChange: PropTypes.func.isRequired
+  securityTextFieldChange: PropTypes.func.isRequired,
+  fetchPrice: PropTypes.func.isRequired,
 };
 
 export default SecurityRow;

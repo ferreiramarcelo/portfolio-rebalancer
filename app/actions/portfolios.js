@@ -142,3 +142,24 @@ export function securityTextFieldChange(index, column, value) {
     };
   }
 }
+
+export function fetchPrice(index) {
+  return (dispatch, getState) => {
+      dispatch(setPriceToFetching(index));
+      const portfolio = getState().portfolio.portfolio;
+      return fetchSecurityPrice(portfolio[index].symbol.value)
+        .then(data => {
+          if (data.status === 200) {
+            const price = data.data.query.results.quote.LastTradePriceOnly;
+            const priceNumber = Number(price);
+            if (!price || typeof priceNumber !== 'number' || isNaN(priceNumber) || !isFinite(priceNumber)) {
+              return dispatch(setPriceToFetchFailed(index));
+            }
+            return dispatch(setPriceFromFetch(index, price));
+          }
+        })
+        .catch((jqxhr, textStatus, error) => {
+          return dispatch(setPriceToFetchFailed(index, textStatus, error));
+        });
+    };
+}
