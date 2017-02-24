@@ -12,7 +12,6 @@ const SymbolTextField = ({index, value, setOnce, errorText, onChange}) => {
     }
     return '';
   };
-
   const displayValue = getDisplayValue(value, setOnce);
 
   const handleOnChange = function handleOnChangeFunc(event, newValue) {
@@ -21,7 +20,6 @@ const SymbolTextField = ({index, value, setOnce, errorText, onChange}) => {
 
   return (
     <TextField
-             id={'symbolTextField' + index}
              value={displayValue}
              errorText={errorText}
              onChange={handleOnChange}

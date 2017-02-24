@@ -5,54 +5,55 @@ import ReactTooltip from 'react-tooltip';
 import classNames from 'classnames/bind';
 import styles from '../../../css/components/portfolio/portfolio-table/save-model-portfolio-button';
 
-const cx = classNames.bind(styles);
+const cx = classNames.bind( styles );
 
 const SaveModelPortfolioButton = ({visibility, tooltip, portfolio, selectedModelPortfolio, saveModelPortfolio}) => {
   const handleOnClick = function handleOnClickFunc() {
-    saveModelPortfolio(selectedModelPortfolio, portfolio);
+    saveModelPortfolio( selectedModelPortfolio, portfolio );
   };
 
-  const getSaveModelPortfolioButton = function getSaveModelPortfolioButtonFunc(givenVisibility, onClickFunction) {
+  const getSaveModelPortfolioButton = function getSaveModelPortfolioButtonFunc( givenVisibility, onClickFunction ) {
     switch (givenVisibility) {
       case 'visible':
         return (<div>
-          <IconButton
-                              className={cx('save-model-portfolio-button')}
+                  <IconButton
+                              onTouchTap={ onClickFunction }
+                              className={ cx( 'save-model-portfolio-button' ) }
                               touch
-                              onTouchTap={onClickFunction}>
-            <ContentSave />
-          </IconButton>
-        </div>);
+                              className={ cx( 'save-model-portfolio-button' ) }>
+                    <ContentSave />
+                  </IconButton>
+                </div>);
       case 'disabled':
         return (<div>
-          <IconButton
+                  <IconButton
                               disabled
-                              className={cx('save-model-portfolio-button')}
+                              onTouchTap={ onClickFunction }
                               touch
-                              onTouchTap={onClickFunction}>
-            <ContentSave />
-          </IconButton>
-        </div>);
+                              className={ cx( 'save-model-portfolio-button' ) }>
+                    <ContentSave />
+                  </IconButton>
+                </div>);
       case 'hidden':
       default:
         return null;
     }
   };
 
-  const saveModelPortfolioButton = getSaveModelPortfolioButton(visibility, handleOnClick);
+  const saveModelPortfolioButton = getSaveModelPortfolioButton( visibility, handleOnClick );
 
   return (
-    <div
-       className={cx('save-model-portfolio-button-container')}
+  <div
        data-tip
-       data-for="saveModelPortfolioButtonTooltip">
-      { saveModelPortfolioButton }
-      <ReactTooltip id="saveModelPortfolioButtonTooltip">
-        <p>
-          { tooltip }
-        </p>
-      </ReactTooltip>
-    </div>
+       data-for="saveModelPortfolioButtonTooltip"
+       className={ cx( 'save-model-portfolio-button-container' ) }>
+    { saveModelPortfolioButton }
+    <ReactTooltip id="saveModelPortfolioButtonTooltip">
+      <p>
+        { tooltip }
+      </p>
+    </ReactTooltip>
+  </div>
   );
 };
 

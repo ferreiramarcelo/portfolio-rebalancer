@@ -20,7 +20,7 @@ const GenerateStepsButton = ({visibility, generateSteps}) => {
 };
 
 GenerateStepsButton.propTypes = {
-  visibility: PropTypes.object.isRequired,
+  visibility: PropTypes.string.isRequired,
   generateSteps: PropTypes.func.isRequired,
 };
 

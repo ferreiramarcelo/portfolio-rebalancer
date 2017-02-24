@@ -3,7 +3,7 @@ import * as types from '../types';
 
 const investmentAmount = (state = {
     value: '0',
-    valsetOnce: false
+    setOnce: false
 }, action) => {
     switch (action.type) {
         case types.INVESTMENT_AMOUNT_TEXT_FIELD_CHANGE:

@@ -7,99 +7,100 @@ import SaveModelPortfolioButton from './SaveModelPortfolioButton';
 import DeleteModelPortfolioButton from './DeleteModelPortfolioButton';
 import styles from '../../../css/components/portfolio/portfolio-table/portfolio-table';
 
-const cx = classNames.bind(styles);
+const cx = classNames.bind( styles );
 
-const PortfolioTable = ({portfolio, portfolioSelect, removeSecurity, securityTextFieldChange, saveModelPortfolio, deleteModelPortfolio, selectedModelPortfolio}) => {
-  const securityRows = portfolio.map((security, index) => {
+const PortfolioTable = ({selectedModelPortfolio, portfolio, portfolioSelect, saveModelPortfolio, deleteModelPortfolio, removeSecurity, securityTextFieldChange}) => {
+  const securityRows = portfolio.map( (security, index) => {
     return (<SecurityRow
-                         security={security}
-                         securitySelect={portfolioSelect.securitiesSelect[index]}
-                         removeSecurity={removeSecurity}
-                         securityTextFieldChange={securityTextFieldChange} />);
-  });
+                         key={ index }
+                         security={ security }
+                         securitySelect={ portfolioSelect.securitiesSelect[ index ] }
+                         removeSecurity={ removeSecurity }
+                         securityTextFieldChange={ securityTextFieldChange } />);
+  } );
 
   return (
-    <Table
-         className={cx('table')}
-         wrapperStyle={{ overflow: 'hidden' }}>
-      <TableHeader
-                 displaySelectAll={false}
-                 adjustForCheckbox={false}>
-        <TableRow>
-          <TableHeaderColumn
-                           className={cx('table-header-column')}
+  <Table
+         wrapperStyle={ { overflow: 'hidden' } }
+         className={ cx( 'table' ) }>
+    <TableHeader
+                 displaySelectAll={ false }
+                 adjustForCheckbox={ false }>
+      <TableRow>
+        <TableHeaderColumn
                            data-tip
-                           data-for="tooltipColumnHeaderSymbol">
+                           data-for="tooltipColumnHeaderSymbol"
+                           className={ cx( 'table-header-column' ) }>
           Symbol
-        </TableHeaderColumn>
           <ReactTooltip id="tooltipColumnHeaderSymbol">
             <p>
-            Ticker symbol as shown on https://finance.yahoo.com.
-          </p>
+              Ticker symbol as shown on https://finance.yahoo.com.
+            </p>
           </ReactTooltip>
-          <TableHeaderColumn
-                           className={cx('table-header-column')}
-                           data-tip
-                           data-for="tooltipColumnHeaderAllocation">
-          Allocation
         </TableHeaderColumn>
+        <TableHeaderColumn
+                           data-tip
+                           data-for="tooltipColumnHeaderAllocation"
+                           className={ cx( 'table-header-column' ) }>
+          Allocation
           <ReactTooltip id="tooltipColumnHeaderAllocation">
             <p>
-            Percentage allocation of your portfolio this security should be.
-          </p>
+              Percentage allocation of your portfolio this security should be.
+            </p>
           </ReactTooltip>
-          <TableHeaderColumn
-                           className={cx('table-header-column')}
-                           data-tip
-                           data-for="tooltipColumnHeaderPrice">
-          Price
         </TableHeaderColumn>
+        <TableHeaderColumn
+                           data-tip
+                           data-for="tooltipColumnHeaderPrice"
+                           className={ cx( 'table-header-column' ) }>
+          Price
           <ReactTooltip id="tooltipColumnHeaderPrice">
             <p>
-            Price at which each unit will bought/sold.
-            <br /> Prices are fetched from https://finance.yahoo.com.
-          </p>
+              Price at which each unit will bought/sold.
+              <br /> Prices are fetched from https://finance.yahoo.com.
+            </p>
           </ReactTooltip>
-          <TableHeaderColumn
-                           className={cx('table-header-column')}
-                           data-tip
-                           data-for="tooltipColumnHeaderUnits">
-          Units
         </TableHeaderColumn>
+        <TableHeaderColumn
+                           data-tip
+                           data-for="tooltipColumnHeaderUnits"
+                           className={ cx( 'table-header-column' ) }>
+          Units
           <ReactTooltip id="tooltipColumnHeaderUnits">
             <p>
-            How many units of the security you currently own.
-          </p>
+              How many units of the security you currently own.
+            </p>
           </ReactTooltip>
-          <TableHeaderColumn className={cx('table-header-column-last')}>
-            <SaveModelPortfolioButton
-                                    visibility={portfolioSelect.saveModelPortfolioButtonSelect.visibility}
-                                    tooltip={portfolioSelect.saveModelPortfolioButtonSelect.tooltip}
-                                    portfolio={portfolio}
-                                    selectedModelPortfolio={selectedModelPortfolio}
-                                    saveModelPortfolio={saveModelPortfolio} />
-            <DeleteModelPortfolioButton
-                                      id={selectedModelPortfolio.id}
-                                      deleteModelPortfolio={deleteModelPortfolio}
-                                      visibility={portfolioSelect.deleteModelPortfolioButtonVisibility} />
-          </TableHeaderColumn>
-        </TableRow>
-      </TableHeader>
-      <TableBody displayRowCheckbox={false}>
-        { securityRows }
-      </TableBody>
-    </Table>
+        </TableHeaderColumn>
+        <TableHeaderColumn className={ cx( 'table-header-column-last' ) }>
+          <SaveModelPortfolioButton
+                                    visibility={ portfolioSelect.saveModelPortfolioButtonSelect.visibility }
+                                    tooltip={ portfolioSelect.saveModelPortfolioButtonSelect.tooltip }
+                                    portfolio={ portfolio }
+                                    selectedModelPortfolio={ selectedModelPortfolio }
+                                    saveModelPortfolio={ saveModelPortfolio } />
+          <DeleteModelPortfolioButton
+                                      id={ selectedModelPortfolio.id }
+                                      deleteModelPortfolio={ deleteModelPortfolio }
+                                      visibility={ portfolioSelect.deleteModelPortfolioButtonVisibility } />
+        </TableHeaderColumn>
+      </TableRow>
+    </TableHeader>
+    <TableBody displayRowCheckbox={ false }>
+      { securityRows }
+    </TableBody>
+  </Table>
   );
 };
 
 PortfolioTable.propTypes = {
-  portfolio: PropTypes.object.isRequired,
+  selectedModelPortfolio: PropTypes.object.isRequired,
+  portfolio: PropTypes.array.isRequired,
   portfolioSelect: PropTypes.object.isRequired,
-  removeSecurity: PropTypes.func.isRequired,
-  securityTextFieldChange: PropTypes.func.isRequired,
   saveModelPortfolio: PropTypes.func.isRequired,
   deleteModelPortfolio: PropTypes.func.isRequired,
-  selectedModelPortfolio: PropTypes.object.isRequired
+  removeSecurity: PropTypes.func.isRequired,
+  securityTextFieldChange: PropTypes.func.isRequired
 };
 
 export default PortfolioTable;

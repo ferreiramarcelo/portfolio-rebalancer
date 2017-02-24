@@ -24,7 +24,6 @@ const PriceCell = ({index, value, setOnce, fetchStatus, errorText, onChange}) =>
 
     <div>
       <TextField
-               id={'priceTextField' + index}
                value={displayValue}
                errorText={errorText}
                onChange={handleOnChange}

@@ -21,7 +21,6 @@ const UnitsTextField = ({index, value, setOnce, errorText, onChange}) => {
 
   return (
     <TextField
-             id={'unitsTextField' + index}
              value={displayValue}
              errorText={errorText}
              onChange={handleOnChange}

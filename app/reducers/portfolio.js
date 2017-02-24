@@ -83,7 +83,7 @@ const allocation = (state = {
   switch (action.type) {
     case types.SELECT_MODEL_PORTFOLIO:
       return {
-        value: action.security.allocation,
+        value: String(action.security.allocation),
         setOnce: true
       };
     case types.SECURITY_TEXT_FIELD_CHANGE:
@@ -104,8 +104,9 @@ const price = (state = {
   switch (action.type) {
     case types.SELECT_MODEL_PORTFOLIO:
       return {
-        value: action.security.price,
-        setOnce: true
+        value: (action.security.price || '1.00'),
+        setOnce: true,
+        fetchStatus: 'NONE'
       };
     case types.SECURITY_TEXT_FIELD_CHANGE:
       return {

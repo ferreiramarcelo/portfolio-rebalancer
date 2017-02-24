@@ -8,7 +8,7 @@ import styles from '../../css/components/portfolio/portfolio';
 
 const cx = classNames.bind(styles);
 
-const Portfolio = ({portfolioSelect, selectedModelPortfolio, modelPortfolioNameTextFieldChange, portfolio, removeSecurity, securityTextFieldChange, addSecurity, saveModelPortfolio, deleteModelPortfolio}) => {
+const Portfolio = ({selectedModelPortfolio, modelPortfolioNameTextFieldChange, portfolio, portfolioSelect, saveModelPortfolio, deleteModelPortfolio, addSecurity, removeSecurity, securityTextFieldChange}) => {
   return (
     <Card className={cx('card')}>
       <div className={cx('portfolio-container')}>
@@ -34,15 +34,15 @@ const Portfolio = ({portfolioSelect, selectedModelPortfolio, modelPortfolioNameT
 };
 
 Portfolio.propTypes = {
-  portfolioSelect: PropTypes.object.isRequired,
   selectedModelPortfolio: PropTypes.object.isRequired,
   modelPortfolioNameTextFieldChange: PropTypes.func.isRequired,
-  portfolio: PropTypes.object.isRequired,
-  removeSecurity: PropTypes.object.isRequired,
-  securityTextFieldChange: PropTypes.func.isRequired,
-  addSecurity: PropTypes.func.isRequired,
+  portfolio: PropTypes.array.isRequired,
+  portfolioSelect: PropTypes.object.isRequired,
   saveModelPortfolio: PropTypes.func.isRequired,
-  deleteModelPortfolio: PropTypes.func.isRequired
+  deleteModelPortfolio: PropTypes.func.isRequired,
+  addSecurity: PropTypes.func.isRequired,
+  removeSecurity: PropTypes.func.isRequired,
+  securityTextFieldChange: PropTypes.func.isRequired
 };
 
 export default Portfolio;
