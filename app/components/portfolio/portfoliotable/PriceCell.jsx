@@ -7,7 +7,7 @@ import styles from '../../../css/components/portfolio/portfolio-table/price-cell
 const cx = classNames.bind( styles );
 
 const PriceCell = ({index, price, priceSelect, securityTextFieldChange, fetchPrice}) => {
-  const getDisplayValue = function getDisplayValueFunc( givenValue, givenSetOnce ) {
+  const getDisplayValue = function getDisplayValue( givenValue, givenSetOnce ) {
     if ( givenSetOnce ) {
       return givenValue;
     }
@@ -16,7 +16,7 @@ const PriceCell = ({index, price, priceSelect, securityTextFieldChange, fetchPri
 
   const displayValue = getDisplayValue( price.value, price.setOnce );
 
-  const handleOnChange = function handleOnChangeFunc( event, newValue ) {
+  const handleOnChange = function handleOnChange( event, newValue ) {
     securityTextFieldChange( index, 'price', newValue );
   };
 
@@ -27,7 +27,7 @@ const PriceCell = ({index, price, priceSelect, securityTextFieldChange, fetchPri
                value={ price.value }
                errorText={ priceSelect.errorText }
                onChange={ handleOnChange }
-               hintText="1.00"
+               hintText={priceSelect.hintText}
                errorStyle={ { float: 'left' } }
                className={ cx( 'price-text-field' ) } />
     <PriceProgress

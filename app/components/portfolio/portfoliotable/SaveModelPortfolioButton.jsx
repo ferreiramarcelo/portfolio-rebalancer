@@ -8,16 +8,16 @@ import styles from '../../../css/components/portfolio/portfolio-table/save-model
 const cx = classNames.bind( styles );
 
 const SaveModelPortfolioButton = ({visibility, tooltip, portfolio, selectedModelPortfolio, saveModelPortfolio}) => {
-  const handleOnClick = function handleOnClickFunc() {
+  const handleOnClick = function handleOnClick() {
     saveModelPortfolio( selectedModelPortfolio, portfolio );
   };
 
-  const getSaveModelPortfolioButton = function getSaveModelPortfolioButtonFunc( givenVisibility, onClickFunction ) {
+  const getSaveModelPortfolioButton = function getSaveModelPortfolioButton( givenVisibility, onClicktion ) {
     switch (givenVisibility) {
       case 'visible':
         return (<div>
                   <IconButton
-                              onTouchTap={ onClickFunction }
+                              onTouchTap={ onClicktion }
                               touch
                               className={ cx( 'save-model-portfolio-button' ) }>
                     <ContentSave />
@@ -27,7 +27,7 @@ const SaveModelPortfolioButton = ({visibility, tooltip, portfolio, selectedModel
         return (<div>
                   <IconButton
                               disabled
-                              onTouchTap={ onClickFunction }
+                              onTouchTap={ onClicktion }
                               touch
                               className={ cx( 'save-model-portfolio-button' ) }>
                     <ContentSave />

@@ -1,15 +1,15 @@
 import React, { PropTypes } from 'react';
 
 const StepsList = ({rebalancingSteps}) => {
-  const formatMoneyAmount = function formatMoneyAmountFunc(moneyAmount) {
+  const formatMoneyAmount = function formatMoneyAmount(moneyAmount) {
     return moneyAmount.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
   };
 
-  const formatUnitsAmount = function formatUnitsAmountFunc(unitsAmount) {
+  const formatUnitsAmount = function formatUnitsAmount(unitsAmount) {
     return unitsAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   };
 
-  const generateStepsList = function genereateStepsListsFunc(givenRebalancingSteps) {
+  const generateStepsList = function genereateStepsLists(givenRebalancingSteps) {
     if (givenRebalancingSteps.balanceByInvesting) {
       const stepsList = [];
       const investmentSteps = [];

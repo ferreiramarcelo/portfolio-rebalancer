@@ -9,7 +9,7 @@ import styles from '../../css/components/portfolioselection/model-portfolios-aut
 const cx = classNames.bind( styles );
 
 const ModelPortfoliosAutoComplete = ({searchText, onUpdateInput, modelPortfolios, email, selectModelPortfolio}) => {
-  const getDefaultModelPortfolios = function getDefaultModelPortfoliosFunc( givenModelPortfolios ) {
+  const getDefaultModelPortfolios = function getDefaultModelPortfolios( givenModelPortfolios ) {
     const defaultModelPortfolios = [];
     for (let i = 0; i < givenModelPortfolios.length; i++) {
       if ( !givenModelPortfolios[ i ].email ) {
@@ -20,7 +20,7 @@ const ModelPortfoliosAutoComplete = ({searchText, onUpdateInput, modelPortfolios
   };
   const defaultModelPortfolios = getDefaultModelPortfolios( modelPortfolios );
 
-  const getUserModelPortfolios = function getUserModelPortfoliosFunc( givenModelPortfolios, givenEmail ) {
+  const getUserModelPortfolios = function getUserModelPortfolios( givenModelPortfolios, givenEmail ) {
     const userModelPortfolios = [];
     for (let i = 0; i < givenModelPortfolios.length; i++) {
       if ( givenModelPortfolios[ i ].email === givenEmail ) {
@@ -31,7 +31,7 @@ const ModelPortfoliosAutoComplete = ({searchText, onUpdateInput, modelPortfolios
   };
   const userModelPortfolios = getUserModelPortfolios( modelPortfolios, email );
 
-  const sortModelPortfoliosAlphabeticaly = function sortModelPortfoliosAlphabeticalyFunc( modelPortfolioA, modelPortfolioB ) {
+  const sortModelPortfoliosAlphabeticaly = function sortModelPortfoliosAlphabeticaly( modelPortfolioA, modelPortfolioB ) {
     const modelPortfolioNameA = modelPortfolioA.name.toUpperCase();
     const modePortfolioNameB = modelPortfolioB.name.toUpperCase();
     if ( modelPortfolioNameA < modePortfolioNameB ) {

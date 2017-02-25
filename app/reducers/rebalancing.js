@@ -24,7 +24,6 @@ const rebalancingSteps = (state = {},
         equityFromPortfolio += security.price * security.units;
       }
       const totalEquity = investmentAmount + equityFromPortfolio;
-
       let valuePerSecurityCurrent = [];
       for (const security of portfolio) {
         valuePerSecurityCurrent.push(security.price * security.units);

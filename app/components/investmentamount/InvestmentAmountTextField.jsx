@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import TextField from 'material-ui/TextField';
 
 const InvestmentAmountTextField = ({value, setOnce, errorText, hintText, onChange}) => {
-  const getDisplayValue = function getDisplayValueFunc(givenValue, givenSetOnce) {
+  const getDisplayValue = function getDisplayValue(givenValue, givenSetOnce) {
     if (givenSetOnce) {
       return givenValue;
     }
@@ -11,7 +11,7 @@ const InvestmentAmountTextField = ({value, setOnce, errorText, hintText, onChang
 
   const displayValue = getDisplayValue(value, setOnce);
 
-  const handleOnChange = function handleOnChangeFunc(event, newValue) {
+  const handleOnChange = function handleOnChange(event, newValue) {
     onChange(newValue);
   };
 

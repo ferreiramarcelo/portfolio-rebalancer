@@ -8,7 +8,7 @@ function validateEmailAddress(emailAddress) {
     return regex.test(emailAddress);
 }
 
-const getEmailTextFieldSelect = function getEmailTextFieldSelectFunc(emailTextField) {
+const getEmailTextFieldSelect = function getEmailTextFieldSelect(emailTextField) {
   let errorText = '';
   let valid = 1;
   if (emailTextField.setOnce === 0) {
@@ -23,7 +23,7 @@ const getEmailTextFieldSelect = function getEmailTextFieldSelectFunc(emailTextFi
   return {errorText, valid};
 };
 
-const getPasswordTextFieldSelect = function getPasswordTextFieldSelectFunc(passwordTextField) {
+const getPasswordTextFieldSelect = function getPasswordTextFieldSelect(passwordTextField) {
   let errorText = '';
   let valid = 1;
   if (passwordTextField.setOnce === 0) {
@@ -35,7 +35,7 @@ const getPasswordTextFieldSelect = function getPasswordTextFieldSelectFunc(passw
   return {errorText, valid};
 };
 
-const getPasswordConfirmationTextFieldSelect = function getPasswordConfirmationTextFieldSelectFunc(passwordTextField, passwordConfirmationTextField) {
+const getPasswordConfirmationTextFieldSelect = function getPasswordConfirmationTextFieldSelect(passwordTextField, passwordConfirmationTextField) {
   let errorText = '';
   let valid = 1;
   if (passwordConfirmationTextField.setOnce === 0) {
@@ -50,14 +50,14 @@ const getPasswordConfirmationTextFieldSelect = function getPasswordConfirmationT
   return {errorText, valid};
 };
 
-const getLoginButtonVisibility = function getLoginButtonVisibilityFunc(emailTextFieldSelect, passwordTextFieldSelect) {
+const getLoginButtonVisibility = function getLoginButtonVisibility(emailTextFieldSelect, passwordTextFieldSelect) {
   if (emailTextFieldSelect.valid === 1 && passwordTextFieldSelect.valid === 1) {
     return 'visible';
   }
   return 'disabled';
 };
 
-const getRegisterButtonVisibility = function getRegisterButtonVisibilityFunc(emailTextFieldSelect, passwordTextFieldSelect, passwordConfirmationTextFieldSelect) {
+const getRegisterButtonVisibility = function getRegisterButtonVisibility(emailTextFieldSelect, passwordTextFieldSelect, passwordConfirmationTextFieldSelect) {
   if (emailTextFieldSelect.valid === 1 && passwordTextFieldSelect.valid === 1 && passwordConfirmationTextFieldSelect.valid === 1) {
     return 'visible';
   }

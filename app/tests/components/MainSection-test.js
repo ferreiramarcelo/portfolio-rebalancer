@@ -13,7 +13,7 @@ const modelPortfolioItemData = [{
   onDecrement: () => {},
   onDestroy: () => {}
 }];
-const stubFunctions = {
+const stubtions = {
   onIncrement: () => {},
   onDecrement: () => {},
   onDestroy: () => {}
@@ -22,13 +22,13 @@ const stubFunctions = {
 describe('<MainSection />', () => {
   describe('With ModelPortfolios', () => {
     it('should render <ModelPortfolioItem> list items', () => {
-      expect(mount(<MainSection modelPortfolios={modelPortfolioItemData} {...stubFunctions} />).find(ModelPortfolioItem).length).toBe(1);
+      expect(mount(<MainSection modelPortfolios={modelPortfolioItemData} {...stubtions} />).find(ModelPortfolioItem).length).toBe(1);
     });
   });
 
   describe('Without ModelPortfolios', () => {
     it('should not render <ModelPortfolioItem> list items', () => {
-      expect(mount(<MainSection modelPortfolios={emptyData} {...stubFunctions} />).find(ModelPortfolioItem).length).toBe(0);
+      expect(mount(<MainSection modelPortfolios={emptyData} {...stubtions} />).find(ModelPortfolioItem).length).toBe(0);
     });
   });
 });

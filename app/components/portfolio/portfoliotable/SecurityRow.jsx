@@ -20,6 +20,7 @@ const SecurityRow = ({security, securitySelect, removeSecurity, securityTextFiel
                                value={ security.symbol.value }
                                setOnce={ security.symbol.setOnce }
                                errorText={ securitySelect.symbolSelect.errorText }
+                               hintText= {securitySelect.symbolSelect.hintText }
                                onChange={ securityTextFieldChange } />
             </TableRowColumn>
             <TableRowColumn
@@ -29,6 +30,7 @@ const SecurityRow = ({security, securitySelect, removeSecurity, securityTextFiel
                                    value={ security.allocation.value }
                                    setOnce={ security.allocation.setOnce }
                                    errorText={ securitySelect.allocationSelect.errorText }
+                                   hintText= {securitySelect.allocationSelect.hintText }
                                    onChange={ securityTextFieldChange } />
             </TableRowColumn>
             <TableRowColumn
@@ -48,6 +50,7 @@ const SecurityRow = ({security, securitySelect, removeSecurity, securityTextFiel
                               value={ security.units.value }
                               setOnce={ security.units.setOnce }
                               errorText={ securitySelect.unitsSelect.errorText }
+                              hintText= {securitySelect.unitsSelect.hintText }
                               onChange={ securityTextFieldChange } />
             </TableRowColumn>
             <TableRowColumn

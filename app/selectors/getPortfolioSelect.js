@@ -6,9 +6,9 @@ const getPortfolio = (state) => state.portfolio;
 const getAuthenticated = (state) => state.user.authenticated;
 const getInvestmentAmount = (state) => state.investmentAmount.investmentAmount;
 
-const getSelectedModelPortfolioSelect = function getSelectedModelPortfolioSelectFunc(selectedModelPortfolio, modelPortfolios, email) {
+const getSelectedModelPortfolioSelect = function getSelectedModelPortfolioSelect(selectedModelPortfolio, modelPortfolios, email) {
   let valid = true;
-  const hintText = '';
+  let hintText = '';
   let errorText = '';
   if (!selectedModelPortfolio.name) {
     valid = false;
@@ -27,11 +27,11 @@ const getSelectedModelPortfolioSelect = function getSelectedModelPortfolioSelect
   };
 };
 
-const getSymbolSelect = function getSymbolSelectFunc(symbol) {
+const getSymbolSelect = function getSymbolSelect(symbol) {
   let valid = true;
   let hintText = '';
   let errorText = '';
-  if (!symbol.value) {
+  if (!symbol.value && symbol.value !== "0") {
     valid = false;
     errorText = 'Required';
   }
@@ -45,12 +45,12 @@ const getSymbolSelect = function getSymbolSelectFunc(symbol) {
   };
 };
 
-const getAllocationSelect = function getAllocationSelectFunc(allocation) {
+const getAllocationSelect = function getAllocationSelect(allocation) {
   let valid = true;
   const number = Number(allocation.value);
   let hintText = '';
   let errorText = '';
-  if (!allocation.value && number !== 0) {
+  if (!allocation.value && allocation.value !== "0") {
     errorText = 'Required';
     valid = false;
   } else if (typeof number !== 'number' || isNaN(number) || !isFinite(number)) {
@@ -74,12 +74,12 @@ const getAllocationSelect = function getAllocationSelectFunc(allocation) {
   };
 };
 
-const getPriceSelect = function getPriceSelectFunc(price) {
+const getPriceSelect = function getPriceSelect(price) {
   let valid = true;
   const number = Number(price.value);
   let hintText = '';
   let errorText = '';
-  if (!price.value && number !== 0) {
+  if (!price.value && price.value !== "0") {
     errorText = 'Required';
     valid = false;
   } else if (typeof number !== 'number' || isNaN(number) || !isFinite(number)) {
@@ -100,12 +100,12 @@ const getPriceSelect = function getPriceSelectFunc(price) {
   };
 };
 
-const getUnitsSelect = function getUnitsSelectFunc(units) {
+const getUnitsSelect = function getUnitsSelect(units) {
   let valid = true;
   const number = Number(units.value);
   let hintText = '';
   let errorText = '';
-  if (!units.value && number !== 0) {
+  if (!units.value && units.value !== "0") {
     errorText = 'Required';
     valid = false;
   } else if (typeof number !== 'number' || isNaN(number) || !isFinite(number)) {
@@ -126,7 +126,7 @@ const getUnitsSelect = function getUnitsSelectFunc(units) {
   };
 };
 
-const getSecuritySelect = function getSecuritySelectFunc(security) {
+const getSecuritySelect = function getSecuritySelect(security) {
   return {
     symbolSelect: getSymbolSelect(security.symbol),
     allocationSelect: getAllocationSelect(security.allocation),
@@ -135,7 +135,7 @@ const getSecuritySelect = function getSecuritySelectFunc(security) {
   };
 };
 
-const getSecuritiesSelect = function getSecuritiesSelectFunc(portfolio) {
+const getSecuritiesSelect = function getSecuritiesSelect(portfolio) {
   const securitiesSelect = [];
   for (const security of portfolio) {
     securitiesSelect.push(getSecuritySelect(security));
@@ -143,7 +143,7 @@ const getSecuritiesSelect = function getSecuritiesSelectFunc(portfolio) {
   return securitiesSelect;
 };
 
-const getSecuritiesAreValid = function getSecuritiesAreValidFunc(securitiesSelect) {
+const getSecuritiesAreValid = function getSecuritiesAreValid(securitiesSelect) {
   if (securitiesSelect.length < 1) {
     return false;
   }
@@ -155,7 +155,7 @@ const getSecuritiesAreValid = function getSecuritiesAreValidFunc(securitiesSelec
   return true;
 };
 
-const getInvestmentAmountSelect = function getInvestmentAmountSelectFunc(investmentAmount) {
+const getInvestmentAmountSelect = function getInvestmentAmountSelect(investmentAmount) {
   let valid = true;
   const number = Number(investmentAmount.value);
   let hintText = '';
@@ -178,7 +178,7 @@ const getInvestmentAmountSelect = function getInvestmentAmountSelectFunc(investm
   };
 };
 
-const getSaveModelPortfolioButtonSelect = function getSaveModelPortfolioButtonSelectFunc(authenticated, selectedModelPortfolioSelect, securitiesAreValid) {
+const getSaveModelPortfolioButtonSelect = function getSaveModelPortfolioButtonSelect(authenticated, selectedModelPortfolioSelect, securitiesAreValid) {
   let visibility = 'hidden';
   let tooltip = '';
   if (!authenticated) {
@@ -197,7 +197,7 @@ const getSaveModelPortfolioButtonSelect = function getSaveModelPortfolioButtonSe
   return {visibility, tooltip};
 };
 
-const getDeleteModelPortfolioButtonVisibility = function getDeleteModelPortfolioButtonVisibilityFunc(authenticated, selectedModelPortfolio) {
+const getDeleteModelPortfolioButtonVisibility = function getDeleteModelPortfolioButtonVisibility(authenticated, selectedModelPortfolio) {
   if (!authenticated) {
     return 'hidden';
   }
@@ -207,7 +207,7 @@ const getDeleteModelPortfolioButtonVisibility = function getDeleteModelPortfolio
   return 'visible';
 };
 
-const getGenerateStepsButtonVisibility = function getGenerateStepsButtonVisibilityFunc(investmentAmountSelect, securitiesAreValid) {
+const getGenerateStepsButtonVisibility = function getGenerateStepsButtonVisibility(investmentAmountSelect, securitiesAreValid) {
   if (!investmentAmountSelect.valid || !securitiesAreValid) {
     return 'disabled';
   }

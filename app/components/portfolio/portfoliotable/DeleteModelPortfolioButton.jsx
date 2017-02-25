@@ -8,15 +8,15 @@ import styles from '../../../css/components/portfolio/portfolio-table/delete-mod
 const cx = classNames.bind( styles );
 
 const DeleteModelPortfolioButton = ({id, deleteModelPortfolio, visibility}) => {
-  const handleOnClick = function handleOnClickFunc() {
+  const handleOnClick = function handleOnClick() {
     deleteModelPortfolio( id );
   };
 
-  const getDeleteModelPortfolioButton = function getDeleteModelPortfolioButtonFunc( givenVisbility, onClickFunction ) {
+  const getDeleteModelPortfolioButton = function getDeleteModelPortfolioButton( givenVisbility, onClicktion ) {
     switch (givenVisbility) {
       case 'visible':
         return (<IconButton
-                    onTouchTap={ onClickFunction }
+                    onTouchTap={ onClicktion }
                     touch
                     className={ cx( 'delete-model-portfolio-button' ) }>
           <ActionDeleteForever />
@@ -24,7 +24,7 @@ const DeleteModelPortfolioButton = ({id, deleteModelPortfolio, visibility}) => {
       case 'disabled':
         return (<IconButton
                     disabled
-                    onTouchTap={ onClickFunction }
+                    onTouchTap={ onClicktion }
                     touch
                     className={ cx( 'delete-model-portfolio-button' ) }>
           <ActionDeleteForever />
