@@ -9,7 +9,7 @@ const NewPortfolioButton = ({createNewModelPortfolio}) => {
   return (
     <div className={cx('new-portfolio-button-container')}>
       <FlatButton
-                onTouchTap={createNewModelPortfolio}
+                onClick={createNewModelPortfolio}
                 label="NEW"
                 labelPosition="before"
                 secondary />

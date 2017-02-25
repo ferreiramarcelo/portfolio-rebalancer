@@ -17,7 +17,7 @@ const SaveModelPortfolioButton = ({visibility, tooltip, portfolio, selectedModel
       case 'visible':
         return (<div>
                   <IconButton
-                              onTouchTap={ onClicktion }
+                              onClick={ onClicktion }
                               touch
                               className={ cx( 'save-model-portfolio-button' ) }>
                     <ContentSave />
@@ -27,7 +27,7 @@ const SaveModelPortfolioButton = ({visibility, tooltip, portfolio, selectedModel
         return (<div>
                   <IconButton
                               disabled
-                              onTouchTap={ onClicktion }
+                              onClick={ onClicktion }
                               touch
                               className={ cx( 'save-model-portfolio-button' ) }>
                     <ContentSave />

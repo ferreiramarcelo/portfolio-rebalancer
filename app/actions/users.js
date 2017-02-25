@@ -8,8 +8,8 @@ polyfill();
 
 const getMessage = res => res.response && res.response.data && res.response.data.message;
 
-function makeUserRequest(method, data, api = '/login') {
-  return request[method](api, data);
+function makeUserRequest( method, data, api = '/login' ) {
+  return request[ method ]( api, data );
 }
 
 function beginLogin() {
@@ -18,7 +18,7 @@ function beginLogin() {
   };
 }
 
-function loginSuccess(message, email) {
+function loginSuccess( message, email ) {
   return {
     type: types.LOGIN_SUCCESS_USER,
     message,
@@ -26,14 +26,14 @@ function loginSuccess(message, email) {
   };
 }
 
-function loginError(message) {
+function loginError( message ) {
   return {
     type: types.LOGIN_ERROR_USER,
     message
   };
 }
 
-function signUpError(message) {
+function signUpError( message ) {
   return {
     type: types.SIGNUP_ERROR_USER,
     message
@@ -46,7 +46,7 @@ function beginSignUp() {
   };
 }
 
-function signUpSuccess(message, email) {
+function signUpSuccess( message, email ) {
   return {
     type: types.SIGNUP_SUCCESS_USER,
     message,
@@ -74,61 +74,61 @@ function logoutError() {
 
 export function manualLogin() {
   return (dispatch, getState) => {
-    dispatch(beginLogin());
+    dispatch( beginLogin() );
     const {authentication} = getState();
     const data = {
       email: authentication.emailTextField.value,
       password: authentication.passwordTextField.value
     };
-    return makeUserRequest('post', data, '/login')
-      .then(response => {
-        if (response.status === 200) {
-          dispatch(loginSuccess(response.data.message, data.email));
-          dispatch(push('/'));
+    return makeUserRequest( 'post', data, '/login' )
+      .then( response => {
+        if ( response.status === 200 ) {
+          dispatch( loginSuccess( response.data.message, data.email ) );
+          dispatch( push( '/' ) );
         } else {
-          dispatch(loginError('Oops! Something went wrong!'));
+          dispatch( loginError( 'Oops! Something went wrong!' ) );
         }
-      })
-      .catch(err => {
-        dispatch(loginError(getMessage(err)));
-      });
+      } )
+      .catch( err => {
+        dispatch( loginError( getMessage( err ) ) );
+      } );
   };
 }
 
 export function register() {
   return (dispatch, getState) => {
-    dispatch(beginSignUp());
+    dispatch( beginSignUp() );
     const {authentication} = getState();
     const data = {
       email: authentication.emailTextField.value,
       password: authentication.passwordTextField.value
     };
-    return makeUserRequest('post', data, '/signup')
-      .then(response => {
-        if (response.status === 200) {
-          dispatch(signUpSuccess(response.data.message, data.email));
-          dispatch(push('/'));
+    return makeUserRequest( 'post', data, '/signup' )
+      .then( response => {
+        if ( response.status === 200 ) {
+          dispatch( signUpSuccess( response.data.message, data.email ) );
+          dispatch( push( '/' ) );
         } else {
-          dispatch(signUpError('Oops! Something went wrong'));
+          dispatch( signUpError( 'Oops! Something went wrong' ) );
         }
-      })
-      .catch(err => {
-        dispatch(signUpError(getMessage(err)));
-      });
+      } )
+      .catch( err => {
+        dispatch( signUpError( getMessage( err ) ) );
+      } );
   };
 }
 
 export function logOut() {
   return dispatch => {
-    dispatch(beginLogout());
+    dispatch( beginLogout() );
 
-    return makeUserRequest('post', null, '/logout')
-      .then(response => {
-        if (response.status === 200) {
-          dispatch(logoutSuccess());
+    return makeUserRequest( 'post', null, '/logout' )
+      .then( response => {
+        if ( response.status === 200 ) {
+          dispatch( logoutSuccess() );
         } else {
-          dispatch(logoutError());
+          dispatch( logoutError() );
         }
-      });
+      } );
   };
 }

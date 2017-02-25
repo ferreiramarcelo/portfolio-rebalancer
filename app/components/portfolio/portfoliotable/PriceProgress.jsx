@@ -19,20 +19,20 @@ const PriceProgress = ({index, fetchStatus, onClick}) => {
       return null;
     } else if ( givenFetchStatus === 'IN_PROGRESS' ) {
       return (<CircularProgress
-                                onTouchTap={ handleOnClick }
+                                onClick={ handleOnClick }
                                 size={ 20 }
                                 thickness={ 3 }
                                 className={ cx( 'price-progress-spinner' ) } />);
     } else if ( givenFetchStatus === 'DONE' ) {
       return (<IconButton
-                          onTouchTap={ handleOnClick }
+                          onClick={ handleOnClick }
                           className={ cx( 'price-progress-icon' ) }>
                 <ActionDone />
               </IconButton>);
     } else if ( givenFetchStatus === 'FAILED' ) {
       return (<div>
                 <IconButton
-                            onTouchTap={ handleOnClick }
+                            onClick={ handleOnClick }
                             data-tip
                             data-for="tooltipPriceFetchError"
                             className={ cx( 'price-progress-icon' ) }>

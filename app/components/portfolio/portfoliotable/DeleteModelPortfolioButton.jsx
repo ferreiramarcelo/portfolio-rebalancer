@@ -16,7 +16,7 @@ const DeleteModelPortfolioButton = ({id, deleteModelPortfolio, visibility}) => {
     switch (givenVisbility) {
       case 'visible':
         return (<IconButton
-                    onTouchTap={ onClicktion }
+                    onClick={ onClicktion }
                     touch
                     className={ cx( 'delete-model-portfolio-button' ) }>
           <ActionDeleteForever />
@@ -24,7 +24,7 @@ const DeleteModelPortfolioButton = ({id, deleteModelPortfolio, visibility}) => {
       case 'disabled':
         return (<IconButton
                     disabled
-                    onTouchTap={ onClicktion }
+                    onClick={ onClicktion }
                     touch
                     className={ cx( 'delete-model-portfolio-button' ) }>
           <ActionDeleteForever />

@@ -5,7 +5,7 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 const AddSecurityButton = ({addSecurity}) => {
   return (
     <IconButton
-              onTouchTap={addSecurity}
+              onClick={addSecurity}
               touch>
       <ContentAdd />
     </IconButton>

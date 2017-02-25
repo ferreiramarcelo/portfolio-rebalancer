@@ -20,6 +20,7 @@ const SymbolTextField = ({index, value, setOnce, errorText, hintText, onChange})
 
   return (
     <TextField
+      id={'symbolTextField' + index}
              value={displayValue}
              errorText={errorText}
              onChange={handleOnChange}

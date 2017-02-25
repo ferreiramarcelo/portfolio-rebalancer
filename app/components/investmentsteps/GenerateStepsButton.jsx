@@ -10,7 +10,7 @@ const GenerateStepsButton = ({visibility, generateSteps}) => {
   return (
     <RaisedButton
                 disabled={visibility === 'disabled'}
-                onTouchTap={handleOnClick}
+                onClick={handleOnClick}
                 primary
                 fullWidth
                 label="GENERATE STEPS"

@@ -15,14 +15,14 @@ const StepsList = ({rebalancingSteps}) => {
       const investmentSteps = [];
       const disvestmentSteps = [];
       const adjustmentSteps = [];
-      stepsList.push(<h3>Steps List</h3>);
+      stepsList.push(<h3 key={'stepsListHeader'}>Steps List</h3>);
 
       let invested = false;
       let disvested = false;
       let adjusted = false;
       let stepNumber = 1;
       if (givenRebalancingSteps.cashStillMissing) {
-        stepsList.push(<p>
+        stepsList.push(<p key="sellEverythingStep">
                           Sell the entire portfolio. You will still be missing $
                           { formatMoneyAmount(givenRebalancingSteps.cashStillMissing) }.
                         </p>);
@@ -31,7 +31,7 @@ const StepsList = ({rebalancingSteps}) => {
       if (givenRebalancingSteps.balanceByInvesting.length > 0) {
         for (let i = 0; i < givenRebalancingSteps.portfolio.length; i++) {
           if (givenRebalancingSteps.balanceByInvesting[i] > 0) {
-            investmentSteps.push(<p>
+            investmentSteps.push(<p key={'investment' + i}>
               { stepNumber }. Buy&nbsp;
                               { formatUnitsAmount(givenRebalancingSteps.balanceByInvesting[i]) } unit{givenRebalancingSteps.balanceByInvesting[i] > 1 ? 's' : ''} of&nbsp;
                               { givenRebalancingSteps.portfolio[i].symbol }
@@ -47,7 +47,7 @@ const StepsList = ({rebalancingSteps}) => {
       if (givenRebalancingSteps.balanceByDisvesting.length > 0) {
         for (let i = 0; i < givenRebalancingSteps.portfolio.length; i++) {
           if (givenRebalancingSteps.balanceByDisvesting[i] > 0) {
-            disvestmentSteps.push(<p>
+            disvestmentSteps.push(<p key={'disvestment' + i}>
               { stepNumber }. Sell&nbsp;
                               { formatUnitsAmount(givenRebalancingSteps.balanceByDisvesting[i]) } unit{givenRebalancingSteps.balanceByDisvesting[i] > 1 ? 's' : ''} of&nbsp;
                               { givenRebalancingSteps.portfolio[i].symbol }
@@ -63,7 +63,7 @@ const StepsList = ({rebalancingSteps}) => {
       if (givenRebalancingSteps.balanceByAdjusting.length > 0) {
         for (let i = 0; i < givenRebalancingSteps.portfolio.length; i++) {
           if (givenRebalancingSteps.balanceByAdjusting[i] < 0) {
-            adjustmentSteps.push(<p>
+            adjustmentSteps.push(<p key={'positiveAdjustment' + i}>
               { stepNumber }. Sell&nbsp;
                               { formatUnitsAmount(-1 * givenRebalancingSteps.balanceByAdjusting[i]) } unit{givenRebalancingSteps.balanceByAdjusting[i] > 1 ? 's' : ''} of&nbsp;
                               { givenRebalancingSteps.portfolio[i].symbol }
@@ -73,7 +73,7 @@ const StepsList = ({rebalancingSteps}) => {
         }
         for (let i = 0; i < givenRebalancingSteps.portfolio.length; i++) {
           if (givenRebalancingSteps.balanceByAdjusting[i] > 0) {
-            adjustmentSteps.push(<p>
+            adjustmentSteps.push(<p key={'negativeAdjustment' + i}>
               { stepNumber }. Buy&nbsp;
                               { formatUnitsAmount(givenRebalancingSteps.balanceByAdjusting[i]) } unit{givenRebalancingSteps.balanceByAdjusting[i] > 1 ? 's' : ''} of&nbsp;
                               { givenRebalancingSteps.portfolio[i].symbol }
@@ -87,7 +87,7 @@ const StepsList = ({rebalancingSteps}) => {
       }
 
       if (!invested && !disvested && !adjusted) {
-        stepsList.push(<p>Not enough capital to rebalance or invest further.</p>);
+        stepsList.push(<p key="noInvNoDisNoAdjStep">Not enough capital to rebalance or invest further.</p>);
       } else if (invested && !adjusted) {
         stepsList.push(investmentSteps);
       } else if (disvested && !adjusted) {
@@ -95,14 +95,14 @@ const StepsList = ({rebalancingSteps}) => {
       } else if (!invested && !disvested && adjusted) {
         stepsList.push(adjustmentSteps);
       } else if (invested && adjusted) {
-        stepsList.push(<h4>Part 1: Rebalance by buying</h4>);
+        stepsList.push(<h4 key="rebalanceByBuyingHeader">Part 1: Rebalance by buying</h4>);
         stepsList.push(investmentSteps);
-        stepsList.push(<h4>Part 2: Rebalance by selling and buying</h4>);
+        stepsList.push(<h4 key="rebalancingByAdjustingheader">Part 2: Rebalance by selling and buying</h4>);
         stepsList.push(adjustmentSteps);
       } else if (disvested && adjusted) {
-        stepsList.push(<h4>Part 1: Rebalance by selling</h4>);
+        stepsList.push(<h4 key="rebalanceBySellingHeader">Part 1: Rebalance by selling</h4>);
         stepsList.push(disvestmentSteps);
-        stepsList.push(<h4>Part 2: Rebalance by selling and buying</h4>);
+        stepsList.push(<h4 key="rebalancingByAdjustingHeader">Part 2: Rebalance by selling and buying</h4>);
         stepsList.push(adjustmentSteps);
       }
       return stepsList;

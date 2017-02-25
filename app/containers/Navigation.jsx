@@ -24,7 +24,7 @@ const Navigation = ({user, logOut}) => {
       <FlatButton
                 labelStyle={{ color: 'white', fontSize: '16px' }}
                 className={cx('navigation-button-right')}
-                onTouchTap={user.authenticated
+                onClick={user.authenticated
                                ? logOut
                                : null}
                 containerElement={user.authenticated

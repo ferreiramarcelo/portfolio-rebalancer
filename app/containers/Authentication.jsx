@@ -48,20 +48,20 @@ class Authentication extends React.Component {
           { this.props.user.message }
         </p>
         <RaisedButton
-                      className={ cx( 'submit-button' ) }
+                      disabled={ this.props.authenticationSelect.loginButtonVisibility === 'disabled' }
                       label="Log In"
                       fullWidth
                       primary
-                      disabled={ this.props.authenticationSelect.loginButtonVisibility === 'disabled' }
-                      type="submit" />
+                      type="submit"
+                      className={ cx( 'submit-button' ) } />
       </form>
       <p>
         Don't have an account?&nbsp;
       </p>
       <FlatButton
+                  onClick={ this.props.toggleAuthenticationMode }
                   label="Register"
-                  secondary
-                  onTouchTap={ this.props.toggleAuthenticationMode } />
+                  secondary />
     </div>
     );
   }
@@ -89,12 +89,13 @@ class Authentication extends React.Component {
           { this.props.user.message }
         </p>
         <RaisedButton
-                      className={ cx( 'submit-button' ) }
+                      disabled={ this.props.authenticationSelect.registerButtonVisibility === 'disabled' }
                       label="Register"
                       fullWidth
                       primary
                       disabled={ this.props.authenticationSelect.registerButtonVisibility === 'disabled' }
-                      type="submit" />
+                      type="submit"
+                      className={ cx( 'submit-button' ) } />
       </form>
       <p>
         Already have an account?&nbsp;
@@ -102,7 +103,7 @@ class Authentication extends React.Component {
       <FlatButton
                   label="Login"
                   secondary
-                  onTouchTap={ this.props.toggleAuthenticationMode } />
+                  onClick={ this.props.toggleAuthenticationMode } />
     </div>
     );
   }
@@ -122,8 +123,8 @@ class Authentication extends React.Component {
     <div>
       <div className={ cx( 'google-login-button-container' ) }>
         <RaisedButton
-                      label=" Continue with Google"
                       href="/auth/google"
+                      label=" Continue with Google"
                       primary
                       fullWidth
                       icon={ <FontAwesome
@@ -140,10 +141,11 @@ class Authentication extends React.Component {
 
 Authentication.propTypes = {
   user: PropTypes.object.isRequired,
+  authentication: PropTypes.object.isRequired,
+  authenticationSelect: PropTypes.object.isRequired,
   manualLogin: PropTypes.func.isRequired,
   register: PropTypes.func.isRequired,
-  emailTextField: PropTypes.object.isRequired,
-  emailTextFieldSelect: PropTypes.object.isRequired,
+  emailTextFieldChange: PropTypes.func.isRequired,
   passwordTextFieldChange: PropTypes.func.isRequired,
   passwordConfirmationTextFieldChange: PropTypes.func.isRequired,
   toggleAuthenticationMode: PropTypes.func.isRequired,
