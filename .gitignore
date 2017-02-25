@@ -8,3 +8,4 @@ compiled
 .vscode
 server/config/secrets.js
 .env
+npm-debug

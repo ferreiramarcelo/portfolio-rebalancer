@@ -1,8 +1,8 @@
 {
-  "name": "react-webpack-node",
-  "version": "2.1.0",
-  "description": "Your One-Stop solution for a full-stack app with ES6/ES2015 React.js featuring universal Redux, React Router, React Router Redux Hot reloading, CSS modules, Express 4.x, and multiple ORMs.",
-  "repository": "https://github.com/choonkending/react-webpack-node",
+  "name": "Portfolio Rebalancer",
+  "version": "0.1",
+  "description": "Investment portfolio rebalancing web app",
+  "repository": "https://github.com/AlexisDeschamps/portfolio-rebalancer",
   "main": "index.js",
   "scripts": {
     "lint": "eslint --ext .js,.jsx app server",
@@ -17,7 +17,7 @@
     "postinstall": "npm run build",
     "keep-green": "git merge master && rm -rf node_modules && npm install && npm start"
   },
-  "author": "Choon Ken Ding",
+  "author": "Alexis Deschamps",
   "license": "MIT",
   "devDependencies": {
     "babel-plugin-transform-react-jsx-source": "^6.9.0",
