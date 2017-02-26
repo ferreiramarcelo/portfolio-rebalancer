@@ -13,7 +13,7 @@ Technologies used:
 - [**Node.js**](https://nodejs.org/en/) - JavaScript runtime environment
 - [**Express**](http://expressjs.com/) - Framework for Node.js
 - [**Material-UI**](http://www.material-ui.com/#/) - Set of React components
-- [**Webpack 2**](https://github.com/webpack/webpack) - Bundling
+- [**Webpack**](https://github.com/webpack/webpack) - Bundling
 - [**react-transform-hmr**](https://github.com/gaearon/react-transform-hmr) - Hot reloading
 - [**Karma**](https://karma-runner.github.io/1.0/index.html) - Test runner
 - [**Heroku**](https://dashboard.heroku.com/) - Cloud application platform
