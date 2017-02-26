@@ -215,17 +215,17 @@ export function getUnitsForAdjusting(valuePerSecurity, portfolio) {
   let currentCash = 0;
   for (let i = 0; i < valuePerSecurityWithIndex.length; i++) {
     if (valuePerSecurityWithIndex[i][1] < 0) {
-      const soldUnits = Math.ceil(valuePerSecurityWithIndex[i][1] / portfolio[i].price);
-      currentCash += soldUnits * -portfolio[i].price;
+      const soldUnits = Math.ceil(valuePerSecurityWithIndex[i][1] / portfolio[ valuePerSecurityWithIndex[i][0] ].price);
+      currentCash += soldUnits * - portfolio[ valuePerSecurityWithIndex[i][0] ].price;
       unitsAdjustmentsPerSecurity[valuePerSecurityWithIndex[i][0]] = soldUnits;
     } else if (valuePerSecurityWithIndex[i][1] > 0) {
       if (currentCash < 0) {
         break;
       }
-      const wholeUnits = Math.floor(valuePerSecurityWithIndex[i][1] / portfolio[i].price);
+      const wholeUnits = Math.floor(valuePerSecurityWithIndex[i][1] / portfolio[ valuePerSecurityWithIndex[i][0] ].price);
       const maxPurchaseableUnits = Math.floor(currentCash / portfolio[i].price);
       const purchasedUnits = Math.floor(wholeUnits, maxPurchaseableUnits);
-      currentCash -= purchasedUnits * portfolio[i].price;
+      currentCash -= purchasedUnits * portfolio[ valuePerSecurityWithIndex[i][0] ].price;
       unitsAdjustmentsPerSecurity[valuePerSecurityWithIndex[i][0]] = purchasedUnits;
     }
   }
