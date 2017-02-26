@@ -1,4 +1,4 @@
-# PortfolioRebalancer
+# Portfolio Rebalancer
 Portfolio Rebalancer is a web application for streamlined portfolio rebalancing.
 
 Link: https://www.portfoliorebalancer.com
