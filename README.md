@@ -5,7 +5,7 @@ Link: https://www.portfoliorebalancer.com
 
 Features:
 - Real-time prices from https://finance.yahoo.com
-- Selection of common model portfolios (E.g.: Canadian Couch Potato)
+- Selection of common model portfolios (e.g.: Canadian Couch Potato)
 - Model portfolio customization
 - Model portfolio saving for reuse
 - Calculations for taking out cash as well as investing
