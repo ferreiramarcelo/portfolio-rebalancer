@@ -19,3 +19,6 @@ Technologies used:
 - [**Heroku**](https://dashboard.heroku.com/) - Cloud application platform
 - [**MongoDB**](https://www.mongodb.com/) - NoSQL database program
 - [**Mongoose**](http://mongoosejs.com/) - MongoDB object modeling tool
+- [**ESLint**](http://eslint.org/) - Linting
+- [**nodemon**](https://github.com/remy/nodemon) - Change watching
+- [**Google OpenID Connect**](https://developers.google.com/identity/protocols/OpenIDConnect) - Authentication
