@@ -9,6 +9,7 @@ Features:
 - Model portfolio customization
 - Model portfolio saving for reuse
 - Calculations for taking out cash as well as investing
+- O(n) steps generation time
 
 # Technologies
 
