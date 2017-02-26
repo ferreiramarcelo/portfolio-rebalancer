@@ -2,37 +2,43 @@ import React from 'react';
 import classNames from 'classnames/bind';
 import styles from 'css/containers/about';
 
-const cx = classNames.bind(styles);
+const cx = classNames.bind( styles );
 
 const About = () => {
   return (
-    <div className={cx('about')}>
-      <h1 className={cx('header')}>About Portfolio Rebalancer</h1>
-      <h1 className={cx('header2')}>1. Purpose</h1>
-      <p>
+  <div className={ cx( 'about' ) }>
+    <h1 className={ cx( 'header' ) }>About Portfolio Rebalancer</h1>
+    <h1 className={ cx( 'header2' ) }>1. Purpose</h1>
+    <p>
       Because the market is in constant flux, a portfolio's allocation may divert from its intended target allocation. Thus, occasional rebalancing is required to bring
       a portfolio back in line. This tool aims to simplify the rebalancing process as much as possible by providing model portfolio storage, real-time security prices,
       and automatic steps generation.
+      <br/> This web app is also useful for knowing the exact number of units you need to buy or sell whenever you want to invest or take out money from your portfolio.
     </p>
-      <h1 className={cx('header2')}>2. Usage</h1>
-      <p>
-      Because the market is in constant flux, a portfolio's allocation may divert from its intended target allocation. Thus, occasional rebalancing is required to bring
-      a portfolio back in line. This tool aims to simplify the rebalancing process as much as possible by providing model portfolio storage, real-time security prices,
-      and automatic steps generation.
+    <h1 className={ cx( 'header2' ) }>2. Usage</h1>
+    <p>
+      First, recreate your model portfolio either by using one of the default model portfolios available, or by starting from scratch. For each security, enter the symbol
+      and the target allocation in the first two columns. If your allocations do not add up to 100, they will be normalized.
     </p>
-      <h1 className={cx('header2')}>3. Technologies used</h1>
-      <p>
-      Because the market is in constant flux, a portfolio's allocation may divert from its intended target allocation. Thus, occasional rebalancing is required to bring
-      a portfolio back in line. This tool aims to simplify the rebalancing process as much as possible by providing model portfolio storage, real-time security prices,
-      and automatic steps generation.
+    <p>
+      Prices will automatically be fetched from <a href='https://finance.yahoo.com/'>finance.yahoo.com</a> based on the symbolds provided. Be sure to account for different
+      exchanges, e.g.: "Vanguard FTSE Global All Cap ex Canada Index ETF" has the symbol "VXC.TO" on Yahoo Finance. Then enter, the number of units you currently have
+      of each security in the last column.
     </p>
-      <h1 className={cx('header2')}>4. Contact</h1>
-      <p>
-      Because the market is in constant flux, a portfolio's allocation may divert from its intended target allocation. Thus, occasional rebalancing is required to bring
-      a portfolio back in line. This tool aims to simplify the rebalancing process as much as possible by providing model portfolio storage, real-time security prices,
-      and automatic steps generation.
+    <p>
+      Finally, enter how much cash you wish to invest or take out and press the 'Generate Steps' button. A list of steps for rebalancing your portfolio will be generated.
     </p>
-    </div>
+    <p>
+      You can register to gain the ability to save model portfolis for reuse. Only model portfolio names, securities, and allocations are saved. You can verify this from
+      the <a href='https://github.com/AlexisDeschamps/portfolio-rebalancer'>source code</a>.
+    </p>
+    <h1 className={ cx( 'header2' ) }>4. Contact</h1>
+    <p>
+      Contact me, Alexis Deschamps, at <a
+                       href="mailto:descalexis@gmail.com"
+                       target="_top">descalexis@gmail.com</a> with any feedback or questions.
+    </p>
+  </div>
   );
 };
 

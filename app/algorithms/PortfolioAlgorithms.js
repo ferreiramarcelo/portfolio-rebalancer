@@ -182,6 +182,10 @@ export function getUnitsForInvesting(valueAdditionPerSecurity, portfolio, invest
     unitsAdditionPerSecurity[index] = purchasedUnits;
     index++;
   }
+  while (index < valueAdditionPerSecurity.length) {
+    unitsAdditionPerSecurity.push(0);
+    index++;
+  }
   return {
     unitsAdditionPerSecurity,
     extraCash: currentCash
@@ -198,6 +202,10 @@ export function getUnitsForDisvesting(valueReductionPerSecurity, portfolio, disv
     const soldUnits = Math.min(wholeUnits, maxSellableUnits);
     currentCash += soldUnits * portfolio[index].price;
     unitsReductionPerSecurity[index] = soldUnits;
+    index++;
+  }
+  while (index < valueReductionPerSecurity.length) {
+    unitsReductionPerSecurity.push(0);
     index++;
   }
   return {

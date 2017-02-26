@@ -69,10 +69,27 @@ describe('Rebalancing Reducer', () => {
     balanceByAdjusting: [547, -57]
   }
   };
-  it('REBALANCING 6: should handle GENERATE_STEPS with two security portfolio provided', () => {
+  it('REBALANCING 6: should handle GENERATE_STEPS with positive investment and two security portfolio provided', () => {
     expect(
       rebalancingReducer(undefined, {type: types.GENERATE_STEPS, portfolio: portfolio6, investmentAmount: investmentAmount6})
     ).toEqual(portfolioResult6);
   });
+
+    const portfolio7 = [{symbol: 'AAPL', allocation: 40, price: 354.32, units: 3242}, {symbol: 'MSFT', allocation: 59, price: 20, units: 324234.43}, {symbol: 'GOOG', allocation: 1, price: 800, units: 0}];
+    const investmentAmount7 = -8545.54;
+    const portfolioResult7 = {
+      rebalancingSteps: {
+      portfolio: [{symbol: 'AAPL', allocation: 40, price: 354.32, units: 3242}, {symbol: 'MSFT', allocation: 59, price: 20, units: 324234.43}, {symbol: 'GOOG', allocation: 1, price: 800, units: 0}],
+      cashStillMissing: 0,
+      balanceByInvesting: [],
+      balanceByDisvesting: [0, 428, 0],
+      balanceByAdjusting: [5365, -98873, 95]
+    }
+    };
+    it('REBALANCING 7: should handle GENERATE_STEPS with negative investment and two security portfolio provided', () => {
+      expect(
+        rebalancingReducer(undefined, {type: types.GENERATE_STEPS, portfolio: portfolio7, investmentAmount: investmentAmount7})
+      ).toEqual(portfolioResult7);
+    });
 
 });
