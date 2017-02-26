@@ -3,7 +3,14 @@ Portfolio Rebalancer is a web application for streamlined portfolio rebalancing.
 
 Link: https://www.portfoliorebalancer.com
 
-Technologies used:
+Features:
+- Real-time prices from https://finance.yahoo.com
+- Selection of common model portfolios (E.g.: Canadian Couch Potato)
+- Model portfolio customization
+- Model portfolio saving for reuse
+- Calculations for taking out cash as well as investing
+
+# Technologies
 
 - [**React**](https://facebook.github.io/react/) - JavaScript UI library
 - [**Redux**](https://github.com/reactjs/redux) - Predictable state container for JavaScript 
