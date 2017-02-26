@@ -22,3 +22,7 @@ Technologies used:
 - [**ESLint**](http://eslint.org/) - Linting
 - [**nodemon**](https://github.com/remy/nodemon) - Change watching
 - [**Google OpenID Connect**](https://developers.google.com/identity/protocols/OpenIDConnect) - Authentication
+
+
+# License
+[**MIT**](https://raw.githubusercontent.com/AlexisDeschamps/portfolio-rebalancer/master/LICENSE.txt)
