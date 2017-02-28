@@ -13,17 +13,17 @@ import PasswordConfirmationTextField from '../components/authentication/Password
 import { getAuthenticationSelect } from '../selectors/index';
 import styles from '../css/containers/authentication';
 
-const cx = classNames.bind( styles );
+const cx = classNames.bind(styles);
 
 class Authentication extends React.Component {
-  constructor( props ) {
-    super( props );
-    this.handleOnLogin = this.handleOnLogin.bind( this );
-    this.handleOnRegister = this.handleOnRegister.bind( this );
+  constructor(props) {
+    super(props);
+    this.handleOnLogin = this.handleOnLogin.bind(this);
+    this.handleOnRegister = this.handleOnRegister.bind(this);
   }
 
   getAuthenticationForm() {
-    if ( this.props.authentication.isLoginMode ) {
+    if (this.props.authentication.isLoginMode) {
       return this.getLoginForm();
     }
     return this.getRegistrationForm();
@@ -31,110 +31,113 @@ class Authentication extends React.Component {
 
   getLoginForm() {
     return (
-    <div className={ cx( 'card-insides' ) }>
-      Login with Email
-      <form onSubmit={ this.handleOnLogin }>
+      <div className={cx('card-insides')}>
+      Log in with email
+      <form onSubmit={this.handleOnLogin}>
         <EmailTextField
-                        value={ this.props.authentication.emailTextField.value }
-                        errorText={ this.props.authenticationSelect.emailTextFieldSelect.errorText }
-                        onChange={ this.props.emailTextFieldChange } />
+                        value={this.props.authentication.emailTextField.value}
+                        errorText={this.props.authenticationSelect.emailTextFieldSelect.errorText}
+                        onChange={this.props.emailTextFieldChange} />
         <PasswordTextField
-                           value={ this.props.authentication.passwordTextField.value }
-                           errorText={ this.props.authenticationSelect.passwordTextFieldSelect.errorText }
-                           onChange={ this.props.passwordTextFieldChange } />
-        <p className={ cx( 'message', {
+                           value={this.props.authentication.passwordTextField.value}
+                           errorText={this.props.authenticationSelect.passwordTextFieldSelect.errorText}
+                           onChange={this.props.passwordTextFieldChange} />
+        <p
+className={cx('message', {
                          'message-show': this.props.user.message && this.props.user.message.length > 0
-                       } ) }>
+                       })}>
           { this.props.user.message }
         </p>
         <RaisedButton
-                      disabled={ this.props.authenticationSelect.loginButtonVisibility === 'disabled' }
+                      disabled={this.props.authenticationSelect.loginButtonVisibility === 'disabled'}
                       label="Log In"
                       fullWidth
                       primary
                       type="submit"
-                      className={ cx( 'submit-button' ) } />
+                      className={cx('submit-button')} />
       </form>
-      <p>
+        <p>
         Don't have an account?&nbsp;
       </p>
-      <FlatButton
-                  onClick={ this.props.toggleAuthenticationMode }
+        <FlatButton
+                  onClick={this.props.toggleAuthenticationMode}
                   label="Register"
                   secondary />
-    </div>
+      </div>
     );
   }
 
   getRegistrationForm() {
     return (
-    <div className={ cx( 'card-insides' ) }>
-      <form onSubmit={ this.handleOnRegister }>
-        Register
+      <div className={cx('card-insides')}>
+        <form onSubmit={this.handleOnRegister}>
+        Register with email
         <EmailTextField
-                        value={ this.props.authentication.emailTextField.value }
-                        errorText={ this.props.authenticationSelect.emailTextFieldSelect.errorText }
-                        onChange={ this.props.emailTextFieldChange } />
-        <PasswordTextField
-                           value={ this.props.authentication.passwordTextField.value }
-                           errorText={ this.props.authenticationSelect.passwordTextFieldSelect.errorText }
-                           onChange={ this.props.passwordTextFieldChange } />
-        <PasswordConfirmationTextField
-                                       value={ this.props.authentication.passwordConfirmationTextField.value }
-                                       errorText={ this.props.authenticationSelect.passwordConfirmationTextFieldSelect.errorText }
-                                       onChange={ this.props.passwordConfirmationTextFieldChange } />
-        <p className={ cx( 'message', {
+                        value={this.props.authentication.emailTextField.value}
+                        errorText={this.props.authenticationSelect.emailTextFieldSelect.errorText}
+                        onChange={this.props.emailTextFieldChange} />
+          <PasswordTextField
+                           value={this.props.authentication.passwordTextField.value}
+                           errorText={this.props.authenticationSelect.passwordTextFieldSelect.errorText}
+                           onChange={this.props.passwordTextFieldChange} />
+          <PasswordConfirmationTextField
+                                       value={this.props.authentication.passwordConfirmationTextField.value}
+                                       errorText={this.props.authenticationSelect.passwordConfirmationTextFieldSelect.errorText}
+                                       onChange={this.props.passwordConfirmationTextFieldChange} />
+          <p
+className={cx('message', {
                          'message-show': this.props.user.message && this.props.user.message.length > 0
-                       } ) }>
-          { this.props.user.message }
-        </p>
-        <RaisedButton
-                      disabled={ this.props.authenticationSelect.registerButtonVisibility === 'disabled' }
+                       })}>
+            { this.props.user.message }
+          </p>
+          <RaisedButton
+                      disabled={this.props.authenticationSelect.registerButtonVisibility === 'disabled'}
                       label="Register"
                       fullWidth
                       primary
-                      disabled={ this.props.authenticationSelect.registerButtonVisibility === 'disabled' }
+                      disabled={this.props.authenticationSelect.registerButtonVisibility === 'disabled'}
                       type="submit"
-                      className={ cx( 'submit-button' ) } />
-      </form>
-      <p>
+                      className={cx('submit-button')} />
+        </form>
+        <p>
         Already have an account?&nbsp;
       </p>
-      <FlatButton
+        <FlatButton
                   label="Login"
                   secondary
-                  onClick={ this.props.toggleAuthenticationMode } />
-    </div>
+                  onClick={this.props.toggleAuthenticationMode} />
+      </div>
     );
   }
 
-  handleOnLogin( event ) {
+  handleOnLogin(event) {
     event.preventDefault();
     this.props.manualLogin();
   }
 
-  handleOnRegister( event ) {
+  handleOnRegister(event) {
     event.preventDefault();
     this.props.register();
   }
 
   render() {
     return (
-    <div>
-      <div className={ cx( 'google-login-button-container' ) }>
-        <RaisedButton
+      <div>
+        <div className={cx('google-login-button-container')}>
+          <RaisedButton
                       href="/auth/google"
-                      label=" Continue with Google"
+                      label="LOG IN WITH GOOGLE"
                       primary
                       fullWidth
-                      icon={ <FontAwesome
+                      icon={<FontAwesome
                                           name="google"
-                                          className={ cx( 'google-icon' ) } /> } />
+                                          className={cx('google-icon')} />} />
+        </div>
+        <p className={cx('or-prompt')}>OR</p>
+        <Card className={cx('card')}>
+          { this.getAuthenticationForm() }
+        </Card>
       </div>
-      <Card className={ cx( 'card' ) }>
-        { this.getAuthenticationForm() }
-      </Card>
-    </div>
     );
   }
 }
@@ -151,19 +154,19 @@ Authentication.propTypes = {
   toggleAuthenticationMode: PropTypes.func.isRequired,
 };
 
-function mapStateToProps( state ) {
+function mapStateToProps(state) {
   return {
     user: state.user,
     authentication: state.authentication,
-    authenticationSelect: getAuthenticationSelect( state )
+    authenticationSelect: getAuthenticationSelect(state)
   };
 }
 
-export default connect( mapStateToProps, {
+export default connect(mapStateToProps, {
   manualLogin,
   register,
   emailTextFieldChange,
   passwordTextFieldChange,
   passwordConfirmationTextFieldChange,
   toggleAuthenticationMode
-} )( Authentication );
+})(Authentication);

@@ -5,28 +5,28 @@ import ReactTooltip from 'react-tooltip';
 import classNames from 'classnames/bind';
 import styles from '../../../css/components/portfolio/portfolio-table/delete-model-portfolio-button';
 
-const cx = classNames.bind( styles );
+const cx = classNames.bind(styles);
 
 const DeleteModelPortfolioButton = ({id, deleteModelPortfolio, visibility}) => {
   const handleOnClick = function handleOnClick() {
-    deleteModelPortfolio( id );
+    deleteModelPortfolio(id);
   };
 
-  const getDeleteModelPortfolioButton = function getDeleteModelPortfolioButton( givenVisbility, onClicktion ) {
+  const getDeleteModelPortfolioButton = function getDeleteModelPortfolioButton(givenVisbility, onClicktion) {
     switch (givenVisbility) {
       case 'visible':
         return (<IconButton
-                    onClick={ onClicktion }
+                    onClick={onClicktion}
                     touch
-                    className={ cx( 'delete-model-portfolio-button' ) }>
+                    className={cx('delete-model-portfolio-button')}>
           <ActionDeleteForever />
         </IconButton>);
       case 'disabled':
         return (<IconButton
                     disabled
-                    onClick={ onClicktion }
+                    onClick={onClicktion}
                     touch
-                    className={ cx( 'delete-model-portfolio-button' ) }>
+                    className={cx('delete-model-portfolio-button')}>
           <ActionDeleteForever />
         </IconButton>
         );
@@ -36,20 +36,20 @@ const DeleteModelPortfolioButton = ({id, deleteModelPortfolio, visibility}) => {
     }
   };
 
-  const deleteModelPortfolioButton = getDeleteModelPortfolioButton( visibility, handleOnClick );
+  const deleteModelPortfolioButton = getDeleteModelPortfolioButton(visibility, handleOnClick);
 
   return (
-  <div
+    <div
        data-tip
        data-for="deleteModelPortfolioButtonTooltip"
-       className={ cx( 'delete-model-portfolio-button-container' ) }>
-    { deleteModelPortfolioButton }
-    <ReactTooltip id="deleteModelPortfolioButtonTooltip">
-      <p>
+       className={cx('delete-model-portfolio-button-container')}>
+      { deleteModelPortfolioButton }
+      <ReactTooltip id="deleteModelPortfolioButtonTooltip">
+        <p>
         Delete
       </p>
-    </ReactTooltip>
-  </div>
+      </ReactTooltip>
+    </div>
   );
 };
 

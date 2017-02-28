@@ -21,7 +21,7 @@ const AllocationTextField = ({index, value, setOnce, errorText, hintText, onChan
 
   return (
     <TextField
-      id={'allocationTextField' + index}
+             id={'allocationTextField' + index}
              value={displayValue}
              errorText={errorText}
              onChange={handleOnChange}

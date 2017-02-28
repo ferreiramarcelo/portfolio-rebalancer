@@ -8,7 +8,7 @@ const getInvestmentAmount = (state) => state.investmentAmount.investmentAmount;
 
 const getSelectedModelPortfolioSelect = function getSelectedModelPortfolioSelect(selectedModelPortfolio, modelPortfolios, email) {
   let valid = true;
-  let hintText = '';
+  const hintText = '';
   let errorText = '';
   if (!selectedModelPortfolio.name) {
     valid = false;
@@ -31,7 +31,7 @@ const getSymbolSelect = function getSymbolSelect(symbol) {
   let valid = true;
   let hintText = '';
   let errorText = '';
-  if (!symbol.value && symbol.value !== "0") {
+  if (!symbol.value && symbol.value !== '0') {
     valid = false;
     errorText = 'Required';
   }
@@ -50,7 +50,7 @@ const getAllocationSelect = function getAllocationSelect(allocation) {
   const number = Number(allocation.value);
   let hintText = '';
   let errorText = '';
-  if (!allocation.value && allocation.value !== "0") {
+  if (!allocation.value && allocation.value !== '0') {
     errorText = 'Required';
     valid = false;
   } else if (typeof number !== 'number' || isNaN(number) || !isFinite(number)) {
@@ -79,7 +79,7 @@ const getPriceSelect = function getPriceSelect(price) {
   const number = Number(price.value);
   let hintText = '';
   let errorText = '';
-  if (!price.value && price.value !== "0") {
+  if (!price.value && price.value !== '0') {
     errorText = 'Required';
     valid = false;
   } else if (typeof number !== 'number' || isNaN(number) || !isFinite(number)) {
@@ -105,7 +105,7 @@ const getUnitsSelect = function getUnitsSelect(units) {
   const number = Number(units.value);
   let hintText = '';
   let errorText = '';
-  if (!units.value && units.value !== "0") {
+  if (!units.value && units.value !== '0') {
     errorText = 'Required';
     valid = false;
   } else if (typeof number !== 'number' || isNaN(number) || !isFinite(number)) {

@@ -65,7 +65,7 @@ const StepsList = ({rebalancingSteps}) => {
           if (givenRebalancingSteps.balanceByAdjusting[i] < 0) {
             adjustmentSteps.push(<p key={'positiveAdjustment' + i}>
               { stepNumber }. Sell&nbsp;
-                              { formatUnitsAmount(-1 * givenRebalancingSteps.balanceByAdjusting[i]) } unit{givenRebalancingSteps.balanceByAdjusting[i] > 1 ? 's' : ''} of&nbsp;
+                              { formatUnitsAmount(-1 * givenRebalancingSteps.balanceByAdjusting[i]) } unit{givenRebalancingSteps.balanceByAdjusting[i] < 1 ? 's' : ''} of&nbsp;
                               { givenRebalancingSteps.portfolio[i].symbol }
             </p>);
             stepNumber++;

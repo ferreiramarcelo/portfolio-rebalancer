@@ -7,53 +7,53 @@ import SaveModelPortfolioButton from './SaveModelPortfolioButton';
 import DeleteModelPortfolioButton from './DeleteModelPortfolioButton';
 import styles from '../../../css/components/portfolio/portfolio-table/portfolio-table';
 
-const cx = classNames.bind( styles );
+const cx = classNames.bind(styles);
 
 const PortfolioTable = ({selectedModelPortfolio, portfolio, portfolioSelect, saveModelPortfolio, deleteModelPortfolio, removeSecurity, securityTextFieldChange, fetchPrice}) => {
-  const securityRows = portfolio.map( (security, index) => {
+  const securityRows = portfolio.map((security, index) => {
     return (<SecurityRow
-                         key={ index }
-                         security={ security }
-                         securitySelect={ portfolioSelect.securitiesSelect[ index ] }
-                         removeSecurity={ removeSecurity }
-                         securityTextFieldChange={ securityTextFieldChange }
-                         fetchPrice={ fetchPrice } />);
-  } );
+                         key={index}
+                         security={security}
+                         securitySelect={portfolioSelect.securitiesSelect[index]}
+                         removeSecurity={removeSecurity}
+                         securityTextFieldChange={securityTextFieldChange}
+                         fetchPrice={fetchPrice} />);
+  });
 
   return (
-  <Table
-         wrapperStyle={ { overflow: 'hidden' } }
-         className={ cx( 'table' ) }>
-    <TableHeader
-                 displaySelectAll={ false }
-                 adjustForCheckbox={ false }>
-      <TableRow>
-        <TableHeaderColumn
+    <Table
+         wrapperStyle={{ overflow: 'hidden' }}
+         className={cx('table')}>
+      <TableHeader
+                 displaySelectAll={false}
+                 adjustForCheckbox={false}>
+        <TableRow>
+          <TableHeaderColumn
                            data-tip
                            data-for="tooltipColumnHeaderSymbol"
-                           className={ cx( 'table-header-column' ) }>
+                           className={cx('table-header-column')}>
           Symbol
           <ReactTooltip id="tooltipColumnHeaderSymbol">
             <p>
               Ticker symbol as shown on https://finance.yahoo.com.
             </p>
           </ReactTooltip>
-        </TableHeaderColumn>
-        <TableHeaderColumn
+          </TableHeaderColumn>
+          <TableHeaderColumn
                            data-tip
                            data-for="tooltipColumnHeaderAllocation"
-                           className={ cx( 'table-header-column' ) }>
+                           className={cx('table-header-column')}>
           Allocation
           <ReactTooltip id="tooltipColumnHeaderAllocation">
             <p>
               Percentage allocation of your portfolio this security should be.
             </p>
           </ReactTooltip>
-        </TableHeaderColumn>
-        <TableHeaderColumn
+          </TableHeaderColumn>
+          <TableHeaderColumn
                            data-tip
                            data-for="tooltipColumnHeaderPrice"
-                           className={ cx( 'table-header-column' ) }>
+                           className={cx('table-header-column')}>
           Price
           <ReactTooltip id="tooltipColumnHeaderPrice">
             <p>
@@ -61,36 +61,36 @@ const PortfolioTable = ({selectedModelPortfolio, portfolio, portfolioSelect, sav
               <br /> Prices are fetched from https://finance.yahoo.com.
             </p>
           </ReactTooltip>
-        </TableHeaderColumn>
-        <TableHeaderColumn
+          </TableHeaderColumn>
+          <TableHeaderColumn
                            data-tip
                            data-for="tooltipColumnHeaderUnits"
-                           className={ cx( 'table-header-column' ) }>
+                           className={cx('table-header-column')}>
           Units
           <ReactTooltip id="tooltipColumnHeaderUnits">
             <p>
               How many units of the security you currently own.
             </p>
           </ReactTooltip>
-        </TableHeaderColumn>
-        <TableHeaderColumn className={ cx( 'table-header-column-last' ) }>
-          <SaveModelPortfolioButton
-                                    visibility={ portfolioSelect.saveModelPortfolioButtonSelect.visibility }
-                                    tooltip={ portfolioSelect.saveModelPortfolioButtonSelect.tooltip }
-                                    portfolio={ portfolio }
-                                    selectedModelPortfolio={ selectedModelPortfolio }
-                                    saveModelPortfolio={ saveModelPortfolio } />
-          <DeleteModelPortfolioButton
-                                      id={ selectedModelPortfolio.id }
-                                      deleteModelPortfolio={ deleteModelPortfolio }
-                                      visibility={ portfolioSelect.deleteModelPortfolioButtonVisibility } />
-        </TableHeaderColumn>
-      </TableRow>
-    </TableHeader>
-    <TableBody displayRowCheckbox={ false }>
-      { securityRows }
-    </TableBody>
-  </Table>
+          </TableHeaderColumn>
+          <TableHeaderColumn className={cx('table-header-column-last')}>
+            <SaveModelPortfolioButton
+                                    visibility={portfolioSelect.saveModelPortfolioButtonSelect.visibility}
+                                    tooltip={portfolioSelect.saveModelPortfolioButtonSelect.tooltip}
+                                    portfolio={portfolio}
+                                    selectedModelPortfolio={selectedModelPortfolio}
+                                    saveModelPortfolio={saveModelPortfolio} />
+            <DeleteModelPortfolioButton
+                                      id={selectedModelPortfolio.id}
+                                      deleteModelPortfolio={deleteModelPortfolio}
+                                      visibility={portfolioSelect.deleteModelPortfolioButtonVisibility} />
+          </TableHeaderColumn>
+        </TableRow>
+      </TableHeader>
+      <TableBody displayRowCheckbox={false}>
+        { securityRows }
+      </TableBody>
+    </Table>
   );
 };
 

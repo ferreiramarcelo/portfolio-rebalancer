@@ -8,58 +8,58 @@ import UnitsTextField from './UnitsTextField';
 import RemoveSecurityButton from './RemoveSecurityButton';
 import styles from '../../../css/components/portfolio/portfolio-table/security-row';
 
-const cx = classNames.bind( styles );
+const cx = classNames.bind(styles);
 
 const SecurityRow = ({security, securitySelect, removeSecurity, securityTextFieldChange, fetchPrice}) => {
   return (<TableRow
-                    className={ cx( 'table-row' ) }>
-            <TableRowColumn
-                            className={ cx( 'table-row-column' ) }>
-              <SymbolTextField
-                               index={ security.index }
-                               value={ security.symbol.value }
-                               setOnce={ security.symbol.setOnce }
-                               errorText={ securitySelect.symbolSelect.errorText }
-                               hintText= {securitySelect.symbolSelect.hintText }
-                               onChange={ securityTextFieldChange } />
-            </TableRowColumn>
-            <TableRowColumn
-                            className={ cx( 'table-row-column' ) }>
-              <AllocationTextField
-                                   index={ security.index }
-                                   value={ security.allocation.value }
-                                   setOnce={ security.allocation.setOnce }
-                                   errorText={ securitySelect.allocationSelect.errorText }
-                                   hintText= {securitySelect.allocationSelect.hintText }
-                                   onChange={ securityTextFieldChange } />
-            </TableRowColumn>
-            <TableRowColumn
-                            className={ cx( 'table-row-column' ) }>
-              <PriceCell
-                         index={ security.index }
-                         price={ security.price }
-                         priceSelect={ securitySelect.priceSelect}
-                         securityTextFieldChange={ securityTextFieldChange }
+                    className={cx('table-row')}>
+    <TableRowColumn
+                            className={cx('table-row-column')}>
+      <SymbolTextField
+                               index={security.index}
+                               value={security.symbol.value}
+                               setOnce={security.symbol.setOnce}
+                               errorText={securitySelect.symbolSelect.errorText}
+                               hintText={securitySelect.symbolSelect.hintText}
+                               onChange={securityTextFieldChange} />
+    </TableRowColumn>
+    <TableRowColumn
+                            className={cx('table-row-column')}>
+      <AllocationTextField
+                                   index={security.index}
+                                   value={security.allocation.value}
+                                   setOnce={security.allocation.setOnce}
+                                   errorText={securitySelect.allocationSelect.errorText}
+                                   hintText={securitySelect.allocationSelect.hintText}
+                                   onChange={securityTextFieldChange} />
+    </TableRowColumn>
+    <TableRowColumn
+                            className={cx('table-row-column')}>
+      <PriceCell
+                         index={security.index}
+                         price={security.price}
+                         priceSelect={securitySelect.priceSelect}
+                         securityTextFieldChange={securityTextFieldChange}
                          symbol={security.symbol.value}
-                         fetchPrice={ fetchPrice }/>
-            </TableRowColumn>
-            <TableRowColumn
-                            className={ cx( 'table-row-column' ) }>
-              <UnitsTextField
-                              index={ security.index }
-                              value={ security.units.value }
-                              setOnce={ security.units.setOnce }
-                              errorText={ securitySelect.unitsSelect.errorText }
-                              hintText= {securitySelect.unitsSelect.hintText }
-                              onChange={ securityTextFieldChange } />
-            </TableRowColumn>
-            <TableRowColumn
-                            className={ cx( 'table-row-column-last' ) }>
-              <RemoveSecurityButton
-                                    index={ security.index }
-                                    removeSecurity={ removeSecurity } />
-            </TableRowColumn>
-          </TableRow>);
+                         fetchPrice={fetchPrice} />
+    </TableRowColumn>
+    <TableRowColumn
+                            className={cx('table-row-column')}>
+      <UnitsTextField
+                              index={security.index}
+                              value={security.units.value}
+                              setOnce={security.units.setOnce}
+                              errorText={securitySelect.unitsSelect.errorText}
+                              hintText={securitySelect.unitsSelect.hintText}
+                              onChange={securityTextFieldChange} />
+    </TableRowColumn>
+    <TableRowColumn
+                            className={cx('table-row-column-last')}>
+      <RemoveSecurityButton
+                                    index={security.index}
+                                    removeSecurity={removeSecurity} />
+    </TableRowColumn>
+  </TableRow>);
 };
 
 SecurityRow.propTypes = {

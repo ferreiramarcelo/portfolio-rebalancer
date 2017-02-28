@@ -1,8 +1,9 @@
 @import '../../common/typography';
 
 .investment-amount {
-  margin-bottom: 30px;
+  margin: 30px 0px 30px 0px;
 }
+
 .investment-amount-prompt {
   font-size: var(--fontMedium);
   font-family: var(--fontRoboto);

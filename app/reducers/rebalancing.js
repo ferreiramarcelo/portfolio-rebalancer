@@ -41,7 +41,7 @@ const rebalancingSteps = (state = {},
           cashStillMissing = negativeInvestmentAmount - equityFromPortfolio;
         } else if (investmentAmount === 0) {
           valueAdjustmentsPerSecurity = getValueAdjustmentsPerSecurity(valuePerSecurityCurrent, valuePerSecurityTotal);
-          const balanceByAdjustingAndExtraCash = getUnitsForAdjusting(valueAdjustmentsPerSecurity, portfolio);
+          const balanceByAdjustingAndExtraCash = getUnitsForAdjusting(valueAdjustmentsPerSecurity, portfolio, 0);
           balanceByAdjusting = balanceByAdjustingAndExtraCash.unitsAdjustmentsPerSecurity;
         } else if (investmentAmount > 0) {
           valueAdditionPerSecurity = getValuesForInvesting(investmentAmount, valuePerSecurityCurrent, valuePerSecurityTotal);
@@ -51,7 +51,7 @@ const rebalancingSteps = (state = {},
 
           valuePerSecurityCurrent = getUpdatedValuePerSecurityForAdditions(valuePerSecurityCurrent, balanceByInvesting, portfolio);
           valueAdjustmentsPerSecurity = getValueAdjustmentsPerSecurity(valuePerSecurityCurrent, valuePerSecurityTotal);
-          const balanceByAdjustingAndExtraCash = getUnitsForAdjusting(valueAdjustmentsPerSecurity, portfolio);
+          const balanceByAdjustingAndExtraCash = getUnitsForAdjusting(valueAdjustmentsPerSecurity, portfolio, extraCash);
           balanceByAdjusting = balanceByAdjustingAndExtraCash.unitsAdjustmentsPerSecurity;
         } else if (investmentAmount < 0) {
           valueReductionPerSecurity = getValuesForDisvesting(investmentAmount, valuePerSecurityCurrent, valuePerSecurityTotal);
@@ -61,7 +61,7 @@ const rebalancingSteps = (state = {},
 
           valuePerSecurityCurrent = getUpdatedValuePerSecurityForReductions(valuePerSecurityCurrent, balanceByDisvesting, portfolio);
           valueAdjustmentsPerSecurity = getValueAdjustmentsPerSecurity(valuePerSecurityCurrent, valuePerSecurityTotal);
-          const balanceByAdjustingAndExtraCash = getUnitsForAdjusting(valueAdjustmentsPerSecurity, portfolio);
+          const balanceByAdjustingAndExtraCash = getUnitsForAdjusting(valueAdjustmentsPerSecurity, portfolio, extraCash);
           balanceByAdjusting = balanceByAdjustingAndExtraCash.unitsAdjustmentsPerSecurity;
         }
       }

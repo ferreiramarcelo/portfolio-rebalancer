@@ -255,6 +255,10 @@ const portfolio = (state = [], action) => {
       for (let i = action.index; i < trunkedPortfolio.length; i++) {
         trunkedPortfolio[i].index--;
       }
+      if (trunkedPortfolio.length < 1) {
+        const addedSecurityAction = {type: types.ADD_SECURITY, index: 0};
+        trunkedPortfolio.push(security(undefined, addedSecurityAction));
+      }
       return trunkedPortfolio;
     }
     case types.SECURITY_TEXT_FIELD_CHANGE:

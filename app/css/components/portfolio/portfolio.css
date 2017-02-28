@@ -6,9 +6,13 @@
 
 .portfolio-container {
   @media (max-width: 767px) {
-    padding: 0px !important;
+    margin: 0px !important;
   }
   @media (min-width: 768px) {
-    padding: 0px 30px 0px 30px !important;
+    margin: 0px 30px 0px 30px !important;
   }
+}
+
+.add-security-container {
+  text-align: center !important;
 }

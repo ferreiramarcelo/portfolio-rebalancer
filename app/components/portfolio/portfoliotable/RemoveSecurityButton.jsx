@@ -4,20 +4,20 @@ import ContentClear from 'material-ui/svg-icons/content/clear';
 import classNames from 'classnames/bind';
 import styles from '../../../css/components/portfolio/portfolio-table/remove-security-button';
 
-const cx = classNames.bind( styles );
+const cx = classNames.bind(styles);
 
 const RemoveSecurityButton = ({index, removeSecurity}) => {
   const handleRemoveSecurity = function handleRemoveSecurity() {
-    removeSecurity( index );
+    removeSecurity(index);
   };
 
   return (
-  <IconButton
-              onClick={ handleRemoveSecurity }
+    <IconButton
+              onClick={handleRemoveSecurity}
               touch
-              className={ cx( 'remove-security-button' ) }>
-    <ContentClear />
-  </IconButton>
+              className={cx('remove-security-button')}>
+      <ContentClear />
+    </IconButton>
 
   );
 };

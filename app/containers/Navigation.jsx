@@ -46,7 +46,6 @@ const Navigation = ({user, logOut}) => {
                 labelStyle={{ color: 'white', fontSize: '16px' }}
                 className={cx('navigation-button-right')}
                 href="https://github.com/AlexisDeschamps/portfolio-rebalancer/"
-                target="_blank"
                 label="GITHUB" />
     </nav>
   );

@@ -17,7 +17,7 @@ const getEmailTextFieldSelect = function getEmailTextFieldSelect(emailTextField)
     errorText = 'Required';
     valid = 0;
   } else if (!validateEmailAddress(emailTextField.value)) {
-    errorText = 'Invalid email address';
+    errorText = 'Invalid format. Example: name@example.com';
     valid = 0;
   }
   return {errorText, valid};

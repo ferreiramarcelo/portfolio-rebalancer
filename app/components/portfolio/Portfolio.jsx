@@ -6,31 +6,31 @@ import PortfolioTable from './portfoliotable/PortfolioTable';
 import AddSecurityButton from './AddSecurityButton';
 import styles from '../../css/components/portfolio/portfolio';
 
-const cx = classNames.bind(styles);
+const cx = classNames.bind( styles );
 
 const Portfolio = ({selectedModelPortfolio, modelPortfolioNameTextFieldChange, portfolio, portfolioSelect, saveModelPortfolio, deleteModelPortfolio, addSecurity, removeSecurity, securityTextFieldChange, fetchPrice}) => {
   return (
-    <Card className={cx('card')}>
-      <div className={cx('portfolio-container')}>
-        <ModelPortfolioNameTextField
-                                   value={selectedModelPortfolio.name}
-                                   errorText={portfolioSelect.selectedModelPortfolioSelect.errorText}
-                                   onChange={modelPortfolioNameTextFieldChange} />
-        <PortfolioTable
-          selectedModelPortfolio={selectedModelPortfolio}
-                      portfolio={portfolio}
-                      portfolioSelect={portfolioSelect}
-                      saveModelPortfolio={saveModelPortfolio}
-                      deleteModelPortfolio={deleteModelPortfolio}
-                      addSecurity={addSecurity}
-                      removeSecurity={removeSecurity}
-                      securityTextFieldChange={securityTextFieldChange}
-                      fetchPrice={fetchPrice} />
-        <div style={{ textAlign: 'center', margin: '24px' }}>
-          <AddSecurityButton addSecurity={addSecurity} />
-        </div>
+  <Card className={ cx( 'card' ) }>
+    <div className={ cx( 'portfolio-container' ) }>
+      <ModelPortfolioNameTextField
+                                   value={ selectedModelPortfolio.name }
+                                   errorText={ portfolioSelect.selectedModelPortfolioSelect.errorText }
+                                   onChange={ modelPortfolioNameTextFieldChange } />
+      <PortfolioTable
+                      selectedModelPortfolio={ selectedModelPortfolio }
+                      portfolio={ portfolio }
+                      portfolioSelect={ portfolioSelect }
+                      saveModelPortfolio={ saveModelPortfolio }
+                      deleteModelPortfolio={ deleteModelPortfolio }
+                      addSecurity={ addSecurity }
+                      removeSecurity={ removeSecurity }
+                      securityTextFieldChange={ securityTextFieldChange }
+                      fetchPrice={ fetchPrice } />
+      <div className={ cx( 'add-security-container' ) }>
+        <AddSecurityButton addSecurity={ addSecurity } />
       </div>
-    </Card>
+    </div>
+  </Card>
   );
 };
 
