@@ -29,7 +29,6 @@ class PortfolioRebalancer extends Component {
     }
   }
 
-
   getPortfolioView() {
     if (this.props.view.displayPortfolio) {
       return (
