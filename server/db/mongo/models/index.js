@@ -1,4 +1,5 @@
 export default function loadModels() {
-  require('./modelPortfolios');
+  require('./modelPortfolio');
   require('./user');
+  require('./verificationToken');
 }

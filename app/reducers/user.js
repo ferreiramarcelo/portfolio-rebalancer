@@ -27,6 +27,7 @@ const authenticated = (
     case types.LOGIN_SUCCESS_USER:
     case types.SIGNUP_SUCCESS_USER:
     case types.LOGOUT_ERROR_USER:
+    case types.VERIFY_SUCCESS_USER:
       return true;
     case types.LOGIN_ERROR_USER:
     case types.SIGNUP_ERROR_USER:
@@ -44,6 +45,7 @@ const email = (
   switch (action.type) {
     case types.LOGIN_SUCCESS_USER:
     case types.SIGNUP_SUCCESS_USER:
+    case types.VERIFY_SUCCESS_USER:
       return action.email;
     case types.LOGIN_ERROR_USER:
     case types.SIGNUP_ERROR_USER:

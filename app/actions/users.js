@@ -33,13 +33,6 @@ function loginError(message) {
   };
 }
 
-function signUpError(message) {
-  return {
-    type: types.SIGNUP_ERROR_USER,
-    message
-  };
-}
-
 function beginSignUp() {
   return {
     type: types.SIGNUP_USER
@@ -51,6 +44,13 @@ function signUpSuccess(message, email) {
     type: types.SIGNUP_SUCCESS_USER,
     message,
     email
+  };
+}
+
+function signUpError(message) {
+  return {
+    type: types.SIGNUP_ERROR_USER,
+    message
   };
 }
 
@@ -69,6 +69,27 @@ function logoutSuccess() {
 function logoutError() {
   return {
     type: types.LOGOUT_ERROR_USER
+  };
+}
+
+function beginVerify() {
+  return {
+    type: types.VERIFY_USER
+  };
+}
+
+function verifySuccess(message, email) {
+  return {
+    type: types.VERIFY_SUCCESS_USER,
+    message,
+    email
+  };
+}
+
+function verifyError(message) {
+  return {
+    type: types.VERIFY_ERROR_USER,
+    message
   };
 }
 
@@ -103,7 +124,7 @@ export function register() {
       email: authentication.emailTextField.value,
       password: authentication.passwordTextField.value
     };
-    return makeUserRequest('post', data, '/signup')
+    return makeUserRequest('post', data, '/register')
       .then(response => {
         if (response.status === 200) {
           dispatch(signUpSuccess(response.data.message, data.email));
@@ -130,5 +151,28 @@ export function logOut() {
           dispatch(logoutError());
         }
       });
+  };
+}
+
+export function verify(token) {
+  return (dispatch, getState) => {
+    dispatch(beginVerify());
+    const data = {
+      token
+    };
+    return makeUserRequest('post', data, '/sendverify')
+      .then(response => {
+        if (response.status === 200) {
+          dispatch(verifySuccess(response.data.message, response.data.email));
+          dispatch(push('/'));
+        } else {
+          dispatch(verifyError('Oops! Something went wrong'));
+        }
+      })
+      .catch(err => {
+        dispatch(verifyError(getMessage(err)));
+      });
+
+      console.log("verified");
   };
 }

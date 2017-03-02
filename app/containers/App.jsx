@@ -5,6 +5,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { grey100, grey500, white, fullBlack, } from 'material-ui/styles/colors';
 import Navigation from '../containers/Navigation';
+import Message from '../containers/Message';
 import styles from '../css/main';
 
 injectTapEventPlugin();
@@ -38,6 +39,7 @@ const App = ({children}) => {
     <MuiThemeProvider muiTheme={muiTheme}>
       <div className={cx('app')}>
         <Navigation />
+        <Message />
         <div className={cx('app-children')}>
           { children }
         </div>
