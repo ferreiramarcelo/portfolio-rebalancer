@@ -4,6 +4,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { grey100, grey500, white, fullBlack, } from 'material-ui/styles/colors';
+import {Tabs, Tab} from 'material-ui/Tabs';
 import Navigation from '../containers/Navigation';
 import Message from '../containers/Message';
 import styles from '../css/main';
@@ -38,7 +39,7 @@ const App = ({children}) => {
   return (
     <MuiThemeProvider muiTheme={muiTheme}>
       <div className={cx('app')}>
-        <Navigation />
+        <Navigation tab={children.props.location.pathname}/>
         <Message />
         <div className={cx('app-children')}>
           { children }

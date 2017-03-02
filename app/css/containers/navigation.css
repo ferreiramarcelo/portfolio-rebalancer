@@ -14,19 +14,14 @@
 }
 
 .logged-in-as-identifier:before {
-  content: '';
-  display: inline-block;
-  height: 36px;
-  vertical-align: middle;
+
 }
 
 .logged-in-as-identifier {
+  float: right;
   color: #FFF;
-  height: 100%;
-  vertical-align: middle;
 }
 
 .navigation-button-right {
-  //float: right;
   float: right;
 }

@@ -42,6 +42,10 @@ class Authentication extends React.Component {
                            value={this.props.authentication.passwordTextField.value}
                            errorText={this.props.authenticationSelect.passwordTextFieldSelect.errorText}
                            onChange={this.props.passwordTextFieldChange} />
+                           <FlatButton
+                                     onClick={this.props.toggleAuthenticationMode}
+                                     label="FORGOT?"
+                                     secondary />
         <p
 className={cx('message', {
                          'message-show': this.props.user.message && this.props.user.message.length > 0
@@ -56,13 +60,6 @@ className={cx('message', {
                       type="submit"
                       className={cx('submit-button')} />
       </form>
-        <p>
-        Don't have an account?&nbsp;
-      </p>
-        <FlatButton
-                  onClick={this.props.toggleAuthenticationMode}
-                  label="Register"
-                  secondary />
       </div>
     );
   }
@@ -99,13 +96,6 @@ className={cx('message', {
                       type="submit"
                       className={cx('submit-button')} />
         </form>
-        <p>
-        Already have an account?&nbsp;
-      </p>
-        <FlatButton
-                  label="Login"
-                  secondary
-                  onClick={this.props.toggleAuthenticationMode} />
       </div>
     );
   }
