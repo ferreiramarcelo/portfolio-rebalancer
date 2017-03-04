@@ -21,6 +21,12 @@ const message = (
       }
     case types.SIGNUP_ERROR_USER:
     case types.PASSWORD_RESET_ERROR_USER:
+    switch (action.response) {
+      case constants.RESPONSE_SEND_PASSWORD_NOT_FOUND:
+        return 'No account found for ' + action.email +'.';
+      default:
+        return 'Failed to send the password reset email. Please try again later.'
+    }
       return action.response;
     default:
       return state;

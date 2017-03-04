@@ -128,10 +128,11 @@ function resetPasswordSuccess(response) {
   };
 }
 
-function resetPasswordError(response) {
+function resetPasswordError(response, email) {
   return {
     type: types.PASSWORD_RESET_ERROR_USER,
-    response
+    response,
+    email
   };
 }
 
@@ -251,11 +252,11 @@ export function sendPasswordReset() {
         if (response.status === 200) {
           dispatch(resetPasswordSuccess(response.data.response));
         } else {
-          dispatch(resetPasswordError(response.data.response));
+          dispatch(resetPasswordError(response.data.response, data.email));
         }
       })
       .catch(err => {
-        dispatch(resetPasswordError(err.response.data.response));
+        dispatch(resetPasswordError(err.response.data.response, data.email));
       });
   };
 }
