@@ -10,7 +10,6 @@ import { emailTextFieldChange, passwordTextFieldChange, passwordConfirmationText
 import { register } from '../actions/users';
 import EmailTextField from '../components/authentication/EmailTextField';
 import PasswordTextField from '../components/authentication/PasswordTextField';
-import PasswordConfirmationTextField from '../components/authentication/PasswordConfirmationTextField';
 import { getAuthenticationSelect } from '../selectors/index';
 import styles from '../css/containers/authentication';
 
@@ -54,11 +53,13 @@ class Register extends React.Component {
           <PasswordTextField
                              value={ this.props.authentication.passwordTextField.value }
                              errorText={ this.props.authenticationSelect.passwordTextFieldSelect.errorText }
-                             onChange={ this.props.passwordTextFieldChange } />
-          <PasswordConfirmationTextField
+                             onChange={ this.props.passwordTextFieldChange }
+                             label="Password" />
+          <PasswordTextField
                                          value={ this.props.authentication.passwordConfirmationTextField.value }
                                          errorText={ this.props.authenticationSelect.passwordConfirmationTextFieldSelect.errorText }
-                                         onChange={ this.props.passwordConfirmationTextFieldChange } />
+                                         onChange={ this.props.passwordConfirmationTextFieldChange }
+                                         label="Confirm password" />
           <p className={ cx( 'message', {
                            'message-show': this.props.user.message && this.props.user.message.length > 0
                          } ) }>

@@ -7,6 +7,7 @@ const isLoginMode = (state = true, action) => {
       return !state;
     case types.LOGIN_SUCCESS_USER:
     case types.SIGNUP_SUCCESS_USER:
+    case types.PASSWORD_RESET_SUCCESS_USER:
       return true;
     default:
       return state;
@@ -23,6 +24,12 @@ const emailTextField = (state = {
         value: action.value,
         setOnce: 1
       };
+      case types.LOGIN_SUCCESS_USER:
+      case types.SIGNUP_SUCCESS_USER:
+      return {
+        value: '',
+        setOnce: 0
+      };
     default:
       return state;
   }
@@ -38,6 +45,12 @@ const passwordTextField = (state = {
         value: action.value,
         setOnce: 1
       };
+      case types.LOGIN_SUCCESS_USER:
+      case types.SIGNUP_SUCCESS_USER:
+      return {
+        value: '',
+        setOnce: 0
+      };
     default:
       return state;
   }
@@ -52,6 +65,12 @@ const passwordConfirmationTextField = (state = {
       return {
         value: action.value,
         setOnce: 1
+      };
+      case types.LOGIN_SUCCESS_USER:
+      case types.SIGNUP_SUCCESS_USER:
+      return {
+        value: '',
+        setOnce: 0
       };
     default:
       return state;

@@ -9,65 +9,44 @@ import classNames from 'classnames/bind';
 import { logOut } from '../actions/users';
 import styles from '../css/containers/navigation';
 
-import IconMenu from 'material-ui/IconMenu';
-import IconButton from 'material-ui/IconButton';
-import FontIcon from 'material-ui/FontIcon';
-import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more';
-import MenuItem from 'material-ui/MenuItem';
-import DropDownMenu from 'material-ui/DropDownMenu';
-import RaisedButton from 'material-ui/RaisedButton';
-
 const cx = classNames.bind( styles );
 
 const Navigation = ({tab, user, logOut}) => {
 
-  const getLogInTab = function getLogInTab( authenticated ) {
-    if ( !user.authenticated ) {
+  const getLogInTab = function getLogInTab() {
       return (
       <Tab
            value="/login"
            containerElement={ <Link to="/login" /> }
            label={ 'LOG IN' } />
       );
-    }
-    return null;
   };
-  const logInTab = getLogInTab( user.authenticated );
+  const logInTab = getLogInTab();
 
-  const getRegisterTab = function getRegisterTab( authenticated ) {
-    if ( !user.authenticated ) {
+  const getRegisterTab = function getRegisterTab() {
       return (
       <Tab
            value="/register"
            containerElement={ <Link to="/register" /> }
            label={ 'REGISTER' } />
       );
-    }
-    return null;
   };
-  const registerTab = getRegisterTab( user.authenticated );
+  const registerTab = getRegisterTab();
 
   const getLoggedInAsIdentifier = function getLoggedInAsIdentifier( authenticated, email ) {
-    if ( user.authenticated ) {
       return (
-      <span style={{ float: 'right'}} className={cx('logged-in-as-identifier')} >{ email }</span>
+      <span className={cx('logged-in-as-identifier')} >{ email }</span>
       );
-    }
-    return null;
   };
   const loggedInAsIdentifier = getLoggedInAsIdentifier( user.authenticated, user.email );
 
   const getLogOutButton = function getLogOutButton( authenticated ) {
-    if ( user.authenticated ) {
       return (
       <FlatButton
                   onTouchTap={ logOut }
-                  label={ 'LOG OUT' }
-                  labelStyle={ { color: 'white', fontSize: '16px' } }
-                  className={cx('navigation-button-right')} />
+                  label={ "LOG OUT" }
+                  className={cx('log-out-button')} />
       );
-    }
-    return null;
   };
   const logOutButton = getLogOutButton( user.authenticated );
 
@@ -75,7 +54,7 @@ const Navigation = ({tab, user, logOut}) => {
     return (<Tabs value={ tab }>
               <Tab
                    value="/"
-                   label="Portfolio Rebalancer"
+                   label="PR"
                    containerElement={ <Link to="/" /> }>
               </Tab>
               <Tab
@@ -91,14 +70,14 @@ const Navigation = ({tab, user, logOut}) => {
 
   const getAuthenticatedNav = function getAuthenticatedNav() {
     return (
-    <div style={{width: '100%', height: '48px'} }>
-      <div style={{display: 'table-cell'}}>
+    <div className={cx('authenticated-container')}>
+      <div className={cx('authenticated-container-tabs')} >
       <Tabs
             value={ tab }
           >
         <Tab
              value="/"
-             label="Portfolio Rebalancer"
+             label="PR"
              containerElement={ <Link to="/" /> }>
         </Tab>
         <Tab
@@ -106,11 +85,15 @@ const Navigation = ({tab, user, logOut}) => {
              label="ABOUT"
              containerElement={ <Link to="/about" /> }>
         </Tab>
+        <Tab
+             value="/account"
+             label="ACCOUNT"
+             containerElement={ <Link to="/account" /> }>
+        </Tab>
       </Tabs>
     </div>
-    <div style={{display: 'table-cell'}}>
+    <div className={cx('authenticated-container-log-out')}>
       { logOutButton }
-      { loggedInAsIdentifier }
     </div>
     </div>);
   }

@@ -17,3 +17,8 @@
   background-color: var(--colorSalem);
   color: var(--colorWhite);
 }
+
+.failure {
+  background-color: var(--colorCrimson);
+  color: var(--colorWhite);
+}

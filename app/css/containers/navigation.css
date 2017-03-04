@@ -17,11 +17,39 @@
 
 }
 
-.logged-in-as-identifier {
-  float: right;
-  color: #FFF;
+.authenticated-container {
+  display: flex;
 }
 
-.navigation-button-right {
-  float: right;
+.authenticated-container-tabs {
+  width: 75%;
+}
+
+.authenticated-container-log-out {
+  width: 25%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logged-in-as-identifier-container {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+}
+
+.logged-in-as-identifier {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+  overflow: hidden;
+}
+
+.log-out-button {
+  width: 100%;
+  height: 100%;
+}
+
+.log-out-button div span {
+  font-size: 14px;
+  color: rgba(255, 255, 255);
+  padding: 0px !important;
 }

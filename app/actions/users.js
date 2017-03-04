@@ -18,18 +18,19 @@ function beginLogin() {
   };
 }
 
-function loginSuccess(message, email) {
+function loginSuccess(response, email) {
   return {
     type: types.LOGIN_SUCCESS_USER,
-    message,
+    response,
     email
   };
 }
 
-function loginError(message) {
+function loginError(response, email) {
   return {
     type: types.LOGIN_ERROR_USER,
-    message
+    response,
+    email
   };
 }
 
@@ -39,18 +40,18 @@ function beginSignUp() {
   };
 }
 
-function signUpSuccess(message, email) {
+function signUpSuccess(response, email) {
   return {
     type: types.SIGNUP_SUCCESS_USER,
-    message,
+    response,
     email
   };
 }
 
-function signUpError(message) {
+function signUpError(response) {
   return {
     type: types.SIGNUP_ERROR_USER,
-    message
+    response
   };
 }
 
@@ -72,24 +73,65 @@ function logoutError() {
   };
 }
 
+function beginSendVerificationEmail() {
+  return {
+    type: types.SEND_VERIFICATION_EMAIL_USER
+  };
+}
+
+function sendVerificationEmailSuccess(response, email) {
+  return {
+    type: types.SEND_VERIFICATION_EMAIL_SUCCESS_USER,
+    response,
+    email
+  };
+}
+
+function sendVerificationEmailError(response) {
+  return {
+    type: types.SEND_VERIFICATION_EMAIL_ERROR_USER,
+    response
+  };
+}
+
 function beginVerify() {
   return {
     type: types.VERIFY_USER
   };
 }
 
-function verifySuccess(message, email) {
+function verifySuccess(response, email) {
   return {
     type: types.VERIFY_SUCCESS_USER,
-    message,
+    response,
     email
   };
 }
 
-function verifyError(message) {
+function verifyError(response) {
   return {
     type: types.VERIFY_ERROR_USER,
-    message
+    response
+  };
+}
+
+function beginResetPassword() {
+  return {
+    type: types.PASSWORD_RESET_USER
+  };
+}
+
+function resetPasswordSuccess(response) {
+  return {
+    type: types.PASSWORD_RESET_SUCCESS_USER,
+    response
+  };
+}
+
+function resetPasswordError(response) {
+  return {
+    type: types.PASSWORD_RESET_ERROR_USER,
+    response
   };
 }
 
@@ -104,14 +146,14 @@ export function manualLogin() {
     return makeUserRequest('post', data, '/login')
       .then(response => {
         if (response.status === 200) {
-          dispatch(loginSuccess(response.data.message, data.email));
+          dispatch(loginSuccess(response.data.response, data.email));
           dispatch(push('/'));
         } else {
-          dispatch(loginError('Oops! Something went wrong!'));
+          dispatch(loginError(response.data.response, data.email));
         }
       })
       .catch(err => {
-        dispatch(loginError(getMessage(err)));
+        dispatch(loginError(err.response.data.response, data.email));
       });
   };
 }
@@ -127,14 +169,14 @@ export function register() {
     return makeUserRequest('post', data, '/register')
       .then(response => {
         if (response.status === 200) {
-          dispatch(signUpSuccess(response.data.message, data.email));
+          dispatch(signUpSuccess(response.data.response, data.email));
           dispatch(push('/'));
         } else {
-          dispatch(signUpError('Oops! Something went wrong'));
+          dispatch(signUpError(response.data.response));
         }
       })
       .catch(err => {
-        dispatch(signUpError(getMessage(err)));
+        dispatch(signUpError(err.response.data.response));
       });
   };
 }
@@ -142,7 +184,6 @@ export function register() {
 export function logOut() {
   return dispatch => {
     dispatch(beginLogout());
-
     return makeUserRequest('post', null, '/logout')
       .then(response => {
         if (response.status === 200) {
@@ -155,25 +196,66 @@ export function logOut() {
   };
 }
 
+export function sendVerificationEmail() {
+  return (dispatch, getState) => {
+    dispatch(beginSendVerificationEmail());
+    const {user} = getState();
+    const data = {
+      email: user.email
+    };
+    return makeUserRequest('post', data, '/sendverify')
+      .then(response => {
+        if (response.status === 200) {
+          dispatch(sendVerificationEmailSuccess(response.data.response, response.data.email));
+          dispatch(push('/'));
+        } else {
+          dispatch(sendVerificationEmailError(response.data.response));
+        }
+      })
+      .catch(err => {
+        dispatch(sendVerificationEmailError(err.response.data.response));
+      });
+  };
+}
+
 export function verify(token) {
   return (dispatch, getState) => {
     dispatch(beginVerify());
     const data = {
       token
     };
-    return makeUserRequest('post', data, '/sendverify')
+    return makeUserRequest('post', data, '/dbverify')
       .then(response => {
         if (response.status === 200) {
-          dispatch(verifySuccess(response.data.message, response.data.email));
+          dispatch(verifySuccess(response.data.response, response.data.email));
           dispatch(push('/'));
         } else {
-          dispatch(verifyError('Oops! Something went wrong'));
+          dispatch(verifyError(response.data.response));
         }
       })
       .catch(err => {
-        dispatch(verifyError(getMessage(err)));
+        dispatch(verifyError(err.response.data.response));
       });
+  };
+}
 
-      console.log("verified");
+export function sendPasswordReset() {
+  return (dispatch, getState) => {
+    dispatch(beginResetPassword());
+    const {authentication} = getState();
+    const data = {
+      email: authentication.emailTextField.value
+    };
+    return makeUserRequest('post', data, '/sendpasswordreset')
+      .then(response => {
+        if (response.status === 200) {
+          dispatch(resetPasswordSuccess(response.data.response));
+        } else {
+          dispatch(resetPasswordError(response.data.response));
+        }
+      })
+      .catch(err => {
+        dispatch(resetPasswordError(err.response.data.response));
+      });
   };
 }

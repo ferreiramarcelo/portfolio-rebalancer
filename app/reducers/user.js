@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import * as types from '../types';
+import * as constants from '../constants';
 
 const message = (
   state = '',
@@ -12,8 +13,15 @@ const message = (
     case types.SIGNUP_SUCCESS_USER:
       return '';
     case types.LOGIN_ERROR_USER:
+      switch (action.response) {
+        case constants.RESPONSE_LOG_IN_NOT_FOUND:
+          return 'No account found for ' + action.email +'.';
+        default:
+          return 'Log in failed. Please try again later.'
+      }
     case types.SIGNUP_ERROR_USER:
-      return action.message;
+    case types.PASSWORD_RESET_ERROR_USER:
+      return action.response;
     default:
       return state;
   }
@@ -38,6 +46,18 @@ const authenticated = (
   }
 };
 
+const verified = (
+  state = false,
+  action
+) => {
+  switch (action.type) {
+    case types.VERIFY_SUCCESS_USER:
+      return true;
+    default:
+      return state;
+  }
+};
+
 const email = (
   state = '',
   action
@@ -57,8 +77,9 @@ const email = (
 };
 
 const userReducer = combineReducers({
-  authenticated,
   message,
+  authenticated,
+  verified,
   email
 });
 

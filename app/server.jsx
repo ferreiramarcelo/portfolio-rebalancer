@@ -13,12 +13,15 @@ export default function render(req, res) {
   const authenticated = req.isAuthenticated();
   const history = createMemoryHistory();
   let email = '';
+  let verified = false;
   if (req.user) {
     email = req.user.email;
+    verified = req.user.verified;
   }
   const store = configureStore({
     user: {
       authenticated,
+      verified,
       message: '',
       email,
     }
