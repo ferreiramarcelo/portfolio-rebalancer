@@ -18,7 +18,7 @@ const Navigation = ({tab, user, logOut}) => {
       return (
       <Tab
            value="login"
-           containerElement={ <Link to="/login" /> }
+           containerElement={ <Link to="\/login" /> }
            label={ 'LOG IN' } />
       );
   };
@@ -28,7 +28,7 @@ const Navigation = ({tab, user, logOut}) => {
       return (
       <Tab
            value="register"
-           containerElement={ <Link to="/register" /> }
+           containerElement={ <Link to="\/register" /> }
            label={ 'REGISTER' } />
       );
   };
@@ -61,7 +61,7 @@ const Navigation = ({tab, user, logOut}) => {
               <Tab
                    value="about"
                    label="ABOUT"
-                   containerElement={ <Link to="/about" /> }>
+                   containerElement={ <Link to="\/about" /> }>
               </Tab>
               { logInTab }
               { registerTab }
@@ -84,12 +84,12 @@ const Navigation = ({tab, user, logOut}) => {
         <Tab
              value="about"
              label="ABOUT"
-             containerElement={ <Link to="/about" /> }>
+             containerElement={ <Link to="\/about" /> }>
         </Tab>
         <Tab
              value="account"
              label="ACCOUNT"
-             containerElement={ <Link to="/account" /> }>
+             containerElement={ <Link to="\/account" /> }>
         </Tab>
       </Tabs>
     </div>
