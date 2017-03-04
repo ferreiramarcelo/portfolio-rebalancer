@@ -27,6 +27,7 @@ export default (req, accessToken, refreshToken, profile, done) => {
       }
       const user = new User();
       user.email = profile._json.emails[0].value;
+      user.verified = true;
       user.google = profile.id;
       user.tokens.push({ kind: 'google', accessToken });
       user.profile.name = profile.displayName;

@@ -10,7 +10,9 @@ export default (app) => {
     app.post('/login', usersController.login);
     app.post('/register', usersController.register);
     app.post('/logout', usersController.logout);
-    app.post('/sendverify', usersController.sendverify);
+    app.post('/dbverify', usersController.dbVerify);
+    app.post('/sendverify', usersController.sendVerificationEmail);
+    app.post('/sendpasswordreset', usersController.sendPasswordReset);
   }
 
   if (modelPortfoliosController) {

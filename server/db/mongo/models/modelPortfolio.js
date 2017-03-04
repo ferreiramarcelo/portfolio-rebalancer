@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const ModelPortfolio = new mongoose.Schema({
+const ModelPortfolioSchema = new mongoose.Schema({
   id: String,
   name: String,
   email: String,
@@ -10,4 +10,4 @@ const ModelPortfolio = new mongoose.Schema({
 	}]
 });
 
-export default mongoose.model('ModelPortfolio', ModelPortfolio);
+export default mongoose.model('ModelPortfolio', ModelPortfolioSchema);
