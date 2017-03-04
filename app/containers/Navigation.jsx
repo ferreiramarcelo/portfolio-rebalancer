@@ -1,10 +1,8 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
-import { Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle } from 'material-ui/Toolbar';
 import FlatButton from 'material-ui/FlatButton';
 import { Tabs, Tab } from 'material-ui/Tabs';
-import Slider from 'material-ui/Slider';
 import classNames from 'classnames/bind';
 import { logOut } from '../actions/users';
 import styles from '../css/containers/navigation';
@@ -53,7 +51,7 @@ const Navigation = ({tab, user, logOut}) => {
   const getUnauthenticatedTabs = function getUnauthenticatedTabs() {
     return (<Tabs value={ tab }>
               <Tab
-                   value="/"
+                   value={"/"}
                    label="PR"
                    containerElement={ <Link to="/" /> }>
               </Tab>
@@ -74,7 +72,7 @@ const Navigation = ({tab, user, logOut}) => {
       <div className={ cx( 'authenticated-container-tabs' ) }>
         <Tabs value={ tab }>
           <Tab
-               value="/"
+               value={"/"}
                label="PR"
                containerElement={ <Link to="/" /> }>
           </Tab>

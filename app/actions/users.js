@@ -48,10 +48,11 @@ function signUpSuccess(response, email) {
   };
 }
 
-function signUpError(response) {
+function signUpError(response, email) {
   return {
     type: types.SIGNUP_ERROR_USER,
-    response
+    response,
+    email
   };
 }
 
@@ -173,11 +174,11 @@ export function register() {
           dispatch(signUpSuccess(response.data.response, data.email));
           dispatch(push('/'));
         } else {
-          dispatch(signUpError(response.data.response));
+          dispatch(signUpError(response.data.response, data.email));
         }
       })
       .catch(err => {
-        dispatch(signUpError(err.response.data.response));
+        dispatch(signUpError(err.response.data.response, data.email));
       });
   };
 }

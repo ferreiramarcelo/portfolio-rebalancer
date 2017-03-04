@@ -20,6 +20,12 @@ const message = (
           return 'Log in failed. Please try again later.'
       }
     case types.SIGNUP_ERROR_USER:
+    switch (action.response) {
+      case constants.RESPONSE_REGISTER_CONFLICT:
+        return 'Account already exists for ' + action.email +'.';
+      default:
+        return 'Failed to register. Please try again later.'
+    }
     case types.PASSWORD_RESET_ERROR_USER:
     switch (action.response) {
       case constants.RESPONSE_SEND_PASSWORD_NOT_FOUND:
