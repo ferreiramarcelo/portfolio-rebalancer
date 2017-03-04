@@ -14,26 +14,6 @@ const cx = classNames.bind( styles );
 
 const Navigation = ({tab, user, logOut}) => {
 
-  const getLogInTab = function getLogInTab() {
-      return (
-      <Tab
-           value="login"
-           containerElement={ <Link to="\/login" /> }
-           label={ 'LOG IN' } />
-      );
-  };
-  const logInTab = getLogInTab();
-
-  const getRegisterTab = function getRegisterTab() {
-      return (
-      <Tab
-           value="register"
-           containerElement={ <Link to="\/register" /> }
-           label={ 'REGISTER' } />
-      );
-  };
-  const registerTab = getRegisterTab();
-
   const getLoggedInAsIdentifier = function getLoggedInAsIdentifier( authenticated, email ) {
       return (
       <span className={cx('logged-in-as-identifier')} >{ email }</span>
@@ -58,51 +38,14 @@ const Navigation = ({tab, user, logOut}) => {
                    label="PR"
                    containerElement={ <Link to="" /> }>
               </Tab>
-              <Tab
-                   value="about"
-                   label="ABOUT"
-                   containerElement={ <Link to="\/about" /> }>
-              </Tab>
-              { logInTab }
-              { registerTab }
             </Tabs>);
   }
   const unauthenticatedTabs = getUnauthenticatedTabs();
 
-  const getAuthenticatedNav = function getAuthenticatedNav() {
-    return (
-    <div className={cx('authenticated-container')}>
-      <div className={cx('authenticated-container-tabs')} >
-      <Tabs
-            value={ tab }
-          >
-        <Tab
-             value=""
-             label="PR"
-             containerElement={ <Link to="" /> }>
-        </Tab>
-        <Tab
-             value="about"
-             label="ABOUT"
-             containerElement={ <Link to="\/about" /> }>
-        </Tab>
-        <Tab
-             value="account"
-             label="ACCOUNT"
-             containerElement={ <Link to="\/account" /> }>
-        </Tab>
-      </Tabs>
-    </div>
-    <div className={cx('authenticated-container-log-out')}>
-      { logOutButton }
-    </div>
-    </div>);
-  }
-  const authenticatedNav = getAuthenticatedNav();
 
   const getNavigation = function getNavigation( givenAuthenticated ) {
     if ( givenAuthenticated ) {
-      return authenticatedNav;
+      return unauthenticatedTabs;
     }
     return unauthenticatedTabs;
   }
