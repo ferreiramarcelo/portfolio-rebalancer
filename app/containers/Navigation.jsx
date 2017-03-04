@@ -56,7 +56,7 @@ const Navigation = ({tab, user, logOut}) => {
               <Tab
                    value=""
                    label="PR"
-                   containerElement={ <Link to="/" /> }>
+                   containerElement={ <Link to="" /> }>
               </Tab>
               <Tab
                    value="about"
@@ -79,7 +79,7 @@ const Navigation = ({tab, user, logOut}) => {
         <Tab
              value=""
              label="PR"
-             containerElement={ <Link to="/" /> }>
+             containerElement={ <Link to="" /> }>
         </Tab>
         <Tab
              value="about"
