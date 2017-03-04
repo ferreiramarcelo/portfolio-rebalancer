@@ -32,13 +32,7 @@ const Navigation = ({tab, user, logOut}) => {
   const logOutButton = getLogOutButton( user.authenticated );
 
   const getUnauthenticatedTabs = function getUnauthenticatedTabs() {
-    return (<Tabs value={ tab }>
-              <Tab
-                   value=""
-                   label="PR"
-                   containerElement={ <Link to="" /> }>
-              </Tab>
-            </Tabs>);
+    return null;
   }
   const unauthenticatedTabs = getUnauthenticatedTabs();
 
