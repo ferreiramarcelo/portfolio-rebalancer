@@ -46,6 +46,32 @@ const Navigation = ({tab, user, logOut}) => {
                                  { registerTab }
                                </Tabs>);
 
+  const authenticatedNav = (
+  <div className={ cx( 'authenticated-container' ) }>
+    <div className={ cx( 'authenticated-container-tabs' ) }>
+      <Tabs value={ tab }>
+        <Tab
+             value=""
+             label="PR"
+             containerElement={ <Link to="" /> }>
+        </Tab>
+        <Tab
+             value="about"
+             label="ABOUT"
+             containerElement={ <Link to="/about" /> }>
+        </Tab>
+        <Tab
+             value="account"
+             label="ACCOUNT"
+             containerElement={ <Link to="/account" /> }>
+        </Tab>
+      </Tabs>
+    </div>
+    <div className={ cx( 'authenticated-container-log-out' ) }>
+      { logOutButton }
+    </div>
+  </div>);
+
   const getNavigation = function getNavigation( givenAuthenticated ) {
     if ( givenAuthenticated ) {
       return unauthenticatedTabs;
