@@ -1,5 +1,5 @@
 import passport from 'passport';
-//import Nodemailer from 'nodemailer';
+import Nodemailer from 'nodemailer';
 import md5 from 'spark-md5';
 import User from '../models/user';
 import VerificationToken from '../models/verificationToken';
