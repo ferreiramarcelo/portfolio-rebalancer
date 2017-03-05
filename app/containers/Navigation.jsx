@@ -15,21 +15,36 @@ const cx = classNames.bind( styles );
 const Navigation = ({tab, user, logOut}) => {
 
   const logInTab = <Tab
-       value="login"
-       containerElement={ <Link to="/login" /> }
-       label={ 'LOG IN' } />;
+                        value="login"
+                        containerElement={ <Link to="/login" /> }
+                        label={ 'LOG IN' } />;
 
   const registerTab = <Tab
-       value="register"
-       containerElement={ <Link to="/register" /> }
-       label={ 'REGISTER' } />;
+                           value="register"
+                           containerElement={ <Link to="/register" /> }
+                           label={ 'REGISTER' } />;
 
-  const loggedInAsIdentifier = <span className={cx('logged-in-as-identifier')} >{ user.email }</span>
+  const loggedInAsIdentifier = <span className={ cx( 'logged-in-as-identifier' ) }>{ user.email }</span>
 
   const logOutButton = <FlatButton
-              onTouchTap={ logOut }
-              label={ "LOG OUT" }
-              className={cx('log-out-button')} />
+                                   onTouchTap={ logOut }
+                                   label={ "LOG OUT" }
+                                   className={ cx( 'log-out-button' ) } />
+
+  const unauthenticatedTabs = (<Tabs value={ tab }>
+                                 <Tab
+                                      value=""
+                                      label="PR"
+                                      containerElement={ <Link to="" /> }>
+                                 </Tab>
+                                 <Tab
+                                      value="about"
+                                      label="ABOUT"
+                                      containerElement={ <Link to="/about" /> }>
+                                 </Tab>
+                                 { logInTab }
+                                 { registerTab }
+                               </Tabs>);
 
   const getUnauthenticatedTabs = function getUnauthenticatedTabs() {
     return null;
