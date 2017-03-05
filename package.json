@@ -1,6 +1,6 @@
 {
   "name": "portfolio-rebalancer-dev",
-  "version": "0.1.0beta",
+  "version": "0.1.1beta",
   "engines": {
     "node": "6.9.5",
     "npm": "3.10.10"
