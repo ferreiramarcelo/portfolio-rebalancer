@@ -52,9 +52,6 @@
     "stylelint": "^7.1.0",
     "stylelint-webpack-plugin": "^0.4.2"
   },
-  "engines": {
-    "node": "5.x"
-  },
   "dependencies": {
     "autoprefixer": "^6.4.0",
     "axios": "^0.14.0",
