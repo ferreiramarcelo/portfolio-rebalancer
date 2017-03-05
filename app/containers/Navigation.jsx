@@ -46,12 +46,6 @@ const Navigation = ({tab, user, logOut}) => {
                                  { registerTab }
                                </Tabs>);
 
-  const getUnauthenticatedTabs = function getUnauthenticatedTabs() {
-    return null;
-  }
-  const unauthenticatedTabs = getUnauthenticatedTabs();
-
-
   const getNavigation = function getNavigation( givenAuthenticated ) {
     if ( givenAuthenticated ) {
       return unauthenticatedTabs;
