@@ -14,32 +14,22 @@ const cx = classNames.bind( styles );
 
 const Navigation = ({tab, user, logOut}) => {
 
-  const getLogInTab = function getLogInTab() {
-      return (
-      <Tab
-           value="login"
-           containerElement={ <Link to="/login" /> }
-           label={ 'LOG IN' } />
-      );
-  };
-  const logInTab = getLogInTab();
-  
-  const getLoggedInAsIdentifier = function getLoggedInAsIdentifier( authenticated, email ) {
-      return (
-      <span className={cx('logged-in-as-identifier')} >{ email }</span>
-      );
-  };
-  const loggedInAsIdentifier = getLoggedInAsIdentifier( user.authenticated, user.email );
+  const logInTab = <Tab
+       value="login"
+       containerElement={ <Link to="/login" /> }
+       label={ 'LOG IN' } />;
 
-  const getLogOutButton = function getLogOutButton( authenticated ) {
-      return (
-      <FlatButton
-                  onTouchTap={ logOut }
-                  label={ "LOG OUT" }
-                  className={cx('log-out-button')} />
-      );
-  };
-  const logOutButton = getLogOutButton( user.authenticated );
+  const registerTab = <Tab
+       value="register"
+       containerElement={ <Link to="/register" /> }
+       label={ 'REGISTER' } />;
+
+  const loggedInAsIdentifier = <span className={cx('logged-in-as-identifier')} >{ user.email }</span>
+
+  const logOutButton = <FlatButton
+              onTouchTap={ logOut }
+              label={ "LOG OUT" }
+              className={cx('log-out-button')} />
 
   const getUnauthenticatedTabs = function getUnauthenticatedTabs() {
     return null;
