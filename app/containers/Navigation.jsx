@@ -74,7 +74,7 @@ const Navigation = ({tab, user, logOut}) => {
 
   const getNavigation = function getNavigation( givenAuthenticated ) {
     if ( givenAuthenticated ) {
-      return unauthenticatedTabs;
+      return authenticatedNav;
     }
     return unauthenticatedTabs;
   }
