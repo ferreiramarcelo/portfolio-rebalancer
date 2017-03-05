@@ -1,9 +1,9 @@
 {
   "name": "portfolio-rebalancer-dev",
   "description": "Investment portfolio rebalancing web app",
-  "version": "0.1.1beta",
+  "version": "1.0.0",
   "engines": {
-    "node": "6.9.4",
+    "node": "6.x",
     "npm": "3.10.10"
   },
   "repository": "https://github.com/AlexisDeschamps/portfolio-rebalancer",
