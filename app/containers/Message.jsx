@@ -16,10 +16,12 @@ const Message = ({open, response, email, requestClose, sendVerificationEmail, se
     switch (response) {
       case constants.RESPONSE_REGISTER_VERIFICATION_EMAIL_SENT:
         return 'Verification email sent to ' + email;
+        case constants.RESPONSE_REGISTER_VERIFICATION_EMAIL_NOT_SENT:
+          return 'Failed to send verification email to ' + email;
       case constants.RESPONSE_LOG_IN_EMAIL_NOT_VERIFIED:
         return 'Email not verified';
       case constants.RESPONSE_VERIFY_INVALID_VERIFICATION_TOKEN:
-        return 'Invalid verificatio token';
+        return 'Invalid verification token';
       case constants.RESPONSE_VERIFY_FAILURE:
         return 'Failed to verify email';
       case constants.RESPONSE_VERIFY_SUCCESS:
@@ -39,10 +41,11 @@ const Message = ({open, response, email, requestClose, sendVerificationEmail, se
   const getActionLabel = function getActionLabel() {
     switch (response) {
       case constants.RESPONSE_LOG_IN_EMAIL_NOT_VERIFIED:
+      case constants.RESPONSE_REGISTER_VERIFICATION_EMAIL_NOT_SENT:
       case constants.RESPONSE_VERIFY_INVALID_VERIFICATION_TOKEN:
       case constants.RESPONSE_VERIFY_FAILURE:
       case constants.RESPONSE_SEND_PASSWORD_RESET_FAILURE:
-        return 'RESEND EMAIL';
+        return 'RESEND VERIFICATION EMAIL';
       default:
         return '';
     }
@@ -52,6 +55,7 @@ const Message = ({open, response, email, requestClose, sendVerificationEmail, se
   const getAction = function getAction() {
     switch (response) {
       case constants.RESPONSE_LOG_IN_EMAIL_NOT_VERIFIED:
+      case constants.RESPONSE_REGISTER_VERIFICATION_EMAIL_NOT_SENT:
       case constants.RESPONSE_VERIFY_INVALID_VERIFICATION_TOKEN:
       case constants.RESPONSE_VERIFY_FAILURE:
         return sendVerificationEmail;

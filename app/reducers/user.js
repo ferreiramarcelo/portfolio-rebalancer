@@ -15,7 +15,7 @@ const message = (
     case types.LOGIN_ERROR_USER:
       switch (action.response) {
         case constants.RESPONSE_LOG_IN_NOT_FOUND:
-          return 'No account found for ' + action.email +'.';
+          return 'Invalid email and password comination.';
         default:
           return 'Log in failed. Please try again later.'
       }
@@ -88,11 +88,22 @@ const email = (
   }
 };
 
+const accountType = (
+  state = constants.ACCOUNT_TYPE_INTERNAL,
+  action
+) => {
+  switch (action.type) {
+    default:
+      return state;
+  }
+};
+
 const userReducer = combineReducers({
   message,
   authenticated,
   verified,
-  email
+  email,
+  accountType
 });
 
 export default userReducer;

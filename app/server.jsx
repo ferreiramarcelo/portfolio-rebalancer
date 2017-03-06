@@ -6,6 +6,7 @@ import * as types from './types';
 import preRenderMiddleware from './middlewares/preRenderMiddleware';
 import { host, port } from './config/app';
 import pageRenderer from './utils/pageRenderer';
+import * as constants from './constants';
 
 axios.defaults.baseURL = `http://${host}:${port}`;
 
@@ -14,16 +15,22 @@ export default function render(req, res) {
   const history = createMemoryHistory();
   let email = '';
   let verified = false;
+  let accountType = constants.ACCOUNT_TYPE_INTERNAL;
   if (req.user) {
     email = req.user.email;
     verified = req.user.verified;
+    if (req.user.google) {
+      accountType = constants.ACCOUNT_TYPE_GOOGLE;
+    }
   }
+
   const store = configureStore({
     user: {
       authenticated,
       verified,
       message: '',
       email,
+      accountType
     }
   }, history);
   const routes = createRoutes(store);

@@ -2,7 +2,8 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
-import Card from 'material-ui/Card';
+import Paper from 'material-ui/Card';
+import Divider from 'material-ui/Divider';
 import FontAwesome from 'react-fontawesome';
 import classNames from 'classnames/bind';
 import { emailTextFieldChange, passwordTextFieldChange, passwordConfirmationTextFieldChange, toggleAuthenticationMode } from '../actions/authentications';
@@ -10,7 +11,8 @@ import { manualLogin, register, sendPasswordReset } from '../actions/users';
 import EmailTextField from '../components/authentication/EmailTextField';
 import PasswordTextField from '../components/authentication/PasswordTextField';
 import { getAuthenticationSelect } from '../selectors/index';
-import styles from '../css/containers/authentication';
+import * as constants from '../constants';
+import styles from '../css/containers/account';
 
 const cx = classNames.bind( styles );
 
@@ -24,42 +26,70 @@ class Account extends React.Component {
     event.preventDefault();
   }
 
+  getEmailInfo() {
+    if ( this.props.user.accountType === constants.ACCOUNT_TYPE_GOOGLE ) {
+      return (  <div className={ cx( 'paper-insides', 'flex' ) }>
+                  <span>Logged in through Google Sign-In</span>
+                  <FontAwesome name="google" />
+                </div>);
+    }
+    if ( !this.props.user.verified ) {
+      return (  <div className={ cx( 'paper-insides', 'flex' ) }>
+                  <span>Not verified</span>
+                  <FlatButton
+                              label="RESEND VERIFICATION EMAIL"
+                              secondary
+                              onTouchTap={ this.props.toggleAuthenticationMode } />
+                </div>);
+    }
+    return null;
+  }
+
   render() {
     return (
     <div>
-      Email: {this.props.user.email}
-      {this.props.user.verified ? '' : 'NOT VERIFIED'}
-      <form onSubmit={ this.handleOnChangePassword }>
-      Change password
-        <PasswordTextField
-                         value={ this.props.authentication.passwordTextField.value }
-                         errorText={ this.props.authenticationSelect.passwordTextFieldSelect.errorText }
-                         onChange={ this.props.passwordTextFieldChange }
-                         label="Current password" />
-        <PasswordTextField
-                           value={ this.props.authentication.passwordTextField.value }
-                           errorText={ this.props.authenticationSelect.passwordTextFieldSelect.errorText }
-                           onChange={ this.props.passwordTextFieldChange }
-                           label="New password" />
-        <PasswordTextField
-                                       value={ this.props.authentication.passwordConfirmationTextField.value }
-                                       errorText={ this.props.authenticationSelect.passwordConfirmationTextFieldSelect.errorText }
-                                       onChange={ this.props.passwordConfirmationTextFieldChange }
-                                     label="Confirm new password" />
-        <p className={ cx( 'message', {
-                         'message-show': this.props.user.message && this.props.user.message.length > 0
-                       } ) }>
-          { this.props.user.message }
-        </p>
-        <RaisedButton
-                      disabled={ this.props.authenticationSelect.registerButtonVisibility === 'disabled' }
-                      label="Change Password"
-                      fullWidth
-                      primary
-                      disabled={ this.props.authenticationSelect.registerButtonVisibility === 'disabled' }
-                      type="submit"
-                      className={ cx( 'submit-button' ) } />
-      </form>
+      <Paper className={ cx( 'paper' ) }>
+        <div className={ cx( 'paper-insides', 'flex' ) }>
+          <span className={ cx( 'section-header' ) }>Email</span>
+          <span>{ this.props.user.email }</span>
+        </div>
+          { this.getEmailInfo() }
+      </Paper>
+      <Paper className={ cx( 'paper' ) }>
+        <form
+              onSubmit={ this.handleOnChangePassword }
+              className={ cx( 'paper-insides' ) }>
+          <span className={ cx( 'section-header' ) }>Change password</span>
+          <PasswordTextField
+                             value={ this.props.authentication.passwordTextField.value }
+                             errorText={ this.props.authenticationSelect.passwordTextFieldSelect.errorText }
+                             onChange={ this.props.passwordTextFieldChange }
+                             label="Current password" />
+          <PasswordTextField
+                             value={ this.props.authentication.passwordTextField.value }
+                             errorText={ this.props.authenticationSelect.passwordTextFieldSelect.errorText }
+                             onChange={ this.props.passwordTextFieldChange }
+                             label="New password" />
+          <PasswordTextField
+                             value={ this.props.authentication.passwordConfirmationTextField.value }
+                             errorText={ this.props.authenticationSelect.passwordConfirmationTextFieldSelect.errorText }
+                             onChange={ this.props.passwordConfirmationTextFieldChange }
+                             label="Confirm new password" />
+          <p className={ cx( 'message', {
+                           'message-show': this.props.user.message && this.props.user.message.length > 0
+                         } ) }>
+            { this.props.user.message }
+          </p>
+          <RaisedButton
+                        disabled={ this.props.authenticationSelect.registerButtonVisibility === 'disabled' }
+                        label="Change Password"
+                        fullWidth
+                        primary
+                        disabled={ this.props.authenticationSelect.registerButtonVisibility === 'disabled' }
+                        type="submit"
+                        className={ cx( 'submit-button' ) } />
+        </form>
+      </Paper>
     </div>
     );
   }
