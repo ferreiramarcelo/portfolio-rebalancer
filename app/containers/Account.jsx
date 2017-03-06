@@ -7,7 +7,7 @@ import Divider from 'material-ui/Divider';
 import FontAwesome from 'react-fontawesome';
 import classNames from 'classnames/bind';
 import { emailTextFieldChange, passwordTextFieldChange, passwordConfirmationTextFieldChange, toggleAuthenticationMode } from '../actions/authentications';
-import { manualLogin, register, sendPasswordReset } from '../actions/users';
+import { sendVerificationEmail, sendPasswordReset } from '../actions/users';
 import EmailTextField from '../components/authentication/EmailTextField';
 import PasswordTextField from '../components/authentication/PasswordTextField';
 import { getAuthenticationSelect } from '../selectors/index';
@@ -29,8 +29,10 @@ class Account extends React.Component {
   getEmailInfo() {
     if ( this.props.user.accountType === constants.ACCOUNT_TYPE_GOOGLE ) {
       return (  <div className={ cx( 'paper-insides', 'flex' ) }>
+                  <FontAwesome
+                               name="google"
+                               className={ cx( 'google-icon' ) } />
                   <span>Logged in through Google Sign-In</span>
-                  <FontAwesome name="google" />
                 </div>);
     }
     if ( !this.props.user.verified ) {
@@ -39,7 +41,7 @@ class Account extends React.Component {
                   <FlatButton
                               label="RESEND VERIFICATION EMAIL"
                               secondary
-                              onTouchTap={ this.props.toggleAuthenticationMode } />
+                              onTouchTap={ this.props.sendVerificationEmail } />
                 </div>);
     }
     return null;
@@ -53,7 +55,7 @@ class Account extends React.Component {
           <span className={ cx( 'section-header' ) }>Email</span>
           <span>{ this.props.user.email }</span>
         </div>
-          { this.getEmailInfo() }
+        { this.getEmailInfo() }
       </Paper>
       <Paper className={ cx( 'paper' ) }>
         <form
@@ -99,8 +101,7 @@ Account.propTypes = {
   user: PropTypes.object.isRequired,
   authentication: PropTypes.object.isRequired,
   authenticationSelect: PropTypes.object.isRequired,
-  manualLogin: PropTypes.func.isRequired,
-  register: PropTypes.func.isRequired,
+  sendVerificationEmail: PropTypes.func.isRequired,
   sendPasswordReset: PropTypes.func.isRequired,
   emailTextFieldChange: PropTypes.func.isRequired,
   passwordTextFieldChange: PropTypes.func.isRequired,
@@ -117,8 +118,7 @@ function mapStateToProps( state ) {
 }
 
 export default connect( mapStateToProps, {
-  manualLogin,
-  register,
+  sendVerificationEmail,
   sendPasswordReset,
   emailTextFieldChange,
   passwordTextFieldChange,

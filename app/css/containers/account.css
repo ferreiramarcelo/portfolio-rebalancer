@@ -14,13 +14,20 @@
   @apply --subHeading;
 }
 
+.google-icon {
+  @apply --subHeading2;
+}
+
 .flex {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.flex-left {
+.flex-right {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
 
 .flex-right {

@@ -66,7 +66,7 @@ export function register( req, res, next ) {
           response: constants.RESPONSE_REGISTER_FAILURE,
         } );
       }
-      const sendEmailSucceeded = sendVerificationEmailInternal(req.body.email);
+      const sendEmailSucceeded = sendVerificationEmailInternal(req);
       return req.logIn( user, (loginErr) => {
         if ( loginErr ) {
           return res.status( 409 ).json( {
@@ -171,7 +171,7 @@ export function sendVerificationEmail( req, res, next ) {
         response: constants.RESPONSE_SEND_VERIFICATION_EMAIL_NOT_FOUND
       } );
     }
-    const sendEmailSucceeded = sendVerificationEmailInternal(req.body.email);
+    const sendEmailSucceeded = sendVerificationEmailInternal(req);
     if (!sendEmailSucceeded) {
       return res.status( 401 ).json( {
         response: constants.RESPONSE_SEND_VERIFICATION_EMAIL_FAILURE
@@ -206,14 +206,14 @@ function sendEmail(to, subject, text, html) {
   } );
 }
 
-function sendVerificationEmailInternal(to) {
+function sendVerificationEmailInternal(req) {
   const verificationToken = new VerificationToken( {
-    email: to
+    email: req.body.email
   } );
   const token = md5.hash( verificationToken.get( 'email' ) + String( verificationToken.get( 'createdAt' ) ) );
   verificationToken.setToken( token );
   const verificationURL = req.protocol + "://" + req.get( 'host' ) + "/verify/" + token;
-  return sendEmail(to,
+  return sendEmail(req.body.email,
   'Verify your Portfolio Rebalancer email address',
   'Thanks for registering for PortfolioRebalancer.com. Click the following link to verify your email address: ' + verificationURL + '. This link will expire within 24 hours.',
   '<p>Thanks for registering for <a href=https://www.portfoliorebalancer.com>PortfolioRebalancer.com</a>! </p>'

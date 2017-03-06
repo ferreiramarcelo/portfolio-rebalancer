@@ -3,7 +3,7 @@
 
   --fontMontserrat:           'Montserrat', Helvetica, Arial, sans-serif;
   --fontRoboto:           	  'Roboto', sans-serif;
-  
+
   --fontSmall:                12px;
   --fontMedium:               16px;
   --fontLarge:                21px;
@@ -18,6 +18,12 @@
   --subHeading {
     font-size: 21px;
     font-weight: 700;
+    line-height: 24px;
+  }
+
+  --subHeading2 {
+    font-size: 18px;
+    font-weight: 500;
     line-height: 24px;
   }
 
