@@ -6,13 +6,14 @@ import FlatButton from 'material-ui/FlatButton';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import Slider from 'material-ui/Slider';
 import classNames from 'classnames/bind';
+import { changeTab } from '../actions/views';
 import { logOut } from '../actions/users';
 import styles from '../css/containers/navigation';
 
 
 const cx = classNames.bind( styles );
 
-const Navigation = ({tab, user, logOut}) => {
+const Navigation = ({tab, user, changeTab, logOut}) => {
 
   const logInTab = <Tab
                         value="login"
@@ -31,7 +32,9 @@ const Navigation = ({tab, user, logOut}) => {
                                    label={ "LOG OUT" }
                                    className={ cx( 'log-out-button' ) } />
 
-  const unauthenticatedTabs = (<Tabs value={ tab }>
+  const unauthenticatedTabs = (<Tabs
+                                     value={ tab }
+                                     onChange={ changeTab }>
                                  <Tab
                                       value=""
                                       label="PR"
@@ -49,7 +52,9 @@ const Navigation = ({tab, user, logOut}) => {
   const authenticatedNav = (
   <div className={ cx( 'authenticated-container' ) }>
     <div className={ cx( 'authenticated-container-tabs' ) }>
-      <Tabs value={ tab }>
+      <Tabs
+            value={ tab }
+            onChange={ changeTab }>
         <Tab
              value=""
              label="PR"
@@ -91,6 +96,7 @@ const Navigation = ({tab, user, logOut}) => {
 
 Navigation.propTypes = {
   user: PropTypes.object,
+  changeTab: PropTypes.func.isRequired,
   logOut: PropTypes.func.isRequired
 };
 
@@ -101,5 +107,6 @@ function mapStateToProps( state ) {
 }
 
 export default connect( mapStateToProps, {
+  changeTab,
   logOut
 } )( Navigation );

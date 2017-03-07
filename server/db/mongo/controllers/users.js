@@ -12,7 +12,8 @@ export function login( req, res, next ) {
     if ( authErr ) {
       return res.status( 401 ).json( {
         response: constants.RESPONSE_LOG_IN_NOT_FOUND
-      } );    }
+      } );
+    }
     if ( !user ) {
       return res.status( 401 ).json( {
         response: constants.RESPONSE_LOG_IN_NOT_FOUND
@@ -25,7 +26,7 @@ export function login( req, res, next ) {
           response: constants.RESPONSE_LOG_IN_FAILURE
         } );
       }
-      if (! user.verified ) {
+      if ( !user.verified ) {
         return res.status( 200 ).json( {
           response: constants.RESPONSE_LOG_IN_EMAIL_NOT_VERIFIED,
           email: user.email
@@ -66,20 +67,14 @@ export function register( req, res, next ) {
           response: constants.RESPONSE_REGISTER_FAILURE,
         } );
       }
-      const sendEmailSucceeded = sendVerificationEmailInternal(req);
       return req.logIn( user, (loginErr) => {
         if ( loginErr ) {
           return res.status( 409 ).json( {
             response: constants.RESPONSE_LOG_IN_FAILURE,
           } );
         }
-        if (!sendEmailSucceeded) {
-          return res.status( 200 ).json( {
-            response: constants.RESPONSE_REGISTER_VERIFICATION_EMAIL_NOT_SENT
-          } );
-        }
         return res.status( 200 ).json( {
-          response: constants.RESPONSE_REGISTER_VERIFICATION_EMAIL_SENT
+          response: constants.RESPONSE_LOG_IN_SUCCESS
         } );
       } );
     } );
@@ -88,12 +83,10 @@ export function register( req, res, next ) {
 
 export function dbVerify( req, res ) {
   const token = req.body.token;
-  console.log( 'VERIFICATION:', token );
-
   VerificationToken.findOne( {
     token: token
   }, function ( err, token ) {
-    if ( err || !token) {
+    if ( err || !token ) {
       return res.status( 401 ).json( {
         response: constants.RESPONSE_VERIFY_INVALID_VERIFICATION_TOKEN
       } );
@@ -101,14 +94,13 @@ export function dbVerify( req, res ) {
     User.findOne( {
       email: token.email
     }, function ( err, user ) {
-      if ( err || !user) {
+      if ( err || !user ) {
         return res.status( 401 ).json( {
           response: constants.RESPONSE_VERIFY_FAILURE
         } );
       }
       user[ "verified" ] = true;
       user.save( function ( err ) {
-
 
         return req.logIn( user, (loginErr) => {
           if ( loginErr )
@@ -120,7 +112,6 @@ export function dbVerify( req, res ) {
             email: user.email
           } );
         } );
-
       } );
     } );
   } );
@@ -143,22 +134,21 @@ export function sendPasswordReset( req, res, next ) {
     verificationToken.setToken( token );
     const verificationURL = req.protocol + "://" + req.get( 'host' ) + "/verify/" + token;
 
-    const sendEmailSucceeded = sendEmail(req.body.email,
-    'Portfolio Rebalancer password reset',
-    'Thanks for registering for Portfolio Rebalancer.',
-    '<p>Click the following link to reset your password: <a href=' + passwordResetURL + '>' + passwordResetURL + '</a> </p>'
+    const sendEmailSucceeded = sendEmail( req.body.email,
+      'Portfolio Rebalancer password reset',
+      'Thanks for registering for Portfolio Rebalancer.',
+      '<p>Click the following link to reset your password: <a href=' + passwordResetURL + '>' + passwordResetURL + '</a> </p>'
         + '<p>If you did not request this password reset, ignore this email. The link will expire within 24 hours of being sent.'
     );
 
-    if (sendEmailSucceeded) {
+    if ( sendEmailSucceeded ) {
       return res.status( 200 ).json( {
         response: constants.RESPONSE_SEND_PASSWORD_RESET_SUCCESS
       } );
     }
-      return res.status( 409 ).json( {
-        response: constants.RESPONSE_SEND_PASSWORD_RESET_FAILURE
-      } );
-
+    return res.status( 409 ).json( {
+      response: constants.RESPONSE_SEND_PASSWORD_RESET_FAILURE
+    } );
   } );
 }
 
@@ -171,19 +161,24 @@ export function sendVerificationEmail( req, res, next ) {
         response: constants.RESPONSE_SEND_VERIFICATION_EMAIL_NOT_FOUND
       } );
     }
-    const sendEmailSucceeded = sendVerificationEmailInternal(req);
-    if (!sendEmailSucceeded) {
-      return res.status( 401 ).json( {
-        response: constants.RESPONSE_SEND_VERIFICATION_EMAIL_FAILURE
+
+    sendVerificationEmailInternal( req, (emailSentSuccessfully) => {
+      console.log( "wow" );
+      if ( !emailSentSuccessfully ) {
+        console.log( "we back failed" );
+        return res.status( 401 ).json( {
+          response: constants.RESPONSE_SEND_VERIFICATION_EMAIL_FAILURE
+        } );
+      }
+      console.log( "we back" );
+      return res.status( 200 ).json( {
+        response: constants.RESPONSE_SEND_VERIFICATION_EMAIL_SUCCESS
       } );
-    }
-    return res.status( 401 ).json( {
-      response: constants.RESPONSE_SEND_VERIFICATION_EMAIL_SUCCESS
     } );
   } );
 }
 
-function sendEmail(to, subject, text, html) {
+function sendEmail( to, subject, text, html, callback ) {
   let transporter = Nodemailer.createTransport( {
     service: 'Postmark',
     auth: {
@@ -200,27 +195,43 @@ function sendEmail(to, subject, text, html) {
   };
   return transporter.sendMail( mailOptions, (error, info) => {
     if ( error ) {
-      return false;
+      console.log( "TRANSPORTER FAILURE" );
+      callback( false );
     }
-    return true;
+    console.log( "TRANSPORTER SUCCESS" );
+    callback( true );
   } );
 }
 
-function sendVerificationEmailInternal(req) {
-  const verificationToken = new VerificationToken( {
+function sendVerificationEmailInternal( req, callback ) {
+  console.log( "send INTERNAL" );
+
+  VerificationToken.findOne( {
     email: req.body.email
+  }, (findErr, existingToken) => {
+    const token = md5.hash( req.body.email + String( Date.now() ) );
+    let verificationToken = null;
+    if ( findErr || !existingToken ) {
+      verificationToken = new VerificationToken( {
+        email: req.body.email
+      } );
+    } else {
+      verificationToken = existingToken;
+      existingToken.createdAt = Date.now();
+    }
+    verificationToken.setToken( token );
+    const verificationURL = req.protocol + "://" + req.get( 'host' ) + "/verify/" + token;
+    return sendEmail( req.body.email,
+      'Verify your Portfolio Rebalancer email address',
+      'Thanks for registering for PortfolioRebalancer.com. Click the following link to verify your email address: ' + verificationURL + '. This link will expire within 24 hours.',
+      '<p>Thanks for registering for <a href=https://www.portfoliorebalancer.com>PortfolioRebalancer.com</a>! </p>'
+        + '<p> Click the following link to verify your email address: <br/>'
+        + '<a href=' + verificationURL + '>' + verificationURL + '</a></p>'
+        + '<p>This link will expire within 24 hours.</p>',
+      (emailSentSuccessfully) => {
+        callback( emailSentSuccessfully );
+      } );
   } );
-  const token = md5.hash( verificationToken.get( 'email' ) + String( verificationToken.get( 'createdAt' ) ) );
-  verificationToken.setToken( token );
-  const verificationURL = req.protocol + "://" + req.get( 'host' ) + "/verify/" + token;
-  return sendEmail(req.body.email,
-  'Verify your Portfolio Rebalancer email address',
-  'Thanks for registering for PortfolioRebalancer.com. Click the following link to verify your email address: ' + verificationURL + '. This link will expire within 24 hours.',
-  '<p>Thanks for registering for <a href=https://www.portfoliorebalancer.com>PortfolioRebalancer.com</a>! </p>'
-      + '<p> Click the following link to verify your email address: <br/>'
-      + '<a href=' + verificationURL + '>' + verificationURL + '</a></p>'
-      + '<p>This link will expire within 24 hours.</p>'
-  );
 }
 
 export default {

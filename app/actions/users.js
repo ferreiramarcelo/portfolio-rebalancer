@@ -150,6 +150,7 @@ export function manualLogin() {
         if (response.status === 200) {
           dispatch(loginSuccess(response.data.response, data.email));
           dispatch(push('/'));
+          dispatch(sendVerificationEmail());
         } else {
           dispatch(loginError(response.data.response, data.email));
         }
@@ -208,8 +209,7 @@ export function sendVerificationEmail() {
     return makeUserRequest('post', data, '/sendverify')
       .then(response => {
         if (response.status === 200) {
-          dispatch(sendVerificationEmailSuccess(response.data.response, response.data.email));
-          dispatch(push('/'));
+          dispatch(sendVerificationEmailSuccess(response.data.response, data.email));
         } else {
           dispatch(sendVerificationEmailError(response.data.response));
         }

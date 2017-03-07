@@ -15,9 +15,11 @@ VerificationTokenSchema.methods = {
     verificationToken.set('token', token);
     verificationToken.save( function (err) {
         if (err) {
+          console.log(err);
           console.log("Error saving verification token", verificationToken);
+          return false;
         }
-        console.log("Verification token", verificationToken);
+        return true;
     });
   }
 

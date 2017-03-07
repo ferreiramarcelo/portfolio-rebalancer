@@ -10,6 +10,7 @@ import { emailTextFieldChange, passwordTextFieldChange, passwordConfirmationText
 import { sendVerificationEmail, sendPasswordReset } from '../actions/users';
 import EmailTextField from '../components/authentication/EmailTextField';
 import PasswordTextField from '../components/authentication/PasswordTextField';
+import SendVerificationEmailProgress from '../components/account/SendVerificationEmailProgress';
 import { getAuthenticationSelect } from '../selectors/index';
 import * as constants from '../constants';
 import styles from '../css/containers/account';
@@ -42,6 +43,7 @@ class Account extends React.Component {
                               label="RESEND VERIFICATION EMAIL"
                               secondary
                               onTouchTap={ this.props.sendVerificationEmail } />
+                  <SendVerificationEmailProgress fetchStatus={ this.props.account.verificationEmailSendingStatus } />
                 </div>);
     }
     return null;
@@ -101,6 +103,7 @@ Account.propTypes = {
   user: PropTypes.object.isRequired,
   authentication: PropTypes.object.isRequired,
   authenticationSelect: PropTypes.object.isRequired,
+  account: PropTypes.object.isRequired,
   sendVerificationEmail: PropTypes.func.isRequired,
   sendPasswordReset: PropTypes.func.isRequired,
   emailTextFieldChange: PropTypes.func.isRequired,
@@ -113,7 +116,8 @@ function mapStateToProps( state ) {
   return {
     user: state.user,
     authentication: state.authentication,
-    authenticationSelect: getAuthenticationSelect( state )
+    authenticationSelect: getAuthenticationSelect( state ),
+    account: state.account
   };
 }
 

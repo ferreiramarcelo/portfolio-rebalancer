@@ -14,9 +14,9 @@ const Message = ({open, response, email, requestClose, sendVerificationEmail, se
 
   const getMessage = function getMessage() {
     switch (response) {
-      case constants.RESPONSE_REGISTER_VERIFICATION_EMAIL_SENT:
+      case constants.RESPONSE_SEND_VERIFICATION_EMAIL_SUCCESS:
         return 'Verification email sent to ' + email;
-        case constants.RESPONSE_REGISTER_VERIFICATION_EMAIL_NOT_SENT:
+        case constants.RESPONSE_SEND_VERIFICATION_EMAIL_FAILURE:
           return 'Failed to send verification email to ' + email;
       case constants.RESPONSE_LOG_IN_EMAIL_NOT_VERIFIED:
         return 'Email not verified';

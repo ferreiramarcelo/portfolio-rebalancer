@@ -1,12 +1,13 @@
 import { combineReducers } from 'redux';
 import { routerReducer as routing } from 'react-router-redux';
+import account from '../reducers/account';
+import authentication from '../reducers/authentication';
 import user from '../reducers/user';
 import modelPortfolio from '../reducers/modelPortfolio';
 import portfolio from '../reducers/portfolio';
 import investmentAmount from '../reducers/investmentAmount';
 import message from '../reducers/message';
 import rebalancing from '../reducers/rebalancing';
-import authentication from '../reducers/authentication';
 import view from '../reducers/view';
 import * as types from '../types';
 
@@ -24,6 +25,8 @@ const isFetching = (state = false, action) => {
 
 const rootReducer = combineReducers({
   isFetching,
+  authentication,
+  account,
   modelPortfolio,
   portfolio,
   user,
@@ -32,7 +35,6 @@ const rootReducer = combineReducers({
   rebalancing,
   view,
   routing,
-  authentication
 });
 
 export default rootReducer;
