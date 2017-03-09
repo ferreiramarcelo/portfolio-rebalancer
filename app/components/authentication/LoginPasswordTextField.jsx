@@ -6,23 +6,12 @@ import styles from '../../css/components/authentication/authentication-field';
 
 const cx = classNames.bind(styles);
 
-const PasswordTextField = ({passwordTextField, passwordTextFieldSelect, onChange, label}) => {
+const LoginPasswordTextField = ({passwordTextField, passwordTextFieldSelect, onChange, label}) => {
   const handleOnChange = function handleOnChange(event, newValue) {
     onChange(newValue);
   };
 
-  const getIndicator = function getIndicator() {
-    switch (passwordTextFieldSelect.valid) {
-      case true:
-        return <ActionDone className={cx('indicator')} />;
-      default:
-        return null;
-    }
-  }
-  const indicator = getIndicator();
-
   return (
-    <div className={cx('flex')}>
     <TextField
              value={passwordTextField.value}
              errorText={passwordTextFieldSelect.errorText}
@@ -31,16 +20,14 @@ const PasswordTextField = ({passwordTextField, passwordTextFieldSelect, onChange
              floatingLabelText={label}
              fullWidth
              errorStyle={{ float: 'left' }} />
-             { indicator }
-           </div>
   );
 };
 
-PasswordTextField.propTypes = {
+LoginPasswordTextField.propTypes = {
   value: PropTypes.string.isRequired,
   errorText: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   label: PropTypes.string.isRequired,
 };
 
-export default PasswordTextField;
+export default LoginPasswordTextField;

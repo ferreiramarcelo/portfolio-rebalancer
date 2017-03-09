@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import TextField from 'material-ui/TextField';
 
-const InvestmentAmountTextField = ({value, setOnce, errorText, hintText, onChange}) => {
+const InvestmentAmountTextField = ({value, dirty, errorText, hintText, onChange}) => {
   const getDisplayValue = function getDisplayValue(givenValue, givenSetOnce) {
     if (givenSetOnce) {
       return givenValue;
@@ -9,7 +9,7 @@ const InvestmentAmountTextField = ({value, setOnce, errorText, hintText, onChang
     return '';
   };
 
-  const displayValue = getDisplayValue(value, setOnce);
+  const displayValue = getDisplayValue(value, dirty);
 
   const handleOnChange = function handleOnChange(event, newValue) {
     onChange(newValue);
@@ -27,7 +27,7 @@ const InvestmentAmountTextField = ({value, setOnce, errorText, hintText, onChang
 
 InvestmentAmountTextField.propTypes = {
   value: PropTypes.string.isRequired,
-  setOnce: PropTypes.bool.isRequired,
+  dirty: PropTypes.bool.isRequired,
   errorText: PropTypes.string.isRequired,
   hintText: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired

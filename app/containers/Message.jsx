@@ -72,15 +72,23 @@ const Message = ({open, response, email, requestClose, sendVerificationEmail, se
     action();
   }
 
+  const getSnackbar = function getSnackbar() {
+    if (message.length > 0) {
+      return     <Snackbar
+                    open={ open }
+                    message={ message }
+                    autoHideDuration={ 4000 }
+                    onRequestClose={ requestClose }
+                    action={ actionLabel }
+                    onActionTouchTap={ handleOnAction } />;
+    }
+    return null;
+  }
+  const snackbar = getSnackbar();
+
   return (
   <div>
-    <Snackbar
-              open={ open }
-              message={ message }
-              autoHideDuration={ 4000 }
-              onRequestClose={ requestClose }
-              action={ actionLabel }
-              onActionTouchTap={ handleOnAction } />
+    {snackbar}
   </div>
   );
 };

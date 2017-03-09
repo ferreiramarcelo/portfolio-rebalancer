@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import md5 from 'spark-md5';
 
  const PasswordResetTokenSchema = new mongoose.Schema({
-   email: { type: String, unique: true, lowercase: true, required: true },
+   email: { type: String, lowercase: true, required: true },
    token: {type: String, required: true},
    createdAt: {type: Date, required: true, default: Date.now, expires: '24h'}
  });
@@ -15,7 +15,7 @@ PasswordResetTokenSchema.methods = {
     passwordResetToken.set('token', token);
     passwordResetToken.save( function (err) {
         if (err) {
-          console.log("Error saving password reset token", passwordResetToken);
+          console.log("Error saving password reset token", err);
         }
         console.log("Password reset token", passwordResetToken);
     });

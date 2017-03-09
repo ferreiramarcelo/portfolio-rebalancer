@@ -5,10 +5,10 @@ import FlatButton from 'material-ui/FlatButton';
 import Card from 'material-ui/Card';
 import FontAwesome from 'react-fontawesome';
 import classNames from 'classnames/bind';
-import { emailTextFieldChange, passwordTextFieldChange, passwordConfirmationTextFieldChange, toggleAuthenticationMode } from '../actions/authentications';
-import { manualLogin, register, sendPasswordReset } from '../actions/users';
-import EmailTextField from '../components/authentication/EmailTextField';
-import PasswordTextField from '../components/authentication/PasswordTextField';
+import { emailTextFieldChange, passwordTextFieldChange, passwordConfirmationTextFieldChange, toggleAuthenticationMode, loginPress } from '../actions/authentications';
+import { sendPasswordReset } from '../actions/users';
+import LoginEmailTextField from '../components/authentication/LoginEmailTextField';
+import LoginPasswordTextField from '../components/authentication/LoginPasswordTextField';
 import { getAuthenticationSelect } from '../selectors/index';
 import styles from '../css/containers/authentication';
 
@@ -31,32 +31,31 @@ class Authentication extends React.Component {
   getLoginForm() {
     return (
     <div className={ cx( 'card-insides' ) }>
-      Log in with email
+      <span>Log in with email</span>
       <form onSubmit={ this.handleOnLogin }>
-        <EmailTextField
-                        value={ this.props.authentication.emailTextField.value }
-                        errorText={ this.props.authenticationSelect.emailTextFieldSelect.errorText }
-                        onChange={ this.props.emailTextFieldChange } />
-        <PasswordTextField
-                           value={ this.props.authentication.passwordTextField.value }
-                           errorText={ this.props.authenticationSelect.passwordTextFieldSelect.errorText }
-                           onChange={ this.props.passwordTextFieldChange }
-                           label="Password"/>
+        <LoginEmailTextField
+          emailTextField={ this.props.authentication.emailTextField }
+          emailTextFieldSelect={this.props.authenticationSelect.loginEmailTextFieldSelect}
+          onChange={ this.props.emailTextFieldChange } />
+          <LoginPasswordTextField
+                             passwordTextField={ this.props.authentication.passwordTextField }
+                             passwordTextFieldSelect={ this.props.authenticationSelect.passwordTextFieldSelect }
+                             onChange={ this.props.passwordTextFieldChange }
+                             label={ 'Password' } />
         <p className={ cx( 'message', {
                          'message-show': this.props.user.message && this.props.user.message.length > 0
                        } ) }>
-          { this.props.user.message }
+          <span>{ this.props.user.message }</span>
         </p>
         <RaisedButton
-                      disabled={ this.props.authenticationSelect.loginButtonVisibility === 'disabled' }
                       label="Log In"
                       fullWidth
                       primary
                       type="submit"
                       className={ cx( 'submit-button' ) } />
-                      <p>
-                        Forgot your password?&nbsp;
-                      </p>
+                      <span>
+                        Forgot your password?
+                      </span>
                       <FlatButton
                                   label="RESET PASSWORD"
                                   secondary
@@ -71,14 +70,14 @@ class Authentication extends React.Component {
     <div className={ cx( 'card-insides' ) }>
       <form onSubmit={ this.handleOnSendPasswordReset }>
         Reset password
-        <EmailTextField
+        <LoginEmailTextField
                         value={ this.props.authentication.emailTextField.value }
                         errorText={ this.props.authenticationSelect.emailTextFieldSelect.errorText }
                         onChange={ this.props.emailTextFieldChange } />
         <p className={ cx( 'message', {
                          'message-show': this.props.user.message && this.props.user.message.length > 0
                        } ) }>
-          { this.props.user.message }
+          <span>{ this.props.user.message }</span>
         </p>
         <RaisedButton
                       disabled={ !this.props.authenticationSelect.emailTextFieldSelect.valid }
@@ -101,7 +100,7 @@ class Authentication extends React.Component {
 
   handleOnLogin( event ) {
     event.preventDefault();
-    this.props.manualLogin();
+    this.props.loginPress();
   }
 
   handleOnSendPasswordReset( event ) {
@@ -137,8 +136,7 @@ Authentication.propTypes = {
   user: PropTypes.object.isRequired,
   authentication: PropTypes.object.isRequired,
   authenticationSelect: PropTypes.object.isRequired,
-  manualLogin: PropTypes.func.isRequired,
-  register: PropTypes.func.isRequired,
+  loginPress: PropTypes.func.isRequired,
   sendPasswordReset: PropTypes.func.isRequired,
   emailTextFieldChange: PropTypes.func.isRequired,
   passwordTextFieldChange: PropTypes.func.isRequired,
@@ -155,8 +153,7 @@ function mapStateToProps( state ) {
 }
 
 export default connect( mapStateToProps, {
-  manualLogin,
-  register,
+  loginPress,
   sendPasswordReset,
   emailTextFieldChange,
   passwordTextFieldChange,

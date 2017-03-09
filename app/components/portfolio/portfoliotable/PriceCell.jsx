@@ -14,7 +14,7 @@ const PriceCell = ({index, price, priceSelect, securityTextFieldChange, fetchPri
     return '';
   };
 
-  const displayValue = getDisplayValue(price.value, price.setOnce);
+  const displayValue = getDisplayValue(price.value, price.dirty);
 
   const handleOnChange = function handleOnChange(event, newValue) {
     securityTextFieldChange(index, 'price', newValue);

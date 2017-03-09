@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import md5 from 'spark-md5';
 
  const VerificationTokenSchema = new mongoose.Schema({
-   email: { type: String, unique: true, lowercase: true, required: true },
+   email: { type: String, lowercase: true, required: true },
    token: {type: String, required: true},
    createdAt: {type: Date, required: true, default: Date.now, expires: '24h'}
  });

@@ -1,0 +1,19 @@
+@import '../../common/typography';
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.indicator {
+  align-self: flex-end;
+  margin-bottom: 12px;
+}
+
+.investment-amount-prompt {
+  font-size: var(--fontMedium);
+  font-family: var(--fontRoboto);
+  display: inline-block;
+  padding-right: 5px;
+}

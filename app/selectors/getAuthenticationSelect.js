@@ -1,6 +1,6 @@
 /* eslint no-useless-escape: 0*/
 import { createSelector } from 'reselect';
-
+import * as constants from '../constants';
 const getAuthentication = (state) => state.authentication;
 
 function validateEmailAddress(emailAddress) {
@@ -8,28 +8,69 @@ function validateEmailAddress(emailAddress) {
     return regex.test(emailAddress);
 }
 
-const getEmailTextFieldSelect = function getEmailTextFieldSelect(emailTextField) {
+const getRegistrationEmailTextFieldSelect = function getEmailTextFieldSelect(emailTextField) {
+  let valid = true;
   let errorText = '';
-  let valid = 1;
-  if (emailTextField.setOnce === 0) {
-   valid = 0;
-  } else if (!emailTextField.value) {
-    errorText = 'Required';
-    valid = 0;
-  } else if (!validateEmailAddress(emailTextField.value)) {
-    errorText = 'Invalid format. Example: name@example.com';
-    valid = 0;
+  if (!emailTextField.dirty) {
+    valid = false;
+    errorText = '';
   }
-  return {errorText, valid};
+  else if (!emailTextField.value) {
+    valid = false;
+    errorText = 'Required';
+  }
+  else if (emailTextField.validationStatus) {
+    switch (emailTextField.validationStatus) {
+      case constants.VALIDATION_CONFLICT:
+        valid = false;
+        errorText = 'Already in use';
+        break;
+      case constants.VALIDATION_INVALID_FORMAT:
+        valid = false;
+        errorText = 'Invalid format';
+    }
+  }
+  return {valid, errorText};
 };
+
+const getLoginEmailTextFieldSelect = function getLoginEmailTextFieldSelect(emailTextField) {
+  let valid = true;
+  let errorText = '';
+  if (!emailTextField.dirty) {
+    valid = false;
+    errorText = '';
+  }
+  else if (!emailTextField.value) {
+    valid = false;
+    errorText = 'Required';
+  }
+  else if (emailTextField.validationStatus) {
+    switch (emailTextField.validationStatus) {
+      case constants.VALIDATION_NO_CONFLICT:
+        valid = false;
+        errorText = 'No account found for ' + emailTextField.value;
+        break;
+      case constants.VALIDATION_INVALID_FORMAT:
+        valid = false;
+        errorText = 'Invalid format';
+    }
+  }
+  return {valid, errorText};
+};
+
 
 const getPasswordTextFieldSelect = function getPasswordTextFieldSelect(passwordTextField) {
   let errorText = '';
-  let valid = 1;
-  if (passwordTextField.setOnce === 0) {
-   valid = 0;
-  } else if (!passwordTextField.value) {
+  let valid = true;
+  if (!passwordTextField.dirty) {
+   valid = false;
+  }
+  else if (!passwordTextField.value) {
     errorText = 'Required';
+    valid = 0;
+  }
+  else if (passwordTextField.value.length < 6) {
+    errorText = '6 characters min';
     valid = 0;
   }
   return {errorText, valid};
@@ -37,10 +78,11 @@ const getPasswordTextFieldSelect = function getPasswordTextFieldSelect(passwordT
 
 const getPasswordConfirmationTextFieldSelect = function getPasswordConfirmationTextFieldSelect(passwordTextField, passwordConfirmationTextField) {
   let errorText = '';
-  let valid = 1;
-  if (passwordConfirmationTextField.setOnce === 0) {
-   valid = 0;
-  } else if (!passwordConfirmationTextField.value) {
+  let valid = true;
+  if (!passwordConfirmationTextField.dirty) {
+   valid = false;
+  }
+   else if (!passwordConfirmationTextField.value) {
     errorText = 'Required';
     valid = 0;
   } else if (passwordTextField.value !== passwordConfirmationTextField.value) {
@@ -67,13 +109,15 @@ const getRegisterButtonVisibility = function getRegisterButtonVisibility(emailTe
 export const getAuthenticationSelect = createSelector([
   getAuthentication,
 ], (authentication) => {
-  const emailTextFieldSelect = getEmailTextFieldSelect(authentication.emailTextField);
+  const registrationEmailTextFieldSelect = getRegistrationEmailTextFieldSelect(authentication.emailTextField);
+  const loginEmailTextFieldSelect = getLoginEmailTextFieldSelect(authentication.emailTextField);
   const passwordTextFieldSelect = getPasswordTextFieldSelect(authentication.passwordTextField);
   const passwordConfirmationTextFieldSelect = getPasswordConfirmationTextFieldSelect(authentication.passwordTextField, authentication.passwordConfirmationTextField);
-  const loginButtonVisibility = getLoginButtonVisibility(emailTextFieldSelect, passwordTextFieldSelect);
-  const registerButtonVisibility = getRegisterButtonVisibility(emailTextFieldSelect, passwordTextFieldSelect, passwordConfirmationTextFieldSelect);
+  const loginButtonVisibility = getLoginButtonVisibility(loginEmailTextFieldSelect, passwordTextFieldSelect);
+  const registerButtonVisibility = getRegisterButtonVisibility(registrationEmailTextFieldSelect, passwordTextFieldSelect, passwordConfirmationTextFieldSelect);
   return {
-    emailTextFieldSelect,
+    registrationEmailTextFieldSelect,
+    loginEmailTextFieldSelect,
     passwordTextFieldSelect,
     passwordConfirmationTextFieldSelect,
     loginButtonVisibility,

@@ -12,7 +12,7 @@
 }
 
 .card {
-  max-width: 500px;
+  max-width: 400px;
   margin: 0 auto;
 }
 
@@ -28,7 +28,7 @@
 }
 
 .submit-button {
-  margin: 15px 0px 40px 0px;
+  margin: 15px 0px 0px 0px;
 }
 
 .RegisterButton {

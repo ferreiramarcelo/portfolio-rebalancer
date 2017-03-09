@@ -8,6 +8,7 @@ export default (app) => {
 
   if (usersController) {
     app.post('/login', usersController.login);
+    app.get('/isemailaddressavailable/:emailaddress', usersController.isEmailAddressAvailable);
     app.post('/register', usersController.register);
     app.post('/logout', usersController.logout);
     app.post('/dbverify', usersController.dbVerify);

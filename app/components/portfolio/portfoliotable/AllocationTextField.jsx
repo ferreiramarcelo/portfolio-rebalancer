@@ -5,7 +5,7 @@ import styles from '../../../css/components/portfolio/portfolio-table/security-t
 
 const cx = classNames.bind(styles);
 
-const AllocationTextField = ({index, value, setOnce, errorText, hintText, onChange}) => {
+const AllocationTextField = ({index, value, dirty, errorText, hintText, onChange}) => {
   const getDisplayValue = function getDisplayValue(givenValue, givenSetOnce) {
     if (givenSetOnce) {
       return givenValue;
@@ -13,7 +13,7 @@ const AllocationTextField = ({index, value, setOnce, errorText, hintText, onChan
     return '';
   };
 
-  const displayValue = getDisplayValue(value, setOnce);
+  const displayValue = getDisplayValue(value, dirty);
 
   const handleOnChange = function handleOnChange(event, newValue) {
     onChange(index, 'allocation', newValue);
@@ -34,7 +34,7 @@ const AllocationTextField = ({index, value, setOnce, errorText, hintText, onChan
 AllocationTextField.propTypes = {
   index: PropTypes.number.isRequired,
   value: PropTypes.string.isRequired,
-  setOnce: PropTypes.bool.isRequired,
+  dirty: PropTypes.bool.isRequired,
   errorText: PropTypes.string.isRequired,
   hintText: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,

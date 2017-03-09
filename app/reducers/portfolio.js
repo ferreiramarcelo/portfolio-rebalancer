@@ -58,18 +58,18 @@ const selectedModelPortfolio = (state = {}, action) => {
 
 const symbol = (state = {
     value: '',
-    setOnce: false
+    dirty: false
   }, action) => {
   switch (action.type) {
     case types.SELECT_MODEL_PORTFOLIO:
       return {
         value: action.security.symbol,
-        setOnce: true
+        dirty: true
       };
     case types.SECURITY_TEXT_FIELD_CHANGE:
       return {
         value: action.value,
-        setOnce: true
+        dirty: true
       };
     default:
       return state;
@@ -78,18 +78,18 @@ const symbol = (state = {
 
 const allocation = (state = {
     value: '0',
-    setOnce: false
+    dirty: false
   }, action) => {
   switch (action.type) {
     case types.SELECT_MODEL_PORTFOLIO:
       return {
         value: String(action.security.allocation),
-        setOnce: true
+        dirty: true
       };
     case types.SECURITY_TEXT_FIELD_CHANGE:
       return {
         value: action.value,
-        setOnce: true
+        dirty: true
       };
     default:
       return state;
@@ -98,20 +98,20 @@ const allocation = (state = {
 
 const price = (state = {
     value: '1.00',
-    setOnce: false,
+    dirty: false,
     fetchStatus: 'NONE'
   }, action) => {
   switch (action.type) {
     case types.SELECT_MODEL_PORTFOLIO:
       return {
         value: (action.security.price || '1.00'),
-        setOnce: true,
+        dirty: true,
         fetchStatus: 'NONE'
       };
     case types.SECURITY_TEXT_FIELD_CHANGE:
       return {
         value: action.value,
-        setOnce: true,
+        dirty: true,
         fetchStatus: 'NONE'
       };
     case types.SET_PRICE_TO_FETCHING:
@@ -128,7 +128,7 @@ const price = (state = {
       return {
         ...state,
         value: action.price,
-        setOnce: true,
+        dirty: true,
         fetchStatus: 'DONE'
       };
     case types.SET_PRICE_TO_FETCH_FAILED:
@@ -143,13 +143,13 @@ const price = (state = {
 
 const units = (state = {
     value: '0',
-    setOnce: false
+    dirty: false
   }, action) => {
   switch (action.type) {
     case types.SECURITY_TEXT_FIELD_CHANGE:
       return {
         value: action.value,
-        setOnce: true
+        dirty: true
       };
     default:
       return state;

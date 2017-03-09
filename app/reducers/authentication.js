@@ -1,5 +1,11 @@
 import { combineReducers } from 'redux';
 import * as types from '../types';
+import * as constants from '../constants'
+
+function validateEmailAddress( emailAddress ) {
+  const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return regex.test( emailAddress );
+}
 
 const isLoginMode = (state = true, action) => {
   switch (action.type) {
@@ -16,20 +22,50 @@ const isLoginMode = (state = true, action) => {
 
 const emailTextField = (state = {
     value: '',
-    setOnce: 0
-  }, action) => {
+    dirty: false,
+    timeout: null,
+    validationStatus: constants.NOT_VALIDATING,
+    validatedOnce: false
+  } , action) => {
   switch (action.type) {
+    case types.LOGIN_HASTY_USER:
+    case types.SIGNUP_HASTY_USER:
+      return {
+        ...state,
+        dirty: true,
+      };
     case types.EMAIL_TEXT_FIELD_CHANGE:
       return {
+        ...state,
         value: action.value,
-        setOnce: 1
+        dirty: true,
+        validationStatus: constants.NOT_VALIDATING
       };
-      case types.LOGIN_SUCCESS_USER:
-      case types.SIGNUP_SUCCESS_USER:
+    case types.BEGIN_EMAIL_ADDRESS_VALIDATION:
       return {
-        value: '',
-        setOnce: 0
+        ...state,
+        validationStatus: constants.IS_VALIDATING
       };
+    case types.FINISH_EMAIL_ADDRESS_VALIDATION:
+      return {
+        ...state,
+        validationStatus: action.validationStatus,
+        validatedOnce: true
+      };
+    case types.EMAIL_TEXT_FIELD_SET_VALIDATION_TIMEOUT:
+      return {
+        ...state,
+        timeout: action.timeout
+      };
+    case types.LOGIN_SUCCESS_USER:
+    case types.SIGNUP_SUCCESS_USER:
+      return {
+          value: '',
+          dirty: false,
+          timeout: null,
+          validationStatus: constants.NOT_VALIDATING,
+          validatedOnce: false
+        };
     default:
       return state;
   }
@@ -37,19 +73,25 @@ const emailTextField = (state = {
 
 const passwordTextField = (state = {
     value: '',
-    setOnce: 0
+    dirty: 0
   }, action) => {
   switch (action.type) {
+    case types.LOGIN_HASTY_USER:
+    case types.SIGNUP_HASTY_USER:
+      return {
+        ...state,
+        dirty: true,
+      };
     case types.PASSWORD_TEXT_FIELD_CHANGE:
       return {
         value: action.value,
-        setOnce: 1
+        dirty: 1
       };
       case types.LOGIN_SUCCESS_USER:
       case types.SIGNUP_SUCCESS_USER:
       return {
         value: '',
-        setOnce: 0
+        dirty: 0
       };
     default:
       return state;
@@ -58,30 +100,119 @@ const passwordTextField = (state = {
 
 const passwordConfirmationTextField = (state = {
     value: '',
-    setOnce: 0
+    dirty: 0
   }, action) => {
   switch (action.type) {
+    case types.SIGNUP_HASTY_USER:
+      return {
+        ...state,
+        dirty: true,
+      };
     case types.PASSWORD_CONFIRMATION_TEXT_FIELD_CHANGE:
       return {
         value: action.value,
-        setOnce: 1
+        dirty: 1
       };
       case types.LOGIN_SUCCESS_USER:
       case types.SIGNUP_SUCCESS_USER:
       return {
         value: '',
-        setOnce: 0
+        dirty: 0
       };
     default:
       return state;
   }
 };
 
-const authenticationReducer = combineReducers({
+
+/*
+const passwordTextField = (state = {
+    value: '',
+    dirty: false,
+    valid: false,
+    errorText: 'Required'
+  } , action) => {
+  switch (action.type) {
+    case types.SIGNUP_HASTY_USER:
+      return {
+        ...state,
+        dirty: true,
+      };
+    case types.PASSWORD_TEXT_FIELD_CHANGE:
+      return {
+        ...state,
+        value: action.value,
+        dirty: true,
+        valid: action.valid,
+        errorText: action.errorText
+      };
+    case types.LOGIN_SUCCESS_USER:
+    case types.SIGNUP_SUCCESS_USER:
+      return {
+        ...state,
+        value: '',
+        dirty: false,
+        valid: false,
+        errorText: 'Required'
+      };
+    default:
+      return state;
+  }
+};
+
+const passwordConfirmationTextField = (state = {
+    value: '',
+    dirty: false,
+    valid: false,
+    errorText: 'Required'
+  } , action) => {
+  switch (action.type) {
+    case types.SIGNUP_HASTY_USER:
+      return {
+        ...state,
+        dirty: true,
+      };
+    case types.PASSWORD_CONFIRMATION_TEXT_FIELD_CHANGE:
+      return {
+        ...state,
+        value: action.value,
+        dirty: true,
+        valid: action.valid,
+        errorText: action.errorText
+      };
+    case types.LOGIN_SUCCESS_USER:
+    case types.SIGNUP_SUCCESS_USER:
+      return {
+        ...state,
+        value: '',
+        dirty: false,
+        valid: false,
+        errorText: 'Required'
+      };
+    default:
+      return state;
+  }
+}; */
+
+const registrationStatus = (state = constants.NOT_PROCESSING, action) => {
+  switch (action.type) {
+    case types.SIGNUP_USER:
+      return constants.IS_PROCESSING;
+    case types.SIGNUP_SUCCESS_USER:
+      return constants.NOT_PROCESSING;
+    case types.SIGNUP_ERROR_USER:
+      return constants.NOT_PROCESSING;
+    default:
+      return state;
+  }
+}
+
+const authenticationReducer = combineReducers( {
   isLoginMode,
   emailTextField,
   passwordTextField,
-  passwordConfirmationTextField
-});
+  passwordConfirmationTextField,
+  registrationStatus
+} );
 
 export default authenticationReducer;

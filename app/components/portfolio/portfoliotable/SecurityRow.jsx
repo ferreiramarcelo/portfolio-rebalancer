@@ -18,7 +18,7 @@ const SecurityRow = ({security, securitySelect, removeSecurity, securityTextFiel
       <SymbolTextField
                                index={security.index}
                                value={security.symbol.value}
-                               setOnce={security.symbol.setOnce}
+                               dirty={security.symbol.dirty}
                                errorText={securitySelect.symbolSelect.errorText}
                                hintText={securitySelect.symbolSelect.hintText}
                                onChange={securityTextFieldChange} />
@@ -28,7 +28,7 @@ const SecurityRow = ({security, securitySelect, removeSecurity, securityTextFiel
       <AllocationTextField
                                    index={security.index}
                                    value={security.allocation.value}
-                                   setOnce={security.allocation.setOnce}
+                                   dirty={security.allocation.dirty}
                                    errorText={securitySelect.allocationSelect.errorText}
                                    hintText={securitySelect.allocationSelect.hintText}
                                    onChange={securityTextFieldChange} />
@@ -48,7 +48,7 @@ const SecurityRow = ({security, securitySelect, removeSecurity, securityTextFiel
       <UnitsTextField
                               index={security.index}
                               value={security.units.value}
-                              setOnce={security.units.setOnce}
+                              dirty={security.units.dirty}
                               errorText={securitySelect.unitsSelect.errorText}
                               hintText={securitySelect.unitsSelect.hintText}
                               onChange={securityTextFieldChange} />

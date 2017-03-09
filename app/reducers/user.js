@@ -8,6 +8,7 @@ const message = (
 ) => {
   switch (action.type) {
     case types.CHANGE_AUTHENTICATION_MODE:
+    case types.CHANGE_TAB:
     case types.LOGOUT_USER:
     case types.LOGIN_SUCCESS_USER:
     case types.SIGNUP_SUCCESS_USER:

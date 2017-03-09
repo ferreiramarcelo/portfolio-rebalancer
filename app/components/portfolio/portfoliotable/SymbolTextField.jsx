@@ -5,14 +5,14 @@ import styles from '../../../css/components/portfolio/portfolio-table/security-t
 
 const cx = classNames.bind(styles);
 
-const SymbolTextField = ({index, value, setOnce, errorText, hintText, onChange}) => {
+const SymbolTextField = ({index, value, dirty, errorText, hintText, onChange}) => {
   const getDisplayValue = function getDisplayValue(givenValue, givenSetOnce) {
     if (givenSetOnce) {
       return givenValue;
     }
     return '';
   };
-  const displayValue = getDisplayValue(value, setOnce);
+  const displayValue = getDisplayValue(value, dirty);
 
   const handleOnChange = function handleOnChange(event, newValue) {
     onChange(index, 'symbol', newValue);
@@ -33,7 +33,7 @@ const SymbolTextField = ({index, value, setOnce, errorText, hintText, onChange})
 SymbolTextField.propTypes = {
   index: PropTypes.number.isRequired,
   value: PropTypes.string.isRequired,
-  setOnce: PropTypes.bool.isRequired,
+  dirty: PropTypes.bool.isRequired,
   errorText: PropTypes.string.isRequired,
   hintText: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,

@@ -11,10 +11,11 @@ const open = (state = false, action) => {
         default:
           return false;
       }
-    case types.SIGNUP_SUCCESS_USER:
     case types.VERIFY_SUCCESS_USER:
     case types.PASSWORD_RESET_SUCCESS_USER:
     case types.VERIFY_ERROR_USER:
+    case types.SEND_VERIFICATION_EMAIL_ERROR_USER:
+    case types.SEND_VERIFICATION_EMAIL_SUCCESS_USER:
       return true;
     case types.DISMISS_MESSAGE:
       return false;
@@ -26,10 +27,11 @@ const open = (state = false, action) => {
 const response = (state = '', action) => {
   switch (action.type) {
     case types.LOGIN_SUCCESS_USER:
-    case types.SIGNUP_SUCCESS_USER:
     case types.VERIFY_SUCCESS_USER:
     case types.PASSWORD_RESET_SUCCESS_USER:
     case types.VERIFY_ERROR_USER:
+    case types.SEND_VERIFICATION_EMAIL_SUCCESS_USER:
+    case types.SEND_VERIFICATION_EMAIL_ERROR_USER:
       return action.response;
     default:
       return state;

@@ -46,6 +46,20 @@ export function logout( req, res ) {
   res.redirect( '/' );
 }
 
+export function isEmailAddressAvailable( req, res, next ) {
+  User.findOne( {
+    email: req.params.emailaddress
+  }, (findErr, existingUser) => {
+    if ( existingUser ) {
+      return res.status( 409 ).json( {
+      } );
+    }
+    return res.status( 200 ).json( {
+    } );
+  } );
+}
+
+
 export function register( req, res, next ) {
   const user = new User( {
     email: req.body.email,
@@ -117,67 +131,6 @@ export function dbVerify( req, res ) {
   } );
 }
 
-export function sendPasswordReset( req, res, next ) {
-  User.findOne( {
-    email: req.body.email
-  }, (findErr, existingUser) => {
-    if ( findErr || !existingUser ) {
-      return res.status( 400 ).json( {
-        response: constants.RESPONSE_SEND_PASSWORD_NOT_FOUND,
-      } );
-    }
-
-    const verificationToken = new VerificationToken( {
-      email: req.body.email
-    } );
-    const token = md5.hash( verificationToken.get( 'email' ) + String( verificationToken.get( 'createdAt' ) ) );
-    verificationToken.setToken( token );
-    const verificationURL = req.protocol + "://" + req.get( 'host' ) + "/verify/" + token;
-
-    const sendEmailSucceeded = sendEmail( req.body.email,
-      'Portfolio Rebalancer password reset',
-      'Thanks for registering for Portfolio Rebalancer.',
-      '<p>Click the following link to reset your password: <a href=' + passwordResetURL + '>' + passwordResetURL + '</a> </p>'
-        + '<p>If you did not request this password reset, ignore this email. The link will expire within 24 hours of being sent.'
-    );
-
-    if ( sendEmailSucceeded ) {
-      return res.status( 200 ).json( {
-        response: constants.RESPONSE_SEND_PASSWORD_RESET_SUCCESS
-      } );
-    }
-    return res.status( 409 ).json( {
-      response: constants.RESPONSE_SEND_PASSWORD_RESET_FAILURE
-    } );
-  } );
-}
-
-export function sendVerificationEmail( req, res, next ) {
-  User.findOne( {
-    email: req.body.email
-  }, (findErr, existingUser) => {
-    if ( findErr || !existingUser ) {
-      return res.status( 401 ).json( {
-        response: constants.RESPONSE_SEND_VERIFICATION_EMAIL_NOT_FOUND
-      } );
-    }
-
-    sendVerificationEmailInternal( req, (emailSentSuccessfully) => {
-      console.log( "wow" );
-      if ( !emailSentSuccessfully ) {
-        console.log( "we back failed" );
-        return res.status( 401 ).json( {
-          response: constants.RESPONSE_SEND_VERIFICATION_EMAIL_FAILURE
-        } );
-      }
-      console.log( "we back" );
-      return res.status( 200 ).json( {
-        response: constants.RESPONSE_SEND_VERIFICATION_EMAIL_SUCCESS
-      } );
-    } );
-  } );
-}
-
 function sendEmail( to, subject, text, html, callback ) {
   let transporter = Nodemailer.createTransport( {
     service: 'Postmark',
@@ -195,17 +148,15 @@ function sendEmail( to, subject, text, html, callback ) {
   };
   return transporter.sendMail( mailOptions, (error, info) => {
     if ( error ) {
-      console.log( "TRANSPORTER FAILURE" );
+      console.log( "Failed to send email to ", to );
       callback( false );
     }
-    console.log( "TRANSPORTER SUCCESS" );
+    console.log( "Succeeded in sending email to ", to );
     callback( true );
   } );
 }
 
 function sendVerificationEmailInternal( req, callback ) {
-  console.log( "send INTERNAL" );
-
   VerificationToken.findOne( {
     email: req.body.email
   }, (findErr, existingToken) => {
@@ -234,9 +185,69 @@ function sendVerificationEmailInternal( req, callback ) {
   } );
 }
 
+export function sendVerificationEmail( req, res, next ) {
+  User.findOne( {
+    email: req.body.email
+  }, (findErr, existingUser) => {
+    if ( findErr || !existingUser ) {
+      return res.status( 401 ).json( {
+        response: constants.RESPONSE_SEND_VERIFICATION_EMAIL_NOT_FOUND
+      } );
+    }
+
+    sendVerificationEmailInternal( req, (emailSentSuccessfully) => {
+      if ( !emailSentSuccessfully ) {
+        return res.status( 401 ).json( {
+          response: constants.RESPONSE_SEND_VERIFICATION_EMAIL_FAILURE
+        } );
+      }
+      return res.status( 200 ).json( {
+        response: constants.RESPONSE_SEND_VERIFICATION_EMAIL_SUCCESS
+      } );
+    } );
+  } );
+}
+
+export function sendPasswordReset( req, res, next ) {
+  User.findOne( {
+    email: req.body.email
+  }, (findErr, existingUser) => {
+    if ( findErr || !existingUser ) {
+      return res.status( 400 ).json( {
+        response: constants.RESPONSE_SEND_PASSWORD_RESET_NOT_FOUND,
+      } );
+    }
+    const token = md5.hash( req.body.email + String( Date.now() ) );
+    const passwordResetToken = new PasswordResetToken( {
+      email: req.body.email
+    } );
+    passwordResetToken.setToken( token );
+    const passwordResetURL = req.protocol + "://" + req.get( 'host' ) + "/reset/" + token;
+
+    return sendEmail( req.body.email,
+      'Portfolio Rebalancer password reset',
+      'Thanks for registering for Portfolio Rebalancer.',
+      '<p>Click the following link to reset your password: <a href=' + passwordResetURL + '>' + passwordResetURL + '</a> </p>'
+        + '<p>If you did not request this password reset, ignore this email. The link will expire within 24 hours of being sent.',
+        (emailSentSuccessfully) => {
+          if ( !sendEmailSucceeded ) {
+            return res.status( 409 ).json( {
+              response: constants.RESPONSE_SEND_PASSWORD_RESET_FAILURE
+            } );
+          }
+          return res.status( 200 ).json( {
+            response: constants.RESPONSE_SEND_PASSWORD_RESET_SUCCESS
+          } );
+        }
+    );
+    console.log("FINISHED");
+  } );
+}
+
 export default {
   login,
   logout,
+  isEmailAddressAvailable,
   register,
   sendVerificationEmail,
   dbVerify,

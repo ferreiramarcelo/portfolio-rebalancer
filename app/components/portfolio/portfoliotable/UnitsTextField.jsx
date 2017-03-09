@@ -5,7 +5,7 @@ import styles from '../../../css/components/portfolio/portfolio-table/security-t
 
 const cx = classNames.bind(styles);
 
-const UnitsTextField = ({index, value, setOnce, errorText, hintText, onChange}) => {
+const UnitsTextField = ({index, value, dirty, errorText, hintText, onChange}) => {
   const getDisplayValue = function getDisplayValue(givenValue, givenSetOnce) {
     if (givenSetOnce) {
       return givenValue;
@@ -13,7 +13,7 @@ const UnitsTextField = ({index, value, setOnce, errorText, hintText, onChange}) 
     return '';
   };
 
-  const displayValue = getDisplayValue(value, setOnce);
+  const displayValue = getDisplayValue(value, dirty);
 
   const handleOnChange = function handleOnChange(event, newValue) {
     onChange(index, 'units', newValue);
@@ -33,7 +33,7 @@ const UnitsTextField = ({index, value, setOnce, errorText, hintText, onChange}) 
 UnitsTextField.propTypes = {
   index: PropTypes.number.isRequired,
   value: PropTypes.string.isRequired,
-  setOnce: PropTypes.bool.isRequired,
+  dirty: PropTypes.bool.isRequired,
   errorText: PropTypes.string.isRequired,
   hintText: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,

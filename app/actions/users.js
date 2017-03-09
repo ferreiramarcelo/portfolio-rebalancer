@@ -137,6 +137,22 @@ function resetPasswordError(response, email) {
   };
 }
 
+export function isEmailAddressAvailable(email, callback) {
+  return (dispatch, getState) => {
+    return makeUserRequest('get', null, '/isemailaddressavailable/' + email)
+      .then(response => {
+        if (response.status === 200) {
+          return callback(true);
+        } else {
+          return callback(false);
+        }
+      })
+      .catch(err => {
+        return callback(false);
+      });
+  };
+}
+
 export function manualLogin() {
   return (dispatch, getState) => {
     dispatch(beginLogin());
@@ -174,6 +190,7 @@ export function register() {
         if (response.status === 200) {
           dispatch(signUpSuccess(response.data.response, data.email));
           dispatch(push('/'));
+          dispatch(sendVerificationEmail());
         } else {
           dispatch(signUpError(response.data.response, data.email));
         }

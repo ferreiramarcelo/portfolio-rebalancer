@@ -13,7 +13,7 @@ const InvestmentAmount = ({investmentAmount, investmentAmountSelect, investmentA
     </p>
       <InvestmentAmountTextField
                                value={investmentAmount.value}
-                               setOnce={investmentAmount.setOnce}
+                               dirty={investmentAmount.dirty}
                                errorText={investmentAmountSelect.errorText}
                                hintText={investmentAmountSelect.hintText}
                                onChange={investmentAmountTextFieldChange} />

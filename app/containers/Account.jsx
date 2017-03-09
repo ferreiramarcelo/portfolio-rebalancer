@@ -8,7 +8,6 @@ import FontAwesome from 'react-fontawesome';
 import classNames from 'classnames/bind';
 import { emailTextFieldChange, passwordTextFieldChange, passwordConfirmationTextFieldChange, toggleAuthenticationMode } from '../actions/authentications';
 import { sendVerificationEmail, sendPasswordReset } from '../actions/users';
-import EmailTextField from '../components/authentication/EmailTextField';
 import PasswordTextField from '../components/authentication/PasswordTextField';
 import SendVerificationEmailProgress from '../components/account/SendVerificationEmailProgress';
 import { getAuthenticationSelect } from '../selectors/index';

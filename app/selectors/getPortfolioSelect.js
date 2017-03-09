@@ -35,7 +35,7 @@ const getSymbolSelect = function getSymbolSelect(symbol) {
     valid = false;
     errorText = 'Required';
   }
-  if (!symbol.setOnce) {
+  if (!symbol.dirty) {
     hintText = 'AAPL';
   }
   return {
@@ -63,7 +63,7 @@ const getAllocationSelect = function getAllocationSelect(allocation) {
     errorText = '100 maximum';
     valid = false;
   }
-  if (!allocation.setOnce) {
+  if (!allocation.dirty) {
     hintText = '0';
   }
   return {
@@ -89,7 +89,7 @@ const getPriceSelect = function getPriceSelect(price) {
     errorText = '0.01 minimum';
     valid = false;
   }
-  if (!price.setOnce) {
+  if (!price.dirty) {
     hintText = '1.00';
   }
   return {
@@ -115,7 +115,7 @@ const getUnitsSelect = function getUnitsSelect(units) {
     errorText = '0 minimum';
     valid = false;
   }
-  if (!units.setOnce) {
+  if (!units.dirty) {
     hintText = '0';
   }
   return {
@@ -167,7 +167,7 @@ const getInvestmentAmountSelect = function getInvestmentAmountSelect(investmentA
       errorText = 'Number required';
       valid = false;
   }
-  if (!investmentAmount.setOnce) {
+  if (!investmentAmount.dirty) {
     hintText = '0';
   }
   return {

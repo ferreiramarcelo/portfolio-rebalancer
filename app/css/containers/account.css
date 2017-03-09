@@ -2,7 +2,7 @@
 @import '../common/typography';
 
 .paper {
-  max-width: 500px;
+  max-width: 400px;
   margin: 0px auto 15px auto;
 }
 
