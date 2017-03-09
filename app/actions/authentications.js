@@ -1,6 +1,6 @@
 /* eslint consistent-return: 0, no-else-return: 0*/
 import { polyfill } from 'es6-promise';
-import { isEmailAddressAvailable, manualLogin, register } from './users';
+import { isEmailAddressAvailable, manualLogin, register, sendPasswordReset } from './users';
 import * as types from '../types';
 import * as constants from '../constants'
 import { getAuthenticationSelect } from '../selectors/index';
@@ -134,12 +134,12 @@ export function passwordConfirmationTextFieldChange( value ) {
     dispatch( passwordConfirmationTextFieldDispatch( value, valid, errorText ) );
   }
 }
-
+ */
 export function toggleAuthenticationMode() {
   return {
     type: types.CHANGE_AUTHENTICATION_MODE
   };
-} */
+}
 
 function hastyRegistration() {
   return {
@@ -150,6 +150,12 @@ function hastyRegistration() {
 function hastyLogin() {
   return {
     type: types.LOGIN_HASTY_USER
+  };
+}
+
+function hastySendPasswordReset() {
+  return {
+    type: types.PASSWORD_RESET_HASTY_USER
   };
 }
 
@@ -169,6 +175,17 @@ export function loginPress() {
     const authenticationSelect = getAuthenticationSelect( getState() );
     if ( authenticationSelect.loginEmailTextFieldSelect.valid && authenticationSelect.passwordTextFieldSelect.valid ) {
       dispatch( manualLogin() );
+    } else {
+      dispatch( hastyLogin() );
+    }
+  }
+}
+
+export function sendPasswordResetPress() {
+  return (dispatch, getState) => {
+    const authenticationSelect = getAuthenticationSelect( getState() );
+    if ( authenticationSelect.loginEmailTextFieldSelect.valid ) {
+      dispatch( sendPasswordReset() );
     } else {
       dispatch( hastyLogin() );
     }

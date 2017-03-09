@@ -30,6 +30,7 @@ const emailTextField = (state = {
   switch (action.type) {
     case types.LOGIN_HASTY_USER:
     case types.SIGNUP_HASTY_USER:
+    case types.PASSWORD_RESET_HASTY_USER:
       return {
         ...state,
         dirty: true,
@@ -201,6 +202,19 @@ const registrationStatus = (state = constants.NOT_PROCESSING, action) => {
     case types.SIGNUP_SUCCESS_USER:
       return constants.NOT_PROCESSING;
     case types.SIGNUP_ERROR_USER:
+      return constants.NOT_PROCESSING;
+    default:
+      return state;
+  }
+}
+
+const loginStatus = (state = constants.NOT_PROCESSING, action) => {
+  switch (action.type) {
+    case types.MANUAL_LOGIN_USER:
+      return constants.IS_PROCESSING;
+    case types.LOGIN_SUCCESS_USER:
+      return constants.NOT_PROCESSING;
+    case types.LOGIN_ERROR_USER:
       return constants.NOT_PROCESSING;
     default:
       return state;
