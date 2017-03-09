@@ -166,7 +166,9 @@ export function manualLogin() {
         if (response.status === 200) {
           dispatch(loginSuccess(response.data.response, data.email));
           dispatch(push('/'));
-          dispatch(sendVerificationEmail());
+          if (response.data.response === constants.RESPONSE_LOG_IN_EMAIL_NOT_VERIFIED) {
+            dispatch(sendVerificationEmail());
+          }
         } else {
           dispatch(loginError(response.data.response, data.email));
         }

@@ -221,12 +221,27 @@ const loginStatus = (state = constants.NOT_PROCESSING, action) => {
   }
 }
 
+const sendPasswordResetStatus = (state = constants.NOT_PROCESSING, action) => {
+  switch (action.type) {
+    case types.PASSWORD_RESET_USER:
+      return constants.IS_PROCESSING;
+    case types.PASSWORD_RESET_SUCCESS_USER:
+      return constants.NOT_PROCESSING;
+    case types.PASSWORD_RESET_ERROR_USER:
+      return constants.NOT_PROCESSING;
+    default:
+      return state;
+  }
+}
+
 const authenticationReducer = combineReducers( {
   isLoginMode,
   emailTextField,
   passwordTextField,
   passwordConfirmationTextField,
-  registrationStatus
+  registrationStatus,
+  loginStatus,
+  sendPasswordResetStatus
 } );
 
 export default authenticationReducer;

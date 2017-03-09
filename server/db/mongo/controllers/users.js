@@ -75,7 +75,7 @@ export function register( req, res, next ) {
       } );
     }
 
-    return user.save( (saveErr) => {
+    user.save( (saveErr) => {
       if ( saveErr ) {
         return res.status( 409 ).json( {
           response: constants.RESPONSE_REGISTER_FAILURE,
@@ -224,23 +224,25 @@ export function sendPasswordReset( req, res, next ) {
     passwordResetToken.setToken( token );
     const passwordResetURL = req.protocol + "://" + req.get( 'host' ) + "/reset/" + token;
 
-    return sendEmail( req.body.email,
+    sendEmail( req.body.email,
       'Portfolio Rebalancer password reset',
       'Thanks for registering for Portfolio Rebalancer.',
       '<p>Click the following link to reset your password: <a href=' + passwordResetURL + '>' + passwordResetURL + '</a> </p>'
         + '<p>If you did not request this password reset, ignore this email. The link will expire within 24 hours of being sent.',
         (emailSentSuccessfully) => {
-          if ( !sendEmailSucceeded ) {
+          if ( !emailSentSuccessfully ) {
             return res.status( 409 ).json( {
               response: constants.RESPONSE_SEND_PASSWORD_RESET_FAILURE
             } );
           }
+          console.log("Success");
+          console.log(res);
+
           return res.status( 200 ).json( {
             response: constants.RESPONSE_SEND_PASSWORD_RESET_SUCCESS
           } );
         }
     );
-    console.log("FINISHED");
   } );
 }
 

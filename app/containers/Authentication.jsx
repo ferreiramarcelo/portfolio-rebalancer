@@ -85,6 +85,30 @@ class Authentication extends React.Component {
     );
   }
 
+  getPasswordResetButton() {
+    switch (this.props.authentication.sendPasswordResetStatus) {
+      case constants.IS_PROCESSING:
+        return (<div>
+                  <RaisedButton
+                                type="submit"
+                                label="SENDING EMAIL..."
+                                fullWidth
+                                primary
+                                disabled
+                                className={ cx( 'submit-button' ) } />
+                  <LinearProgress mode="indeterminate" />
+                </div>);
+      case constants.NOT_PROCESSING:
+      default:
+        return <RaisedButton
+                             type="submit"
+                             label="SEND RESET EMAIL"
+                             fullWidth
+                             primary
+                             className={ cx( 'submit-button' ) } />;
+    }
+  }
+
   getPasswordResetForm() {
     return (
     <div className={ cx( 'card-insides' ) }>
@@ -99,12 +123,7 @@ class Authentication extends React.Component {
                        } ) }>
           <span>{ this.props.user.message }</span>
         </p>
-        <RaisedButton
-                      label="SEND RESET EMAIL"
-                      fullWidth
-                      primary
-                      type="submit"
-                      className={ cx( 'submit-button' ) } />
+        { this.getPasswordResetButton() }
         <p>
           Have your password?&nbsp;
         </p>
