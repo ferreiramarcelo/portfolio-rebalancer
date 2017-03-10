@@ -1,8 +1,8 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 import FetchData from './fetch-data';
-import { App, PortfolioRebalancer, About, Authentication, Register, Account } from './pages';
-import { verify } from './actions/users';
+import { App, PortfolioRebalancer, About, Authentication, Register, Account, ResetPassword, Loading } from './pages';
+import { verify, isPasswordResetTokenValid } from './actions/users';
 
 export default (store) => {
   const redirectIfAuthenticated = (nextState, replace, callback) => {
@@ -25,14 +25,20 @@ export default (store) => {
     callback();
   };
 
-  const onEnterVerify = (nextState, replace, callback) => {
+  const onEnterVerify = (nextState, replace) => {
     store.dispatch(verify(nextState.params.token));
-    callback();
   };
 
-  const onEnterGithub = (nextState, replace, callback) => {
-    location.href = "https://github.com/AlexisDeschamps/portfolio-rebalancer/";
-    callback();
+  const onEnterGithub = (nextState, replace) => {
+    location.href = 'https://github.com/AlexisDeschamps/portfolio-rebalancer/';
+  };
+
+  const onEnterReset = (nextState, replace) => {
+    store.dispatch(isPasswordResetTokenValid(nextState.params.token));
+
+    // Check database to see if token is valid
+    // Present screen for password reset
+    // Reset password
   };
 
   return (
@@ -43,7 +49,7 @@ export default (store) => {
       <Route path="/register" component={Register} onEnter={redirectIfAuthenticated} />
       <Route path="/account" component={Account} onEnter={redirectIfNotAuthenticated} />
       <Route path="/verify/:token" component={PortfolioRebalancer} onEnter={onEnterVerify} />
-      <Route path="/reset/:token" component={PortfolioRebalancer} onEnter={onEnterVerify} />
+      <Route path="/reset/:token" component={ResetPassword} onEnter={onEnterReset} />
     </Route>
     );
 };

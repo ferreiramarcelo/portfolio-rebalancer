@@ -11,7 +11,7 @@ const verificationEmailSendingStatus = (state = constants.NOT_FETCHING,
     case types.SEND_VERIFICATION_EMAIL_USER:
       return constants.IS_FETCHING;
     case types.SEND_VERIFICATION_EMAIL_SUCCESS_USER:
-      return constants.FETCH_SUCCEEDED
+      return constants.FETCH_SUCCEEDED;
     case types.SEND_VERIFICATION_EMAIL_ERROR_USER:
       switch (action.response) {
         case types.RESPONSE_SEND_VERIFICATION_EMAIL_NOT_FOUND:
@@ -25,8 +25,8 @@ const verificationEmailSendingStatus = (state = constants.NOT_FETCHING,
   }
 };
 
-const accontReducer = combineReducers( {
+const accontReducer = combineReducers({
   verificationEmailSendingStatus
-} );
+});
 
 export default accontReducer;

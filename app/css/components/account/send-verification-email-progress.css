@@ -1,0 +1,6 @@
+@import '../../common/typography';
+
+.send-verification-email-progress {
+  width: 30px !important;
+  height: 30px !important;
+}

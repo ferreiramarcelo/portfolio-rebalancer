@@ -1,18 +1,18 @@
-/* eslint consistent-return: 0, no-else-return: 0*/
+/* eslint consistent-return: 0, no-else-return: 0,  no-useless-escape: 0*/
 import { polyfill } from 'es6-promise';
-import { isEmailAddressAvailable, manualLogin, register, sendPasswordReset, changePassword } from './users';
-import * as types from '../types';
-import * as constants from '../constants'
+import { isEmailAddressAvailable, manualLogin, register, sendPasswordReset, changePassword, changePasswordWithToken } from './users';
 import { getAuthenticationSelect } from '../selectors/index';
+import * as types from '../types';
+import * as constants from '../constants';
 
 polyfill();
 
-function isValidEmailAddress( emailAddress ) {
+function isValidEmailAddress(emailAddress) {
   const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return regex.test( emailAddress );
+  return regex.test(emailAddress);
 }
 
-function emailTextFieldChangeDispatch( value ) {
+function emailTextFieldChangeDispatch(value) {
   return {
     type: types.EMAIL_TEXT_FIELD_CHANGE,
     value
@@ -25,40 +25,40 @@ function beginEmailAddressValidation() {
   };
 }
 
-function finishEmailAddressValidation( validationStatus ) {
+function finishEmailAddressValidation(validationStatus) {
   return {
     type: types.FINISH_EMAIL_ADDRESS_VALIDATION,
     validationStatus
   };
 }
 
-function validateEmailTextField( value ) {
-  return (dispatch, getState) => {
-    dispatch( beginEmailAddressValidation() );
+function validateEmailTextField(value) {
+  return (dispatch) => {
+    dispatch(beginEmailAddressValidation());
     let validationStatus = constants.VALIDATION_NO_CONFLICT;
-    if ( isValidEmailAddress( value ) ) {
-      dispatch( isEmailAddressAvailable( value, (isAvailable) => {
-        if ( !isAvailable ) {
+    if (isValidEmailAddress(value)) {
+      dispatch(isEmailAddressAvailable(value, (isAvailable) => {
+        if (!isAvailable) {
           validationStatus = constants.VALIDATION_CONFLICT;
         }
-        dispatch( finishEmailAddressValidation( validationStatus ) );
-      } ) );
+        dispatch(finishEmailAddressValidation(validationStatus));
+      }));
     } else {
       validationStatus = constants.VALIDATION_INVALID_FORMAT;
-      dispatch( finishEmailAddressValidation( validationStatus ) );
+      dispatch(finishEmailAddressValidation(validationStatus));
     }
-  }
+  };
 }
 
-function setEmailTextFieldValidationTimeout( timeout ) {
+function setEmailTextFieldValidationTimeout(timeout) {
   return {
     type: types.EMAIL_TEXT_FIELD_SET_VALIDATION_TIMEOUT,
     timeout
   };
 }
 
-export function emailTextFieldChange( value ) {
-  if ( !value ) {
+export function emailTextFieldChange(value) {
+  if (!value) {
     return {
       type: types.EMAIL_TEXT_FIELD_CHANGE,
       value
@@ -66,36 +66,36 @@ export function emailTextFieldChange( value ) {
   }
   return (dispatch, getState) => {
     const {authentication} = getState();
-    clearTimeout( authentication.emailTextField.timeout );
-    dispatch( emailTextFieldChangeDispatch( value ) );
+    clearTimeout(authentication.emailTextField.timeout);
+    dispatch(emailTextFieldChangeDispatch(value));
 
     const dispatchValidateEmail = function dispatchValidateEmail() {
-      dispatch( validateEmailTextField( value ) );
+      dispatch(validateEmailTextField(value));
     };
-    if ( !authentication.emailTextField.validatedOnce ) {
-      const validationTimeout = setTimeout( dispatchValidateEmail, 1000 );
-      dispatch( setEmailTextFieldValidationTimeout( validationTimeout ) );
+    if (!authentication.emailTextField.validatedOnce) {
+      const validationTimeout = setTimeout(dispatchValidateEmail, 1000);
+      dispatch(setEmailTextFieldValidationTimeout(validationTimeout));
     } else {
-      dispatch( validateEmailTextField( value ) );
+      dispatch(validateEmailTextField(value));
     }
-  }
+  };
 }
 
-export function passwordTextFieldChange( value ) {
+export function passwordTextFieldChange(value) {
   return {
     type: types.PASSWORD_TEXT_FIELD_CHANGE,
     value
   };
 }
 
-export function passwordConfirmationTextFieldChange( value ) {
+export function passwordConfirmationTextFieldChange(value) {
   return {
     type: types.PASSWORD_CONFIRMATION_TEXT_FIELD_CHANGE,
     value
   };
 }
 
-export function currentPasswordTextFieldChange( value ) {
+export function currentPasswordTextFieldChange(value) {
   return {
     type: types.CURRENT_PASSWORD_TEXT_FIELD_CHANGE,
     value
@@ -134,44 +134,55 @@ function hastyChangePassword() {
 
 export function registerPress() {
   return (dispatch, getState) => {
-    const authenticationSelect = getAuthenticationSelect( getState() );
-    if ( authenticationSelect.registrationEmailTextFieldSelect.valid && authenticationSelect.passwordTextFieldSelect.valid && authenticationSelect.passwordConfirmationTextFieldSelect.valid ) {
-      dispatch( register() );
+    const authenticationSelect = getAuthenticationSelect(getState());
+    if (authenticationSelect.registrationEmailTextFieldSelect.valid && authenticationSelect.passwordTextFieldSelect.valid && authenticationSelect.passwordConfirmationTextFieldSelect.valid) {
+      dispatch(register());
     } else {
-      dispatch( hastyRegistration() );
+      dispatch(hastyRegistration());
     }
-  }
+  };
 }
 
 export function loginPress() {
   return (dispatch, getState) => {
-    const authenticationSelect = getAuthenticationSelect( getState() );
-    if ( authenticationSelect.loginEmailTextFieldSelect.valid && authenticationSelect.currentPasswordTextFieldSelect.valid ) {
-      dispatch( manualLogin() );
+    const authenticationSelect = getAuthenticationSelect(getState());
+    if (authenticationSelect.loginEmailTextFieldSelect.valid && authenticationSelect.currentPasswordTextFieldSelect.valid) {
+      dispatch(manualLogin());
     } else {
-      dispatch( hastyLogin() );
+      dispatch(hastyLogin());
     }
-  }
+  };
 }
 
 export function sendPasswordResetPress() {
   return (dispatch, getState) => {
-    const authenticationSelect = getAuthenticationSelect( getState() );
-    if ( authenticationSelect.loginEmailTextFieldSelect.valid ) {
-      dispatch( sendPasswordReset() );
+    const authenticationSelect = getAuthenticationSelect(getState());
+    if (authenticationSelect.loginEmailTextFieldSelect.valid) {
+      dispatch(sendPasswordReset());
     } else {
-      dispatch( hastyLogin() );
+      dispatch(hastyLogin());
     }
-  }
+  };
 }
 
 export function changePasswordPress() {
   return (dispatch, getState) => {
-    const authenticationSelect = getAuthenticationSelect( getState() );
-    if ( authenticationSelect.currentPasswordTextFieldSelect.valid && authenticationSelect.passwordTextFieldSelect.valid && authenticationSelect.passwordConfirmationTextFieldSelect.valid ) {
-      dispatch( changePassword() );
+    const authenticationSelect = getAuthenticationSelect(getState());
+    if (authenticationSelect.currentPasswordTextFieldSelect.valid && authenticationSelect.passwordTextFieldSelect.valid && authenticationSelect.passwordConfirmationTextFieldSelect.valid) {
+      dispatch(changePassword());
     } else {
-      dispatch( hastyChangePassword() );
+      dispatch(hastyChangePassword());
     }
-  }
+  };
+}
+
+export function changePasswordPressWithToken(token) {
+  return (dispatch, getState) => {
+    const authenticationSelect = getAuthenticationSelect(getState());
+    if (authenticationSelect.passwordTextFieldSelect.valid && authenticationSelect.passwordConfirmationTextFieldSelect.valid) {
+      dispatch(changePasswordWithToken(token));
+    } else {
+      dispatch(hastyChangePassword());
+    }
+  };
 }

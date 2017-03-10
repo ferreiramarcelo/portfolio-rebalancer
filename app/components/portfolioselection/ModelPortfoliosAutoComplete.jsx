@@ -114,7 +114,8 @@ const ModelPortfoliosAutoComplete = ({searchText, onUpdateInput, modelPortfolios
           default:
             return {
               text: modelPortfolio.name,
-              value: (<MenuItem primaryText={modelPortfolio.name}
+              value: (<MenuItem
+primaryText={modelPortfolio.name}
                 className={cx('model-portfolios-auto-complete-menu-item')} />)
             };
         }

@@ -12,46 +12,46 @@ import PasswordTextField from '../components/authentication/PasswordTextField';
 import { getAuthenticationSelect } from '../selectors/index';
 import styles from '../css/containers/authentication';
 
-const cx = classNames.bind( styles );
+const cx = classNames.bind(styles);
 
 class Reset extends React.Component {
-  constructor( props ) {
-    super( props );
-    this.handleOnPasswordReset = this.handleOnPasswordReset.bind( this );
+  constructor(props) {
+    super(props);
+    this.handleOnPasswordReset = this.handleOnPasswordReset.bind(this);
   }
 
-  handleOnPasswordReset( event ) {
+  handleOnPasswordReset(event) {
     event.preventDefault();
     this.props.manualLogin();
   }
 
   render() {
     return (
-    <div>
-      <Card className={ cx( 'card' ) }>
-        <form onSubmit={ this.handleOnLogin }>
+      <div>
+        <Card className={cx('card')}>
+          <form onSubmit={this.handleOnLogin}>
 
-        <span>Reset your password</span>
-        <PasswordTextField
-                           value={ this.props.authentication.passwordTextField.value }
-                           errorText={ this.props.authenticationSelect.passwordTextFieldSelect.errorText }
-                           onChange={ this.props.passwordTextFieldChange }
+            <span>Reset your password</span>
+            <PasswordTextField
+                           value={this.props.authentication.passwordTextField.value}
+                           errorText={this.props.authenticationSelect.passwordTextFieldSelect.errorText}
+                           onChange={this.props.passwordTextFieldChange}
                            label="Password" />
-        <PasswordTextField
-                                       value={ this.props.authentication.passwordConfirmationTextField.value }
-                                       errorText={ this.props.authenticationSelect.passwordConfirmationTextFieldSelect.errorText }
-                                       onChange={ this.props.passwordConfirmationTextFieldChange }
+            <PasswordTextField
+                                       value={this.props.authentication.passwordConfirmationTextField.value}
+                                       errorText={this.props.authenticationSelect.passwordConfirmationTextFieldSelect.errorText}
+                                       onChange={this.props.passwordConfirmationTextFieldChange}
                                        label="Confirm password" />
-                                       <RaisedButton
-                                                     disabled={ this.props.authenticationSelect.loginButtonVisibility === 'disabled' }
+            <RaisedButton
+                                                     disabled={this.props.authenticationSelect.loginButtonVisibility === 'disabled'}
                                                      label="RESET"
                                                      fullWidth
                                                      primary
                                                      type="submit"
-                                                     className={ cx( 'submit-button' ) } />
-                                     </form>
-      </Card>
-    </div>
+                                                     className={cx('submit-button')} />
+          </form>
+        </Card>
+      </div>
     );
   }
 }
@@ -69,15 +69,15 @@ Reset.propTypes = {
   toggleAuthenticationMode: PropTypes.func.isRequired,
 };
 
-function mapStateToProps( state ) {
+function mapStateToProps(state) {
   return {
     user: state.user,
     authentication: state.authentication,
-    authenticationSelect: getAuthenticationSelect( state )
+    authenticationSelect: getAuthenticationSelect(state)
   };
 }
 
-export default connect( mapStateToProps, {
+export default connect(mapStateToProps, {
   manualLogin,
   register,
   sendPasswordReset,
@@ -85,4 +85,4 @@ export default connect( mapStateToProps, {
   passwordTextFieldChange,
   passwordConfirmationTextFieldChange,
   toggleAuthenticationMode
-} )( Reset );
+})(Reset);

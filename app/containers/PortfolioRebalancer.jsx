@@ -24,7 +24,7 @@ class PortfolioRebalancer extends Component {
 
   componentDidUpdate() {
     if (this.props.view.justGeneratedSteps) {
-      window.scrollTo(0,document.body.scrollHeight);
+      window.scrollTo(0, document.body.scrollHeight);
       this.props.setScrolledToBttom();
     }
   }

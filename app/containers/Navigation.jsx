@@ -11,86 +11,80 @@ import { logOut } from '../actions/users';
 import styles from '../css/containers/navigation';
 
 
-const cx = classNames.bind( styles );
+const cx = classNames.bind(styles);
 
 const Navigation = ({tab, user, changeTab, logOut}) => {
-
-  const logInTab = <Tab
+  const logInTab = (<Tab
                         value="login"
-                        containerElement={ <Link to="/login" /> }
-                        label={ 'LOG IN' } />;
+                        containerElement={<Link to="/login" />}
+                        label={'LOG IN'} />);
 
-  const registerTab = <Tab
+  const registerTab = (<Tab
                            value="register"
-                           containerElement={ <Link to="/register" /> }
-                           label={ 'REGISTER' } />;
+                           containerElement={<Link to="/register" />}
+                           label={'REGISTER'} />);
 
-  const loggedInAsIdentifier = <span className={ cx( 'logged-in-as-identifier' ) }>{ user.email }</span>
+  const loggedInAsIdentifier = <span className={cx('logged-in-as-identifier')}>{ user.email }</span>;
 
-  const logOutButton = <FlatButton
-                                   onTouchTap={ logOut }
-                                   label={ "LOG OUT" }
-                                   className={ cx( 'log-out-button' ) } />
+  const logOutButton = (<FlatButton
+                                   onTouchTap={logOut}
+                                   label={'LOG OUT'}
+                                   className={cx('log-out-button')} />);
 
   const unauthenticatedTabs = (<Tabs
-                                     value={ tab }
-                                     onChange={ changeTab }>
-                                 <Tab
+                                     value={tab}
+                                     onChange={changeTab}>
+    <Tab
                                       value=""
                                       label="PR"
-                                      containerElement={ <Link to="" /> }>
-                                 </Tab>
-                                 <Tab
+                                      containerElement={<Link to="" />} />
+    <Tab
                                       value="about"
                                       label="ABOUT"
-                                      containerElement={ <Link to="/about" /> }>
-                                 </Tab>
-                                 { logInTab }
-                                 { registerTab }
-                               </Tabs>);
+                                      containerElement={<Link to="/about" />} />
+    { logInTab }
+    { registerTab }
+  </Tabs>);
 
   const authenticatedNav = (
-  <div className={ cx( 'authenticated-container' ) }>
-    <div className={ cx( 'authenticated-container-tabs' ) }>
-      <Tabs
-            value={ tab }
-            onChange={ changeTab }>
-        <Tab
+    <div className={cx('authenticated-container')}>
+      <div className={cx('authenticated-container-tabs')}>
+        <Tabs
+            value={tab}
+            onChange={changeTab}>
+          <Tab
              value=""
              label="PR"
-             containerElement={ <Link to="" /> }>
-        </Tab>
-        <Tab
+             containerElement={<Link to="" />} />
+          <Tab
              value="about"
              label="ABOUT"
-             containerElement={ <Link to="/about" /> }>
-        </Tab>
-        <Tab
+             containerElement={<Link to="/about" />} />
+          <Tab
              value="account"
              label="ACCOUNT"
-             containerElement={ <Link to="/account" /> }>
-        </Tab>
-      </Tabs>
-    </div>
-    <div className={ cx( 'authenticated-container-log-out' ) }>
-      { logOutButton }
-    </div>
-  </div>);
+             containerElement={<Link to="/account" />} />
+        </Tabs>
+      </div>
+      <div className={cx('authenticated-container-log-out')}>
+        { logOutButton }
+      </div>
+    </div>);
 
-  const getNavigation = function getNavigation( givenAuthenticated ) {
-    if ( givenAuthenticated ) {
+  const getNavigation = function getNavigation(givenAuthenticated) {
+    if (givenAuthenticated) {
       return authenticatedNav;
     }
     return unauthenticatedTabs;
-  }
-  const navigation = getNavigation( user.authenticated );
+  };
+  const navigation = getNavigation(user.authenticated);
 
   return (
-  <nav
-       className={ cx( 'navigation' ) }
+    <nav
+       className={cx('navigation')}
        role="navigation">
-    { navigation }
-  </nav>
+      { navigation }
+    </nav>
   );
 };
 
@@ -100,13 +94,13 @@ Navigation.propTypes = {
   logOut: PropTypes.func.isRequired
 };
 
-function mapStateToProps( state ) {
+function mapStateToProps(state) {
   return {
     user: state.user
   };
 }
 
-export default connect( mapStateToProps, {
+export default connect(mapStateToProps, {
   changeTab,
   logOut
-} )( Navigation );
+})(Navigation);

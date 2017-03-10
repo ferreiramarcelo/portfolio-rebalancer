@@ -13,17 +13,17 @@ import { getAuthenticationSelect } from '../selectors/index';
 import styles from '../css/containers/authentication';
 import * as constants from '../constants';
 
-const cx = classNames.bind( styles );
+const cx = classNames.bind(styles);
 
 class Authentication extends React.Component {
-  constructor( props ) {
-    super( props );
-    this.handleOnLogin = this.handleOnLogin.bind( this );
-    this.handleOnSendPasswordReset = this.handleOnSendPasswordReset.bind( this );
+  constructor(props) {
+    super(props);
+    this.handleOnLogin = this.handleOnLogin.bind(this);
+    this.handleOnSendPasswordReset = this.handleOnSendPasswordReset.bind(this);
   }
 
   getAuthenticationForm() {
-    if ( this.props.authentication.isLoginMode ) {
+    if (this.props.authentication.isLoginMode) {
       return this.getLoginForm();
     }
     return this.getPasswordResetForm();
@@ -33,55 +33,51 @@ class Authentication extends React.Component {
     switch (this.props.authentication.loginStatus) {
       case constants.IS_PROCESSING:
         return (<div>
-                  <RaisedButton
+          <RaisedButton
                                 type="submit"
                                 label="LOGGING IN..."
                                 fullWidth
                                 primary
                                 disabled
-                                className={ cx( 'submit-button' ) } />
-                  <LinearProgress mode="indeterminate" />
-                </div>);
+                                className={cx('submit-button')} />
+          <LinearProgress
+                                  mode="indeterminate"
+                                  className={cx('loading-indicator')} />
+        </div>);
       case constants.NOT_PROCESSING:
       default:
-        return <RaisedButton
+        return (<RaisedButton
                              type="submit"
                              label="LOG IN"
                              fullWidth
                              primary
-                             className={ cx( 'submit-button' ) } />;
+                             className={cx('submit-button', 'submit-button-not-loading')} />);
     }
   }
 
   getLoginForm() {
     return (
-    <div className={ cx( 'card-insides' ) }>
-      <span>Log in with email</span>
-      <form onSubmit={ this.handleOnLogin }>
-        <LoginEmailTextField
-          emailTextField={ this.props.authentication.emailTextField }
-          emailTextFieldSelect={this.props.authenticationSelect.loginEmailTextFieldSelect}
-          onChange={ this.props.emailTextFieldChange } />
+      <div className={cx('card-insides')}>
+        <span className={cx('sub-header-2')}>Log in with email</span>
+        <form onSubmit={this.handleOnLogin}>
+          <LoginEmailTextField
+                             emailTextField={this.props.authentication.emailTextField}
+                             emailTextFieldSelect={this.props.authenticationSelect.loginEmailTextFieldSelect}
+                             onChange={this.props.emailTextFieldChange} />
           <LoginPasswordTextField
-                             passwordTextField={ this.props.authentication.currentPasswordTextField }
-                             passwordTextFieldSelect={ this.props.authenticationSelect.currentPasswordTextFieldSelect }
-                             onChange={ this.props.currentPasswordTextFieldChange }
-                             label={ 'Current password' } />
-        <p className={ cx( 'message', {
-                         'message-show': this.props.user.message && this.props.user.message.length > 0
-                       } ) }>
-          <span>{ this.props.user.message }</span>
-        </p>
-        { this.getLoginButton() }
-                      <span>
-                        Forgot your password?
-                      </span>
-                      <FlatButton
-                                  label="RESET PASSWORD"
-                                  secondary
-                                  onTouchTap={ this.props.toggleAuthenticationMode } />
-      </form>
-    </div>
+                                passwordTextField={this.props.authentication.currentPasswordTextField}
+                                passwordTextFieldSelect={this.props.authenticationSelect.currentPasswordTextFieldSelect}
+                                onChange={this.props.currentPasswordTextFieldChange}
+                                label={'Current password'} />
+          <span className={cx('message')}>{ this.props.user.message }</span>
+          { this.getLoginButton() }
+          <span>Forgot your password?</span>
+          <FlatButton
+                    label="RESET PASSWORD"
+                    secondary
+                    onTouchTap={this.props.toggleAuthenticationMode} />
+        </form>
+      </div>
     );
   }
 
@@ -89,83 +85,79 @@ class Authentication extends React.Component {
     switch (this.props.authentication.sendPasswordResetStatus) {
       case constants.IS_PROCESSING:
         return (<div>
-                  <RaisedButton
+          <RaisedButton
                                 type="submit"
                                 label="SENDING EMAIL..."
                                 fullWidth
                                 primary
                                 disabled
-                                className={ cx( 'submit-button' ) } />
-                  <LinearProgress mode="indeterminate" />
-                </div>);
+                                className={cx('submit-button')} />
+          <LinearProgress
+                                  mode="indeterminate"
+                                  className={cx('loading-indicator')} />
+        </div>);
       case constants.NOT_PROCESSING:
       default:
-        return <RaisedButton
+        return (<RaisedButton
                              type="submit"
                              label="SEND RESET EMAIL"
                              fullWidth
                              primary
-                             className={ cx( 'submit-button' ) } />;
+                             className={cx('submit-button', 'submit-button-not-loading')} />);
     }
   }
 
   getPasswordResetForm() {
     return (
-    <div className={ cx( 'card-insides' ) }>
-      <form onSubmit={ this.handleOnSendPasswordReset }>
-        <span>Reset password</span>
-        <LoginEmailTextField
-          emailTextField={ this.props.authentication.emailTextField }
-          emailTextFieldSelect={this.props.authenticationSelect.loginEmailTextFieldSelect}
-          onChange={ this.props.emailTextFieldChange } />
-        <p className={ cx( 'message', {
-                         'message-show': this.props.user.message && this.props.user.message.length > 0
-                       } ) }>
-          <span>{ this.props.user.message }</span>
-        </p>
-        { this.getPasswordResetButton() }
-        <p>
-          Have your password?&nbsp;
-        </p>
-        <FlatButton
+      <div className={cx('card-insides')}>
+        <form onSubmit={this.handleOnSendPasswordReset}>
+          <span className={cx('sub-header-2')}>Reset password</span>
+          <LoginEmailTextField
+                             emailTextField={this.props.authentication.emailTextField}
+                             emailTextFieldSelect={this.props.authenticationSelect.loginEmailTextFieldSelect}
+                             onChange={this.props.emailTextFieldChange} />
+          <span className={cx('message')}>{ this.props.user.message }</span>
+          { this.getPasswordResetButton() }
+          <span>Have your password?</span>
+          <FlatButton
                     label="LOG IN"
                     secondary
-                    onTouchTap={ this.props.toggleAuthenticationMode } />
-      </form>
-    </div>
+                    onTouchTap={this.props.toggleAuthenticationMode} />
+        </form>
+      </div>
     );
   }
 
-  handleOnLogin( event ) {
+  handleOnLogin(event) {
     event.preventDefault();
     this.props.loginPress();
   }
 
-  handleOnSendPasswordReset( event ) {
+  handleOnSendPasswordReset(event) {
     event.preventDefault();
     this.props.sendPasswordResetPress();
   }
 
   render() {
     return (
-    <div>
-      <div className={ cx( 'google-login-button-container' ) }>
-        <RaisedButton
+      <div>
+        <div className={cx('google-login-button-container')}>
+          <RaisedButton
                       href="/auth/google"
                       label="LOG IN WITH GOOGLE"
                       primary
                       fullWidth
-                      icon={ <FontAwesome
+                      icon={<FontAwesome
                                           name="google"
-                                          className={ cx( 'google-icon' ) } /> } />
-      </div>
-      <p className={ cx( 'or-prompt' ) }>
+                                          className={cx('google-icon')} />} />
+        </div>
+        <p className={cx('or-prompt')}>
         OR
       </p>
-      <Card className={ cx( 'card' ) }>
-        { this.getAuthenticationForm() }
-      </Card>
-    </div>
+        <Card className={cx('card')}>
+          { this.getAuthenticationForm() }
+        </Card>
+      </div>
     );
   }
 }
@@ -183,15 +175,15 @@ Authentication.propTypes = {
   toggleAuthenticationMode: PropTypes.func.isRequired,
 };
 
-function mapStateToProps( state ) {
+function mapStateToProps(state) {
   return {
     user: state.user,
     authentication: state.authentication,
-    authenticationSelect: getAuthenticationSelect( state )
+    authenticationSelect: getAuthenticationSelect(state)
   };
 }
 
-export default connect( mapStateToProps, {
+export default connect(mapStateToProps, {
   loginPress,
   sendPasswordResetPress,
   emailTextFieldChange,
@@ -199,4 +191,4 @@ export default connect( mapStateToProps, {
   passwordConfirmationTextFieldChange,
   currentPasswordTextFieldChange,
   toggleAuthenticationMode
-} )( Authentication );
+})(Authentication);

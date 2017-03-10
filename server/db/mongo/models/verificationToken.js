@@ -11,12 +11,12 @@ import md5 from 'spark-md5';
 VerificationTokenSchema.methods = {
 
   setToken(token) {
-    let verificationToken = this;
+    const verificationToken = this;
     verificationToken.set('token', token);
-    verificationToken.save( function (err) {
+    verificationToken.save((err) => {
         if (err) {
           console.log(err);
-          console.log("Error saving verification token", verificationToken);
+          console.log('Error saving verification token', verificationToken);
           return false;
         }
         return true;

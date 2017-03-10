@@ -6,56 +6,59 @@ import AlertErrorOutline from 'material-ui/svg-icons/alert/error-outline';
 import ReactTooltip from 'react-tooltip';
 import classNames from 'classnames/bind';
 import * as constants from '../../constants';
+import styles from '../../css/components/account/send-verification-email-progress';
+
+const cx = classNames.bind(styles);
 
 const sendVerificationEmailProgress = ({fetchStatus}) => {
-
-  const getProgress = function getProgress( givenFetchStatus ) {
+  const getProgress = function getProgress(givenFetchStatus) {
     switch (givenFetchStatus) {
       case constants.IS_FETCHING:
         return (<CircularProgress
-                                  size={ 20 }
-                                  thickness={ 3 } />);
+                                  size={20}
+                                  thickness={3}
+                                  className={cx('send-verification-email-progress')} />);
       case constants.FETCH_SUCCEEDED:
-        return (<IconButton>
-                  <ActionDone />
-                </IconButton>);
+        return (
+          <ActionDone />
+              );
       case constants.FETCH_FAILED:
         return (<div>
-                  <IconButton
+          <IconButton
                               data-tip
                               data-for="tooltipPriceFetchError">
-                    <AlertErrorOutline />
-                  </IconButton>
-                  <ReactTooltip
+            <AlertErrorOutline />
+          </IconButton>
+          <ReactTooltip
                                 id="tooltipPriceFetchError"
                                 type="error">
-                    <span>Failed to send the verification email. Please try again later.</span>
-                  </ReactTooltip>
-                </div>);
+            <span>Failed to send the verification email. Please try again later.</span>
+          </ReactTooltip>
+        </div>);
       case constants.FETCH_FAILED_NOT_FOUND:
         return (<div>
-                  <IconButton
+          <IconButton
                               data-tip
                               data-for="tooltipPriceFetchError">
-                    <AlertErrorOutline />
-                  </IconButton>
-                  <ReactTooltip
+            <AlertErrorOutline />
+          </IconButton>
+          <ReactTooltip
                                 id="tooltipPriceFetchError"
                                 type="error">
-                    <span>Failed to send the verification email because the account could not be found. Please try again later.</span>
-                  </ReactTooltip>
-                </div>);
+            <span>Failed to send the verification email because the account could not be found. Please try again later.</span>
+          </ReactTooltip>
+        </div>);
       default:
         return null;
     }
   };
 
-  const progress = getProgress( fetchStatus );
+  const progress = getProgress(fetchStatus);
 
   return (
-  <div>
-    { progress }
-  </div>
+    <div>
+      { progress }
+    </div>
   );
 };
 

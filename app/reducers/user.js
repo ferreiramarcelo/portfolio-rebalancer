@@ -17,21 +17,21 @@ const message = (state = '',
         case constants.RESPONSE_LOG_IN_NOT_FOUND:
           return 'Invalid email and password comination.';
         default:
-          return 'Log in failed. Please try again later.'
+          return 'Log in failed. Please try again later.';
       }
     case types.SIGNUP_ERROR_USER:
       switch (action.response) {
         case constants.RESPONSE_REGISTER_CONFLICT:
           return 'Account already exists for ' + action.email + '.';
         default:
-          return 'Failed to register. Please try again later.'
+          return 'Failed to register. Please try again later.';
       }
     case types.SEND_PASSWORD_RESET_ERROR_USER:
       switch (action.response) {
         case constants.RESPONSE_SEND_PASSWORD_NOT_FOUND:
           return 'No account found for ' + action.email + '.';
         default:
-          return 'Failed to send the password reset email. Please try again later.'
+          return 'Failed to send the password reset email. Please try again later.';
       }
       return action.response;
     case types.PASSWORD_CHANGE_ERROR_USER:
@@ -39,13 +39,13 @@ const message = (state = '',
         case constants.RESPONSE_PASSWORD_RESET_INVALID_PASSWORD:
           return 'Current password is invalid.';
         default:
-          return 'Password change failed. Please try again later.'
+          return 'Password change failed. Please try again later.';
       }
     case types.PASSWORD_CHANGE_SUCCESS_USER:
       switch (action.response) {
         case constants.RESPONSE_PASSWORD_RESET_INVALID_PASSWORD:
         default:
-          return 'Password successfully changed!'
+          return 'Password successfully changed!';
       }
     default:
       return state;
@@ -107,12 +107,12 @@ const accountType = (state = constants.ACCOUNT_TYPE_INTERNAL,
   }
 };
 
-const userReducer = combineReducers( {
+const userReducer = combineReducers({
   message,
   authenticated,
   verified,
   email,
   accountType
-} );
+});
 
 export default userReducer;

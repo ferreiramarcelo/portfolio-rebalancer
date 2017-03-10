@@ -14,12 +14,10 @@ const getRegistrationEmailTextFieldSelect = function getEmailTextFieldSelect(ema
   if (!emailTextField.dirty) {
     valid = false;
     errorText = '';
-  }
-  else if (!emailTextField.value) {
+  } else if (!emailTextField.value) {
     valid = false;
     errorText = 'Required';
-  }
-  else if (emailTextField.validationStatus) {
+  } else if (emailTextField.validationStatus) {
     switch (emailTextField.validationStatus) {
       case constants.VALIDATION_CONFLICT:
         valid = false;
@@ -39,12 +37,10 @@ const getLoginEmailTextFieldSelect = function getLoginEmailTextFieldSelect(email
   if (!emailTextField.dirty) {
     valid = false;
     errorText = '';
-  }
-  else if (!emailTextField.value) {
+  } else if (!emailTextField.value) {
     valid = false;
     errorText = 'Required';
-  }
-  else if (emailTextField.validationStatus) {
+  } else if (emailTextField.validationStatus) {
     switch (emailTextField.validationStatus) {
       case constants.VALIDATION_NO_CONFLICT:
         valid = false;
@@ -64,12 +60,10 @@ const getPasswordTextFieldSelect = function getPasswordTextFieldSelect(passwordT
   let valid = true;
   if (!passwordTextField.dirty) {
    valid = false;
-  }
-  else if (!passwordTextField.value) {
+  } else if (!passwordTextField.value) {
     errorText = 'Required';
     valid = 0;
-  }
-  else if (passwordTextField.value.length < 6) {
+  } else if (passwordTextField.value.length < 6) {
     errorText = '6 characters min';
     valid = 0;
   }
@@ -81,8 +75,7 @@ const getPasswordConfirmationTextFieldSelect = function getPasswordConfirmationT
   let valid = true;
   if (!passwordConfirmationTextField.dirty) {
    valid = false;
-  }
-   else if (!passwordConfirmationTextField.value) {
+  } else if (!passwordConfirmationTextField.value) {
     errorText = 'Required';
     valid = 0;
   } else if (passwordTextField.value !== passwordConfirmationTextField.value) {
@@ -97,8 +90,7 @@ const getCurrentPasswordTextFieldSelect = function getCurrentPasswordTextFieldSe
   let valid = true;
   if (!passwordTextField.dirty) {
    valid = false;
-  }
-  else if (!passwordTextField.value) {
+  } else if (!passwordTextField.value) {
     errorText = 'Required';
     valid = 0;
   }

@@ -8,10 +8,9 @@ import { sendVerificationEmail, sendPasswordReset } from '../actions/users';
 import * as constants from '../constants';
 import styles from '../css/containers/message';
 
-const cx = classNames.bind( styles );
+const cx = classNames.bind(styles);
 
 const Message = ({open, response, email, requestClose, sendVerificationEmail, sendPasswordReset}) => {
-
   const getMessage = function getMessage() {
     switch (response) {
       case constants.RESPONSE_SEND_VERIFICATION_EMAIL_SUCCESS:
@@ -70,26 +69,26 @@ const Message = ({open, response, email, requestClose, sendVerificationEmail, se
   const handleOnAction = function handleOnAction() {
     requestClose();
     action();
-  }
+  };
 
   const getSnackbar = function getSnackbar() {
     if (message.length > 0) {
-      return     <Snackbar
-                    open={ open }
-                    message={ message }
-                    autoHideDuration={ 4000 }
-                    onRequestClose={ requestClose }
-                    action={ actionLabel }
-                    onActionTouchTap={ handleOnAction } />;
+      return (<Snackbar
+                    open={open}
+                    message={message}
+                    autoHideDuration={4000}
+                    onRequestClose={requestClose}
+                    action={actionLabel}
+                    onActionTouchTap={handleOnAction} />);
     }
     return null;
-  }
+  };
   const snackbar = getSnackbar();
 
   return (
-  <div>
-    {snackbar}
-  </div>
+    <div>
+      {snackbar}
+    </div>
   );
 };
 
@@ -102,7 +101,7 @@ Message.propTypes = {
   sendPasswordReset: PropTypes.func.isRequired,
 };
 
-function mapStateToProps( state ) {
+function mapStateToProps(state) {
   return {
     open: state.message.open,
     response: state.message.response,
@@ -110,8 +109,8 @@ function mapStateToProps( state ) {
   };
 }
 
-export default connect( mapStateToProps, {
+export default connect(mapStateToProps, {
   requestClose,
   sendVerificationEmail,
   sendPasswordReset
-} )( Message );
+})(Message);

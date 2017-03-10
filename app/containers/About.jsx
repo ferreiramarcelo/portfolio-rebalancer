@@ -19,24 +19,20 @@ const About = () => {
       <p>
       First, recreate your model portfolio either by using one of the default model portfolios available, or by starting from scratch. For each security, enter the symbol
       and the target allocation in the first two columns. If your allocations do not add up to 100, they will be normalized.
-    </p>
-      <p>
-      Prices will automatically be fetched from <a href="https://finance.yahoo.com/">finance.yahoo.com</a> based on the symbols provided. Be sure to account for different
+      <br /> Prices will automatically be fetched from <a href="https://finance.yahoo.com/">finance.yahoo.com</a> based on the symbols provided. Be sure to account for different
       exchanges, e.g.: "Vanguard FTSE Global All Cap ex Canada Index ETF" has the symbol "VXC.TO" on Yahoo Finance. Then enter, the number of units you currently have
       of each security in the last column.
     </p>
       <p>
       Finally, enter how much cash you wish to invest or take out and press the 'Generate Steps' button. A list of steps for rebalancing your portfolio will be generated.
-    </p>
-      <p>
-      You can register to gain the ability to save model portfolios. Only model portfolio names, symbols, and allocations are saved. You can verify this from
-      the <a href="https://github.com/AlexisDeschamps/portfolio-rebalancer">source code</a>.
+      <br /> You can register to gain the ability to save model portfolios. Only model portfolio names, symbols, and allocations are saved. You can verify this from the&nbsp;
+      <a href="https://github.com/AlexisDeschamps/portfolio-rebalancer">source code</a>.
     </p>
       <h1 className={cx('header2')}>3. Contact</h1>
       <p>
       Contact the author, Alexis Deschamps, at <a
-                       href="mailto:descalexis@gmail.com"
-                       target="_top">descalexis@gmail.com</a> with any feedback or questions.
+                                                  href="mailto:descalexis@gmail.com"
+                                                  target="_top">descalexis@gmail.com</a> with any feedback or questions.
     </p>
     </div>
   );

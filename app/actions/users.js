@@ -1,12 +1,9 @@
 import { polyfill } from 'es6-promise';
 import request from 'axios';
 import { push } from 'react-router-redux';
-
 import * as types from '../types';
 
 polyfill();
-
-const getMessage = res => res.response && res.response.data && res.response.data.message;
 
 function makeUserRequest(method, data, api = '/login') {
   return request[method](api, data);
@@ -118,7 +115,7 @@ function verifyError(response) {
 
 function beginResetPassword() {
   return {
-    type: types.SEND_PASSWORD_CHANGE_USER
+    type: types.SEND_PASSWORD_RESET_USER
   };
 }
 
@@ -156,6 +153,27 @@ function changePasswordError(response) {
     response
   };
 }
+
+function beginGetPasswordResetTokenValidity() {
+  return {
+    type: types.GET_PASSWORD_RESET_TOKEN_VALIDITY_USER
+  };
+}
+
+function getPasswordResetTokenValiditySuccess(response) {
+  return {
+    type: types.GET_PASSWORD_RESET_TOKEN_VALIDITY_SUCCESS_USER,
+    response
+  };
+}
+
+function getPasswordResetTokenValidityError(response) {
+  return {
+    type: types.GET_PASSWORD_RESET_TOKEN_VALIDITY_ERROR_USER,
+    response
+  };
+}
+
 
 export function isEmailAddressAvailable(email, callback) {
   return (dispatch, getState) => {
@@ -301,6 +319,23 @@ export function sendPasswordReset() {
   };
 }
 
+export function isPasswordResetTokenValid(token) {
+  return (dispatch, getState) => {
+    dispatch(beginGetPasswordResetTokenValidity());
+    return makeUserRequest('get', null, '/ispasswordresettokenvalid/' + token)
+      .then(response => {
+        if (response.status === 200) {
+          dispatch(getPasswordResetTokenValiditySuccess(response.data.response));
+        } else {
+          dispatch(getPasswordResetTokenValidityError(response.data.response));
+        }
+      })
+      .catch(err => {
+        dispatch(getPasswordResetTokenValidityError(err.response.data.response));
+      });
+  };
+}
+
 export function changePassword() {
   return (dispatch, getState) => {
     dispatch(beginChangePassword());
@@ -314,6 +349,29 @@ export function changePassword() {
       .then(response => {
         if (response.status === 200) {
           dispatch(changePasswordSuccess(response.data.response));
+        } else {
+          dispatch(changePasswordError(response.data.response));
+        }
+      })
+      .catch(err => {
+        dispatch(changePasswordError(err.response.data.response));
+      });
+  };
+}
+
+export function changePasswordWithToken(token) {
+  return (dispatch, getState) => {
+    dispatch(beginChangePassword());
+    const {authentication, user} = getState();
+    const data = {
+      token,
+      newPassword: authentication.passwordTextField.value
+    };
+    return makeUserRequest('post', data, '/changepasswordwithtoken')
+      .then(response => {
+        if (response.status === 200) {
+          dispatch(changePasswordSuccess(response.data.response));
+          dispatch(push('/'));
         } else {
           dispatch(changePasswordError(response.data.response));
         }

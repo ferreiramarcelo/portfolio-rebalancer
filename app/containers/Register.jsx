@@ -15,15 +15,15 @@ import { getAuthenticationSelect } from '../selectors/index';
 import styles from '../css/containers/authentication';
 import * as constants from '../constants';
 
-const cx = classNames.bind( styles );
+const cx = classNames.bind(styles);
 
 class Register extends React.Component {
-  constructor( props ) {
-    super( props );
-    this.handleOnRegister = this.handleOnRegister.bind( this );
+  constructor(props) {
+    super(props);
+    this.handleOnRegister = this.handleOnRegister.bind(this);
   }
 
-  handleOnRegister( event ) {
+  handleOnRegister(event) {
     event.preventDefault();
     this.props.registerPress();
   }
@@ -32,70 +32,71 @@ class Register extends React.Component {
     switch (this.props.authentication.registrationStatus) {
       case constants.IS_PROCESSING:
         return (<div>
-                  <RaisedButton
+          <RaisedButton
                                 type="submit"
                                 label="REGISTERING..."
                                 fullWidth
                                 primary
                                 disabled
-                                className={ cx( 'submit-button' ) } />
-                  <LinearProgress mode="indeterminate" />
-                </div>);
+                                className={cx('submit-button')} />
+          <LinearProgress mode="indeterminate" />
+        </div>);
       case constants.NOT_PROCESSING:
       default:
-        return <RaisedButton
+        return (<RaisedButton
                              type="submit"
                              label="REGISTER"
                              fullWidth
                              primary
-                             className={ cx( 'submit-button' ) } />;
+                             className={cx('submit-button')} />);
     }
   }
 
   render() {
     return (
-    <div>
-      <div className={ cx( 'google-login-button-container' ) }>
-        <RaisedButton
+      <div>
+        <div className={cx('google-login-button-container')}>
+          <RaisedButton
                       href="/auth/google"
                       label="LOG IN WITH GOOGLE"
                       primary
                       fullWidth
-                      icon={ <FontAwesome
+                      icon={<FontAwesome
                                           name="google"
-                                          className={ cx( 'google-icon' ) } /> } />
-      </div>
-      <p className={ cx( 'or-prompt' ) }>
+                                          className={cx('google-icon')} />} />
+        </div>
+        <p className={cx('or-prompt')}>
         OR
       </p>
-      <Card className={ cx( 'card' ) }>
-        <div className={ cx( 'card-insides' ) }>
-          <form onSubmit={ this.handleOnRegister }>
-            <span>Register with email</span>
-            <RegistrationEmailTextField
-                            emailTextField={ this.props.authentication.emailTextField }
+        <Card className={cx('card')}>
+          <div className={cx('card-insides')}>
+            <form onSubmit={this.handleOnRegister}>
+              <span className={cx('sub-header-2')}>Register with email</span>
+              <RegistrationEmailTextField
+                            emailTextField={this.props.authentication.emailTextField}
                             emailTextFieldSelect={this.props.authenticationSelect.registrationEmailTextFieldSelect}
-                            onChange={ this.props.emailTextFieldChange } />
-            <PasswordTextField
-                               passwordTextField={ this.props.authentication.passwordTextField }
-                               passwordTextFieldSelect={ this.props.authenticationSelect.passwordTextFieldSelect }
-                               onChange={ this.props.passwordTextFieldChange }
-                               label={ 'Password' } />
-            <PasswordTextField
-                               passwordTextField={ this.props.authentication.passwordConfirmationTextField }
-                               passwordTextFieldSelect={ this.props.authenticationSelect.passwordConfirmationTextFieldSelect }
-                               onChange={ this.props.passwordConfirmationTextFieldChange }
-                               label={ 'Confirm password' } />
-            <p className={ cx( 'message', {
+                            onChange={this.props.emailTextFieldChange} />
+              <PasswordTextField
+                               passwordTextField={this.props.authentication.passwordTextField}
+                               passwordTextFieldSelect={this.props.authenticationSelect.passwordTextFieldSelect}
+                               onChange={this.props.passwordTextFieldChange}
+                               label={'Password'} />
+              <PasswordTextField
+                               passwordTextField={this.props.authentication.passwordConfirmationTextField}
+                               passwordTextFieldSelect={this.props.authenticationSelect.passwordConfirmationTextFieldSelect}
+                               onChange={this.props.passwordConfirmationTextFieldChange}
+                               label={'Confirm password'} />
+              <p
+className={cx('message', {
                              'message-show': this.props.user.message && this.props.user.message.length > 0
-                           } ) }>
-              { this.props.user.message }
-            </p>
-            { this.getRegisterButton() }
-          </form>
-        </div>
-      </Card>
-    </div>
+                           })}>
+                { this.props.user.message }
+              </p>
+              { this.getRegisterButton() }
+            </form>
+          </div>
+        </Card>
+      </div>
     );
   }
 }
@@ -112,19 +113,19 @@ Register.propTypes = {
   registerPress: PropTypes.func.isRequired,
 };
 
-function mapStateToProps( state ) {
+function mapStateToProps(state) {
   return {
     user: state.user,
     authentication: state.authentication,
-    authenticationSelect: getAuthenticationSelect( state )
+    authenticationSelect: getAuthenticationSelect(state)
   };
 }
 
-export default connect( mapStateToProps, {
+export default connect(mapStateToProps, {
   register,
   emailTextFieldChange,
   passwordTextFieldChange,
   passwordConfirmationTextFieldChange,
   toggleAuthenticationMode,
   registerPress
-} )( Register );
+})(Register);

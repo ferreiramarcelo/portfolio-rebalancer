@@ -10,8 +10,8 @@ import Message from '../containers/Message';
 import styles from '../css/main';
 
 injectTapEventPlugin();
-const cx = classNames.bind( styles );
-const muiTheme = getMuiTheme( {
+const cx = classNames.bind(styles);
+const muiTheme = getMuiTheme({
   fontFamily: 'Roboto, sans-serif',
   zIndex: {
   },
@@ -33,18 +33,18 @@ const muiTheme = getMuiTheme( {
   avatar: {
     borderColor: null,
   },
-} );
+});
 
 const App = ({children}) => {
-  return ( <MuiThemeProvider muiTheme={ muiTheme }>
-             <div className={ cx( 'app' ) }>
-               <Navigation tab={ children.props.location.pathname.slice( 1, children.props.location.pathname.length ) } />
-               <Message />
-               <div className={ cx( 'app-children' ) }>
-                 { children }
-               </div>
-             </div>
-           </MuiThemeProvider> );
+  return (<MuiThemeProvider muiTheme={muiTheme}>
+    <div className={cx('app')}>
+      <Navigation tab={children.props.location.pathname.slice(1, children.props.location.pathname.length)} />
+      <Message />
+      <div className={cx('app-children')}>
+        { children }
+      </div>
+    </div>
+  </MuiThemeProvider>);
 };
 
 App.propTypes = {

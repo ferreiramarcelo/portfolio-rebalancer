@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import * as types from '../types';
-import * as constants from '../constants'
+import * as constants from '../constants';
 
-function validateEmailAddress( emailAddress ) {
+function validateEmailAddress(emailAddress) {
   const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return regex.test( emailAddress );
+  return regex.test(emailAddress);
 }
 
 const isLoginMode = (state = true, action) => {
@@ -26,7 +26,7 @@ const emailTextField = (state = {
     timeout: null,
     validationStatus: constants.NOT_VALIDATING,
     validatedOnce: false
-  } , action) => {
+  }, action) => {
   switch (action.type) {
     case types.LOGIN_HASTY_USER:
     case types.SIGNUP_HASTY_USER:
@@ -166,7 +166,7 @@ const registrationStatus = (state = constants.NOT_PROCESSING, action) => {
     default:
       return state;
   }
-}
+};
 
 const loginStatus = (state = constants.NOT_PROCESSING, action) => {
   switch (action.type) {
@@ -179,7 +179,7 @@ const loginStatus = (state = constants.NOT_PROCESSING, action) => {
     default:
       return state;
   }
-}
+};
 
 const sendPasswordResetStatus = (state = constants.NOT_PROCESSING, action) => {
   switch (action.type) {
@@ -192,7 +192,7 @@ const sendPasswordResetStatus = (state = constants.NOT_PROCESSING, action) => {
     default:
       return state;
   }
-}
+};
 
 const passwordChangeStatus = (state = constants.NOT_PROCESSING, action) => {
   switch (action.type) {
@@ -205,9 +205,22 @@ const passwordChangeStatus = (state = constants.NOT_PROCESSING, action) => {
     default:
       return state;
   }
-}
+};
 
-const authenticationReducer = combineReducers( {
+const getPasswordResetTokenValidityStatus = (state = constants.NOT_PROCESSING, action) => {
+  switch (action.type) {
+    case types.GET_PASSWORD_RESET_TOKEN_VALIDITY_USER:
+      return constants.IS_PROCESSING;
+    case types.GET_PASSWORD_RESET_TOKEN_VALIDITY_SUCCESS_USER:
+      return constants.PROCESS_SUCCEDEED;
+    case types.GET_PASSWORD_RESET_TOKEN_VALIDITY_ERROR_USER:
+      return constants.PROCESS_FAILED;
+    default:
+      return state;
+  }
+};
+
+const authenticationReducer = combineReducers({
   isLoginMode,
   emailTextField,
   passwordTextField,
@@ -216,7 +229,8 @@ const authenticationReducer = combineReducers( {
   registrationStatus,
   loginStatus,
   sendPasswordResetStatus,
-  passwordChangeStatus
-} );
+  passwordChangeStatus,
+  getPasswordResetTokenValidityStatus
+});
 
 export default authenticationReducer;

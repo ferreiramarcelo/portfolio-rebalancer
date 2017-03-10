@@ -26,9 +26,13 @@
 
 .flex-right {
   display: flex;
-  justify-content: flex-end;
-  align-items: center;
+  align-items: flex-end;
 }
 
-.flex-right {
+.message {
+  text-align: center;
+  color: var(--colorCrimson);
+  font-size: var(--fontMedium);
+  display: block;
+  margin-top: 15px;
 }

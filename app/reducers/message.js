@@ -38,9 +38,9 @@ const response = (state = '', action) => {
   }
 };
 
-const messageReducer = combineReducers( {
+const messageReducer = combineReducers({
   open,
   response,
-} );
+});
 
 export default messageReducer;

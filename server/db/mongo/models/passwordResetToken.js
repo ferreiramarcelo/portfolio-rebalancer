@@ -11,13 +11,13 @@ import md5 from 'spark-md5';
 PasswordResetTokenSchema.methods = {
 
   setToken(token) {
-    let passwordResetToken = this;
+    const passwordResetToken = this;
     passwordResetToken.set('token', token);
-    passwordResetToken.save( function (err) {
+    passwordResetToken.save((err) => {
         if (err) {
-          console.log("Error saving password reset token", err);
+          console.log('Error saving password reset token', err);
         }
-        console.log("Password reset token", passwordResetToken);
+        console.log('Password reset token', passwordResetToken);
     });
   }
 

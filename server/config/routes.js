@@ -5,16 +5,17 @@ const usersController = controllers && controllers.users;
 const modelPortfoliosController = controllers && controllers.modelPortfolios;
 
 export default (app) => {
-
   if (usersController) {
     app.post('/login', usersController.login);
     app.get('/isemailaddressavailable/:emailaddress', usersController.isEmailAddressAvailable);
+    app.get('/ispasswordresettokenvalid/:token', usersController.isPasswordResetTokenValid);
     app.post('/register', usersController.register);
     app.post('/logout', usersController.logout);
     app.post('/dbverify', usersController.dbVerify);
     app.post('/sendverify', usersController.sendVerificationEmail);
     app.post('/sendpasswordreset', usersController.sendPasswordReset);
     app.post('/changepassword', usersController.changePassword);
+    app.post('/changepasswordwithtoken', usersController.changePasswordWithToken);
   }
 
   if (modelPortfoliosController) {
@@ -39,5 +40,4 @@ export default (app) => {
       })
     );
   }
-
 };

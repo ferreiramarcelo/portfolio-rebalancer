@@ -18,12 +18,12 @@ const PasswordTextField = ({passwordTextField, passwordTextFieldSelect, onChange
       default:
         return null;
     }
-  }
+  };
   const indicator = getIndicator();
 
   return (
     <div className={cx('flex')}>
-    <TextField
+      <TextField
              value={passwordTextField.value}
              errorText={passwordTextFieldSelect.errorText}
              onChange={handleOnChange}
@@ -31,8 +31,8 @@ const PasswordTextField = ({passwordTextField, passwordTextFieldSelect, onChange
              floatingLabelText={label}
              fullWidth
              errorStyle={{ float: 'left' }} />
-             { indicator }
-           </div>
+      { indicator }
+    </div>
   );
 };
 
