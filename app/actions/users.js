@@ -118,22 +118,42 @@ function verifyError(response) {
 
 function beginResetPassword() {
   return {
-    type: types.PASSWORD_RESET_USER
+    type: types.SEND_PASSWORD_CHANGE_USER
   };
 }
 
 function resetPasswordSuccess(response) {
   return {
-    type: types.PASSWORD_RESET_SUCCESS_USER,
+    type: types.SEND_PASSWORD_RESET_SUCCESS_USER,
     response
   };
 }
 
 function resetPasswordError(response, email) {
   return {
-    type: types.PASSWORD_RESET_ERROR_USER,
+    type: types.SEND_PASSWORD_RESET_ERROR_USER,
     response,
     email
+  };
+}
+
+function beginChangePassword() {
+  return {
+    type: types.PASSWORD_CHANGE_USER
+  };
+}
+
+function changePasswordSuccess(response) {
+  return {
+    type: types.PASSWORD_CHANGE_SUCCESS_USER,
+    response
+  };
+}
+
+function changePasswordError(response) {
+  return {
+    type: types.PASSWORD_CHANGE_ERROR_USER,
+    response
   };
 }
 
@@ -159,7 +179,7 @@ export function manualLogin() {
     const {authentication} = getState();
     const data = {
       email: authentication.emailTextField.value,
-      password: authentication.passwordTextField.value
+      password: authentication.currentPasswordTextField.value
     };
     return makeUserRequest('post', data, '/login')
       .then(response => {
@@ -277,6 +297,29 @@ export function sendPasswordReset() {
       })
       .catch(err => {
         dispatch(resetPasswordError(err.response.data.response, data.email));
+      });
+  };
+}
+
+export function changePassword() {
+  return (dispatch, getState) => {
+    dispatch(beginChangePassword());
+    const {authentication, user} = getState();
+    const data = {
+      email: user.email,
+      currentPassword: authentication.currentPasswordTextField.value,
+      newPassword: authentication.passwordTextField.value
+    };
+    return makeUserRequest('post', data, '/changepassword')
+      .then(response => {
+        if (response.status === 200) {
+          dispatch(changePasswordSuccess(response.data.response));
+        } else {
+          dispatch(changePasswordError(response.data.response));
+        }
+      })
+      .catch(err => {
+        dispatch(changePasswordError(err.response.data.response));
       });
   };
 }

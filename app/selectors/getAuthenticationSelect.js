@@ -92,6 +92,19 @@ const getPasswordConfirmationTextFieldSelect = function getPasswordConfirmationT
   return {errorText, valid};
 };
 
+const getCurrentPasswordTextFieldSelect = function getCurrentPasswordTextFieldSelect(passwordTextField) {
+  let errorText = '';
+  let valid = true;
+  if (!passwordTextField.dirty) {
+   valid = false;
+  }
+  else if (!passwordTextField.value) {
+    errorText = 'Required';
+    valid = 0;
+  }
+  return {errorText, valid};
+};
+
 const getLoginButtonVisibility = function getLoginButtonVisibility(emailTextFieldSelect, passwordTextFieldSelect) {
   if (emailTextFieldSelect.valid === 1 && passwordTextFieldSelect.valid === 1) {
     return 'visible';
@@ -113,6 +126,7 @@ export const getAuthenticationSelect = createSelector([
   const loginEmailTextFieldSelect = getLoginEmailTextFieldSelect(authentication.emailTextField);
   const passwordTextFieldSelect = getPasswordTextFieldSelect(authentication.passwordTextField);
   const passwordConfirmationTextFieldSelect = getPasswordConfirmationTextFieldSelect(authentication.passwordTextField, authentication.passwordConfirmationTextField);
+  const currentPasswordTextFieldSelect = getCurrentPasswordTextFieldSelect(authentication.currentPasswordTextField);
   const loginButtonVisibility = getLoginButtonVisibility(loginEmailTextFieldSelect, passwordTextFieldSelect);
   const registerButtonVisibility = getRegisterButtonVisibility(registrationEmailTextFieldSelect, passwordTextFieldSelect, passwordConfirmationTextFieldSelect);
   return {
@@ -120,6 +134,7 @@ export const getAuthenticationSelect = createSelector([
     loginEmailTextFieldSelect,
     passwordTextFieldSelect,
     passwordConfirmationTextFieldSelect,
+    currentPasswordTextFieldSelect,
     loginButtonVisibility,
     registerButtonVisibility
   };

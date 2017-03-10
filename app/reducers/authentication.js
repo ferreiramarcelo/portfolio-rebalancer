@@ -13,7 +13,7 @@ const isLoginMode = (state = true, action) => {
       return !state;
     case types.LOGIN_SUCCESS_USER:
     case types.SIGNUP_SUCCESS_USER:
-    case types.PASSWORD_RESET_SUCCESS_USER:
+    case types.SEND_PASSWORD_RESET_SUCCESS_USER:
       return true;
     default:
       return state;
@@ -30,7 +30,7 @@ const emailTextField = (state = {
   switch (action.type) {
     case types.LOGIN_HASTY_USER:
     case types.SIGNUP_HASTY_USER:
-    case types.PASSWORD_RESET_HASTY_USER:
+    case types.SEND_PASSWORD_RESET_HASTY_USER:
       return {
         ...state,
         dirty: true,
@@ -79,6 +79,7 @@ const passwordTextField = (state = {
   switch (action.type) {
     case types.LOGIN_HASTY_USER:
     case types.SIGNUP_HASTY_USER:
+    case types.PASSWORD_CHANGE_HASTY_USER:
       return {
         ...state,
         dirty: true,
@@ -105,6 +106,7 @@ const passwordConfirmationTextField = (state = {
   }, action) => {
   switch (action.type) {
     case types.SIGNUP_HASTY_USER:
+    case types.PASSWORD_CHANGE_HASTY_USER:
       return {
         ...state,
         dirty: true,
@@ -125,75 +127,33 @@ const passwordConfirmationTextField = (state = {
   }
 };
 
-
-/*
-const passwordTextField = (state = {
+const currentPasswordTextField = (state = {
     value: '',
-    dirty: false,
-    valid: false,
-    errorText: 'Required'
-  } , action) => {
+    dirty: 0
+  }, action) => {
   switch (action.type) {
+    case types.LOGIN_HASTY_USER:
     case types.SIGNUP_HASTY_USER:
+    case types.PASSWORD_CHANGE_HASTY_USER:
       return {
         ...state,
         dirty: true,
       };
-    case types.PASSWORD_TEXT_FIELD_CHANGE:
+    case types.CURRENT_PASSWORD_TEXT_FIELD_CHANGE:
       return {
-        ...state,
         value: action.value,
-        dirty: true,
-        valid: action.valid,
-        errorText: action.errorText
+        dirty: 1
       };
-    case types.LOGIN_SUCCESS_USER:
-    case types.SIGNUP_SUCCESS_USER:
+      case types.LOGIN_SUCCESS_USER:
+      case types.SIGNUP_SUCCESS_USER:
       return {
-        ...state,
         value: '',
-        dirty: false,
-        valid: false,
-        errorText: 'Required'
+        dirty: 0
       };
     default:
       return state;
   }
 };
-
-const passwordConfirmationTextField = (state = {
-    value: '',
-    dirty: false,
-    valid: false,
-    errorText: 'Required'
-  } , action) => {
-  switch (action.type) {
-    case types.SIGNUP_HASTY_USER:
-      return {
-        ...state,
-        dirty: true,
-      };
-    case types.PASSWORD_CONFIRMATION_TEXT_FIELD_CHANGE:
-      return {
-        ...state,
-        value: action.value,
-        dirty: true,
-        valid: action.valid,
-        errorText: action.errorText
-      };
-    case types.LOGIN_SUCCESS_USER:
-    case types.SIGNUP_SUCCESS_USER:
-      return {
-        ...state,
-        value: '',
-        dirty: false,
-        valid: false,
-        errorText: 'Required'
-      };
-    default:
-      return state;
-  }
-}; */
 
 const registrationStatus = (state = constants.NOT_PROCESSING, action) => {
   switch (action.type) {
@@ -223,11 +183,24 @@ const loginStatus = (state = constants.NOT_PROCESSING, action) => {
 
 const sendPasswordResetStatus = (state = constants.NOT_PROCESSING, action) => {
   switch (action.type) {
-    case types.PASSWORD_RESET_USER:
+    case types.SEND_PASSWORD_RESET_USER:
       return constants.IS_PROCESSING;
-    case types.PASSWORD_RESET_SUCCESS_USER:
+    case types.SEND_PASSWORD_RESET_SUCCESS_USER:
       return constants.NOT_PROCESSING;
-    case types.PASSWORD_RESET_ERROR_USER:
+    case types.SEND_PASSWORD_RESET_ERROR_USER:
+      return constants.NOT_PROCESSING;
+    default:
+      return state;
+  }
+}
+
+const passwordChangeStatus = (state = constants.NOT_PROCESSING, action) => {
+  switch (action.type) {
+    case types.PASSWORD_CHANGE_USER:
+      return constants.IS_PROCESSING;
+    case types.PASSWORD_CHANGE_SUCCESS_USER:
+      return constants.NOT_PROCESSING;
+    case types.PASSWORD_CHANGE_ERROR_USER:
       return constants.NOT_PROCESSING;
     default:
       return state;
@@ -239,9 +212,11 @@ const authenticationReducer = combineReducers( {
   emailTextField,
   passwordTextField,
   passwordConfirmationTextField,
+  currentPasswordTextField,
   registrationStatus,
   loginStatus,
-  sendPasswordResetStatus
+  sendPasswordResetStatus,
+  passwordChangeStatus
 } );
 
 export default authenticationReducer;

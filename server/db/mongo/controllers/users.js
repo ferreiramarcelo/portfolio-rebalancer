@@ -229,20 +229,56 @@ export function sendPasswordReset( req, res, next ) {
       'Thanks for registering for Portfolio Rebalancer.',
       '<p>Click the following link to reset your password: <a href=' + passwordResetURL + '>' + passwordResetURL + '</a> </p>'
         + '<p>If you did not request this password reset, ignore this email. The link will expire within 24 hours of being sent.',
-        (emailSentSuccessfully) => {
-          if ( !emailSentSuccessfully ) {
-            return res.status( 409 ).json( {
-              response: constants.RESPONSE_SEND_PASSWORD_RESET_FAILURE
-            } );
-          }
-          console.log("Success");
-          console.log(res);
-
-          return res.status( 200 ).json( {
-            response: constants.RESPONSE_SEND_PASSWORD_RESET_SUCCESS
+      (emailSentSuccessfully) => {
+        if ( !emailSentSuccessfully ) {
+          return res.status( 409 ).json( {
+            response: constants.RESPONSE_SEND_PASSWORD_RESET_FAILURE
           } );
         }
+        console.log( "Success" );
+        console.log( res );
+
+        return res.status( 200 ).json( {
+          response: constants.RESPONSE_SEND_PASSWORD_RESET_SUCCESS
+        } );
+      }
     );
+  } );
+}
+
+export function changePassword( req, res ) {
+  User.findOne( {
+    email: req.body.email
+  }, function ( err, user ) {
+    if ( err || !user ) {
+      return res.status( 401 ).json( {
+        response: constants.RESPONSE_PASSWORD_USER_NOT_FOUND
+      } );
+    }
+    user.comparePassword( req.body.currentPassword, (err, isMatch) => {
+      if ( err ) {
+        return res.status( 401 ).json( {
+          response: constants.RESPONSE_PASSWORD_RESET_FAILURE
+        } );
+      }
+      if ( !isMatch ) {
+        return res.status( 401 ).json( {
+          response: constants.RESPONSE_PASSWORD_RESET_INVALID_PASSWORD
+        } );
+      }
+
+      user[ "password" ] = req.body.newPassword;
+      user.save( function ( err ) {
+        if ( err ) {
+          return res.status( 401 ).json( {
+            response: constants.RESPONSE_PASSWORD_RESET_FAILURE
+          } );
+        }
+        return res.status( 200 ).json( {
+          response: constants.RESPONSE_PASSWORD_RESET_SUCCESS
+        } );
+      } );
+    } );
   } );
 }
 
@@ -253,5 +289,6 @@ export default {
   register,
   sendVerificationEmail,
   dbVerify,
-  sendPasswordReset
+  sendPasswordReset,
+  changePassword
 };

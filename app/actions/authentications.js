@@ -1,6 +1,6 @@
 /* eslint consistent-return: 0, no-else-return: 0*/
 import { polyfill } from 'es6-promise';
-import { isEmailAddressAvailable, manualLogin, register, sendPasswordReset } from './users';
+import { isEmailAddressAvailable, manualLogin, register, sendPasswordReset, changePassword } from './users';
 import * as types from '../types';
 import * as constants from '../constants'
 import { getAuthenticationSelect } from '../selectors/index';
@@ -94,47 +94,14 @@ export function passwordConfirmationTextFieldChange( value ) {
     value
   };
 }
-/*
-export function passwordTextFieldChange2( value ) {
-  let valid = true;
-  let errorText = '';
-  if ( !value ) {
-    valid = false;
-    errorText = 'Required';
-  } else if ( value.length < 6 ) {
-    valid = false;
-    errorText = '6 characters min';
-  }
+
+export function currentPasswordTextFieldChange( value ) {
   return {
-    type: types.PASSWORD_TEXT_FIELD_CHANGE,
-    value,
-    valid,
-    errorText
+    type: types.CURRENT_PASSWORD_TEXT_FIELD_CHANGE,
+    value
   };
 }
 
-export function passwordConfirmationTextFieldDispatch( value, valid, errorText ) {
-  return {
-    type: types.PASSWORD_CONFIRMATION_TEXT_FIELD_CHANGE,
-    value,
-    valid,
-    errorText
-  }
-}
-
-export function passwordConfirmationTextFieldChange( value ) {
-  return (dispatch, getState) => {
-    let valid = true;
-    let errorText = '';
-    const {authentication} = getState();
-    if ( authentication.passwordTextField.value !== value ) {
-      valid = false;
-      errorText = 'Passwords do not match';
-    }
-    dispatch( passwordConfirmationTextFieldDispatch( value, valid, errorText ) );
-  }
-}
- */
 export function toggleAuthenticationMode() {
   return {
     type: types.CHANGE_AUTHENTICATION_MODE
@@ -155,7 +122,13 @@ function hastyLogin() {
 
 function hastySendPasswordReset() {
   return {
-    type: types.PASSWORD_RESET_HASTY_USER
+    type: types.SEND_PASSWORD_RESET_HASTY_USER
+  };
+}
+
+function hastyChangePassword() {
+  return {
+    type: types.PASSWORD_CHANGE_HASTY_USER
   };
 }
 
@@ -173,7 +146,7 @@ export function registerPress() {
 export function loginPress() {
   return (dispatch, getState) => {
     const authenticationSelect = getAuthenticationSelect( getState() );
-    if ( authenticationSelect.loginEmailTextFieldSelect.valid && authenticationSelect.passwordTextFieldSelect.valid ) {
+    if ( authenticationSelect.loginEmailTextFieldSelect.valid && authenticationSelect.currentPasswordTextFieldSelect.valid ) {
       dispatch( manualLogin() );
     } else {
       dispatch( hastyLogin() );
@@ -188,6 +161,17 @@ export function sendPasswordResetPress() {
       dispatch( sendPasswordReset() );
     } else {
       dispatch( hastyLogin() );
+    }
+  }
+}
+
+export function changePasswordPress() {
+  return (dispatch, getState) => {
+    const authenticationSelect = getAuthenticationSelect( getState() );
+    if ( authenticationSelect.currentPasswordTextFieldSelect.valid && authenticationSelect.passwordTextFieldSelect.valid && authenticationSelect.passwordConfirmationTextFieldSelect.valid ) {
+      dispatch( changePassword() );
+    } else {
+      dispatch( hastyChangePassword() );
     }
   }
 }

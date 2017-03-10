@@ -6,7 +6,7 @@ import LinearProgress from 'material-ui/LinearProgress';
 import Card from 'material-ui/Card';
 import FontAwesome from 'react-fontawesome';
 import classNames from 'classnames/bind';
-import { emailTextFieldChange, passwordTextFieldChange, passwordConfirmationTextFieldChange, toggleAuthenticationMode, loginPress, sendPasswordResetPress } from '../actions/authentications';
+import { emailTextFieldChange, passwordTextFieldChange, currentPasswordTextFieldChange, passwordConfirmationTextFieldChange, toggleAuthenticationMode, loginPress, sendPasswordResetPress } from '../actions/authentications';
 import LoginEmailTextField from '../components/authentication/LoginEmailTextField';
 import LoginPasswordTextField from '../components/authentication/LoginPasswordTextField';
 import { getAuthenticationSelect } from '../selectors/index';
@@ -63,10 +63,10 @@ class Authentication extends React.Component {
           emailTextFieldSelect={this.props.authenticationSelect.loginEmailTextFieldSelect}
           onChange={ this.props.emailTextFieldChange } />
           <LoginPasswordTextField
-                             passwordTextField={ this.props.authentication.passwordTextField }
-                             passwordTextFieldSelect={ this.props.authenticationSelect.passwordTextFieldSelect }
-                             onChange={ this.props.passwordTextFieldChange }
-                             label={ 'Password' } />
+                             passwordTextField={ this.props.authentication.currentPasswordTextField }
+                             passwordTextFieldSelect={ this.props.authenticationSelect.currentPasswordTextFieldSelect }
+                             onChange={ this.props.currentPasswordTextFieldChange }
+                             label={ 'Current password' } />
         <p className={ cx( 'message', {
                          'message-show': this.props.user.message && this.props.user.message.length > 0
                        } ) }>
@@ -179,6 +179,7 @@ Authentication.propTypes = {
   emailTextFieldChange: PropTypes.func.isRequired,
   passwordTextFieldChange: PropTypes.func.isRequired,
   passwordConfirmationTextFieldChange: PropTypes.func.isRequired,
+  currentPasswordTextFieldChange: PropTypes.func.isRequired,
   toggleAuthenticationMode: PropTypes.func.isRequired,
 };
 
@@ -196,5 +197,6 @@ export default connect( mapStateToProps, {
   emailTextFieldChange,
   passwordTextFieldChange,
   passwordConfirmationTextFieldChange,
+  currentPasswordTextFieldChange,
   toggleAuthenticationMode
 } )( Authentication );

@@ -12,7 +12,7 @@ const open = (state = false, action) => {
           return false;
       }
     case types.VERIFY_SUCCESS_USER:
-    case types.PASSWORD_RESET_SUCCESS_USER:
+    case types.SEND_PASSWORD_RESET_SUCCESS_USER:
     case types.VERIFY_ERROR_USER:
     case types.SEND_VERIFICATION_EMAIL_ERROR_USER:
     case types.SEND_VERIFICATION_EMAIL_SUCCESS_USER:
@@ -28,7 +28,7 @@ const response = (state = '', action) => {
   switch (action.type) {
     case types.LOGIN_SUCCESS_USER:
     case types.VERIFY_SUCCESS_USER:
-    case types.PASSWORD_RESET_SUCCESS_USER:
+    case types.SEND_PASSWORD_RESET_SUCCESS_USER:
     case types.VERIFY_ERROR_USER:
     case types.SEND_VERIFICATION_EMAIL_SUCCESS_USER:
     case types.SEND_VERIFICATION_EMAIL_ERROR_USER:

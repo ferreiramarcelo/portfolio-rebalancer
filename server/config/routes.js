@@ -14,6 +14,7 @@ export default (app) => {
     app.post('/dbverify', usersController.dbVerify);
     app.post('/sendverify', usersController.sendVerificationEmail);
     app.post('/sendpasswordreset', usersController.sendPasswordReset);
+    app.post('/changepassword', usersController.changePassword);
   }
 
   if (modelPortfoliosController) {
