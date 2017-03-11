@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { Paper } from 'material-ui/Paper';
+import Paper from 'material-ui/Paper';
 import classNames from 'classnames/bind';
 import ModelPortfolioNameTextField from './ModelPortfolioNameTextField';
 import PortfolioTable from './portfoliotable/PortfolioTable';

@@ -78,6 +78,41 @@ class Account extends React.Component {
     this.props.changePasswordPress();
   }
 
+  getChangePasswordForm() {
+    if (this.props.user.accountType === constants.ACCOUNT_TYPE_INTERNAL) {
+      return (<Paper className={cx('paper')}>
+        <form
+            onSubmit={this.handleOnChangePassword}
+            className={cx('paper-insides')}>
+          <span className={cx('section-header')}>Change password</span>
+          <LoginPasswordTextField
+                                passwordTextField={this.props.authentication.currentPasswordTextField}
+                                passwordTextFieldSelect={this.props.authenticationSelect.currentPasswordTextFieldSelect}
+                                onChange={this.props.currentPasswordTextFieldChange}
+                                label={'Current password'} />
+          <PasswordTextField
+                           passwordTextField={this.props.authentication.passwordTextField}
+                           passwordTextFieldSelect={this.props.authenticationSelect.passwordTextFieldSelect}
+                           onChange={this.props.passwordTextFieldChange}
+                           label={'New password'} />
+          <PasswordTextField
+                           passwordTextField={this.props.authentication.passwordConfirmationTextField}
+                           passwordTextFieldSelect={this.props.authenticationSelect.passwordConfirmationTextFieldSelect}
+                           onChange={this.props.passwordConfirmationTextFieldChange}
+                           label={'Confirm new password'} />
+          <p
+className={cx('message', {
+                         'message-show': this.props.user.message && this.props.user.message.length > 0
+                       })}>
+            <span className={cx('message')}>{ this.props.user.message }</span>
+          </p>
+          { this.getChangePasswordButton() }
+        </form>
+      </Paper>);
+    }
+    return null;
+  }
+
   render() {
     return (
       <div>
@@ -88,35 +123,7 @@ class Account extends React.Component {
           </div>
           { this.getEmailInfo() }
         </Paper>
-        <Paper className={cx('paper')}>
-          <form
-              onSubmit={this.handleOnChangePassword}
-              className={cx('paper-insides')}>
-            <span className={cx('section-header')}>Change password</span>
-            <LoginPasswordTextField
-                                  passwordTextField={this.props.authentication.currentPasswordTextField}
-                                  passwordTextFieldSelect={this.props.authenticationSelect.currentPasswordTextFieldSelect}
-                                  onChange={this.props.currentPasswordTextFieldChange}
-                                  label={'Current password'} />
-            <PasswordTextField
-                             passwordTextField={this.props.authentication.passwordTextField}
-                             passwordTextFieldSelect={this.props.authenticationSelect.passwordTextFieldSelect}
-                             onChange={this.props.passwordTextFieldChange}
-                             label={'New password'} />
-            <PasswordTextField
-                             passwordTextField={this.props.authentication.passwordConfirmationTextField}
-                             passwordTextFieldSelect={this.props.authenticationSelect.passwordConfirmationTextFieldSelect}
-                             onChange={this.props.passwordConfirmationTextFieldChange}
-                             label={'Confirm new password'} />
-            <p
-className={cx('message', {
-                           'message-show': this.props.user.message && this.props.user.message.length > 0
-                         })}>
-              <span className={cx('message')}>{ this.props.user.message }</span>
-            </p>
-            { this.getChangePasswordButton() }
-          </form>
-        </Paper>
+        { this.getChangePasswordForm() }
       </div>
     );
   }
