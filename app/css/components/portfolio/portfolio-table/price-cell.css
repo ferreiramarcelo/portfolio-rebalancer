@@ -2,32 +2,18 @@
 
 
 .price-text-field {
-  width: calc(100% - 30px) !important;
-  max-width: 256px !important;
-  float: left !important;
+  display: flex;
+  justify-content: flex-start;
 }
 
 .price-progress-container {
-  width: 30px !important;
-  height: 48px !important;
-  float: left !important;
-  text-align: bottom !important;
-  display: inline-block !important;
+  align-self: flex-end;
+  justify-content: flex-start;
 }
 
-.price-progress-icon {
-  margin: 0 auto !important;
+.price-progress {
   width: 30px !important;
   height: 30px !important;
-  top: 6px;
-  padding: 0px !important;
-  float: left !important;
-}
-
-.price-progress-spinner {
-  margin: 0 auto !important;
-  width: 30px !important;
-  height: 30px !important;
-  padding: 12px 0px 6px 0px !important;
-  float: left !important;
+  padding: 0 !important;
+  bottom: 10px;
 }

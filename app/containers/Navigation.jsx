@@ -31,8 +31,9 @@ const Navigation = ({tab, user, changeTab, logOut}) => {
                                      onChange={ changeTab }>
                                  <Tab
                                       value=""
-                                      label="PR"
-                                      containerElement={ <Link to="" /> } />
+                                      label="Portfolio Rebalancer"
+                                      containerElement={ <Link to="" /> }
+                                      className={ cx( 'portfolio-rebalancer-tab' ) } />
                                  <Tab
                                       value="about"
                                       label="ABOUT"
@@ -49,8 +50,9 @@ const Navigation = ({tab, user, changeTab, logOut}) => {
             onChange={ changeTab }>
         <Tab
              value=""
-             label="PR"
-             containerElement={ <Link to="" /> } />
+             label="Portfolio Rebalancer"
+             containerElement={ <Link to="" /> }
+             className={ cx( 'portfolio-rebalancer-tab' ) } />
         <Tab
              value="about"
              label="ABOUT"

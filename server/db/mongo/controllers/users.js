@@ -195,10 +195,9 @@ function sendVerificationEmailInternal(req, callback) {
     const verificationURL = req.protocol + '://' + req.get('host') + '/verify/' + token;
     return sendEmail(req.body.email,
       'Verify your Portfolio Rebalancer email address',
-      'Thanks for registering for PortfolioRebalancer.com. Click the following link to verify your email address: ' + verificationURL + '. This link will expire within 24 hours.',
-      '<p>Thanks for registering for <a href=https://www.portfoliorebalancer.com>PortfolioRebalancer.com</a>! </p>'
-        + '<p> Click the following link to verify your email address: <br/>'
-        + '<a href=' + verificationURL + '>' + verificationURL + '</a></p>'
+      'Thanks for using PortfolioRebalancer.com. Click the following link to verify your email address: ' + verificationURL + '. This link will expire within 24 hours.',
+      '<p>Thanks for using <a href=https://www.portfoliorebalancer.com>PortfolioRebalancer.com</a>.</p>'
+        + '<p>Click the following link to verify your email address: <a href=' + verificationURL + '>' + verificationURL + '</a><br/>'
         + '<p>This link will expire within 24 hours.</p>',
       (emailSentSuccessfully) => {
         callback(emailSentSuccessfully);
@@ -247,9 +246,10 @@ export function sendPasswordReset(req, res, next) {
 
     sendEmail(req.body.email,
       'Portfolio Rebalancer password reset',
-      'Thanks for registering for Portfolio Rebalancer.',
+      'Click the following link to reset your password: ' + passwordResetURL + '.'
+      + ' If you did not request this password reset, you can safely ignore this email. The link will expire within 24 hours of being sent.',
       '<p>Click the following link to reset your password: <a href=' + passwordResetURL + '>' + passwordResetURL + '</a> </p>'
-        + '<p>If you did not request this password reset, ignore this email. The link will expire within 24 hours of being sent.',
+        + '<p>If you did not request this password reset, you can safely ignore this email. The link will expire within 24 hours of being sent.',
       (emailSentSuccessfully) => {
         if (!emailSentSuccessfully) {
           return res.status(409).json({

@@ -7,58 +7,56 @@ import ReactTooltip from 'react-tooltip';
 import classNames from 'classnames/bind';
 import styles from '../../../css/components/portfolio/portfolio-table/price-cell';
 
-const cx = classNames.bind(styles);
+const cx = classNames.bind( styles );
 
 const PriceProgress = ({index, fetchStatus, onClick}) => {
   const handleOnClick = function handleOnClick() {
-    onClick(index);
+    onClick( index );
   };
 
-  const getProgress = function getProgress(givenFetchStatus) {
-    if (givenFetchStatus === 'NONE') {
+  const getProgress = function getProgress( givenFetchStatus ) {
+    if ( givenFetchStatus === 'NONE' ) {
       return null;
-    } else if (givenFetchStatus === 'IN_PROGRESS') {
+    } else if ( givenFetchStatus === 'IN_PROGRESS' ) {
       return (<CircularProgress
-                                onClick={handleOnClick}
-                                size={20}
-                                thickness={3}
-                                className={cx('price-progress-spinner')} />);
-    } else if (givenFetchStatus === 'DONE') {
+                                onClick={ handleOnClick }
+                                size={ 20 }
+                                thickness={ 3 }
+                                className={ cx( 'price-progress' ) } />);
+    } else if ( givenFetchStatus === 'DONE' ) {
       return (<IconButton
-                          onClick={handleOnClick}
-                          className={cx('price-progress-icon')}>
-        <ActionDone />
-      </IconButton>);
-    } else if (givenFetchStatus === 'FAILED') {
+                          onClick={ handleOnClick }
+                          className={ cx( 'price-progress' ) }>
+                <ActionDone />
+              </IconButton>);
+    } else if ( givenFetchStatus === 'FAILED' ) {
       return (<div>
-        <IconButton
-                            onClick={handleOnClick}
+                <IconButton
+                            onClick={ handleOnClick }
                             data-tip
                             data-for="tooltipPriceFetchError"
-                            className={cx('price-progress-icon')}>
-          <AlertErrorOutline />
-        </IconButton>
-        <ReactTooltip
+                            className={ cx( 'price-progress' ) }>
+                  <AlertErrorOutline />
+                </IconButton>
+                <ReactTooltip
                               id="tooltipPriceFetchError"
                               type="error">
-          <p>
+                  <p>
                     No valid price returned from https://finance.yahoo.com.
+                    <br/> Make sure you account for differing symbols based on exchange.
                   </p>
-          <p>
-                    Make sure you account for differing symbols based on exchange.
-                  </p>
-        </ReactTooltip>
-      </div>);
+                </ReactTooltip>
+              </div>);
     }
     return null;
   };
 
-  const progress = getProgress(fetchStatus);
+  const progress = getProgress( fetchStatus );
 
   return (
-    <div className={cx('price-progress-container')}>
-      { progress }
-    </div>
+  <div className={ cx( 'price-progress-container' ) }>
+    { progress }
+  </div>
   );
 };
 

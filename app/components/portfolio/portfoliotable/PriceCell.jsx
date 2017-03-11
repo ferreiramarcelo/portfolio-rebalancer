@@ -21,7 +21,7 @@ const PriceCell = ({index, price, priceSelect, securityTextFieldChange, fetchPri
   };
 
   return (
-    <div>
+    <div className={cx('price-text-field')}>
       <TextField
       id={'priceTextField' + index}
 
@@ -30,7 +30,7 @@ const PriceCell = ({index, price, priceSelect, securityTextFieldChange, fetchPri
                onChange={handleOnChange}
                hintText={priceSelect.hintText}
                errorStyle={{ float: 'left' }}
-               className={cx('price-text-field')} />
+                />
       <PriceProgress
                    index={index}
                    fetchStatus={price.fetchStatus}

@@ -1,14 +1,8 @@
 @import '../common/typography';
 
-.header {
-  @apply --heading;
-  text-align: center;
+.sub-heading {
+  @apply --subHeading;
 }
-
-.header2 {
-  @apply --heading;
-}
-
 
 .description { @apply --normal; }
 .contribute { @apply --small; }
