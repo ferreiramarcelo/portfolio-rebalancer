@@ -6,3 +6,19 @@
 
 .description { @apply --normal; }
 .contribute { @apply --small; }
+
+.paper {
+  @media (max-width: 767px) {
+    box-shadow: none !important;
+  }
+  @media (min-width: 768px) {
+    max-width: 1200px;
+    margin: 0 auto 0 auto;
+  }
+}
+
+.paper-insides {
+  @media (min-width: 768px) {
+    padding: 10px 30px 10px 30px;
+  }
+}

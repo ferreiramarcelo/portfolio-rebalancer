@@ -8,6 +8,7 @@ const cx = classNames.bind( styles );
 const About = () => {
   return (
   <Paper className={ cx( 'paper' ) }>
+    <div className={ cx( 'paper-insides' ) }>
     <h1 className={ cx( 'sub-heading' ) }>1. Purpose</h1>
     <p>
       Because the market is in constant flux, a portfolio's allocation may divert from its intended target allocation. Thus, occasional rebalancing is required to bring
@@ -38,6 +39,7 @@ const About = () => {
                                                   href="mailto:descalexis@gmail.com"
                                                   target="_top">descalexis@gmail.com</a> with any feedback or questions.
     </p>
+  </div>
   </Paper>
   );
 };
