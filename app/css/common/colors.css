@@ -12,6 +12,7 @@
   --colorMercury:             #e3e3e3;
   --colorBombay:              #b4bac1;
   --colorCrimson:             #ed193a;
+  --colorPaleGreen:           #00ff00;
   --colorDarkerCrimson:       color(var(--colorCrimson) blackness(+20%));
 
 }

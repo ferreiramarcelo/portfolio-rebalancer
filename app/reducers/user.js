@@ -2,7 +2,10 @@ import { combineReducers } from 'redux';
 import * as types from '../types';
 import * as constants from '../constants';
 
-const message = (state = '',
+const message = (state = {
+    value: '',
+    type: constants.NONE
+  } ,
   action
 ) => {
   switch (action.type) {
@@ -11,40 +14,70 @@ const message = (state = '',
     case types.LOGOUT_USER:
     case types.LOGIN_SUCCESS_USER:
     case types.SIGNUP_SUCCESS_USER:
-      return '';
+      return {
+        value: '',
+        type: constants.NONE
+      };
     case types.LOGIN_ERROR_USER:
       switch (action.response) {
         case constants.RESPONSE_LOG_IN_NOT_FOUND:
-          return 'Invalid email and password comination.';
+          return {
+            value: 'Invalid email and password comination.',
+            type: constants.MESSAGE_FAILURE
+          };
         default:
-          return 'Log in failed. Please try again later.';
+          return {
+            value: 'Log in failed. Please try again later.',
+            type: constants.MESSAGE_FAILURE
+          };
       }
     case types.SIGNUP_ERROR_USER:
       switch (action.response) {
         case constants.RESPONSE_REGISTER_CONFLICT:
-          return 'Account already exists for ' + action.email + '.';
+          return {
+            value: 'Account already exists for ' + action.email + '.',
+            type: constants.MESSAGE_FAILURE
+          };
         default:
-          return 'Failed to register. Please try again later.';
+          return {
+            value: 'Failed to register. Please try again later.',
+            type: constants.MESSAGE_FAILURE
+          };
       }
     case types.SEND_PASSWORD_RESET_ERROR_USER:
       switch (action.response) {
         case constants.RESPONSE_SEND_PASSWORD_NOT_FOUND:
-          return 'No account found for ' + action.email + '.';
+          return {
+            value: 'No account found for ' + action.email + '.',
+            type: constants.MESSAGE_FAILURE
+          };
         default:
-          return 'Failed to send the password reset email. Please try again later.';
+          return {
+            value: 'Failed to send the password reset email. Please try again later.',
+            type: constants.MESSAGE_FAILURE
+          };
       }
     case types.PASSWORD_CHANGE_ERROR_USER:
       switch (action.response) {
         case constants.RESPONSE_PASSWORD_RESET_INVALID_PASSWORD:
-          return 'Current password is invalid.';
+          return {
+            value: 'Current password is invalid.',
+            type: constants.MESSAGE_FAILURE
+          };
         default:
-          return 'Password change failed. Please try again later.';
+          return {
+            value: 'Password change failed. Please try again later.',
+            type: constants.MESSAGE_FAILURE
+          };
       }
     case types.PASSWORD_CHANGE_SUCCESS_USER:
       switch (action.response) {
         case constants.RESPONSE_PASSWORD_RESET_INVALID_PASSWORD:
         default:
-          return 'Password successfully changed!';
+          return {
+            value: 'Password successfully changed!',
+            type: constants.MESSAGE_SUCCESS
+          };
       }
     default:
       return state;
@@ -106,12 +139,12 @@ const accountType = (state = constants.ACCOUNT_TYPE_INTERNAL,
   }
 };
 
-const userReducer = combineReducers({
+const userReducer = combineReducers( {
   message,
   authenticated,
   verified,
   email,
   accountType
-});
+} );
 
 export default userReducer;

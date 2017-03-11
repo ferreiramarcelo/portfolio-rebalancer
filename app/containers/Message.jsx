@@ -30,6 +30,8 @@ const Message = ({open, response, email, requestClose, sendVerificationEmail, se
         return 'Failed to send password reset email';
       case constants.RESPONSE_SEND_VERIFICATION_EMAIL_NOT_FOUND:
         return 'Account not found';
+        case constants.RESPONSE_PASSWORD_RESET_SUCCESS:
+        return 'Password change successful';
       default:
         return '';
     }

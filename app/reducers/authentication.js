@@ -60,6 +60,7 @@ const emailTextField = (state = {
       };
     case types.LOGIN_SUCCESS_USER:
     case types.SIGNUP_SUCCESS_USER:
+    case types.LOGOUT_SUCCESS_USER:
       return {
           value: '',
           dirty: false,
@@ -91,6 +92,7 @@ const passwordTextField = (state = {
       };
       case types.LOGIN_SUCCESS_USER:
       case types.SIGNUP_SUCCESS_USER:
+      case types.LOGOUT_SUCCESS_USER:
       return {
         value: '',
         dirty: 0
@@ -118,6 +120,7 @@ const passwordConfirmationTextField = (state = {
       };
       case types.LOGIN_SUCCESS_USER:
       case types.SIGNUP_SUCCESS_USER:
+      case types.LOGOUT_SUCCESS_USER:
       return {
         value: '',
         dirty: 0
@@ -146,6 +149,7 @@ const currentPasswordTextField = (state = {
       };
       case types.LOGIN_SUCCESS_USER:
       case types.SIGNUP_SUCCESS_USER:
+      case types.LOGOUT_SUCCESS_USER:
       return {
         value: '',
         dirty: 0
@@ -197,10 +201,13 @@ const sendPasswordResetStatus = (state = constants.NOT_PROCESSING, action) => {
 const passwordChangeStatus = (state = constants.NOT_PROCESSING, action) => {
   switch (action.type) {
     case types.PASSWORD_CHANGE_USER:
+    case types.PASSWORD_RESET_USER:
       return constants.IS_PROCESSING;
     case types.PASSWORD_CHANGE_SUCCESS_USER:
+    case types.PASSWORD_RESET_SUCCESS_USER:
       return constants.NOT_PROCESSING;
     case types.PASSWORD_CHANGE_ERROR_USER:
+    case types.PASSWORD_RESET_ERROR_USER:
       return constants.NOT_PROCESSING;
     default:
       return state;

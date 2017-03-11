@@ -18,6 +18,10 @@
   @apply --subHeading2;
 }
 
+.submit-button-not-loading {
+  margin-bottom: 4px;
+}
+
 .flex {
   display: flex;
   justify-content: space-between;
@@ -31,8 +35,16 @@
 
 .message {
   text-align: center;
-  color: var(--colorCrimson);
   font-size: var(--fontMedium);
   display: block;
   margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.message-success {
+  color: var(--colorPaleGreen);
+}
+
+.message-failure {
+  color: var(--colorCrimson);
 }

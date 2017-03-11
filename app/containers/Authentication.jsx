@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
+import { Link } from 'react-router';
 import LinearProgress from 'material-ui/LinearProgress';
 import Paper from 'material-ui/Paper';
 import FontAwesome from 'react-fontawesome';
@@ -69,7 +70,7 @@ class Authentication extends React.Component {
                                 passwordTextFieldSelect={this.props.authenticationSelect.currentPasswordTextFieldSelect}
                                 onChange={this.props.currentPasswordTextFieldChange}
                                 label={'Current password'} />
-          <span className={cx('message')}>{ this.props.user.message }</span>
+          <span className={cx('message')}>{ this.props.user.message.value }</span>
           { this.getLoginButton() }
           <span>Forgot your password?</span>
           <FlatButton
@@ -116,7 +117,7 @@ class Authentication extends React.Component {
                              emailTextField={this.props.authentication.emailTextField}
                              emailTextFieldSelect={this.props.authenticationSelect.loginEmailTextFieldSelect}
                              onChange={this.props.emailTextFieldChange} />
-          <span className={cx('message')}>{ this.props.user.message }</span>
+          <span className={cx('message')}>{ this.props.user.message.value }</span>
           { this.getPasswordResetButton() }
           <span>Have your password?</span>
           <FlatButton

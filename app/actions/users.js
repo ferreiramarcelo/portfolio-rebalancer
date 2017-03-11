@@ -155,6 +155,26 @@ function changePasswordError(response) {
   };
 }
 
+function beginResetPassword() {
+  return {
+    type: types.PASSWORD_RESET_USER
+  };
+}
+
+function resetPasswordSuccess(response) {
+  return {
+    type: types.PASSWORD_RESET_SUCCESS_USER,
+    response
+  };
+}
+
+function resetPasswordError(response) {
+  return {
+    type: types.PASSWORD_RESET_ERROR_USER,
+    response
+  };
+}
+
 function beginGetPasswordResetTokenValidity() {
   return {
     type: types.GET_PASSWORD_RESET_TOKEN_VALIDITY_USER
@@ -357,7 +377,7 @@ export function changePassword() {
 
 export function changePasswordWithToken(token) {
   return (dispatch, getState) => {
-    dispatch(beginChangePassword());
+    dispatch(beginResetPassword());
     const {authentication} = getState();
     const data = {
       token,
@@ -366,14 +386,14 @@ export function changePasswordWithToken(token) {
     return makeUserRequest('post', data, '/changepasswordwithtoken')
       .then(response => {
         if (response.status === 200) {
-          dispatch(changePasswordSuccess(response.data.response));
-          dispatch(push('/'));
+          dispatch(resetPasswordSuccess(response.data.response));
+          dispatch(push('/login'));
         } else {
-          dispatch(changePasswordError(response.data.response));
+          dispatch(resetPasswordError(response.data.response));
         }
       })
       .catch(err => {
-        dispatch(changePasswordError(err.response.data.response));
+        dispatch(resetPasswordError(err.response.data.response));
       });
   };
 }

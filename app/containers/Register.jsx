@@ -86,8 +86,8 @@ class Register extends React.Component {
                                label={'Confirm password'} />
               <span
 className={cx('message', {
-                                'message-show': this.props.user.message && this.props.user.message.length > 0
-                              })}>{ this.props.user.message }</span>
+                                'message-show': this.props.user.message.value && this.props.user.message.value.length > 0
+                              })}>{ this.props.user.message.value }</span>
               { this.getRegisterButton() }
             </form>
           </div>

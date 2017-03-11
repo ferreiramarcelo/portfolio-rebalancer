@@ -16,6 +16,7 @@ const open = (state = false, action) => {
     case types.VERIFY_ERROR_USER:
     case types.SEND_VERIFICATION_EMAIL_ERROR_USER:
     case types.SEND_VERIFICATION_EMAIL_SUCCESS_USER:
+    case types.PASSWORD_RESET_SUCCESS_USER:
       return true;
     case types.DISMISS_MESSAGE:
       return false;
@@ -32,6 +33,8 @@ const response = (state = '', action) => {
     case types.VERIFY_ERROR_USER:
     case types.SEND_VERIFICATION_EMAIL_SUCCESS_USER:
     case types.SEND_VERIFICATION_EMAIL_ERROR_USER:
+    case types.SEND_VERIFICATION_EMAIL_ERROR_USER:
+    case types.PASSWORD_RESET_SUCCESS_USER:
       return action.response;
     default:
       return state;
