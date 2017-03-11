@@ -29,6 +29,7 @@ Link: https://www.portfoliorebalancer.com
 - [**ESLint**](http://eslint.org/) - Linting
 - [**nodemon**](https://github.com/remy/nodemon) - Change watching
 - [**Google OpenID Connect**](https://developers.google.com/identity/protocols/OpenIDConnect) - Authentication
+- [**Nodemailer**](https://nodemailer.com) - Email sending
 
 
 # License
