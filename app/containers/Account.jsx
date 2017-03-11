@@ -2,8 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
-import Paper from 'material-ui/Card';
-import Divider from 'material-ui/Divider';
+import Paper from 'material-ui/Paper';
 import FontAwesome from 'react-fontawesome';
 import LinearProgress from 'material-ui/LinearProgress';
 import classNames from 'classnames/bind';
@@ -24,17 +23,12 @@ class Account extends React.Component {
     this.handleOnChangePassword = this.handleOnChangePassword.bind(this);
   }
 
-  handleOnChangePassword(event) {
-    event.preventDefault();
-    this.props.changePasswordPress();
-  }
-
   getEmailInfo() {
     if (this.props.user.accountType === constants.ACCOUNT_TYPE_GOOGLE) {
       return (<div className={cx('paper-insides', 'flex')}>
         <FontAwesome
-                               name="google"
-                               className={cx('google-icon')} />
+                             name="google"
+                             className={cx('google-icon')} />
         <span>Logged in through Google Sign-In</span>
       </div>);
     }
@@ -46,9 +40,9 @@ class Account extends React.Component {
         <div className={cx('flex-right')}>
           <SendVerificationEmailProgress fetchStatus={this.props.account.verificationEmailSendingStatus} />
           <FlatButton
-                                label="RESEND EMAIL"
-                                secondary
-                                onTouchTap={this.props.sendVerificationEmail} />
+                              label="RESEND EMAIL"
+                              secondary
+                              onTouchTap={this.props.sendVerificationEmail} />
         </div>
       </div>);
     }
@@ -71,12 +65,17 @@ class Account extends React.Component {
       case constants.NOT_PROCESSING:
       default:
         return (<RaisedButton
-                             type="submit"
-                             label="CHANGE PASSWORD"
-                             fullWidth
-                             primary
-                             className={cx('submit-button')} />);
+                              type="submit"
+                              label="CHANGE PASSWORD"
+                              fullWidth
+                              primary
+                              className={cx('submit-button')} />);
     }
+  }
+
+  handleOnChangePassword(event) {
+    event.preventDefault();
+    this.props.changePasswordPress();
   }
 
   render() {

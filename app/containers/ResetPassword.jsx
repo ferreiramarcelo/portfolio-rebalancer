@@ -1,16 +1,12 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
 import RaisedButton from 'material-ui/RaisedButton';
-import FlatButton from 'material-ui/FlatButton';
-import Card from 'material-ui/Card';
-import FontAwesome from 'react-fontawesome';
+import Paper from 'material-ui/Paper';
 import LinearProgress from 'material-ui/LinearProgress';
 import CircularProgress from 'material-ui/CircularProgress';
 import classNames from 'classnames/bind';
 import { emailTextFieldChange, passwordTextFieldChange, passwordConfirmationTextFieldChange, toggleAuthenticationMode, changePasswordPressWithToken } from '../actions/authentications';
 import { register } from '../actions/users';
-import RegistrationEmailTextField from '../components/authentication/RegistrationEmailTextField';
 import PasswordTextField from '../components/authentication/PasswordTextField';
 import { getAuthenticationSelect } from '../selectors/index';
 import styles from '../css/containers/authentication';
@@ -22,11 +18,6 @@ class ResetPassword extends React.Component {
   constructor(props) {
     super(props);
     this.handleOnChangePassword = this.handleOnChangePassword.bind(this);
-  }
-
-  handleOnChangePassword(event) {
-    event.preventDefault();
-    this.props.changePasswordPressWithToken(this.props.params.token);
   }
 
   getVerifyingTokenIndicator() {
@@ -50,8 +41,8 @@ class ResetPassword extends React.Component {
 
   getChangePasswordForm() {
     return (
-      <Card className={cx('card')}>
-        <div className={cx('card-insides')}>
+      <Paper className={cx('paper')}>
+        <div className={cx('paper-insides')}>
           <form onSubmit={this.handleOnChangePassword}>
             <span>Reset your password</span>
             <PasswordTextField
@@ -68,7 +59,7 @@ class ResetPassword extends React.Component {
             { this.getChangePasswordButton() }
           </form>
         </div>
-      </Card>);
+      </Paper>);
   }
 
   getChangePasswordButton() {
@@ -87,12 +78,17 @@ class ResetPassword extends React.Component {
       case constants.NOT_PROCESSING:
       default:
         return (<RaisedButton
-                             type="submit"
-                             label="CHANGE PASSWORD"
-                             fullWidth
-                             primary
-                             className={cx('submit-button')} />);
+                              type="submit"
+                              label="CHANGE PASSWORD"
+                              fullWidth
+                              primary
+                              className={cx('submit-button')} />);
     }
+  }
+
+  handleOnChangePassword(event) {
+    event.preventDefault();
+    this.props.changePasswordPressWithToken(this.props.params.token);
   }
 
   render() {
@@ -109,11 +105,11 @@ class ResetPassword extends React.Component {
       case constants.PROCESS_SUCCEDEED:
         return this.getChangePasswordForm();
       case constants.NOT_PROCESSING:
-        (<div>
+        return (<div>
           <span>Verifying password reset token...</span>
           <CircularProgress
-                             size={100}
-                             thickness={6} />
+                                    size={100}
+                                    thickness={6} />
         </div>);
       default:
         return null;

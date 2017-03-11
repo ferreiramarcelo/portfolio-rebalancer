@@ -9,7 +9,7 @@ import styles from '../../css/components/authentication/authentication-field';
 
 const cx = classNames.bind(styles);
 
-const EmailTextField = ({emailTextField, emailTextFieldSelect, onChange}) => {
+const RegistrationEmailTextField = ({emailTextField, emailTextFieldSelect, onChange}) => {
   const handleOnChange = function handleOnChange(event, newValue) {
     onChange(newValue);
   };
@@ -22,9 +22,9 @@ const EmailTextField = ({emailTextField, emailTextFieldSelect, onChange}) => {
         return <AlertErrorOutline className={cx('indicator')} />;
       case constants.IS_VALIDATING:
         return (<CircularProgress
-                                 size={20}
-                                 thickness={3}
-                               className={cx('indicator')} />);
+                                  size={20}
+                                  thickness={3}
+                                  className={cx('indicator')} />);
       default:
         return null;
     }
@@ -45,11 +45,10 @@ const EmailTextField = ({emailTextField, emailTextFieldSelect, onChange}) => {
   );
 };
 
-EmailTextField.propTypes = {
-  value: PropTypes.string.isRequired,
-  valid: PropTypes.bool.isRequired,
-  dirty: PropTypes.bool.isRequired,
+RegistrationEmailTextField.propTypes = {
+  emailTextField: PropTypes.object.isRequired,
+  emailTextFieldSelect: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
 };
 
-export default EmailTextField;
+export default RegistrationEmailTextField;

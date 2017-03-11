@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 import FetchData from './fetch-data';
-import { App, PortfolioRebalancer, About, Authentication, Register, Account, ResetPassword, Loading } from './pages';
+import { App, PortfolioRebalancer, About, Authentication, Register, Account, ResetPassword } from './pages';
 import { verify, isPasswordResetTokenValid } from './actions/users';
 
 export default (store) => {
@@ -25,20 +25,16 @@ export default (store) => {
     callback();
   };
 
-  const onEnterVerify = (nextState, replace) => {
+  const onEnterVerify = (nextState) => {
     store.dispatch(verify(nextState.params.token));
   };
 
-  const onEnterGithub = (nextState, replace) => {
+  const onEnterGithub = (nextState) => {
     location.href = 'https://github.com/AlexisDeschamps/portfolio-rebalancer/';
   };
 
-  const onEnterReset = (nextState, replace) => {
+  const onEnterReset = (nextState) => {
     store.dispatch(isPasswordResetTokenValid(nextState.params.token));
-
-    // Check database to see if token is valid
-    // Present screen for password reset
-    // Reset password
   };
 
   return (

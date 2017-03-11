@@ -1,35 +1,30 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
-import { Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle } from 'material-ui/Toolbar';
 import FlatButton from 'material-ui/FlatButton';
 import { Tabs, Tab } from 'material-ui/Tabs';
-import Slider from 'material-ui/Slider';
 import classNames from 'classnames/bind';
 import { changeTab } from '../actions/views';
 import { logOut } from '../actions/users';
 import styles from '../css/containers/navigation';
 
-
 const cx = classNames.bind(styles);
 
 const Navigation = ({tab, user, changeTab, logOut}) => {
   const logInTab = (<Tab
-                        value="login"
-                        containerElement={<Link to="/login" />}
-                        label={'LOG IN'} />);
+                         value="login"
+                         containerElement={<Link to="/login" />}
+                         label={'LOG IN'} />);
 
   const registerTab = (<Tab
-                           value="register"
-                           containerElement={<Link to="/register" />}
-                           label={'REGISTER'} />);
-
-  const loggedInAsIdentifier = <span className={cx('logged-in-as-identifier')}>{ user.email }</span>;
+                            value="register"
+                            containerElement={<Link to="/register" />}
+                            label={'REGISTER'} />);
 
   const logOutButton = (<FlatButton
-                                   onTouchTap={logOut}
-                                   label={'LOG OUT'}
-                                   className={cx('log-out-button')} />);
+                                    onTouchTap={logOut}
+                                    label={'LOG OUT'}
+                                    className={cx('log-out-button')} />);
 
   const unauthenticatedTabs = (<Tabs
                                      value={tab}

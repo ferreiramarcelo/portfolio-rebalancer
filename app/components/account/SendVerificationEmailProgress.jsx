@@ -10,7 +10,7 @@ import styles from '../../css/components/account/send-verification-email-progres
 
 const cx = classNames.bind(styles);
 
-const sendVerificationEmailProgress = ({fetchStatus}) => {
+const SendVerificationEmailProgress = ({fetchStatus}) => {
   const getProgress = function getProgress(givenFetchStatus) {
     switch (givenFetchStatus) {
       case constants.IS_FETCHING:
@@ -21,7 +21,7 @@ const sendVerificationEmailProgress = ({fetchStatus}) => {
       case constants.FETCH_SUCCEEDED:
         return (
           <ActionDone />
-              );
+        );
       case constants.FETCH_FAILED:
         return (<div>
           <IconButton
@@ -62,8 +62,8 @@ const sendVerificationEmailProgress = ({fetchStatus}) => {
   );
 };
 
-sendVerificationEmailProgress.propTypes = {
+SendVerificationEmailProgress.propTypes = {
   fetchStatus: PropTypes.string.isRequired,
 };
 
-export default sendVerificationEmailProgress;
+export default SendVerificationEmailProgress;

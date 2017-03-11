@@ -33,7 +33,6 @@ const message = (state = '',
         default:
           return 'Failed to send the password reset email. Please try again later.';
       }
-      return action.response;
     case types.PASSWORD_CHANGE_ERROR_USER:
       switch (action.response) {
         case constants.RESPONSE_PASSWORD_RESET_INVALID_PASSWORD:

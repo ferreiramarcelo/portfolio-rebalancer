@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import LinearProgress from 'material-ui/LinearProgress';
-import Card from 'material-ui/Card';
+import Paper from 'material-ui/Paper';
 import FontAwesome from 'react-fontawesome';
 import classNames from 'classnames/bind';
 import { emailTextFieldChange, passwordTextFieldChange, currentPasswordTextFieldChange, passwordConfirmationTextFieldChange, toggleAuthenticationMode, loginPress, sendPasswordResetPress } from '../actions/authentications';
@@ -57,7 +57,7 @@ class Authentication extends React.Component {
 
   getLoginForm() {
     return (
-      <div className={cx('card-insides')}>
+      <div className={cx('paper-insides')}>
         <span className={cx('sub-header-2')}>Log in with email</span>
         <form onSubmit={this.handleOnLogin}>
           <LoginEmailTextField
@@ -109,7 +109,7 @@ class Authentication extends React.Component {
 
   getPasswordResetForm() {
     return (
-      <div className={cx('card-insides')}>
+      <div className={cx('paper-insides')}>
         <form onSubmit={this.handleOnSendPasswordReset}>
           <span className={cx('sub-header-2')}>Reset password</span>
           <LoginEmailTextField
@@ -154,9 +154,9 @@ class Authentication extends React.Component {
         <p className={cx('or-prompt')}>
         OR
       </p>
-        <Card className={cx('card')}>
+        <Paper className={cx('paper')}>
           { this.getAuthenticationForm() }
-        </Card>
+        </Paper>
       </div>
     );
   }

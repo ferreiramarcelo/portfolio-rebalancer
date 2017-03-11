@@ -1,4 +1,4 @@
-.card {
+.paper {
   @media (max-width: 767px) {
     box-shadow: none !important;
   }

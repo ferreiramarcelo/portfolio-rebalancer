@@ -1,5 +1,5 @@
 /* eslint consistent-return: 0, no-else-return: 0*/
-import { polyfill} from 'es6-promise';
+import { polyfill } from 'es6-promise';
 import request from 'axios';
 import md5 from 'spark-md5';
 import * as types from '../types';
@@ -107,60 +107,60 @@ function deleteModelPortfolioFailure(data) {
 }
 
 export function saveModelPortfolio(selectedModelPortfolio, portfolio) {
-	return (dispatch, getState) => {
-		if (selectedModelPortfolio.name.trim().length <= 0 || portfolio.length <= 0) {
-			return;
-		}
-		const securities = [];
-		for (const security of portfolio) {
-			securities.push({
-				symbol: security.symbol.value,
-				allocation: Number(security.allocation.value)
-			});
-		}
-		if (selectedModelPortfolio.email) {
-			const id = selectedModelPortfolio.id;
-			const data = {
-				id,
-				name: selectedModelPortfolio.name,
-				email: selectedModelPortfolio.email,
-				securities
-			};
-			dispatch(saveModelPortfolioRequest(data));
-			return makeModelPortfolioRequest('put', id, data)
-			.then((res) => {
-				if (res.status === 200) {
-					return dispatch(saveModelPortfolioSuccess());
-				}
-			})
-			.catch(() => {
-				return dispatch(saveModelPortfolioFailure({
-					error: 'Oops! Something went wrong and we couldn\'t save your modelPortfolio'
-				}));
-			});
-		}
-		const { user } = getState();
-		const id = md5.hash(selectedModelPortfolio.name);
-		const data = {
-			id,
-			name: selectedModelPortfolio.name,
-			email: user.email,
-			securities
-		};
-		dispatch(createModelPortfolioRequest(data));
-		return makeModelPortfolioRequest('post', id, data)
-		.then((res) => {
-			if (res.status === 200) {
-				return dispatch(createModelPortfolioSuccess());
-			}
-		})
-		.catch(() => {
-			return dispatch(createModelPortfolioFailure({
-				id,
-				error: 'Failure. Something went wrong and the model portfolio was not saved.'
-			}));
-		});
-	};
+  return (dispatch, getState) => {
+    if (selectedModelPortfolio.name.trim().length <= 0 || portfolio.length <= 0) {
+      return;
+    }
+    const securities = [];
+    for (const security of portfolio) {
+      securities.push({
+        symbol: security.symbol.value,
+        allocation: Number(security.allocation.value)
+      });
+    }
+    if (selectedModelPortfolio.email) {
+      const id = selectedModelPortfolio.id;
+      const data = {
+        id,
+        name: selectedModelPortfolio.name,
+        email: selectedModelPortfolio.email,
+        securities
+      };
+      dispatch(saveModelPortfolioRequest(data));
+      return makeModelPortfolioRequest('put', id, data)
+        .then((res) => {
+          if (res.status === 200) {
+            return dispatch(saveModelPortfolioSuccess());
+          }
+        })
+        .catch(() => {
+          return dispatch(saveModelPortfolioFailure({
+            error: 'Oops! Something went wrong and we couldn\'t save your modelPortfolio'
+          }));
+        });
+    }
+    const {user} = getState();
+    const id = md5.hash(selectedModelPortfolio.name);
+    const data = {
+      id,
+      name: selectedModelPortfolio.name,
+      email: user.email,
+      securities
+    };
+    dispatch(createModelPortfolioRequest(data));
+    return makeModelPortfolioRequest('post', id, data)
+      .then((res) => {
+        if (res.status === 200) {
+          return dispatch(createModelPortfolioSuccess());
+        }
+      })
+      .catch(() => {
+        return dispatch(createModelPortfolioFailure({
+          id,
+          error: 'Failure. Something went wrong and the model portfolio was not saved.'
+        }));
+      });
+  };
 }
 
 export function deleteModelPortfolio(id) {

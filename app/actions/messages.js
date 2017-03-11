@@ -2,7 +2,11 @@
 import * as types from '../types';
 
 export function requestClose() {
-  return { type: types.DISMISS_MESSAGE };
+  return {
+    type: types.DISMISS_MESSAGE
+  };
 }
 
-export default { requestClose };
+export default {
+  requestClose
+};

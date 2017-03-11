@@ -15,12 +15,12 @@
   @apply --subHeading2;
 }
 
-.card {
+.paper {
   max-width: 400px;
   margin: 0 auto;
 }
 
-.card-insides {
+.paper-insides {
   padding: 15px !important;
   text-align: center !important;
   margin-bottom: 0px;

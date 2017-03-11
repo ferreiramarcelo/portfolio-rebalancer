@@ -3,14 +3,10 @@ import RaisedButton from 'material-ui/RaisedButton';
 import ActionBuild from 'material-ui/svg-icons/action/build';
 
 const GenerateStepsButton = ({visibility, generateSteps}) => {
-  const handleOnClick = function handleOnClick() {
-    generateSteps();
-  };
-
   return (
     <RaisedButton
                 disabled={visibility === 'disabled'}
-                onClick={handleOnClick}
+                onClick={generateSteps}
                 primary
                 fullWidth
                 label="GENERATE STEPS"

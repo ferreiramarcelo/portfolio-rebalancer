@@ -1,13 +1,10 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import RaisedButton from 'material-ui/RaisedButton';
-import FlatButton from 'material-ui/FlatButton';
-import Card from 'material-ui/Card';
-import FontAwesome from 'react-fontawesome';
+import Paper from 'material-ui/Paper';
 import classNames from 'classnames/bind';
 import { emailTextFieldChange, passwordTextFieldChange, passwordConfirmationTextFieldChange, toggleAuthenticationMode } from '../actions/authentications';
 import { manualLogin, register, sendPasswordReset } from '../actions/users';
-import EmailTextField from '../components/authentication/EmailTextField';
 import PasswordTextField from '../components/authentication/PasswordTextField';
 import { getAuthenticationSelect } from '../selectors/index';
 import styles from '../css/containers/authentication';
@@ -28,7 +25,7 @@ class Reset extends React.Component {
   render() {
     return (
       <div>
-        <Card className={cx('card')}>
+        <Paper className={cx('paper')}>
           <form onSubmit={this.handleOnLogin}>
 
             <span>Reset your password</span>
@@ -50,7 +47,7 @@ class Reset extends React.Component {
                                                      type="submit"
                                                      className={cx('submit-button')} />
           </form>
-        </Card>
+        </Paper>
       </div>
     );
   }

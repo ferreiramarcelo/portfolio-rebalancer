@@ -27,8 +27,8 @@ const PasswordTextField = ({passwordTextField, passwordTextFieldSelect, onChange
              value={passwordTextField.value}
              errorText={passwordTextFieldSelect.errorText}
              onChange={handleOnChange}
-             type="password"
              floatingLabelText={label}
+             type="password"
              fullWidth
              errorStyle={{ float: 'left' }} />
       { indicator }
@@ -37,8 +37,8 @@ const PasswordTextField = ({passwordTextField, passwordTextFieldSelect, onChange
 };
 
 PasswordTextField.propTypes = {
-  value: PropTypes.string.isRequired,
-  errorText: PropTypes.string.isRequired,
+  passwordTextField: PropTypes.object.isRequired,
+  passwordTextFieldSelect: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
   label: PropTypes.string.isRequired,
 };

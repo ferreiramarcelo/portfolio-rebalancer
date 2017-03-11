@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { Card } from 'material-ui/Card';
+import { Paper } from 'material-ui/Paper';
 import classNames from 'classnames/bind';
 import ModelPortfolioNameTextField from './ModelPortfolioNameTextField';
 import PortfolioTable from './portfoliotable/PortfolioTable';
@@ -10,7 +10,7 @@ const cx = classNames.bind(styles);
 
 const Portfolio = ({selectedModelPortfolio, modelPortfolioNameTextFieldChange, portfolio, portfolioSelect, saveModelPortfolio, deleteModelPortfolio, addSecurity, removeSecurity, securityTextFieldChange, fetchPrice}) => {
   return (
-    <Card className={cx('card')}>
+    <Paper className={cx('paper')}>
       <div className={cx('portfolio-container')}>
         <ModelPortfolioNameTextField
                                    value={selectedModelPortfolio.name}
@@ -30,7 +30,7 @@ const Portfolio = ({selectedModelPortfolio, modelPortfolioNameTextFieldChange, p
           <AddSecurityButton addSecurity={addSecurity} />
         </div>
       </div>
-    </Card>
+    </Paper>
   );
 };
 

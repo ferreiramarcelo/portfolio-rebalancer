@@ -8,9 +8,7 @@ const cx = classNames.bind(styles);
 const InvestmentAmount = ({investmentAmount, investmentAmountSelect, investmentAmountTextFieldChange}) => {
   return (
     <div className={cx('investment-amount')}>
-      <p className={cx('investment-amount-prompt')}>
-      How much cash are you investing? (Negative to take out)
-    </p>
+      <span className={cx('investment-amount-prompt')}>How much cash are you investing? (Negative to take out)</span>
       <InvestmentAmountTextField
                                value={investmentAmount.value}
                                dirty={investmentAmount.dirty}

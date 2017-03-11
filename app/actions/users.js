@@ -2,6 +2,7 @@ import { polyfill } from 'es6-promise';
 import request from 'axios';
 import { push } from 'react-router-redux';
 import * as types from '../types';
+import * as constants from '../constants';
 
 polyfill();
 
@@ -174,19 +175,38 @@ function getPasswordResetTokenValidityError(response) {
   };
 }
 
-
 export function isEmailAddressAvailable(email, callback) {
-  return (dispatch, getState) => {
+  return () => {
     return makeUserRequest('get', null, '/isemailaddressavailable/' + email)
       .then(response => {
         if (response.status === 200) {
           return callback(true);
+        }
+        return callback(false);
+      })
+      .catch(() => {
+        return callback(false);
+      });
+  };
+}
+
+export function sendVerificationEmail() {
+  return (dispatch, getState) => {
+    dispatch(beginSendVerificationEmail());
+    const {user} = getState();
+    const data = {
+      email: user.email
+    };
+    return makeUserRequest('post', data, '/sendverify')
+      .then(response => {
+        if (response.status === 200) {
+          dispatch(sendVerificationEmailSuccess(response.data.response, data.email));
         } else {
-          return callback(false);
+          dispatch(sendVerificationEmailError(response.data.response));
         }
       })
       .catch(err => {
-        return callback(false);
+        dispatch(sendVerificationEmailError(err.response.data.response));
       });
   };
 }
@@ -256,29 +276,8 @@ export function logOut() {
   };
 }
 
-export function sendVerificationEmail() {
-  return (dispatch, getState) => {
-    dispatch(beginSendVerificationEmail());
-    const {user} = getState();
-    const data = {
-      email: user.email
-    };
-    return makeUserRequest('post', data, '/sendverify')
-      .then(response => {
-        if (response.status === 200) {
-          dispatch(sendVerificationEmailSuccess(response.data.response, data.email));
-        } else {
-          dispatch(sendVerificationEmailError(response.data.response));
-        }
-      })
-      .catch(err => {
-        dispatch(sendVerificationEmailError(err.response.data.response));
-      });
-  };
-}
-
 export function verify(token) {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch(beginVerify());
     const data = {
       token
@@ -320,7 +319,7 @@ export function sendPasswordReset() {
 }
 
 export function isPasswordResetTokenValid(token) {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch(beginGetPasswordResetTokenValidity());
     return makeUserRequest('get', null, '/ispasswordresettokenvalid/' + token)
       .then(response => {
@@ -362,7 +361,7 @@ export function changePassword() {
 export function changePasswordWithToken(token) {
   return (dispatch, getState) => {
     dispatch(beginChangePassword());
-    const {authentication, user} = getState();
+    const {authentication} = getState();
     const data = {
       token,
       newPassword: authentication.passwordTextField.value

@@ -17,16 +17,16 @@ export function generateSteps() {
   return (dispatch, getState) => {
     const {portfolio, investmentAmount} = getState();
     let computedPortfolio = [];
-      for (const security of portfolio.portfolio) {
-        computedPortfolio.push({
-          symbol: security.symbol.value,
-          allocation: Number(security.allocation.value),
-          price: Number(security.price.value),
-          units: Number(security.units.value)
-        });
-      }
-      computedPortfolio = getPortfolioWithNormalizedAllocations(computedPortfolio);
-      const computedInvestmentAmount = Number(investmentAmount.investmentAmount.value);
+    for (const security of portfolio.portfolio) {
+      computedPortfolio.push({
+        symbol: security.symbol.value,
+        allocation: Number(security.allocation.value),
+        price: Number(security.price.value),
+        units: Number(security.units.value)
+      });
+    }
+    computedPortfolio = getPortfolioWithNormalizedAllocations(computedPortfolio);
+    const computedInvestmentAmount = Number(investmentAmount.investmentAmount.value);
     return dispatch(generateStepsDispatch(computedPortfolio, computedInvestmentAmount));
   };
 }

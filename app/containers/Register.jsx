@@ -1,9 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
 import RaisedButton from 'material-ui/RaisedButton';
-import FlatButton from 'material-ui/FlatButton';
-import Card from 'material-ui/Card';
+import Paper from 'material-ui/Paper';
 import FontAwesome from 'react-fontawesome';
 import LinearProgress from 'material-ui/LinearProgress';
 import classNames from 'classnames/bind';
@@ -23,11 +21,6 @@ class Register extends React.Component {
     this.handleOnRegister = this.handleOnRegister.bind(this);
   }
 
-  handleOnRegister(event) {
-    event.preventDefault();
-    this.props.registerPress();
-  }
-
   getRegisterButton() {
     switch (this.props.authentication.registrationStatus) {
       case constants.IS_PROCESSING:
@@ -44,12 +37,17 @@ class Register extends React.Component {
       case constants.NOT_PROCESSING:
       default:
         return (<RaisedButton
-                             type="submit"
-                             label="REGISTER"
-                             fullWidth
-                             primary
-                             className={cx('submit-button')} />);
+                              type="submit"
+                              label="REGISTER"
+                              fullWidth
+                              primary
+                              className={cx('submit-button')} />);
     }
+  }
+
+  handleOnRegister(event) {
+    event.preventDefault();
+    this.props.registerPress();
   }
 
   render() {
@@ -68,14 +66,14 @@ class Register extends React.Component {
         <p className={cx('or-prompt')}>
         OR
       </p>
-        <Card className={cx('card')}>
-          <div className={cx('card-insides')}>
+        <Paper className={cx('paper')}>
+          <div className={cx('paper-insides')}>
             <form onSubmit={this.handleOnRegister}>
               <span className={cx('sub-header-2')}>Register with email</span>
               <RegistrationEmailTextField
-                            emailTextField={this.props.authentication.emailTextField}
-                            emailTextFieldSelect={this.props.authenticationSelect.registrationEmailTextFieldSelect}
-                            onChange={this.props.emailTextFieldChange} />
+                                        emailTextField={this.props.authentication.emailTextField}
+                                        emailTextFieldSelect={this.props.authenticationSelect.registrationEmailTextFieldSelect}
+                                        onChange={this.props.emailTextFieldChange} />
               <PasswordTextField
                                passwordTextField={this.props.authentication.passwordTextField}
                                passwordTextFieldSelect={this.props.authenticationSelect.passwordTextFieldSelect}
@@ -86,16 +84,14 @@ class Register extends React.Component {
                                passwordTextFieldSelect={this.props.authenticationSelect.passwordConfirmationTextFieldSelect}
                                onChange={this.props.passwordConfirmationTextFieldChange}
                                label={'Confirm password'} />
-              <p
+              <span
 className={cx('message', {
-                             'message-show': this.props.user.message && this.props.user.message.length > 0
-                           })}>
-                { this.props.user.message }
-              </p>
+                                'message-show': this.props.user.message && this.props.user.message.length > 0
+                              })}>{ this.props.user.message }</span>
               { this.getRegisterButton() }
             </form>
           </div>
-        </Card>
+        </Paper>
       </div>
     );
   }
