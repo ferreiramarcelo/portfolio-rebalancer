@@ -1,6 +1,7 @@
 import { polyfill } from 'es6-promise';
 import request from 'axios';
 import { push } from 'react-router-redux';
+import { toggleAuthenticationMode } from './authentications';
 import * as types from '../types';
 import * as constants from '../constants';
 
@@ -152,6 +153,27 @@ function changePasswordError(response) {
   return {
     type: types.PASSWORD_CHANGE_ERROR_USER,
     response
+  };
+}
+
+function beginSendPasswordReset() {
+  return {
+    type: types.SEND_PASSWORD_RESET_USER
+  };
+}
+
+function sendPasswordResetSuccess(response) {
+  return {
+    type: types.SEND_PASSWORD_RESET_SUCCESS_USER,
+    response
+  };
+}
+
+function sendPasswordResetError(response, email) {
+  return {
+    type: types.SEND_PASSWORD_RESET_ERROR_USER,
+    response,
+    email
   };
 }
 
@@ -316,7 +338,7 @@ export function verify(token) {
 
 export function sendPasswordReset() {
   return (dispatch, getState) => {
-    dispatch(beginResetPassword());
+    dispatch(beginSendPasswordReset());
     const {authentication} = getState();
     const data = {
       email: authentication.emailTextField.value
@@ -324,13 +346,14 @@ export function sendPasswordReset() {
     return makeUserRequest('post', data, '/sendpasswordreset')
       .then(response => {
         if (response.status === 200) {
-          dispatch(resetPasswordSuccess(response.data.response));
+          dispatch(sendPasswordResetSuccess(response.data.response));
+          dispatch();
         } else {
-          dispatch(resetPasswordError(response.data.response, data.email));
+          dispatch(sendPasswordResetError(response.data.response, data.email));
         }
       })
       .catch(err => {
-        dispatch(resetPasswordError(err.response.data.response, data.email));
+        dispatch(sendPasswordResetError(err.response.data.response, data.email));
       });
   };
 }

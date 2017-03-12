@@ -145,8 +145,9 @@ export function registerPress() {
 
 export function loginPress() {
   return (dispatch, getState) => {
+    const {authentication} = getState();
     const authenticationSelect = getAuthenticationSelect(getState());
-    if (authenticationSelect.loginEmailTextFieldSelect.valid && authenticationSelect.currentPasswordTextFieldSelect.valid) {
+    if (authenticationSelect.currentPasswordTextFieldSelect.valid) {
       dispatch(manualLogin());
     } else {
       dispatch(hastyLogin());

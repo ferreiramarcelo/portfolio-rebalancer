@@ -40,6 +40,7 @@ const emailTextField = (state = {
         ...state,
         value: action.value,
         dirty: true,
+        timeout: null,
         validationStatus: constants.NOT_VALIDATING
       };
     case types.BEGIN_EMAIL_ADDRESS_VALIDATION:
