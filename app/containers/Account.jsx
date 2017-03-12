@@ -114,7 +114,7 @@ class Account extends React.Component {
       <Paper className={ cx( 'paper' ) }>
         <div className={ cx( 'paper-insides', 'flex' ) }>
           <span className={ cx( 'section-header' ) }>Email</span>
-          <span>{ this.props.user.email }</span>
+          <span className={ cx( 'user-email-address' ) }>{ this.props.user.email }</span>
         </div>
         { this.getEmailInfo() }
       </Paper>
