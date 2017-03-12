@@ -5,11 +5,12 @@ Link: https://www.portfoliorebalancer.com
 
 # Features
 - Real-time prices from https://finance.yahoo.com
-- Selection of common model portfolios (e.g.: Canadian Couch Potato)
+- Selection of common model portfolios (e.g. Canadian Couch Potato)
 - Model portfolio customization
 - Model portfolio saving for reuse
 - Calculations for taking out cash as well as investing
 - O(n) steps generation time
+- Responive design
 
 # Technologies
 - [**React**](https://facebook.github.io/react/) - JavaScript UI library
@@ -18,7 +19,7 @@ Link: https://www.portfoliorebalancer.com
 - [**React Router**](https://github.com/reactjs/react-router) - Server side rendering
 - [**React Router Redux**](https://github.com/reactjs/react-router-redux) - Redux and React Router integration
 - [**Node.js**](https://nodejs.org/en/) - JavaScript runtime environment
-- [**Express**](http://expressjs.com/) - Framework for Node.js
+- [**Express**](http://expressjs.com/) - Web framework for Node.js
 - [**Material-UI**](http://www.material-ui.com/#/) - Set of React components
 - [**Webpack**](https://github.com/webpack/webpack) - Bundling
 - [**react-transform-hmr**](https://github.com/gaearon/react-transform-hmr) - Hot reloading
@@ -29,6 +30,7 @@ Link: https://www.portfoliorebalancer.com
 - [**ESLint**](http://eslint.org/) - Linting
 - [**nodemon**](https://github.com/remy/nodemon) - Change watching
 - [**Google OpenID Connect**](https://developers.google.com/identity/protocols/OpenIDConnect) - Authentication
+- [**Nodemailer**](https://nodemailer.com) - Email sending
 
 
 # License
