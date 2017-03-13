@@ -10,7 +10,7 @@ Link: https://www.portfoliorebalancer.com
 - Model portfolio saving for reuse
 - Calculations for taking out cash as well as investing
 - O(n) steps generation time
-- Responive design
+- Responsive design
 
 # Technologies
 - [**React**](https://facebook.github.io/react/) - JavaScript UI library
