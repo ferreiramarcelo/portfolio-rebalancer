@@ -9,6 +9,9 @@ const rebalancingSteps = (state = {},
     case types.GENERATE_STEPS: {
       let portfolio = [];
       let investmentAmount = 0;
+      let valueAdjustmentsPerSecurity = [];
+      let valueAdditionPerSecurity = [];
+      let valueReductionPerSecurity = [];
       let balanceByAdjusting = [];
       let balanceByInvesting = [];
       let balanceByDisvesting = [];
@@ -33,9 +36,6 @@ const rebalancingSteps = (state = {},
           valuePerSecurityTotal.push((allocationPercentage * totalEquity).toFixed(4));
         }
         /* Compute balancing steps */
-        let valueAdjustmentsPerSecurity = [];
-        let valueAdditionPerSecurity = [];
-        let valueReductionPerSecurity = [];
         if (totalEquity < 0) {
           const negativeInvestmentAmount = -1 * investmentAmount;
           cashStillMissing = negativeInvestmentAmount - equityFromPortfolio;
@@ -71,6 +71,9 @@ const rebalancingSteps = (state = {},
         balanceByInvesting,
         balanceByDisvesting,
         balanceByAdjusting,
+        valueAdditionPerSecurity,
+        valueReductionPerSecurity,
+        valueAdjustmentsPerSecurity
       };
     }
     case types.SELECT_MODEL_PORTFOLIO:

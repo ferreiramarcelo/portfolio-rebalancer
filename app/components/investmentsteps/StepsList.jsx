@@ -32,9 +32,8 @@ const StepsList = ({rebalancingSteps}) => {
         for (let i = 0; i < givenRebalancingSteps.portfolio.length; i++) {
           if (givenRebalancingSteps.balanceByInvesting[i] > 0) {
             investmentSteps.push(<p key={'investment' + i}>
-              { stepNumber }. Buy&nbsp;
-                              { formatUnitsAmount(givenRebalancingSteps.balanceByInvesting[i]) } unit{givenRebalancingSteps.balanceByInvesting[i] > 1 ? 's' : ''} of&nbsp;
-                              { givenRebalancingSteps.portfolio[i].symbol }
+              { stepNumber }. Buy { formatUnitsAmount(givenRebalancingSteps.balanceByInvesting[i]) } unit{givenRebalancingSteps.balanceByInvesting[i] > 1 ? 's' : ''}
+               &nbsp;of { givenRebalancingSteps.portfolio[i].symbol } (Spend ${formatMoneyAmount(givenRebalancingSteps.valueAdditionPerSecurity[i])})
             </p>);
             stepNumber++;
           }
@@ -48,9 +47,8 @@ const StepsList = ({rebalancingSteps}) => {
         for (let i = 0; i < givenRebalancingSteps.portfolio.length; i++) {
           if (givenRebalancingSteps.balanceByDisvesting[i] > 0) {
             disvestmentSteps.push(<p key={'disvestment' + i}>
-              { stepNumber }. Sell&nbsp;
-                              { formatUnitsAmount(givenRebalancingSteps.balanceByDisvesting[i]) } unit{givenRebalancingSteps.balanceByDisvesting[i] > 1 ? 's' : ''} of&nbsp;
-                              { givenRebalancingSteps.portfolio[i].symbol }
+              { stepNumber }. Sell { formatUnitsAmount(givenRebalancingSteps.balanceByDisvesting[i]) } unit{givenRebalancingSteps.balanceByDisvesting[i] > 1 ? 's' : ''}
+               &nbsp;of { givenRebalancingSteps.portfolio[i].symbol } (Gain ${formatMoneyAmount(-givenRebalancingSteps.valueReductionPerSecurity[i])})
             </p>);
             stepNumber++;
           }
@@ -64,9 +62,8 @@ const StepsList = ({rebalancingSteps}) => {
         for (let i = 0; i < givenRebalancingSteps.portfolio.length; i++) {
           if (givenRebalancingSteps.balanceByAdjusting[i] < 0) {
             adjustmentSteps.push(<p key={'positiveAdjustment' + i}>
-              { stepNumber }. Sell&nbsp;
-                              { formatUnitsAmount(-1 * givenRebalancingSteps.balanceByAdjusting[i]) } unit{givenRebalancingSteps.balanceByAdjusting[i] < 1 ? 's' : ''} of&nbsp;
-                              { givenRebalancingSteps.portfolio[i].symbol }
+              { stepNumber }. Sell { formatUnitsAmount(-givenRebalancingSteps.balanceByAdjusting[i]) } unit{givenRebalancingSteps.balanceByAdjusting[i] < 1 ? 's' : ''}
+               &nbsp;of { givenRebalancingSteps.portfolio[i].symbol } (Gain ${formatMoneyAmount(-givenRebalancingSteps.valueAdjustmentsPerSecurity[i])})
             </p>);
             stepNumber++;
           }
@@ -74,9 +71,8 @@ const StepsList = ({rebalancingSteps}) => {
         for (let i = 0; i < givenRebalancingSteps.portfolio.length; i++) {
           if (givenRebalancingSteps.balanceByAdjusting[i] > 0) {
             adjustmentSteps.push(<p key={'negativeAdjustment' + i}>
-              { stepNumber }. Buy&nbsp;
-                              { formatUnitsAmount(givenRebalancingSteps.balanceByAdjusting[i]) } unit{givenRebalancingSteps.balanceByAdjusting[i] > 1 ? 's' : ''} of&nbsp;
-                              { givenRebalancingSteps.portfolio[i].symbol }
+              { stepNumber }. Buy { formatUnitsAmount(givenRebalancingSteps.balanceByAdjusting[i]) } unit{givenRebalancingSteps.balanceByAdjusting[i] > 1 ? 's' : ''}
+               &nbsp;of { givenRebalancingSteps.portfolio[i].symbol } (Spend ${formatMoneyAmount(givenRebalancingSteps.valueAdjustmentsPerSecurity[i])})
             </p>);
             stepNumber++;
           }
