@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import ModelPortfolio from '../models/modelPortfolio';
+import ModelPortfolioGroup from '../models/modelPortfolioGroup';
 
 export function all(req, res) {
   ModelPortfolio.find({}).exec((err, modelPortfolios) => {
@@ -10,6 +11,7 @@ export function all(req, res) {
 
     return res.json(modelPortfolios);
   });
+
 }
 
 export function add(req, res) {

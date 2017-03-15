@@ -4,11 +4,7 @@
   }
 }
 
-.model-portfolios-auto-complete-menu-item {
-  @media (max-width: 767px) {
-    font-size: 14px !important;
-  }
-  @media (min-width: 768px) {
-    font-size: 16px !important;
-  }
+.model-portfolios-auto-complete-menu-item-child > div > div > svg:nth-of-type(1) {
+  left: 30px !important;
+  top: -3px !important;
 }

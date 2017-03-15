@@ -7,7 +7,7 @@ polyfill();
 
 function fetchSecurityPrice(symbol) {
   const api = 'https://query.yahooapis.com/v1/public/yql';
-  const query = encodeURIComponent("select LastTradePriceOnly from yahoo.finance.quotes where symbol in ('" + symbol + "')");
+  const query = encodeURIComponent("select * from yahoo.finance.quotes where symbol in ('" + symbol + "')");
   const yqlStatement = 'q=' + query + '&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys';
   const uri = api + '?' + yqlStatement;
   return request.get(uri);

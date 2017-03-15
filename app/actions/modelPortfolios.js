@@ -8,8 +8,35 @@ polyfill();
 
 export function modelPortfoliosAutoCompleteSearchTextChange(searchText) {
   return {
-    searchText,
+    searchText: '',
     type: types.MODEL_PORTFOLIOS_AUTO_COMPLETE_SEARCH_TEXT_CHANGE
+  };
+}
+
+export function changeAutocomplete() {
+  return {
+    type: 'CHANGE_AUTOCOMPLETE'
+  };
+}
+
+function initializeModelPortfoliosDispatch(email) {
+  return {
+    type: types.INITIALIZE_MODEL_PORTFOLIOS,
+    email
+  };
+}
+
+export function initializeModelPortfolios() {
+  return (dispatch, getState) => {
+    const {user} = getState();
+    return dispatch(initializeModelPortfoliosDispatch(user.email));
+  };
+}
+
+function openModelPortfolioGroup(position) {
+  return {
+    type: types.OPEN_MODEL_PORTFOLIO_GROUP,
+    position
   };
 }
 
