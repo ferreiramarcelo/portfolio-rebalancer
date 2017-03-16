@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames/bind';
 import { investmentAmountTextFieldChange } from '../actions/investmentAmount';
-import { initializeModelPortfolios, changeAutocomplete, modelPortfoliosAutoCompleteSearchTextChange, createNewModelPortfolio, saveModelPortfolio, deleteModelPortfolio } from '../actions/modelPortfolios';
+import { initializeModelPortfolios, changeAutocomplete, toggleModelPortfolioGroupOpenness, modelPortfoliosAutoCompleteSearchTextChange, createNewModelPortfolio, saveModelPortfolio, deleteModelPortfolio } from '../actions/modelPortfolios';
 import { selectModelPortfolio, modelPortfolioNameTextFieldChange, addSecurity, removeSecurity, securityTextFieldChange, fetchPrice } from '../actions/portfolios';
 import { generateSteps, setScrolledToBttom } from '../actions/rebalancings';
 import TestAutoComplete from '../components/portfolioselection/TestAutoComplete';
@@ -70,13 +70,15 @@ class PortfolioRebalancer extends Component {
 
   render() {
     return (
-    <div>
-      <TestAutoComplete
-                        searchText={ this.props.modelPortfoliosAutoCompleteSearchText }
-                        onUpdateInput={ this.props.modelPortfoliosAutoCompleteSearchTextChange }
-                        dataSource={ this.props.modelPortfolios.displayModelPortfolios }
-                        onNewRequest={ this.props.changeAutocomplete } />
+    <div className={ cx( 'portfolio-rebalancer-container' ) }>
       <div className={ cx( 'model-portfolio-selector-container' ) }>
+        <TestAutoComplete
+                          searchText={ this.props.modelPortfoliosAutoCompleteSearchText }
+                          onUpdateInput={ this.props.modelPortfoliosAutoCompleteSearchTextChange }
+                          dataSource={ this.props.displayModelPortfolios }
+                          onItemTouch={ this.props.selectModelPortfolio }
+                          onNewRequest={ this.props.changeAutocomplete }
+                          toggleModelPortfolioGroupOpenness={ this.props.toggleModelPortfolioGroupOpenness}/>
         <NewPortfolioButton createNewModelPortfolio={ this.props.createNewModelPortfolio } />
       </div>
       { this.getPortfolioView() }
@@ -121,6 +123,7 @@ function mapStateToProps( state ) {
     portfolio: state.portfolio.portfolio,
     investmentAmount: state.investmentAmount.investmentAmount,
     rebalancingSteps: state.rebalancing.rebalancingSteps,
+    portfolioSelect: getPortfolioSelect(state),
   };
 }
 
@@ -139,5 +142,6 @@ export default connect( mapStateToProps, {
   fetchPrice,
   generateSteps,
   setScrolledToBttom,
-  changeAutocomplete
+  changeAutocomplete,
+  toggleModelPortfolioGroupOpenness
 } )( PortfolioRebalancer );

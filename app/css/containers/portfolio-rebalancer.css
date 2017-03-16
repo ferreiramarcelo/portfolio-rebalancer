@@ -1,7 +1,13 @@
+.portfolio-rebalancer-container {
+  max-width: 1440px;
+  margin: 0 auto 0 auto;
+}
+
 .model-portfolio-selector-container {
   @media (min-width: 768px) {
     display: flex;
     justify-content: space-between;
+    align-items: flex-end;
   }
   margin-bottom: 30px;
 }

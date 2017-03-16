@@ -1,6 +1,6 @@
 .new-portfolio-button-container {
   @media (max-width: 767px) {
     text-align: center;
-
   }
+  margin-bottom: 7px;
 }

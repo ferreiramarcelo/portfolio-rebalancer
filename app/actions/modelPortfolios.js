@@ -33,9 +33,9 @@ export function initializeModelPortfolios() {
   };
 }
 
-function openModelPortfolioGroup(position) {
+export function toggleModelPortfolioGroupOpenness(position) {
   return {
-    type: types.OPEN_MODEL_PORTFOLIO_GROUP,
+    type: types.TOGGLE_MODEL_PORTFOLIO_GROUP_OPENNESS,
     position
   };
 }

@@ -1,8 +1,17 @@
 @import '../common/colors';
 @import '../common/typography';
 
-.navigation {
+.navigation-bar {
+  width: 100%;
   background-color: #673AB7;
+}
+
+.navigation-container {
+  max-width: 1440px;
+  margin: 0 auto 0 auto;
+}
+
+.navigation {
   display: inline-block;
   width: 100%;
   text-align: center;

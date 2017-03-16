@@ -77,11 +77,15 @@ const Navigation = ({tab, user, changeTab, logOut}) => {
   const navigation = getNavigation( user.authenticated );
 
   return (
-  <nav
-       className={ cx( 'navigation' ) }
-       role="navigation">
-    { navigation }
-  </nav>
+  <div className={ cx( 'navigation-bar' ) }>
+    <div className={ cx( 'navigation-container' ) }>
+      <nav
+           className={ cx( 'navigation' ) }
+           role="navigation">
+        { navigation }
+      </nav>
+    </div>
+  </div>
   );
 };
 

@@ -1,191 +1,57 @@
 import React, { PropTypes } from 'react';
-import AutoComplete from 'material-ui/AutoComplete';
 import MenuItem from 'material-ui/MenuItem';
 import NavigationExpandMore from 'material-ui/svg-icons/navigation/expand-more';
 import NavigationExpandLess from 'material-ui/svg-icons/navigation/expand-less';
 import NavigationSubdirectoryArrowRight from 'material-ui/svg-icons/navigation/subdirectory-arrow-right';
 import EditorModeEdit from 'material-ui/svg-icons/editor/mode-edit';
 import classNames from 'classnames/bind';
+import AutoComplete from './CustomMaterialUIAutoComplete';
 import styles from '../../css/components/portfolioselection/model-portfolios-auto-complete';
 
 const cx = classNames.bind( styles );
 
-
-
-const TestAutoComplete = ({searchText, onUpdateInput, dataSource, onNewRequest}) => {
-
-  const dataSource3 = [
-    {
-      text: '',
-      value: <MenuItem
-                       primaryText="Canadian Couch Potato"
-                       rightIcon={ <NavigationExpandLess /> } />
-    },
-    {
-      text: '',
-      value: <MenuItem
-                       leftIcon={ <NavigationSubdirectoryArrowRight /> }
-                       rightIcon={ <NavigationExpandMore /> }
-                       primaryText="TD e-Series Funds" />
-    },
-    {
-      text: '',
-      value: <MenuItem
-                       leftIcon={ <NavigationSubdirectoryArrowRight /> }
-                       rightIcon={ <NavigationExpandMore /> }
-                       primaryText="Exchange Traded Funds" />
-    },
-    {
-      text: '',
-      value: <MenuItem
-                       leftIcon={ <NavigationSubdirectoryArrowRight /> }
-                       style={ { paddingLeft: '60px' } }
-                       rightIcon={ <NavigationExpandMore /> }
-                       primaryText="2016" />
-    },
-    {
-      text: '',
-      value: <MenuItem
-                       leftIcon={ <NavigationSubdirectoryArrowRight /> }
-                       style={ { paddingLeft: '60px' } }
-                       rightIcon={ <NavigationExpandMore /> }
-                       primaryText="2017" />
-    },
-    {
-      text: '',
-      value: <MenuItem
-                       primaryText="Aggressive"
-                       leftIcon={ <NavigationSubdirectoryArrowRight /> }
-                       style={ { paddingLeft: '120px' } } />
-    },
-    {
-      text: '',
-      value: <MenuItem
-                       primaryText="Conservative"
-                       leftIcon={ <NavigationSubdirectoryArrowRight /> }
-                       style={ { paddingLeft: '120px' } } />
-    },
-    {
-      text: '',
-      value: <MenuItem
-                       primaryText="Cautious"
-                       leftIcon={ <NavigationSubdirectoryArrowRight /> }
-                       style={ { paddingLeft: '120px' } } />
-    },
-  ];
-
-  const dataSource4 = [
-    {
-      text: '',
-      value: <MenuItem
-                       primaryText="Canadian Couch Potato"
-                       rightIcon={ <NavigationExpandMore /> }
-                       onTouchTap={ onNewRequest }
-                     />
-    },
-  ];
-
+const TestAutoComplete = ({searchText, onUpdateInput, dataSource, onItemTouch, toggleModelPortfolioGroupOpenness}) => {
   const handleOnNewRequest = function handleOnNewRequest( chosenRequest ) {
     return false;
   };
 
-  const exampleModelPortfolio = {
-    id: 'xd',
-    position: [
-      0,
-      0,
-      0
-    ],
-    displayName: 'Aggressive'
-  };
-
-  const exampleModelPortfolio2 = {
-    id: 'xd2',
-    position: [
-      0,
-      0,
-      1
-    ],
-    displayName: 'Conservative'
-  };
-
-  const exampleChildCategory = {
-    position: [
-      0,
-      0
-    ],
-    open: true,
-    displayName: 'Exchange Traded Funds',
-    children: [
-      exampleModelPortfolio,
-      exampleModelPortfolio2
-    ]
-  };
-
-  const exampleChildCategory2 = {
-    position: [
-      0,
-      1
-    ],
-    open: false,
-    displayName: 'TD e-Series Funds',
-    children: []
-  };
-
-  const exampleGroup = {
-    position: [
-      0
-    ],
-    open: true,
-    displayName: 'Canadian Couch Potato',
-    children: [
-      exampleChildCategory,
-      exampleChildCategory2
-    ]
-  };
-
-  const exampleGroup2 = {
-    position: [
-      0
-    ],
-    open: false,
-    displayName: 'Canadian Portfolio Manager',
-    children: [
-      exampleChildCategory2
-    ]
-  };
-
-  const exampleDisplayModelPortfolios = [exampleGroup, exampleGroup2];
-
-
-
-
   const processDisplayModelPortfolioElementRecursive = function processDisplayModelPortfolioElementRecursive( displayModelPortfolioElement, depth, displayModelPortfolioComponents ) {
+    let isGroup = false;
     let onTouchTap = null;
     let leftIcon = null;
     let rightIcon = null;
     let displayClass = '';
-    if ( displayModelPortfolioElement.children ) {
-      //onTouchTap = openModelPortfolioGroup(displayModelPortfolioElement.position);
+    if ( displayModelPortfolioElement.children.length > 0 ) {
+      isGroup = true;
+      onTouchTap = function onTouchTap() {
+        toggleModelPortfolioGroupOpenness( displayModelPortfolioElement.position );
+      }
       if ( displayModelPortfolioElement.open ) {
         rightIcon = <NavigationExpandLess />;
       } else {
         rightIcon = <NavigationExpandMore />;
       }
+    } else {
+      onTouchTap = function onTouchTap() {
+        onItemTouch( displayModelPortfolioElement.modelPortfolio );
+      }
     }
-    if ( depth > 0 ) {
+    if ( displayModelPortfolioElement.position.length - 1> 0 ) {
       leftIcon = <NavigationSubdirectoryArrowRight />;
-      displayClass = 'model-portfolios-auto-complete-menu-item-child';
+      displayClass = 'model-portfolios-auto-complete-menu-item-nested';
+
     }
     displayModelPortfolioComponents.push( {
       text: '',
       value: <MenuItem
-                       onTouchTap={ displayModelPortfolioElement.setOpen }
+                       isGroup={isGroup}
+                       onTouchTap={ onTouchTap }
                        primaryText={ displayModelPortfolioElement.displayName }
                        leftIcon={ leftIcon }
                        rightIcon={ rightIcon }
-                       style={ { paddingLeft: (depth - 1) * 60 + 'px' } }
-                       className={cx(displayClass)} />
+                       className={ cx( 'model-portfolios-auto-complete-menu-item',
+                        'model-portfolios-auto-complete-menu-item-level-' + (displayModelPortfolioElement.position.length - 1).toString(),
+                         displayClass) } />
     } );
     if ( displayModelPortfolioElement.children ) {
       if ( displayModelPortfolioElement.open ) {
@@ -203,15 +69,15 @@ const TestAutoComplete = ({searchText, onUpdateInput, dataSource, onNewRequest})
     }
     return displayModelPortfolioComponents;
   };
-
   const displayModelPortfolioComponents = getDisplayModelPortfoliosComponents( dataSource );
 
   return (
   <AutoComplete
                 searchText={ searchText }
                 onUpdateInput={ onUpdateInput }
-                floatingLabelText="Same text, different values"
-                filter={ AutoComplete.noFilter }
+                floatingLabelText="Select model portfolio..."
+                filter={ AutoComplete.caseInsensitiveFilter }
+                menuCloseDelay={ 50 }
                 openOnFocus={ true }
                 dataSource={ displayModelPortfolioComponents }
                 open={ false }

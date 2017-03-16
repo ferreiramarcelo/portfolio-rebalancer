@@ -14,8 +14,8 @@ const getSelectedModelPortfolioSelect = function getSelectedModelPortfolioSelect
     valid = false;
     errorText = 'Required';
   }
-  for (const modelPortfolio of modelPortfolios) {
-    if (modelPortfolio.email === email && modelPortfolio.name === selectedModelPortfolio.name && modelPortfolio.id !== selectedModelPortfolio.id) {
+  for (const userMmodelPortfolio of modelPortfolios.userModelPortfolios) {
+    if (userMmodelPortfolio.email === email && userMmodelPortfolio.name === selectedModelPortfolio.name && userMmodelPortfolio.id !== selectedModelPortfolio.id) {
       valid = false;
       errorText = 'Name already in use';
     }
