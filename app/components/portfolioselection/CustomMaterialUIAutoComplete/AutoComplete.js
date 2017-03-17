@@ -148,7 +148,7 @@ var AutoComplete = function (_Component) {
 
       var index = parseInt(child.key, 10);
       var chosenRequest = dataSource[index];
-      var searchText = _this.chosenRequestText(chosenRequest);
+      var searchText = '';
 
       _this.setState({
         searchText: searchText
@@ -219,10 +219,6 @@ var AutoComplete = function (_Component) {
     }, _this.handleBlur = function (event) {
       if (_this.state.focusTextField && _this.timerTouchTapCloseId === null) {
         _this.timerBlurClose = setTimeout(function () {
-          // This is the second custom addition; do not touches as requests if the item is tagged as a group
-          /*if (!child.isGroup) {
-            _this.close();
-          } */
           _this.close();
         }, 0);
       }
@@ -277,7 +273,7 @@ var AutoComplete = function (_Component) {
     key: 'close',
     value: function close() {
       this.setState({
-        open: true,
+        open: false,
         anchorEl: null
       });
 

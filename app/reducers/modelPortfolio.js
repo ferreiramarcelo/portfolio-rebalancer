@@ -70,6 +70,11 @@ const modelPortfolios = (state = {}, action) => {
         userModelPortfolios,
         displayModelPortfolios: initialDisplayModelPortfolios
       };
+      case types.TOGGLE_MODEL_PORTFOLIO_GROUP_OPENNESS:
+        return {
+          ...state,
+          displayModelPortfolios: displayModelPortfolios(state.displayModelPortfolios, action)
+        };
     case types.CREATE_MODEL_PORTFOLIO_REQUEST:
       return [
         ...state,
@@ -162,7 +167,7 @@ const displayModelPortfolios = (state = [], action) => {
           const newAction = {
             type: action.type,
             modelPortfolioElement: action.defaultModelPortfolios[ i ],
-            position: [0,
+            position: [
               i
             ]
           };

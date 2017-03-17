@@ -3,12 +3,13 @@ import { connect } from 'react-redux';
 import classNames from 'classnames/bind';
 import { investmentAmountTextFieldChange } from '../actions/investmentAmount';
 import { initializeModelPortfolios, changeAutocomplete, toggleModelPortfolioGroupOpenness, modelPortfoliosAutoCompleteSearchTextChange, createNewModelPortfolio, saveModelPortfolio, deleteModelPortfolio } from '../actions/modelPortfolios';
-import { selectModelPortfolio, modelPortfolioNameTextFieldChange, addSecurity, removeSecurity, securityTextFieldChange, fetchPrice } from '../actions/portfolios';
+import { selectModelPortfolio, modelPortfolioNameTextFieldChange, addSecurity, removeSecurity, securityTextFieldChange, fetchPrice, setTradingCurrency } from '../actions/portfolios';
 import { generateSteps, setScrolledToBttom } from '../actions/rebalancings';
 import TestAutoComplete from '../components/portfolioselection/TestAutoComplete';
 import ModelPortfoliosAutoComplete from '../components/portfolioselection/ModelPortfoliosAutoComplete';
 import NewPortfolioButton from '../components/portfolioselection/NewPortfolioButton';
 import Portfolio from '../components/portfolio/Portfolio';
+import CurrencyDropDownMenu from '../components/portfolio/CurrencyDropDownMenu';
 import InvestmentAmount from '../components/investmentamount/InvestmentAmount';
 import GenerateStepsButton from '../components/investmentsteps/GenerateStepsButton';
 import StepsList from '../components/investmentsteps/StepsList';
@@ -48,6 +49,7 @@ class PortfolioRebalancer extends Component {
                    securityTextFieldChange={ this.props.securityTextFieldChange }
                    fetchPrice={ this.props.fetchPrice } />
         <form onSubmit={ this.handleOnGenerateSteps }>
+          <CurrencyDropDownMenu currencies={this.props.currencies} setTradingCurrency={this.props.setTradingCurrency}/>
           <InvestmentAmount
                             investmentAmount={ this.props.investmentAmount }
                             investmentAmountSelect={ this.props.portfolioSelect.investmentAmountSelect }
@@ -75,7 +77,7 @@ class PortfolioRebalancer extends Component {
         <TestAutoComplete
                           searchText={ this.props.modelPortfoliosAutoCompleteSearchText }
                           onUpdateInput={ this.props.modelPortfoliosAutoCompleteSearchTextChange }
-                          dataSource={ this.props.displayModelPortfolios }
+                          modelPortfolios={ this.props.modelPortfolios }
                           onItemTouch={ this.props.selectModelPortfolio }
                           onNewRequest={ this.props.changeAutocomplete }
                           toggleModelPortfolioGroupOpenness={ this.props.toggleModelPortfolioGroupOpenness}/>
@@ -124,6 +126,7 @@ function mapStateToProps( state ) {
     investmentAmount: state.investmentAmount.investmentAmount,
     rebalancingSteps: state.rebalancing.rebalancingSteps,
     portfolioSelect: getPortfolioSelect(state),
+    currencies: state.portfolio.currencies,
   };
 }
 
@@ -143,5 +146,6 @@ export default connect( mapStateToProps, {
   generateSteps,
   setScrolledToBttom,
   changeAutocomplete,
-  toggleModelPortfolioGroupOpenness
+  toggleModelPortfolioGroupOpenness,
+  setTradingCurrency
 } )( PortfolioRebalancer );

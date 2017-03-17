@@ -7,7 +7,7 @@ polyfill();
 
 function fetchSecurityPrice(symbol) {
   const api = 'https://query.yahooapis.com/v1/public/yql';
-  const query = encodeURIComponent("select * from yahoo.finance.quotes where symbol in ('" + symbol + "')");
+  const query = encodeURIComponent("select LastTradePriceOnly, Currency from yahoo.finance.quotes where symbol in ('" + symbol + "')");
   const yqlStatement = 'q=' + query + '&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys';
   const uri = api + '?' + yqlStatement;
   return request.get(uri);
@@ -27,11 +27,12 @@ function setPriceToNotFetching(index) {
   };
 }
 
-function setPriceFromFetch(index, price) {
+function setPriceFromFetch(index, price, currency) {
   return {
+    type: types.SET_PRICE_FROM_FETCH,
     index,
     price,
-    type: types.SET_PRICE_FROM_FETCH,
+    currency,
   };
 }
 
@@ -59,11 +60,12 @@ export function selectModelPortfolio(selectedModelPortfolio) {
         .then(data => {
           if (data.status === 200) {
             const price = data.data.query.results.quote.LastTradePriceOnly;
+            const currency = data.data.query.results.quote.Currency;
             const priceNumber = Number(price);
             if (!price || typeof priceNumber !== 'number' || isNaN(priceNumber) || !isFinite(priceNumber)) {
               return dispatch(setPriceToFetchFailed(security.index));
             }
-            return dispatch(setPriceFromFetch(security.index, price));
+            return dispatch(setPriceFromFetch(security.index, price, currency));
           }
         })
         .catch((jqxhr, textStatus, error) => {
@@ -129,11 +131,12 @@ export function securityTextFieldChange(index, column, value) {
         .then(data => {
           if (data.status === 200) {
             const price = data.data.query.results.quote.LastTradePriceOnly;
+            const currency = data.data.query.results.quote.Currency;
             const priceNumber = Number(price);
             if (!price || typeof priceNumber !== 'number' || isNaN(priceNumber) || !isFinite(priceNumber)) {
               return dispatch(setPriceToFetchFailed(index));
             }
-            return dispatch(setPriceFromFetch(index, price));
+            return dispatch(setPriceFromFetch(index, price, currency));
           }
         })
         .catch((jqxhr, textStatus, error) => {
@@ -143,23 +146,9 @@ export function securityTextFieldChange(index, column, value) {
   }
 }
 
-export function fetchPrice(index) {
-  return (dispatch, getState) => {
-    dispatch(setPriceToFetching(index));
-    const portfolio = getState().portfolio.portfolio;
-    return fetchSecurityPrice(portfolio[index].symbol.value)
-      .then(data => {
-        if (data.status === 200) {
-          const price = data.data.query.results.quote.LastTradePriceOnly;
-          const priceNumber = Number(price);
-          if (!price || typeof priceNumber !== 'number' || isNaN(priceNumber) || !isFinite(priceNumber)) {
-            return dispatch(setPriceToFetchFailed(index));
-          }
-          return dispatch(setPriceFromFetch(index, price));
-        }
-      })
-      .catch((jqxhr, textStatus, error) => {
-        return dispatch(setPriceToFetchFailed(index, textStatus, error));
-      });
+export function setTradingCurrency(currency) {
+  return {
+    type: types.SET_TRADING_CURRENCY,
+    currency
   };
 }

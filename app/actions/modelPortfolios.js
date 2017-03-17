@@ -8,7 +8,7 @@ polyfill();
 
 export function modelPortfoliosAutoCompleteSearchTextChange(searchText) {
   return {
-    searchText: '',
+    searchText,
     type: types.MODEL_PORTFOLIOS_AUTO_COMPLETE_SEARCH_TEXT_CHANGE
   };
 }
