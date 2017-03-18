@@ -20,6 +20,7 @@ Link: https://www.portfoliorebalancer.com
 - [**React Router Redux**](https://github.com/reactjs/react-router-redux) - Redux and React Router integration
 - [**Node.js**](https://nodejs.org/en/) - JavaScript runtime environment
 - [**Express**](http://expressjs.com/) - Web framework for Node.js
+- [**axios**](https://github.com/mzabriskie/axios) - Promise based HTTP client
 - [**Material-UI**](http://www.material-ui.com/#/) - Set of React components
 - [**Webpack**](https://github.com/webpack/webpack) - Bundling
 - [**react-transform-hmr**](https://github.com/gaearon/react-transform-hmr) - Hot reloading
