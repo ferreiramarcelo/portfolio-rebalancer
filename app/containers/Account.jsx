@@ -15,36 +15,36 @@ import { getAuthenticationSelect } from '../selectors/index';
 import * as constants from '../constants';
 import styles from '../css/containers/account';
 
-const cx = classNames.bind( styles );
+const cx = classNames.bind(styles);
 
 class Account extends React.Component {
-  constructor( props ) {
-    super( props );
-    this.handleOnChangePassword = this.handleOnChangePassword.bind( this );
+  constructor(props) {
+    super(props);
+    this.handleOnChangePassword = this.handleOnChangePassword.bind(this);
   }
 
   getEmailInfo() {
-    if ( this.props.user.accountType === constants.ACCOUNT_TYPE_GOOGLE ) {
-      return (<div className={ cx( 'paper-insides', 'flex' ) }>
-                <FontAwesome
+    if (this.props.user.accountType === constants.ACCOUNT_TYPE_GOOGLE) {
+      return (<div className={cx('paper-insides', 'flex')}>
+        <FontAwesome
                              name="google"
-                             className={ cx( 'google-icon' ) } />
-                <span>Logged in through Google Sign-In</span>
-              </div>);
+                             className={cx('google-icon')} />
+        <span>Logged in through Google Sign-In</span>
+      </div>);
     }
-    if ( !this.props.user.verified ) {
-      return (<div className={ cx( 'paper-insides', 'flex' ) }>
-                <div className={ cx( 'flex-left' ) }>
-                  <span>Not verified</span>
-                </div>
-                <div className={ cx( 'flex-right' ) }>
-                  <SendVerificationEmailProgress fetchStatus={ this.props.account.verificationEmailSendingStatus } />
-                  <FlatButton
+    if (!this.props.user.verified) {
+      return (<div className={cx('paper-insides', 'flex')}>
+        <div className={cx('flex-left')}>
+          <span>Not verified</span>
+        </div>
+        <div className={cx('flex-right')}>
+          <SendVerificationEmailProgress fetchStatus={this.props.account.verificationEmailSendingStatus} />
+          <FlatButton
                               label="RESEND EMAIL"
                               secondary
-                              onTouchTap={ this.props.sendVerificationEmail } />
-                </div>
-              </div>);
+                              onTouchTap={this.props.sendVerificationEmail} />
+        </div>
+      </div>);
     }
     return null;
   }
@@ -53,15 +53,15 @@ class Account extends React.Component {
     switch (this.props.authentication.passwordChangeStatus) {
       case constants.IS_PROCESSING:
         return (<div>
-                  <RaisedButton
+          <RaisedButton
                                 type="submit"
                                 label="CHANGING PASSWORD..."
                                 fullWidth
                                 primary
                                 disabled
-                                className={ cx( 'submit-button') } />
-                  <LinearProgress mode="indeterminate" />
-                </div>);
+                                className={cx('submit-button')} />
+          <LinearProgress mode="indeterminate" />
+        </div>);
       case constants.NOT_PROCESSING:
       default:
         return (<RaisedButton
@@ -69,57 +69,57 @@ class Account extends React.Component {
                               label="CHANGE PASSWORD"
                               fullWidth
                               primary
-                              className={ cx( 'submit-button', 'submit-button-not-loading' ) } />);
+                              className={cx('submit-button', 'submit-button-not-loading')} />);
     }
   }
 
-  handleOnChangePassword( event ) {
+  handleOnChangePassword(event) {
     event.preventDefault();
     this.props.changePasswordPress();
   }
 
   getChangePasswordForm() {
-    if ( this.props.user.accountType === constants.ACCOUNT_TYPE_INTERNAL ) {
-      return (<Paper className={ cx( 'paper' ) }>
-                <form
-                      onSubmit={ this.handleOnChangePassword }
-                      className={ cx( 'paper-insides' ) }>
-                  <span className={ cx( 'section-header' ) }>Change password</span>
-                  <LoginPasswordTextField
-                                          passwordTextField={ this.props.authentication.currentPasswordTextField }
-                                          passwordTextFieldSelect={ this.props.authenticationSelect.currentPasswordTextFieldSelect }
-                                          onChange={ this.props.currentPasswordTextFieldChange }
-                                          label={ 'Current password' } />
-                  <PasswordTextField
-                                     passwordTextField={ this.props.authentication.passwordTextField }
-                                     passwordTextFieldSelect={ this.props.authenticationSelect.passwordTextFieldSelect }
-                                     onChange={ this.props.passwordTextFieldChange }
-                                     label={ 'New password' } />
-                  <PasswordTextField
-                                     passwordTextField={ this.props.authentication.passwordConfirmationTextField }
-                                     passwordTextFieldSelect={ this.props.authenticationSelect.passwordConfirmationTextFieldSelect }
-                                     onChange={ this.props.passwordConfirmationTextFieldChange }
-                                     label={ 'Confirm new password' } />
-                  <span className={ cx('message', this.props.user.message.type) }>{ this.props.user.message.value }</span>
-                  { this.getChangePasswordButton() }
-                </form>
-              </Paper>);
+    if (this.props.user.accountType === constants.ACCOUNT_TYPE_INTERNAL) {
+      return (<Paper className={cx('paper')}>
+        <form
+                      onSubmit={this.handleOnChangePassword}
+                      className={cx('paper-insides')}>
+          <span className={cx('section-header')}>Change password</span>
+          <LoginPasswordTextField
+                                          passwordTextField={this.props.authentication.currentPasswordTextField}
+                                          passwordTextFieldSelect={this.props.authenticationSelect.currentPasswordTextFieldSelect}
+                                          onChange={this.props.currentPasswordTextFieldChange}
+                                          label={'Current password'} />
+          <PasswordTextField
+                                     passwordTextField={this.props.authentication.passwordTextField}
+                                     passwordTextFieldSelect={this.props.authenticationSelect.passwordTextFieldSelect}
+                                     onChange={this.props.passwordTextFieldChange}
+                                     label={'New password'} />
+          <PasswordTextField
+                                     passwordTextField={this.props.authentication.passwordConfirmationTextField}
+                                     passwordTextFieldSelect={this.props.authenticationSelect.passwordConfirmationTextFieldSelect}
+                                     onChange={this.props.passwordConfirmationTextFieldChange}
+                                     label={'Confirm new password'} />
+          <span className={cx('message', this.props.user.message.type)}>{ this.props.user.message.value }</span>
+          { this.getChangePasswordButton() }
+        </form>
+      </Paper>);
     }
     return null;
   }
 
   render() {
     return (
-    <div>
-      <Paper className={ cx( 'paper' ) }>
-        <div className={ cx( 'paper-insides', 'flex' ) }>
-          <span className={ cx( 'section-header' ) }>Email</span>
-          <span className={ cx( 'user-email-address' ) }>{ this.props.user.email }</span>
-        </div>
-        { this.getEmailInfo() }
-      </Paper>
-      { this.getChangePasswordForm() }
-    </div>
+      <div>
+        <Paper className={cx('paper')}>
+          <div className={cx('paper-insides', 'flex')}>
+            <span className={cx('section-header')}>Email</span>
+            <span className={cx('user-email-address')}>{ this.props.user.email }</span>
+          </div>
+          { this.getEmailInfo() }
+        </Paper>
+        { this.getChangePasswordForm() }
+      </div>
     );
   }
 }
@@ -138,16 +138,16 @@ Account.propTypes = {
   toggleAuthenticationMode: PropTypes.func.isRequired,
 };
 
-function mapStateToProps( state ) {
+function mapStateToProps(state) {
   return {
     user: state.user,
     authentication: state.authentication,
-    authenticationSelect: getAuthenticationSelect( state ),
+    authenticationSelect: getAuthenticationSelect(state),
     account: state.account
   };
 }
 
-export default connect( mapStateToProps, {
+export default connect(mapStateToProps, {
   sendVerificationEmail,
   changePasswordPress,
   emailTextFieldChange,
@@ -155,4 +155,4 @@ export default connect( mapStateToProps, {
   passwordConfirmationTextFieldChange,
   currentPasswordTextFieldChange,
   toggleAuthenticationMode
-} )( Account );
+})(Account);

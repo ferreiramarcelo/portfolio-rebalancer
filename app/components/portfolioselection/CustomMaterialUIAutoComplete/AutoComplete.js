@@ -1,89 +1,89 @@
-'use strict';
 
-Object.defineProperty(exports, "__esModule", {
+
+Object.defineProperty(exports, '__esModule', {
   value: true
 });
 
-var _extends2 = require('babel-runtime/helpers/extends');
+const _extends2 = require('babel-runtime/helpers/extends');
 
-var _extends3 = _interopRequireDefault(_extends2);
+const _extends3 = _interopRequireDefault(_extends2);
 
-var _typeof2 = require('babel-runtime/helpers/typeof');
+const _typeof2 = require('babel-runtime/helpers/typeof');
 
-var _typeof3 = _interopRequireDefault(_typeof2);
+const _typeof3 = _interopRequireDefault(_typeof2);
 
-var _objectWithoutProperties2 = require('babel-runtime/helpers/objectWithoutProperties');
+const _objectWithoutProperties2 = require('babel-runtime/helpers/objectWithoutProperties');
 
-var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
+const _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
 
-var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
+const _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
 
-var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+const _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
 
-var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
+const _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
 
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+const _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
 
-var _createClass2 = require('babel-runtime/helpers/createClass');
+const _createClass2 = require('babel-runtime/helpers/createClass');
 
-var _createClass3 = _interopRequireDefault(_createClass2);
+const _createClass3 = _interopRequireDefault(_createClass2);
 
-var _possibleConstructorReturn2 = require('babel-runtime/helpers/possibleConstructorReturn');
+const _possibleConstructorReturn2 = require('babel-runtime/helpers/possibleConstructorReturn');
 
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+const _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
 
-var _inherits2 = require('babel-runtime/helpers/inherits');
+const _inherits2 = require('babel-runtime/helpers/inherits');
 
-var _inherits3 = _interopRequireDefault(_inherits2);
+const _inherits3 = _interopRequireDefault(_inherits2);
 
-var _simpleAssign = require('simple-assign');
+const _simpleAssign = require('simple-assign');
 
-var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
+const _simpleAssign2 = _interopRequireDefault(_simpleAssign);
 
-var _react = require('react');
+const _react = require('react');
 
-var _react2 = _interopRequireDefault(_react);
+const _react2 = _interopRequireDefault(_react);
 
-var _reactDom = require('react-dom');
+const _reactDom = require('react-dom');
 
-var _reactDom2 = _interopRequireDefault(_reactDom);
+const _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _keycode = require('keycode');
+const _keycode = require('keycode');
 
-var _keycode2 = _interopRequireDefault(_keycode);
+const _keycode2 = _interopRequireDefault(_keycode);
 
-var _TextField = require('material-ui/TextField');
+const _TextField = require('material-ui/TextField');
 
-var _TextField2 = _interopRequireDefault(_TextField);
+const _TextField2 = _interopRequireDefault(_TextField);
 
-var _Menu = require('material-ui/Menu');
+const _Menu = require('material-ui/Menu');
 
-var _Menu2 = _interopRequireDefault(_Menu);
+const _Menu2 = _interopRequireDefault(_Menu);
 
-var _MenuItem = require('material-ui/MenuItem');
+const _MenuItem = require('material-ui/MenuItem');
 
-var _MenuItem2 = _interopRequireDefault(_MenuItem);
+const _MenuItem2 = _interopRequireDefault(_MenuItem);
 
-var _Divider = require('material-ui/Divider');
+const _Divider = require('material-ui/Divider');
 
-var _Divider2 = _interopRequireDefault(_Divider);
+const _Divider2 = _interopRequireDefault(_Divider);
 
-var _Popover = require('material-ui/Popover/Popover');
+const _Popover = require('material-ui/Popover/Popover');
 
-var _Popover2 = _interopRequireDefault(_Popover);
+const _Popover2 = _interopRequireDefault(_Popover);
 
-var _propTypes = require('react');
+const _propTypes = require('react');
 
-var _propTypes2 = _interopRequireDefault(_propTypes);
+const _propTypes2 = _interopRequireDefault(_propTypes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function getStyles(props, context, state) {
-  var anchorEl = state.anchorEl;
-  var fullWidth = props.fullWidth;
+  const anchorEl = state.anchorEl;
+  const fullWidth = props.fullWidth;
 
 
-  var styles = {
+  const styles = {
     root: {
       display: 'inline-block',
       position: 'relative',
@@ -110,13 +110,15 @@ function getStyles(props, context, state) {
   return styles;
 }
 
-var AutoComplete = function (_Component) {
+const AutoComplete = (function (_Component) {
   (0, _inherits3.default)(AutoComplete, _Component);
 
   function AutoComplete() {
-    var _ref;
+    let _ref;
 
-    var _temp, _this, _ret;
+    let _temp,
+_this,
+_ret;
 
     (0, _classCallCheck3.default)(this, AutoComplete);
 
@@ -144,19 +146,19 @@ var AutoComplete = function (_Component) {
         event.preventDefault();
         return;
       }
-      var dataSource = _this.props.dataSource;
+      const dataSource = _this.props.dataSource;
 
-      var index = parseInt(child.key, 10);
-      var chosenRequest = dataSource[index];
-      var searchText = '';
+      const index = parseInt(child.key, 10);
+      const chosenRequest = dataSource[index];
+      const searchText = '';
 
       _this.setState({
-        searchText: searchText
-      }, function () {
+        searchText
+      }, () => {
         _this.props.onUpdateInput(searchText, _this.props.dataSource, {
           source: 'touchTap'
         });
-          _this.timerTouchTapCloseId = setTimeout(function () {
+          _this.timerTouchTapCloseId = setTimeout(() => {
             _this.timerTouchTapCloseId = null;
               _this.close();
             _this.props.onNewRequest(chosenRequest, index);
@@ -199,7 +201,7 @@ var AutoComplete = function (_Component) {
           break;
       }
     }, _this.handleChange = function (event) {
-      var searchText = event.target.value;
+      const searchText = event.target.value;
 
       // Make sure that we have a new searchText.
       // Fix an issue with a Cordova Webview
@@ -208,17 +210,17 @@ var AutoComplete = function (_Component) {
       }
 
       _this.setState({
-        searchText: searchText,
+        searchText,
         open: true,
         anchorEl: _reactDom2.default.findDOMNode(_this.refs.searchTextField)
-      }, function () {
+      }, () => {
         _this.props.onUpdateInput(searchText, _this.props.dataSource, {
           source: 'change'
         });
       });
     }, _this.handleBlur = function (event) {
       if (_this.state.focusTextField && _this.timerTouchTapCloseId === null) {
-        _this.timerBlurClose = setTimeout(function () {
+        _this.timerBlurClose = setTimeout(() => {
           _this.close();
         }, 0);
       }
@@ -294,9 +296,9 @@ var AutoComplete = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
+      const _this2 = this;
 
-      var _props = this.props,
+      let _props = this.props,
           anchorOrigin = _props.anchorOrigin,
           animated = _props.animated,
           animation = _props.animation,
@@ -324,22 +326,22 @@ var AutoComplete = function (_Component) {
           searchTextProp = _props.searchText,
           other = (0, _objectWithoutProperties3.default)(_props, ['anchorOrigin', 'animated', 'animation', 'dataSource', 'dataSourceConfig', 'disableFocusRipple', 'errorStyle', 'floatingLabelText', 'filter', 'fullWidth', 'style', 'hintText', 'maxSearchResults', 'menuCloseDelay', 'textFieldStyle', 'menuStyle', 'menuProps', 'listStyle', 'targetOrigin', 'onClose', 'onNewRequest', 'onUpdateInput', 'openOnFocus', 'popoverProps', 'searchText']);
 
-      var _ref2 = popoverProps || {},
+      let _ref2 = popoverProps || {},
           popoverStyle = _ref2.style,
           popoverOther = (0, _objectWithoutProperties3.default)(_ref2, ['style']);
 
-      var _state = this.state,
+      let _state = this.state,
           open = _state.open,
           anchorEl = _state.anchorEl,
           searchText = _state.searchText,
           focusTextField = _state.focusTextField;
-      var prepareStyles = this.context.muiTheme.prepareStyles;
+      const prepareStyles = this.context.muiTheme.prepareStyles;
 
-      var styles = getStyles(this.props, this.context, this.state);
+      const styles = getStyles(this.props, this.context, this.state);
 
-      var requestsList = [];
+      const requestsList = [];
 
-      dataSource.every(function (item, index) {
+      dataSource.every((item, index) => {
         switch (typeof item === 'undefined' ? 'undefined' : (0, _typeof3.default)(item)) {
           case 'string':
             if (filter(searchText, item, item)) {
@@ -349,7 +351,7 @@ var AutoComplete = function (_Component) {
                   innerDivStyle: styles.innerDiv,
                   value: item,
                   primaryText: item,
-                  disableFocusRipple: disableFocusRipple,
+                  disableFocusRipple,
                   key: index
                 })
               });
@@ -358,16 +360,16 @@ var AutoComplete = function (_Component) {
 
           case 'object':
             if (item && typeof item[_this2.props.dataSourceConfig.text] === 'string') {
-              var itemText = item[_this2.props.dataSourceConfig.text];
+              const itemText = item[_this2.props.dataSourceConfig.text];
               if (!_this2.props.filter(searchText, itemText, item)) break;
 
-              var itemValue = item[_this2.props.dataSourceConfig.value];
+              const itemValue = item[_this2.props.dataSourceConfig.value];
               if (itemValue.type && (itemValue.type.muiName === _MenuItem2.default.muiName || itemValue.type.muiName === _Divider2.default.muiName)) {
                 requestsList.push({
                   text: itemText,
                   value: _react2.default.cloneElement(itemValue, {
                     key: index,
-                    disableFocusRipple: disableFocusRipple
+                    disableFocusRipple
                   })
                 });
               } else {
@@ -376,7 +378,7 @@ var AutoComplete = function (_Component) {
                   value: _react2.default.createElement(_MenuItem2.default, {
                     innerDivStyle: styles.innerDiv,
                     primaryText: itemText,
-                    disableFocusRipple: disableFocusRipple,
+                    disableFocusRipple,
                     key: index
                   })
                 });
@@ -393,7 +395,7 @@ var AutoComplete = function (_Component) {
 
       this.requestsList = requestsList;
 
-      var menu = open && requestsList.length > 0 && _react2.default.createElement(
+      const menu = open && requestsList.length > 0 && _react2.default.createElement(
         _Menu2.default,
         (0, _extends3.default)({}, menuProps, {
           ref: 'menu',
@@ -406,7 +408,7 @@ var AutoComplete = function (_Component) {
           style: (0, _simpleAssign2.default)(styles.menu, menuStyle),
           listStyle: (0, _simpleAssign2.default)(styles.list, listStyle)
         }),
-        requestsList.map(function (i) {
+        requestsList.map((i) => {
           return i.value;
         })
       );
@@ -422,11 +424,11 @@ var AutoComplete = function (_Component) {
           onBlur: this.handleBlur,
           onFocus: this.handleFocus,
           onKeyDown: this.handleKeyDown,
-          floatingLabelText: floatingLabelText,
-          hintText: hintText,
-          fullWidth: fullWidth,
+          floatingLabelText,
+          hintText,
+          fullWidth,
           multiLine: false,
-          errorStyle: errorStyle,
+          errorStyle,
           style: textFieldStyle
         })),
         _react2.default.createElement(
@@ -434,14 +436,14 @@ var AutoComplete = function (_Component) {
           (0, _extends3.default)({
             style: (0, _simpleAssign2.default)({}, styles.popover, popoverStyle),
             canAutoPosition: false,
-            anchorOrigin: anchorOrigin,
-            targetOrigin: targetOrigin,
-            open: open,
-            anchorEl: anchorEl,
+            anchorOrigin,
+            targetOrigin,
+            open,
+            anchorEl,
             useLayerForClickAway: false,
             onRequestClose: this.handleRequestClose,
-            animated: animated,
-            animation: animation
+            animated,
+            animation
           }, popoverOther),
           menu
         )
@@ -449,7 +451,7 @@ var AutoComplete = function (_Component) {
     }
   }]);
   return AutoComplete;
-}(_react.Component);
+}(_react.Component));
 
 AutoComplete.defaultProps = {
   anchorOrigin: {
@@ -480,7 +482,7 @@ AutoComplete.defaultProps = {
 AutoComplete.contextTypes = {
   muiTheme: _react.PropTypes.object.isRequired
 };
-process.env.NODE_ENV !== "production" ? AutoComplete.propTypes = {
+process.env.NODE_ENV !== 'production' ? AutoComplete.propTypes = {
   /**
    * Location of the anchor for the auto complete.
    */
@@ -619,14 +621,14 @@ process.env.NODE_ENV !== "production" ? AutoComplete.propTypes = {
 
 
 AutoComplete.levenshteinDistance = function (searchText, key) {
-  var current = [];
-  var prev = void 0;
-  var value = void 0;
+  const current = [];
+  let prev = void 0;
+  let value = void 0;
 
-  for (var i = 0; i <= key.length; i++) {
-    for (var j = 0; j <= searchText.length; j++) {
+  for (let i = 0; i <= key.length; i++) {
+    for (let j = 0; j <= searchText.length; j++) {
       if (i && j) {
-        if (searchText.charAt(j - 1) === key.charAt(i - 1)) value = prev;else value = Math.min(current[j], current[j - 1], prev) + 1;
+        if (searchText.charAt(j - 1) === key.charAt(i - 1)) value = prev; else value = Math.min(current[j], current[j - 1], prev) + 1;
       } else {
         value = i + j;
       }
@@ -662,11 +664,11 @@ AutoComplete.levenshteinDistanceFilter = function (distanceLessThan) {
 };
 
 AutoComplete.fuzzyFilter = function (searchText, key) {
-  var compareString = key.toLowerCase();
+  const compareString = key.toLowerCase();
   searchText = searchText.toLowerCase();
 
-  var searchTextIndex = 0;
-  for (var index = 0; index < key.length; index++) {
+  let searchTextIndex = 0;
+  for (let index = 0; index < key.length; index++) {
     if (compareString[index] === searchText[searchTextIndex]) {
       searchTextIndex += 1;
     }

@@ -4,33 +4,40 @@ import MenuItem from 'material-ui/MenuItem';
 import classNames from 'classnames/bind';
 import styles from '../../css/components/portfolioselection/new-portfolio-button';
 
-const cx = classNames.bind( styles );
+const cx = classNames.bind(styles);
 
-const CurrencyDropDownMenu = ({currencies, setTradingCurrency}) => {
-
-  const getDropDownMenuItems = function getDropDownMenuItems( givenCurrencies ) {
-    const dropDownMenuItems = [];
-    for (const currency of givenCurrencies.listOfDistinctCurrencies) {
-      dropDownMenuItems.push( <MenuItem
-                                        value={ currency }
-                                        primaryText={ currency } /> );
+const CurrencyDropDownMenu = ({ currencies, setTradingCurrency }) => {
+  const getCurrencyDropDownMenu = function getDropDownMenu() {
+    if (currencies.listOfDistinctCurrencies.length < 2) {
+      return null;
     }
-    return dropDownMenuItems;
-  };
-  const dropDownMenuItems = getDropDownMenuItems( currencies );
+    const getDropDownMenuItems = function getDropDownMenuItems(givenCurrencies) {
+      const dropDownMenuItems = [];
+      for (const currency in givenCurrencies.listOfDistinctCurrencies) {
+        if (givenCurrencies.listOfDistinctCurrencies.hasOwnProperty(currency)) {
+          dropDownMenuItems.push(<MenuItem
+                                  value={currency}
+                                  primaryText={currency} />);
+        }
+      }
+      return dropDownMenuItems;
+    };
+    const dropDownMenuItems = getDropDownMenuItems(currencies);
 
-  const handleChange = function handleChange(event, index, value) {
-    setTradingCurrency(value);
+    const handleChange = function handleChange(event, index, value) {
+      setTradingCurrency(value);
+    };
+    return (<div>             <span>Trading currency:</span>
+      <DropDownMenu value={currencies.tradingCurrency} onChange={handleChange}>
+        {dropDownMenuItems}
+      </DropDownMenu></div>);
   };
+  const currencyDropDownMenu = getCurrencyDropDownMenu();
 
   return (
-  <div>
-    <span>Trading currency:</span>
-    <DropDownMenu value={ currencies.tradingCurrency } onChange={handleChange}>
-      { dropDownMenuItems }
-    </DropDownMenu>
-  </div>
-
+    <div>
+      {currencyDropDownMenu}
+    </div>
   );
 };
 

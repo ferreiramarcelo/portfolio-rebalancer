@@ -9,8 +9,7 @@ const getDefaultAndUserModelPortfolios = function getDefaultAndUserModelPortfoli
   for (const modelPortfolio of modelPortfolios) {
     if (modelPortfolio.email === email) {
       userModelPortfolios.push(modelPortfolio);
-    }
-    else if (!modelPortfolio.email) {
+    } else if (!modelPortfolio.email) {
       defaultModelPortfolios.push(modelPortfolio);
     }
   }
@@ -23,8 +22,7 @@ const getDisplayModelPortfolios = function getDisplayModelPortfolios(modelPortfo
   for (const modelPortfolio of modelPortfolios) {
     if (modelPortfolio.email === email) {
       userModelPortfolios.push(modelPortfolio);
-    }
-    else if (!modelPortfolio.email) {
+    } else if (!modelPortfolio.email) {
       defaultModelPortfolios.push(modelPortfolio);
     }
   }

@@ -16,75 +16,76 @@ import StepsList from '../components/investmentsteps/StepsList';
 import { getPortfolioSelect } from '../selectors/index';
 import styles from '../css/containers/portfolio-rebalancer';
 
-const cx = classNames.bind( styles );
+const cx = classNames.bind(styles);
 
 class PortfolioRebalancer extends Component {
-  constructor( props ) {
-    super( props );
+  constructor(props) {
+    super(props);
     this.props.initializeModelPortfolios();
 
-    this.handleOnGenerateSteps = this.handleOnGenerateSteps.bind( this );
+    this.handleOnGenerateSteps = this.handleOnGenerateSteps.bind(this);
   }
 
   componentDidUpdate() {
-    if ( this.props.view.justGeneratedSteps ) {
-      window.scrollTo( 0, document.body.scrollHeight );
+    if (this.props.view.justGeneratedSteps) {
+      window.scrollTo(0, document.body.scrollHeight);
       this.props.setScrolledToBttom();
     }
   }
 
   getPortfolioView() {
-    if ( this.props.view.displayPortfolio ) {
+    if (this.props.view.displayPortfolio) {
       return (
-      <div>
-        <Portfolio
-                   selectedModelPortfolio={ this.props.selectedModelPortfolio }
-                   modelPortfolioNameTextFieldChange={ this.props.modelPortfolioNameTextFieldChange }
-                   portfolio={ this.props.portfolio }
-                   portfolioSelect={ this.props.portfolioSelect }
-                   saveModelPortfolio={ this.props.saveModelPortfolio }
-                   deleteModelPortfolio={ this.props.deleteModelPortfolio }
-                   addSecurity={ this.props.addSecurity }
-                   removeSecurity={ this.props.removeSecurity }
-                   securityTextFieldChange={ this.props.securityTextFieldChange }
-                   fetchPrice={ this.props.fetchPrice } />
-        <form onSubmit={ this.handleOnGenerateSteps }>
-          <CurrencyDropDownMenu currencies={this.props.currencies} setTradingCurrency={this.props.setTradingCurrency}/>
-          <InvestmentAmount
-                            investmentAmount={ this.props.investmentAmount }
-                            investmentAmountSelect={ this.props.portfolioSelect.investmentAmountSelect }
-                            investmentAmountTextFieldChange={ this.props.investmentAmountTextFieldChange } />
-          <GenerateStepsButton
-                               visibility={ this.props.portfolioSelect.generateStepsButtonVisibility }
-                               generateSteps={ this.props.generateSteps } />
-        </form>
-        <StepsList rebalancingSteps={ this.props.rebalancingSteps } />
-      </div>
+        <div>
+          <Portfolio
+                   selectedModelPortfolio={this.props.selectedModelPortfolio}
+                   modelPortfolioNameTextFieldChange={this.props.modelPortfolioNameTextFieldChange}
+                   portfolio={this.props.portfolio}
+                   portfolioSelect={this.props.portfolioSelect}
+                   saveModelPortfolio={this.props.saveModelPortfolio}
+                   deleteModelPortfolio={this.props.deleteModelPortfolio}
+                   addSecurity={this.props.addSecurity}
+                   removeSecurity={this.props.removeSecurity}
+                   securityTextFieldChange={this.props.securityTextFieldChange}
+                   fetchPrice={this.props.fetchPrice}
+                   currencies={this.props.currencies} />
+          <form onSubmit={this.handleOnGenerateSteps}>
+            <CurrencyDropDownMenu currencies={this.props.currencies} setTradingCurrency={this.props.setTradingCurrency} />
+            <InvestmentAmount
+                            investmentAmount={this.props.investmentAmount}
+                            investmentAmountSelect={this.props.portfolioSelect.investmentAmountSelect}
+                            investmentAmountTextFieldChange={this.props.investmentAmountTextFieldChange} />
+            <GenerateStepsButton
+                               visibility={this.props.portfolioSelect.generateStepsButtonVisibility}
+                               generateSteps={this.props.generateSteps} />
+          </form>
+          <StepsList rebalancingSteps={this.props.rebalancingSteps} />
+        </div>
       );
     }
     return null;
   }
 
-  handleOnGenerateSteps( event ) {
+  handleOnGenerateSteps(event) {
     event.preventDefault();
     this.props.generateSteps();
   }
 
   render() {
     return (
-    <div className={ cx( 'portfolio-rebalancer-container' ) }>
-      <div className={ cx( 'model-portfolio-selector-container' ) }>
-        <TestAutoComplete
-                          searchText={ this.props.modelPortfoliosAutoCompleteSearchText }
-                          onUpdateInput={ this.props.modelPortfoliosAutoCompleteSearchTextChange }
-                          modelPortfolios={ this.props.modelPortfolios }
-                          onItemTouch={ this.props.selectModelPortfolio }
-                          onNewRequest={ this.props.changeAutocomplete }
-                          toggleModelPortfolioGroupOpenness={ this.props.toggleModelPortfolioGroupOpenness}/>
-        <NewPortfolioButton createNewModelPortfolio={ this.props.createNewModelPortfolio } />
+      <div className={cx('portfolio-rebalancer-container')}>
+        <div className={cx('model-portfolio-selector-container')}>
+          <TestAutoComplete
+                          searchText={this.props.modelPortfoliosAutoCompleteSearchText}
+                          onUpdateInput={this.props.modelPortfoliosAutoCompleteSearchTextChange}
+                          modelPortfolios={this.props.modelPortfolios}
+                          onItemTouch={this.props.selectModelPortfolio}
+                          onNewRequest={this.props.changeAutocomplete}
+                          toggleModelPortfolioGroupOpenness={this.props.toggleModelPortfolioGroupOpenness} />
+          <NewPortfolioButton createNewModelPortfolio={this.props.createNewModelPortfolio} />
+        </div>
+        { this.getPortfolioView() }
       </div>
-      { this.getPortfolioView() }
-    </div>
     );
   }
 }
@@ -114,7 +115,7 @@ PortfolioRebalancer.propTypes = {
   setScrolledToBttom: PropTypes.func.isRequired,
 };
 
-function mapStateToProps( state ) {
+function mapStateToProps(state) {
   return {
     modelPortfoliosAutoCompleteSearchText: state.modelPortfolio.modelPortfoliosAutoCompleteSearchText,
     modelPortfolios: state.modelPortfolio.modelPortfolios,
@@ -130,7 +131,7 @@ function mapStateToProps( state ) {
   };
 }
 
-export default connect( mapStateToProps, {
+export default connect(mapStateToProps, {
   initializeModelPortfolios,
   investmentAmountTextFieldChange,
   modelPortfoliosAutoCompleteSearchTextChange,
@@ -148,4 +149,4 @@ export default connect( mapStateToProps, {
   changeAutocomplete,
   toggleModelPortfolioGroupOpenness,
   setTradingCurrency
-} )( PortfolioRebalancer );
+})(PortfolioRebalancer);

@@ -10,7 +10,7 @@ import styles from '../../../css/components/portfolio/portfolio-table/security-r
 
 const cx = classNames.bind(styles);
 
-const SecurityRow = ({security, securitySelect, removeSecurity, securityTextFieldChange, fetchPrice}) => {
+const SecurityRow = ({security, securitySelect, removeSecurity, securityTextFieldChange, fetchPrice, currencies}) => {
   return (<TableRow
                     className={cx('table-row')}>
     <TableRowColumn
@@ -41,7 +41,8 @@ const SecurityRow = ({security, securitySelect, removeSecurity, securityTextFiel
                          priceSelect={securitySelect.priceSelect}
                          securityTextFieldChange={securityTextFieldChange}
                          symbol={security.symbol.value}
-                         fetchPrice={fetchPrice} />
+                         fetchPrice={fetchPrice}
+                         currencies={currencies} />
     </TableRowColumn>
     <TableRowColumn
                             className={cx('table-row-column')}>

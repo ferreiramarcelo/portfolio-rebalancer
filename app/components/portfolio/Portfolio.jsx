@@ -8,7 +8,7 @@ import styles from '../../css/components/portfolio/portfolio';
 
 const cx = classNames.bind(styles);
 
-const Portfolio = ({selectedModelPortfolio, modelPortfolioNameTextFieldChange, portfolio, portfolioSelect, saveModelPortfolio, deleteModelPortfolio, addSecurity, removeSecurity, securityTextFieldChange, fetchPrice}) => {
+const Portfolio = ({selectedModelPortfolio, modelPortfolioNameTextFieldChange, portfolio, portfolioSelect, saveModelPortfolio, deleteModelPortfolio, addSecurity, removeSecurity, securityTextFieldChange, fetchPrice, currencies}) => {
   return (
     <Paper className={cx('paper')}>
       <div className={cx('portfolio-container')}>
@@ -25,7 +25,8 @@ const Portfolio = ({selectedModelPortfolio, modelPortfolioNameTextFieldChange, p
                       addSecurity={addSecurity}
                       removeSecurity={removeSecurity}
                       securityTextFieldChange={securityTextFieldChange}
-                      fetchPrice={fetchPrice} />
+                      fetchPrice={fetchPrice}
+                      currencies={currencies} />
         <div className={cx('add-security-container')}>
           <AddSecurityButton addSecurity={addSecurity} />
         </div>

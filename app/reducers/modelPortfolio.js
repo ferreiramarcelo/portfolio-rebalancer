@@ -22,7 +22,7 @@ const modelPortfolio = (state = {}, action) => {
         securities: action.securities
       };
     case types.SAVE_MODEL_PORTFOLIO_REQUEST:
-      if ( state.id === action.id ) {
+      if (state.id === action.id) {
         return {
           id: action.id,
           name: action.name,
@@ -39,30 +39,30 @@ const modelPortfolio = (state = {}, action) => {
 const modelPortfolios = (state = {}, action) => {
   switch (action.type) {
     case types.REQUEST_SUCCESS:
-      if ( action.data ) {
+      if (action.data) {
         return {
           modelPortfolios: action.data,
           defaultModelPortfolios: [],
           userModelPortfolios: [],
           displayModelPortfolios: []
-        }
+        };
       }
       return state;
     case types.INITIALIZE_MODEL_PORTFOLIOS:
       const userModelPortfolios = [];
       const defaultModelPortfolios = [];
       for (const modelPortfolio of state.modelPortfolios) {
-        if ( modelPortfolio.email === action.email ) {
-          userModelPortfolios.push( modelPortfolio );
-        } else if ( !modelPortfolio.email ) {
-          defaultModelPortfolios.push( modelPortfolio );
+        if (modelPortfolio.email === action.email) {
+          userModelPortfolios.push(modelPortfolio);
+        } else if (!modelPortfolio.email) {
+          defaultModelPortfolios.push(modelPortfolio);
         }
       }
 
       const newAction = action;
       newAction.defaultModelPortfolios = defaultModelPortfolios;
       newAction.userModelPortfolios = userModelPortfolios;
-      const initialDisplayModelPortfolios = displayModelPortfolios( undefined, newAction );
+      const initialDisplayModelPortfolios = displayModelPortfolios(undefined, newAction);
 
       return {
         ...state,
@@ -78,15 +78,15 @@ const modelPortfolios = (state = {}, action) => {
     case types.CREATE_MODEL_PORTFOLIO_REQUEST:
       return [
         ...state,
-        modelPortfolio( undefined, action )
+        modelPortfolio(undefined, action)
       ];
     case types.CREATE_MODEL_PORTFOLIO_FAILURE:
-      return state.filter( t => t.id !== action.id );
+      return state.filter(t => t.id !== action.id);
     case types.SAVE_MODEL_PORTFOLIO_REQUEST:
-      return state.map( t => modelPortfolio( t, action ) );
+      return state.map(t => modelPortfolio(t, action));
     case types.DELETE_MODEL_PORTFOLIO_REQUEST:
     case types.SAVE_MODEL_PORTFOLIO_FAILURE:
-      return state.filter( t => t.id !== action.id );
+      return state.filter(t => t.id !== action.id);
     default:
       return state;
   }
@@ -97,30 +97,30 @@ const displayModelPortfolioElement = (state = {}, action) => {
     case types.INITIALIZE_MODEL_PORTFOLIOS:
       const children = [];
       let modelPortfolio = null;
-      if ( action.modelPortfolioElement.subGroups.length > 0 ) {
+      if (action.modelPortfolioElement.subGroups.length > 0) {
         for (let i = 0; i < action.modelPortfolioElement.subGroups.length; i++) {
-          const newPosition = action.position.slice( 0 );
-          newPosition.push( i );
+          const newPosition = action.position.slice(0);
+          newPosition.push(i);
           const newAction = {
             type: action.type,
-            modelPortfolioElement: action.modelPortfolioElement.subGroups[ i ],
+            modelPortfolioElement: action.modelPortfolioElement.subGroups[i],
             position: newPosition
           };
-          children.push( displayModelPortfolioElement( undefined, newAction ) );
+          children.push(displayModelPortfolioElement(undefined, newAction));
         }
-      } else if ( action.modelPortfolioElement.modelPortfolios.length ) {
+      } else if (action.modelPortfolioElement.modelPortfolios.length) {
         for (let i = 0; i < action.modelPortfolioElement.modelPortfolios.length; i++) {
-          const newPosition = action.position.slice( 0 );
-          newPosition.push( i );
+          const newPosition = action.position.slice(0);
+          newPosition.push(i);
           const newAction = {
             type: action.type,
-            modelPortfolioElement: action.modelPortfolioElement.modelPortfolios[ i ],
+            modelPortfolioElement: action.modelPortfolioElement.modelPortfolios[i],
             position: newPosition
           };
-          children.push( displayModelPortfolioElement( undefined, newAction ) );
+          children.push(displayModelPortfolioElement(undefined, newAction));
         }
       } else {
-        modelPortfolio = action.modelPortfolioElement
+        modelPortfolio = action.modelPortfolioElement;
       }
       return {
         modelPortfolio,
@@ -131,13 +131,13 @@ const displayModelPortfolioElement = (state = {}, action) => {
         displayName: action.modelPortfolioElement.displayName,
       };
     case types.TOGGLE_MODEL_PORTFOLIO_GROUP_OPENNESS:
-      if ( action.position.length > 0 ) {
+      if (action.position.length > 0) {
         const newAction = {
           type: action.type,
-          position: action.position.slice( 1 )
+          position: action.position.slice(1)
         };
-        const newChildren = state.children.slice( 0 );
-        newChildren[ action.position[ 0 ] ] = displayModelPortfolioElement( state.children[ action.position[ 0 ] ], newAction );
+        const newChildren = state.children.slice(0);
+        newChildren[action.position[0]] = displayModelPortfolioElement(state.children[action.position[0]], newAction);
         return {
           ...state,
           children: newChildren
@@ -162,39 +162,39 @@ const displayModelPortfolios = (state = [], action) => {
   switch (action.type) {
     case types.INITIALIZE_MODEL_PORTFOLIOS:
       let initialDisplayModelPortfolios = [];
-      if ( action.userModelPortfolios.length === 0 ) {
+      if (action.userModelPortfolios.length === 0) {
         for (let i = 0; i < action.defaultModelPortfolios.length; i++) {
           const newAction = {
             type: action.type,
-            modelPortfolioElement: action.defaultModelPortfolios[ i ],
+            modelPortfolioElement: action.defaultModelPortfolios[i],
             position: [
               i
             ]
           };
-          initialDisplayModelPortfolios.push( displayModelPortfolioElement( undefined, newAction ) );
+          initialDisplayModelPortfolios.push(displayModelPortfolioElement(undefined, newAction));
         }
       } else {
         const userModelPortfolios = [];
         for (let i = 0; i < action.userModelPortfolios.length; i++) {
           const newAction = {
             type: action.type,
-            modelPortfolioElement: action.userModelPortfolios[ i ],
+            modelPortfolioElement: action.userModelPortfolios[i],
             position: [0,
               i
             ]
           };
-          userModelPortfolios.push( displayModelPortfolioElement( undefined, newAction ) );
+          userModelPortfolios.push(displayModelPortfolioElement(undefined, newAction));
         }
         const defaultModelPortfolios = [];
         for (let i = 0; i < action.defaultModelPortfolios.length; i++) {
           const newAction = {
             type: action.type,
-            modelPortfolioElement: action.defaultModelPortfolios[ i ],
+            modelPortfolioElement: action.defaultModelPortfolios[i],
             position: [1,
               i
             ]
           };
-          defaultModelPortfolios.push( displayModelPortfolioElement( undefined, newAction ) );
+          defaultModelPortfolios.push(displayModelPortfolioElement(undefined, newAction));
         }
         const userModelPortfoliosGroup = {
           id: 'USER_MODEL_PORTFOLIOS_GROUP',
@@ -218,15 +218,14 @@ const displayModelPortfolios = (state = [], action) => {
           userModelPortfoliosGroup,
           defaultModelPortfoliosGroup
         ];
-
       }
       return initialDisplayModelPortfolios;
     case types.TOGGLE_MODEL_PORTFOLIO_GROUP_OPENNESS:
       const newAction = {
         type: action.type,
-        position: action.position.slice( 1 )
+        position: action.position.slice(1)
       };
-      state[ action.position[ 0 ] ] = displayModelPortfolioElement( state[ action.position[ 0 ] ], newAction )
+      state[action.position[0]] = displayModelPortfolioElement(state[action.position[0]], newAction);
       return state;
     default:
       return state;
@@ -240,10 +239,10 @@ const displayModelPortfolio = (state = {}, action) => {
   }
 };
 
-const modelPortfolioReducer = combineReducers( {
+const modelPortfolioReducer = combineReducers({
   modelPortfoliosAutoCompleteSearchText,
   modelPortfolios,
   displayModelPortfolios
-} );
+});
 
 export default modelPortfolioReducer;

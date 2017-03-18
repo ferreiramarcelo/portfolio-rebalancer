@@ -28,12 +28,12 @@ const selectedModelPortfolio = (state = {}, action) => {
     case types.DELETE_MODEL_PORTFOLIO_REQUEST: {
       let numModelPortfoliosWithDefaultName = 0;
       for (let i = 0; i < action.modelPortfolios.length; i++) {
-        if ( action.modelPortfolios[ i ].email === action.email ) {
-          if ( numModelPortfoliosWithDefaultName === 0 ) {
-            if ( action.modelPortfolios[ i ].name === 'Model Portfolio Name' ) {
+        if (action.modelPortfolios[i].email === action.email) {
+          if (numModelPortfoliosWithDefaultName === 0) {
+            if (action.modelPortfolios[i].name === 'Model Portfolio Name') {
               numModelPortfoliosWithDefaultName += 2;
             }
-          } else if ( action.modelPortfolios[ i ].name === 'Model Portfolio Name ' + numModelPortfoliosWithDefaultName ) {
+          } else if (action.modelPortfolios[i].name === 'Model Portfolio Name ' + numModelPortfoliosWithDefaultName) {
             numModelPortfoliosWithDefaultName++;
           } else {
             break;
@@ -41,7 +41,7 @@ const selectedModelPortfolio = (state = {}, action) => {
         }
       }
       let newModelPortfolioName = 'Model Portfolio Name';
-      if ( numModelPortfoliosWithDefaultName > 0 ) {
+      if (numModelPortfoliosWithDefaultName > 0) {
         newModelPortfolioName += ' ' + numModelPortfoliosWithDefaultName;
       }
       return {
@@ -59,7 +59,7 @@ const selectedModelPortfolio = (state = {}, action) => {
 const symbol = (state = {
     value: '',
     dirty: false
-  } , action) => {
+  }, action) => {
   switch (action.type) {
     case types.SELECT_MODEL_PORTFOLIO:
       return {
@@ -79,11 +79,11 @@ const symbol = (state = {
 const allocation = (state = {
     value: '0',
     dirty: false
-  } , action) => {
+  }, action) => {
   switch (action.type) {
     case types.SELECT_MODEL_PORTFOLIO:
       return {
-        value: String( action.security.allocation ),
+        value: String(action.security.allocation),
         dirty: true
       };
     case types.SECURITY_TEXT_FIELD_CHANGE:
@@ -100,8 +100,9 @@ const price = (state = {
     value: '1.00',
     dirty: false,
     fetchStatus: 'NONE',
-    currency: null
-  } , action) => {
+    currency: null,
+    originalCurrency: null
+  }, action) => {
   switch (action.type) {
     case types.SELECT_MODEL_PORTFOLIO:
       return {
@@ -149,7 +150,7 @@ const price = (state = {
 const units = (state = {
     value: '0',
     dirty: false
-  } , action) => {
+  }, action) => {
   switch (action.type) {
     case types.SECURITY_TEXT_FIELD_CHANGE:
       return {
@@ -166,50 +167,50 @@ const security = (state = {}, action) => {
     case types.SELECT_MODEL_PORTFOLIO:
       return {
         index: action.index,
-        symbol: symbol( undefined, action ),
-        allocation: allocation( undefined, action ),
-        price: price( undefined, action ),
-        units: units( undefined, action )
+        symbol: symbol(undefined, action),
+        allocation: allocation(undefined, action),
+        price: price(undefined, action),
+        units: units(undefined, action)
       };
     case types.CREATE_NEW_PORTFOLIO:
     case types.DELETE_MODEL_PORTFOLIO_REQUEST:
       return {
         index: 0,
-        symbol: symbol( undefined, action ),
-        allocation: allocation( undefined, action ),
-        price: price( undefined, action ),
-        units: units( undefined, action ),
+        symbol: symbol(undefined, action),
+        allocation: allocation(undefined, action),
+        price: price(undefined, action),
+        units: units(undefined, action),
       };
     case types.ADD_SECURITY:
       return {
         index: action.index,
-        symbol: symbol( undefined, action ),
-        allocation: allocation( undefined, action ),
-        price: price( undefined, action ),
-        units: units( undefined, action ),
+        symbol: symbol(undefined, action),
+        allocation: allocation(undefined, action),
+        price: price(undefined, action),
+        units: units(undefined, action),
       };
     case types.SECURITY_TEXT_FIELD_CHANGE:
-      if ( state.index === action.index ) {
+      if (state.index === action.index) {
         switch (action.column) {
           case 'symbol':
             return {
               ...state,
-              symbol: symbol( state.symbol, action )
+              symbol: symbol(state.symbol, action)
             };
           case 'allocation':
             return {
               ...state,
-              allocation: allocation( state.allocation, action )
+              allocation: allocation(state.allocation, action)
             };
           case 'price':
             return {
               ...state,
-              price: price( state.price, action )
+              price: price(state.price, action)
             };
           case 'units':
             return {
               ...state,
-              units: units( state.units, action )
+              units: units(state.units, action)
             };
           default:
             return state;
@@ -220,10 +221,10 @@ const security = (state = {}, action) => {
     case types.SET_PRICE_TO_NOT_FETCHING:
     case types.SET_PRICE_FROM_FETCH:
     case types.SET_PRICE_TO_FETCH_FAILED:
-      if ( state.index === action.index ) {
+      if (state.index === action.index) {
         return {
           ...state,
-          price: price( state.price, action )
+          price: price(state.price, action)
         };
       }
       return state;
@@ -240,16 +241,16 @@ const portfolio = (state = [], action) => {
         const securityAction = {
           type: types.SELECT_MODEL_PORTFOLIO,
           index: i,
-          security: action.selectedModelPortfolio.securities[ i ]
+          security: action.selectedModelPortfolio.securities[i]
         };
-        selectedPortoflio.push( security( undefined, securityAction ) );
+        selectedPortoflio.push(security(undefined, securityAction));
       }
       return selectedPortoflio;
     }
     case types.CREATE_NEW_PORTFOLIO:
     case types.DELETE_MODEL_PORTFOLIO_REQUEST: {
       const newPortfolio = [];
-      newPortfolio.push( security( undefined, action ) );
+      newPortfolio.push(security(undefined, action));
       return newPortfolio;
     }
     case types.ADD_SECURITY: {
@@ -259,20 +260,20 @@ const portfolio = (state = [], action) => {
       };
       return [
         ...state,
-        security( undefined, addedSecurityAction )
+        security(undefined, addedSecurityAction)
       ];
     }
     case types.REMOVE_SECURITY: {
-      const trunkedPortfolio = state.filter( s => s.index !== action.index );
+      const trunkedPortfolio = state.filter(s => s.index !== action.index);
       for (let i = action.index; i < trunkedPortfolio.length; i++) {
-        trunkedPortfolio[ i ].index--;
+        trunkedPortfolio[i].index--;
       }
-      if ( trunkedPortfolio.length < 1 ) {
+      if (trunkedPortfolio.length < 1) {
         const addedSecurityAction = {
           type: types.ADD_SECURITY,
           index: 0
         };
-        trunkedPortfolio.push( security( undefined, addedSecurityAction ) );
+        trunkedPortfolio.push(security(undefined, addedSecurityAction));
       }
       return trunkedPortfolio;
     }
@@ -281,18 +282,18 @@ const portfolio = (state = [], action) => {
     case types.SET_PRICE_TO_NOT_FETCHING:
     case types.SET_PRICE_FROM_FETCH:
     case types.SET_PRICE_TO_FETCH_FAILED:
-      return state.map( s => security( s, action ) );
+      return state.map(s => security(s, action));
     default:
       return state;
   }
 };
 
-const currencies = (state = {tradingCurrency: null, listOfDistinctCurrencies: []}, action) => {
+const currencies = (state = {tradingCurrency: null, listOfDistinctCurrencies: {}}, action) => {
   switch (action.type) {
     case types.SELECT_MODEL_PORTFOLIO:
     case types.CREATE_NEW_PORTFOLIO:
     case types.DELETE_MODEL_PORTFOLIO_REQUEST:
-      return {tradingCurrency: null, listOfDistinctCurrencies: []};
+      return {tradingCurrency: null, listOfDistinctCurrencies: {}};
     case types.SET_TRADING_CURRENCY:
       return {
         ...state,
@@ -301,10 +302,10 @@ const currencies = (state = {tradingCurrency: null, listOfDistinctCurrencies: []
     case types.SET_PRICE_FROM_FETCH:
       const newState = {
         ...state,
-        listOfDistinctCurrencies: listOfDistinctCurrencies( state.listOfDistinctCurrencies, action )
+        listOfDistinctCurrencies: listOfDistinctCurrencies(state.listOfDistinctCurrencies, action)
       };
-      if ( newState.listOfDistinctCurrencies.length === 1 ) {
-        newState.tradingCurrency = newState.listOfDistinctCurrencies[ 0 ];
+      if (Object.keys(newState.listOfDistinctCurrencies).length === 1) {
+        newState.tradingCurrency = action.currency;
       }
       return newState;
     default:
@@ -312,11 +313,11 @@ const currencies = (state = {tradingCurrency: null, listOfDistinctCurrencies: []
   }
 };
 
-const listOfDistinctCurrencies = (state = [], action) => {
+const listOfDistinctCurrencies = (state = {}, action) => {
   switch (action.type) {
     case types.SET_PRICE_FROM_FETCH:
-      if ( !state.includes( action.currency ) ) {
-        state.push( action.currency );
+      if (!state.hasOwnProperty(action.currency)) {
+        state[action.currency] = (action.conversionRate);
       }
       return state;
     default:
@@ -331,10 +332,10 @@ const conversionRatesFromTrading = (state = {}, action) => {
   }
 };
 
-const portfolioReducer = combineReducers( {
+const portfolioReducer = combineReducers({
   selectedModelPortfolio,
   portfolio,
   currencies,
-} );
+});
 
 export default portfolioReducer;

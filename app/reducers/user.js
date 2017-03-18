@@ -5,7 +5,7 @@ import * as constants from '../constants';
 const message = (state = {
     value: '',
     type: constants.NONE
-  } ,
+  },
   action
 ) => {
   switch (action.type) {
@@ -157,12 +157,12 @@ const accountType = (state = constants.ACCOUNT_TYPE_INTERNAL,
   }
 };
 
-const userReducer = combineReducers( {
+const userReducer = combineReducers({
   message,
   authenticated,
   verified,
   email,
   accountType
-} );
+});
 
 export default userReducer;

@@ -9,7 +9,7 @@ import styles from '../../../css/components/portfolio/portfolio-table/portfolio-
 
 const cx = classNames.bind(styles);
 
-const PortfolioTable = ({selectedModelPortfolio, portfolio, portfolioSelect, saveModelPortfolio, deleteModelPortfolio, removeSecurity, securityTextFieldChange, fetchPrice}) => {
+const PortfolioTable = ({selectedModelPortfolio, portfolio, portfolioSelect, saveModelPortfolio, deleteModelPortfolio, removeSecurity, securityTextFieldChange, fetchPrice, currencies}) => {
   const securityRows = portfolio.map((security, index) => {
     return (<SecurityRow
                          key={index}
@@ -17,7 +17,8 @@ const PortfolioTable = ({selectedModelPortfolio, portfolio, portfolioSelect, sav
                          securitySelect={portfolioSelect.securitiesSelect[index]}
                          removeSecurity={removeSecurity}
                          securityTextFieldChange={securityTextFieldChange}
-                         fetchPrice={fetchPrice} />);
+                         fetchPrice={fetchPrice}
+                         currencies={currencies} />);
   });
 
   return (

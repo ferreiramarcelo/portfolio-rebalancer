@@ -11,7 +11,6 @@ export function all(req, res) {
 
     return res.json(modelPortfolios);
   });
-
 }
 
 export function add(req, res) {
