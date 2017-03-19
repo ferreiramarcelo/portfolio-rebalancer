@@ -76,17 +76,14 @@ const modelPortfolios = (state = {}, action) => {
           displayModelPortfolios: displayModelPortfolios(state.displayModelPortfolios, action)
         };
     case types.CREATE_MODEL_PORTFOLIO_REQUEST:
-      return [
-        ...state,
-        modelPortfolio(undefined, action)
-      ];
+      return {...state, userModelPortfolios: [state.userModelPortfolios, modelPortfolio(undefined, action)], displayModelPortfolios: displayModelPortfolios(state.displayModelPortfolios, action)};
     case types.CREATE_MODEL_PORTFOLIO_FAILURE:
-      return state.filter(t => t.id !== action.id);
+      return state.userModelPortfolios.filter(t => t.id !== action.id);
     case types.SAVE_MODEL_PORTFOLIO_REQUEST:
-      return state.map(t => modelPortfolio(t, action));
+      return state.userModelPortfolios.map(t => modelPortfolio(t, action));
     case types.DELETE_MODEL_PORTFOLIO_REQUEST:
     case types.SAVE_MODEL_PORTFOLIO_FAILURE:
-      return state.filter(t => t.id !== action.id);
+      return state.userModelPortfolios.filter(t => t.id !== action.id);
     default:
       return state;
   }
@@ -157,10 +154,22 @@ const displayModelPortfolioElement = (state = {}, action) => {
   }
 };
 
+const sortModelPortfoliosAlphabeticaly = function sortModelPortfoliosAlphabeticaly(modelPortfolioA, modelPortfolioB) {
+  const modelPortfolioNameA = modelPortfolioA.displayName.toUpperCase();
+  const modePortfolioNameB = modelPortfolioB.displayName.toUpperCase();
+  if (modelPortfolioNameA < modePortfolioNameB) {
+    return -1;
+  } else if (modelPortfolioNameA > modePortfolioNameB) {
+    return 1;
+  }
+  return 0;
+};
 
 const displayModelPortfolios = (state = [], action) => {
   switch (action.type) {
     case types.INITIALIZE_MODEL_PORTFOLIOS:
+      action.defaultModelPortfolios.sort(sortModelPortfoliosAlphabeticaly);
+      action.userModelPortfolios.sort(sortModelPortfoliosAlphabeticaly);
       let initialDisplayModelPortfolios = [];
       if (action.userModelPortfolios.length === 0) {
         for (let i = 0; i < action.defaultModelPortfolios.length; i++) {
@@ -227,6 +236,14 @@ const displayModelPortfolios = (state = [], action) => {
       };
       state[action.position[0]] = displayModelPortfolioElement(state[action.position[0]], newAction);
       return state;
+      case types.CREATE_MODEL_PORTFOLIO_REQUEST:
+        // If length === 0, create Custom Model Portfolios section at very beginning
+        // Otherwise, add to Custom Model Portfolios group, resort alphabetically
+        case types.SAVE_MODEL_PORTFOLIO_REQUEST:
+          // Use position to overwrite, easy
+        case types.DELETE_MODEL_PORTFOLIO_REQUEST:
+        case types.SAVE_MODEL_PORTFOLIO_FAILURE:
+        // Find and delete it xD
     default:
       return state;
   }

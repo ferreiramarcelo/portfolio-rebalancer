@@ -150,6 +150,7 @@ export function saveModelPortfolio(selectedModelPortfolio, portfolio) {
       const data = {
         id,
         name: selectedModelPortfolio.name,
+        displayName: selectedModelPortfolio.name,
         email: selectedModelPortfolio.email,
         securities
       };
@@ -171,6 +172,7 @@ export function saveModelPortfolio(selectedModelPortfolio, portfolio) {
     const data = {
       id,
       name: selectedModelPortfolio.name,
+      displayName: selectedModelPortfolio.name,
       email: user.email,
       securities
     };
