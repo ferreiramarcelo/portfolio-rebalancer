@@ -48,22 +48,23 @@ export function getValuesForInvesting(investmentAmount, valuePerSecurityCurrent,
     valueAdditionPerSecurity.push(0);
   }
   let additionPerSecurity;
-  while (cashRemainingToSpend > 0 && additionPerSecurity !== 0) {
+  while (cashRemainingToSpend > 0 && additionPerSecurity > 0) {
     let lastSecurityToAddToIndex = 0;
     additionPerSecurity = 0;
     while (valueDifferencePerSecurity[lastSecurityToAddToIndex + 1] && valueDifferencePerSecurity[lastSecurityToAddToIndex][1] === valueDifferencePerSecurity[lastSecurityToAddToIndex + 1][1]) {
       lastSecurityToAddToIndex++;
     }
     if (valueDifferencePerSecurity[lastSecurityToAddToIndex + 1]) {
-      const valueDifference = Math.abs(valueDifferencePerSecurity[lastSecurityToAddToIndex][1] - valueDifferencePerSecurity[lastSecurityToAddToIndex + 1][1]);
+      const valueDifference = Number(Math.abs(valueDifferencePerSecurity[lastSecurityToAddToIndex][1] - valueDifferencePerSecurity[lastSecurityToAddToIndex + 1][1]).toPrecision(12));
       additionPerSecurity = Math.min(cashRemainingToSpend / (lastSecurityToAddToIndex + 1), valueDifference);
     } else {
       additionPerSecurity = cashRemainingToSpend / (lastSecurityToAddToIndex + 1);
     }
+    additionPerSecurity = Number(additionPerSecurity.toPrecision(12));
     for (let currentSecurityToAddTo = 0; currentSecurityToAddTo <= lastSecurityToAddToIndex; currentSecurityToAddTo++) {
-      valueDifferencePerSecurity[currentSecurityToAddTo][1] += additionPerSecurity;
-      valueAdditionPerSecurity[valueDifferencePerSecurity[currentSecurityToAddTo][0]] += additionPerSecurity;
-      cashRemainingToSpend -= additionPerSecurity;
+      valueDifferencePerSecurity[currentSecurityToAddTo][1] = Number((valueDifferencePerSecurity[currentSecurityToAddTo][1] + additionPerSecurity).toPrecision(12));
+      valueAdditionPerSecurity[valueDifferencePerSecurity[currentSecurityToAddTo][0]] = additionPerSecurity;
+      cashRemainingToSpend = Number((cashRemainingToSpend + additionPerSecurity).toPrecision(12));
     }
   }
   return valueAdditionPerSecurity;
@@ -80,22 +81,22 @@ export function getValuesForDisvesting(investmentAmount, valuePerSecurityCurrent
     valueReductionPerSecurity.push(0);
   }
   let reductionPerSecurity;
-  while (cashRemainingToGet > 0 && reductionPerSecurity !== 0) {
+  while (cashRemainingToGet > 0 && reductionPerSecurity > 0) {
     let lastSecurityToRemoveFromIndex = 0;
     reductionPerSecurity = 0;
     while (valueDifferencePerSecurity[lastSecurityToRemoveFromIndex + 1] && valueDifferencePerSecurity[lastSecurityToRemoveFromIndex][1] === valueDifferencePerSecurity[lastSecurityToRemoveFromIndex + 1][1]) {
       lastSecurityToRemoveFromIndex++;
     }
     if (valueDifferencePerSecurity[lastSecurityToRemoveFromIndex + 1]) {
-      const valueDifference = Math.abs(valueDifferencePerSecurity[lastSecurityToRemoveFromIndex][1] - valueDifferencePerSecurity[lastSecurityToRemoveFromIndex + 1][1]);
+      const valueDifference = Number(Math.abs(valueDifferencePerSecurity[lastSecurityToRemoveFromIndex][1] - valueDifferencePerSecurity[lastSecurityToRemoveFromIndex + 1][1]).toPrecision(12));
       reductionPerSecurity = Math.min(cashRemainingToGet / (lastSecurityToRemoveFromIndex + 1), valueDifference);
     } else {
       reductionPerSecurity = cashRemainingToGet / (lastSecurityToRemoveFromIndex + 1);
     }
     for (let currentSecurityToAddTo = 0; currentSecurityToAddTo <= lastSecurityToRemoveFromIndex; currentSecurityToAddTo++) {
-      valueDifferencePerSecurity[currentSecurityToAddTo][1] -= reductionPerSecurity;
+      valueDifferencePerSecurity[currentSecurityToAddTo][1] =  Number((valueDifferencePerSecurity[currentSecurityToAddTo][1] - reductionPerSecurity).toPrecision(12));
       valueReductionPerSecurity[valueDifferencePerSecurity[currentSecurityToAddTo][0]] -= reductionPerSecurity;
-      cashRemainingToGet -= reductionPerSecurity;
+      cashRemainingToGet = Number((cashRemainingToGet - reductionPerSecurity).toPrecision(12));
     }
   }
   return valueReductionPerSecurity;

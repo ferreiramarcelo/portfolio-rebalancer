@@ -1,0 +1,9 @@
+.currency-drop-down-menu-container {
+  margin-top: 20px;
+  display: flex;
+  align-items: flex-end;
+}
+
+.trading-currency-prompt {
+  margin-bottom: 9px;
+}

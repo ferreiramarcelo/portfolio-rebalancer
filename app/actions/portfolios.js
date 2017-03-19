@@ -21,6 +21,19 @@ function fetchCurrencyConversion(originalCurrency, tradingCurrency) {
   return request.get(uri);
 }
 
+function fetchMassCurrencyConversion(listOfDistinctCurrencies, tradingCurrency) {
+  const api = 'https://query.yahooapis.com/v1/public/yql';
+  let listOfPairs = '';
+  for (const distinctCurrency of listOfDistinctCurrencies) {
+    listOfPairs = listOfPairs + '"' + distinctCurrency + tradingCurrency + '", ';
+  }
+  listOfPairs = listOfPairs.substring(0, listOfPairs.length - 2);
+  const query = encodeURIComponent('select * from yahoo.finance.xchange where pair in (' + listOfPairs + ')');
+  const yqlStatement = 'q=' + query + '&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys';
+  const uri = api + '?' + yqlStatement;
+  return request.get(uri);
+}
+
 function setPriceToFetching(index) {
   return {
     index,
@@ -35,12 +48,13 @@ function setPriceToNotFetching(index) {
   };
 }
 
-function setPriceFromFetch(index, price, currency, conversionRate) {
+function setPriceFromFetch(index, price, currency, originalPrice, conversionRate) {
   return {
     type: types.SET_PRICE_FROM_FETCH,
     index,
     price,
     currency,
+    originalPrice,
     conversionRate
   };
 }
@@ -74,9 +88,9 @@ function fetchSecurityPriceProces(symbol, index) {
         const {portfolio} = getState();
         if (portfolio.currencies.tradingCurrency === null) {
           dispatch(setTradingCurrency(currency));
-          return dispatch(setPriceFromFetch(index, price, currency, 1));
+          return dispatch(setPriceFromFetch(index, price, currency, price));
         } else if (currency === portfolio.currencies.tradingCurrency) {
-          return dispatch(setPriceFromFetch(index, price, currency, 1));
+          return dispatch(setPriceFromFetch(index, price, currency, price));
         }
         fetchCurrencyConversion(currency, portfolio.currencies.tradingCurrency)
         .then(data => {
@@ -86,15 +100,13 @@ function fetchSecurityPriceProces(symbol, index) {
             if (!rate || typeof rateNumber !== 'number' || isNaN(rateNumber) || !isFinite(rateNumber)) {
               return dispatch(setPriceToFetchFailed(index));
             }
-            const convertedPrice = price * rate;
-            return dispatch(setPriceFromFetch(index, convertedPrice, currency, rate));
+            const convertedPrice = (price * rate).toFixed(6);
+            return dispatch(setPriceFromFetch(index, convertedPrice, currency, price, rate));
           }
         })
         .catch((jqxhr, textStatus, error) => {
           return dispatch(setPriceToFetchFailed(index, textStatus, error));
         });
-        // Get exchange rate for tradingCurrency/currency
-        // Add exchange rate to listOfDistinctCurrencies in setPriceFromFetch or similar dispatch
       }
     })
     .catch((jqxhr, textStatus, error) => {
@@ -169,9 +181,38 @@ export function securityTextFieldChange(index, column, value) {
   }
 }
 
-export function setTradingCurrency(currency) {
-  return {
-    type: types.SET_TRADING_CURRENCY,
-    currency
+export function setTradingCurrency(newTradingCurrency) {
+  return (dispatch, getState) => {
+    const {portfolio} = getState();
+    if (newTradingCurrency === portfolio.currencies.tradingCurrency) {
+      return;
+    }
+    const arrayOfDistinctCurrencies = [];
+    for (const distinctCurrency in portfolio.currencies.listOfDistinctCurrencies) {
+        if (portfolio.currencies.listOfDistinctCurrencies.hasOwnProperty(distinctCurrency)) {
+            arrayOfDistinctCurrencies.push(distinctCurrency);
+        }
+    }
+    fetchMassCurrencyConversion(arrayOfDistinctCurrencies, newTradingCurrency)
+    .then(data => {
+      if (data.status === 200) {
+        const newListOfDistinctCurrencies = {};
+        for (let i = 0; i < arrayOfDistinctCurrencies.length; i++) {
+          newListOfDistinctCurrencies[ arrayOfDistinctCurrencies[i] ] = data.data.query.results.rate[i].Rate;
+        }
+        dispatch(setCurrencies(newTradingCurrency, newListOfDistinctCurrencies));
+      }
+    })
+    .catch((jqxhr, textStatus, error) => {
+      console.log("hehe xd");
+    });
   };
+}
+
+function setCurrencies(newTradingCurrency, newListOfDistinctCurrencies) {
+  return {
+    type: types.SET_CURRENCIES,
+    newTradingCurrency,
+    newListOfDistinctCurrencies
+  }
 }

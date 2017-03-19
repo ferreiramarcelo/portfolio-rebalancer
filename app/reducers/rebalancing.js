@@ -33,7 +33,7 @@ const rebalancingSteps = (state = {},
         const valuePerSecurityTotal = [];
         for (const security of portfolio) {
           const allocationPercentage = security.allocation / 100;
-          valuePerSecurityTotal.push((allocationPercentage * totalEquity).toFixed(4));
+          valuePerSecurityTotal.push(Number((allocationPercentage * totalEquity).toPrecision(12)));
         }
         /* Compute balancing steps */
         if (totalEquity < 0) {

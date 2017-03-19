@@ -21,7 +21,7 @@ export function generateSteps() {
       computedPortfolio.push({
         symbol: security.symbol.value,
         allocation: Number(security.allocation.value),
-        price: Number(security.price.value),
+        price: (Number(security.price.value).toPrecision(12)),
         units: Number(security.units.value)
       });
     }
