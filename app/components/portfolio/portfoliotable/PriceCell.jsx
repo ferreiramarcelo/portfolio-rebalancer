@@ -40,9 +40,7 @@ const PriceCell = ({
                         data-tip="data-tip"
                         data-for={'tooltipSecurityConverted' + index} />
                         <ReactTooltip id={'tooltipSecurityConverted' + index}>
-                            <span>
-                                Price converted from {givenPriceCurrency} to {givenCurrencies.tradingCurrency} at a {currencies.listOfDistinctCurrencies[givenPriceCurrency]} exchange rate
-                            </span>
+                            <span>Price converted from {givenPriceCurrency} to {givenCurrencies.tradingCurrency} at a {currencies.listOfDistinctCurrencies[givenPriceCurrency]} exchange rate</span>
                         </ReactTooltip>
                 </div>
             </div>
