@@ -15,8 +15,8 @@ const PriceCell = ({
     index,
     price,
     priceSelect,
-    securityTextFieldChange
-})              => {
+    securityTextFieldChange }) => {
+
     const getDisplayValue = function getDisplayValue(givenValue, givenSetOnce) {
         if (givenSetOnce) {
             return givenValue;
@@ -38,7 +38,7 @@ const PriceCell = ({
                 <div className={cx('price-progress')}>
                     <EditorMoneyOff
                         data-tip="data-tip"
-                        data-for={'tooltipSecurityConverted' + index}/>
+                        data-for={'tooltipSecurityConverted' + index} />
                         <ReactTooltip id={'tooltipSecurityConverted' + index}>
                             <span>
                                 Price converted from {price.currency} to {givenCurrencies.tradingCurrency} at a {currencies.listOfDistinctCurrencies[price.currency]} exchange rate
