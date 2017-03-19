@@ -29,8 +29,8 @@ const PriceCell = ({
         securityTextFieldChange(index, 'price', newValue);
     };
 
-    const getConvertedIndicator = function getConvertedIndicator(givenPriceCurrency, givenCurrencies) {
-        if (!givenPriceCurrency || givenPriceCurrency === givenCurrencies.tradingCurrency) {
+    const getConvertedIndicator = function getConvertedIndicator(price, givenCurrencies) {
+        if (!price.currency || price.currency === givenCurrencies.tradingCurrency) {
             return null;
         }
         return (
@@ -38,15 +38,15 @@ const PriceCell = ({
                 <div className={cx('price-progress')}>
                     <EditorMoneyOff
                         data-tip="data-tip"
-                        data-for={'tooltipSecurityConverted' + index} />
-                        <ReactTooltip id={'tooltipSecurityConverted' + index}>
-                            <span>Price converted from {givenPriceCurrency} to {givenCurrencies.tradingCurrency} at a {currencies.listOfDistinctCurrencies[givenPriceCurrency]} exchange rate</span>
+                        data-for={'tooltipSecurityConverted' + price.index} />
+                        <ReactTooltip id={'tooltipSecurityConverted' + price.index}>
+                            <span>Price converted from {price.currency} to {givenCurrencies.tradingCurrency} at a {currencies.listOfDistinctCurrencies[price.currency]} exchange rate</span>
                         </ReactTooltip>
                 </div>
             </div>
         );
     };
-    const convertedIndicator = getConvertedIndicator(price.currency, currencies);
+    const convertedIndicator = getConvertedIndicator(price, currencies);
 
     return (
         <div className={cx('price-text-field')}>
