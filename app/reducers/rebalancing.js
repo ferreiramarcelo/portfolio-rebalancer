@@ -84,8 +84,44 @@ const rebalancingSteps = (state = {},
   }
 };
 
+const showWholeUnits = (state = true,
+  action
+) => {
+  switch (action.type) {
+    case types.CHANGE_SHOW_WHOLE_UNITS:
+      return !state;
+    default:
+      return state;
+  }
+};
+
+const showPartialUnits = (state = false,
+  action
+) => {
+  switch (action.type) {
+    case types.CHANGE_SHOW_PARTIAL_UNITS:
+      return !state;
+    default:
+      return state;
+  }
+};
+
+const showCashAmounts = (state = false,
+  action
+) => {
+  switch (action.type) {
+    case types.CHANGE_SHOW_CASH_AMOUNTS:
+      return !state;
+    default:
+      return state;
+  }
+};
+
 const rebalancingReducer = combineReducers({
-  rebalancingSteps
+  rebalancingSteps,
+  showWholeUnits,
+  showPartialUnits,
+  showCashAmounts
 });
 
 export default rebalancingReducer;

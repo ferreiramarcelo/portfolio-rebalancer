@@ -43,15 +43,10 @@ const TestAutoComplete = ({searchText, onUpdateInput, modelPortfolios, onItemTou
     }
     displayModelPortfolioComponents.push({
       text: '',
-      value: <MenuItem
-                       isGroup={isGroup}
-                       onTouchTap={onTouchTap}
-                       primaryText={displayModelPortfolioElement.displayName}
-                       leftIcon={leftIcon}
-                       rightIcon={rightIcon}
-                       className={cx('model-portfolios-auto-complete-menu-item',
-                                     'model-portfolios-auto-complete-menu-item-level-' + (displayModelPortfolioElement.position.length - 1).toString(),
-                                     displayClass)} />
+      value: <MenuItem isGroup={ isGroup } onTouchTap={ onTouchTap } primaryText={ displayModelPortfolioElement.displayName } leftIcon={ leftIcon } rightIcon={ rightIcon }
+               className={ cx('model-portfolios-auto-complete-menu-item',
+                             'model-portfolios-auto-complete-menu-item-level-' + (displayModelPortfolioElement.position.length - 1).toString(),
+                             displayClass) } />
     });
     if (displayModelPortfolioElement.children) {
       if (displayModelPortfolioElement.open) {
@@ -77,11 +72,7 @@ const TestAutoComplete = ({searchText, onUpdateInput, modelPortfolios, onItemTou
       const leftIcon = isDefault ? <SocialGroup /> : <EditorModeEdit />;
       displayModelPortfolioComponents.push({
         text: modelPortfolio.name,
-        value: <MenuItem
-                         onTouchTap={onTouchTap}
-                         primaryText={modelPortfolio.name}
-                         leftIcon={leftIcon}
-                         className={cx('model-portfolios-auto-complete-menu-item')} />
+        value: <MenuItem onTouchTap={ onTouchTap } primaryText={ modelPortfolio.name } leftIcon={ leftIcon } className={ cx('model-portfolios-auto-complete-menu-item') } />
       });
     }
   };
@@ -105,18 +96,9 @@ const TestAutoComplete = ({searchText, onUpdateInput, modelPortfolios, onItemTou
   const displayModelPortfolioComponents = getDisplayModelPortfoliosComponents(searchText, modelPortfolios);
 
   return (
-    <AutoComplete
-                searchText={searchText}
-                onUpdateInput={onUpdateInput}
-                floatingLabelText="Select model portfolio..."
-                filter={AutoComplete.fuzzyFilter}
-                menuCloseDelay={50}
-                openOnFocus
-                dataSource={displayModelPortfolioComponents}
-                open={false}
-                onNewRequest={handleOnNewRequest}
-                fullWidth />
-  );
+    <AutoComplete searchText={ searchText } onUpdateInput={ onUpdateInput } floatingLabelText="Select model portfolio..." filter={ AutoComplete.fuzzyFilter } menuCloseDelay={ 50 }
+      openOnFocus dataSource={ displayModelPortfolioComponents } open={ false } onNewRequest={ handleOnNewRequest } fullWidth />
+    );
 };
 
 TestAutoComplete.propTypes = {

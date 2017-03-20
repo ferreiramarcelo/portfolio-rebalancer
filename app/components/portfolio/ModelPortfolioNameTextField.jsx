@@ -7,16 +7,9 @@ const ModelPortfolioNameTextField = ({value, errorText, onChange}) => {
   };
 
   return (
-    <TextField
-             value={value}
-             errorText={errorText}
-             onChange={handleOnChange}
-             hintText="Model Portfolio Name"
-             fullWidth
-             errorStyle={{ float: 'left' }}
-             inputStyle={{ textAlign: 'center', }}
-             hintStyle={{ textAlign: 'center', }} />
-  );
+    <TextField value={ value } errorText={ errorText } onChange={ handleOnChange } hintText="Model Portfolio Name" fullWidth errorStyle={ { float: 'left' } }
+      inputStyle={ { textAlign: 'center', } } hintStyle={ { textAlign: 'center', } } />
+    );
 };
 
 ModelPortfolioNameTextField.propTypes = {

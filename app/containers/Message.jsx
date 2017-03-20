@@ -14,8 +14,8 @@ const Message = ({open, response, email, requestClose, sendVerificationEmail, se
     switch (response) {
       case constants.RESPONSE_SEND_VERIFICATION_EMAIL_SUCCESS:
         return 'Verification email sent to ' + email;
-        case constants.RESPONSE_SEND_VERIFICATION_EMAIL_FAILURE:
-          return 'Failed to send verification email to ' + email;
+      case constants.RESPONSE_SEND_VERIFICATION_EMAIL_FAILURE:
+        return 'Failed to send verification email to ' + email;
       case constants.RESPONSE_LOG_IN_EMAIL_NOT_VERIFIED:
         return 'Email not verified';
       case constants.RESPONSE_VERIFY_INVALID_VERIFICATION_TOKEN:
@@ -30,7 +30,7 @@ const Message = ({open, response, email, requestClose, sendVerificationEmail, se
         return 'Failed to send password reset email';
       case constants.RESPONSE_SEND_VERIFICATION_EMAIL_NOT_FOUND:
         return 'Account not found';
-        case constants.RESPONSE_PASSWORD_RESET_SUCCESS:
+      case constants.RESPONSE_PASSWORD_RESET_SUCCESS:
         return 'Password change successful';
       default:
         return '';
@@ -74,13 +74,8 @@ const Message = ({open, response, email, requestClose, sendVerificationEmail, se
 
   const getSnackbar = function getSnackbar() {
     if (message.length > 0) {
-      return (<Snackbar
-                    open={open}
-                    message={message}
-                    autoHideDuration={4000}
-                    onRequestClose={requestClose}
-                    action={actionLabel}
-                    onActionTouchTap={handleOnAction} />);
+      return (<Snackbar open={ open } message={ message } autoHideDuration={ 4000 } onRequestClose={ requestClose } action={ actionLabel }
+                onActionTouchTap={ handleOnAction } />);
     }
     return null;
   };
@@ -88,9 +83,9 @@ const Message = ({open, response, email, requestClose, sendVerificationEmail, se
 
   return (
     <div>
-      {snackbar}
+      { snackbar }
     </div>
-  );
+    );
 };
 
 Message.propTypes = {

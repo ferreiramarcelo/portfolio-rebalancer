@@ -38,14 +38,14 @@ export default (store) => {
   };
 
   return (
-    <Route path="/" component={App}>
-      <IndexRoute component={PortfolioRebalancer} fetchData={FetchData.fetchPortfolioRebalancerData} />
-      <Route path="/about" component={About} />
-      <Route path="/login" component={Authentication} onEnter={redirectIfAuthenticated} />
-      <Route path="/register" component={Register} onEnter={redirectIfAuthenticated} />
-      <Route path="/account" component={Account} onEnter={redirectIfNotAuthenticated} />
-      <Route path="/verify/:token" component={PortfolioRebalancer} onEnter={onEnterVerify} />
-      <Route path="/reset/:token" component={ResetPassword} onEnter={onEnterReset} />
+    <Route path="/" component={ App }>
+      <IndexRoute component={ PortfolioRebalancer } fetchData={ FetchData.fetchPortfolioRebalancerData } />
+      <Route path="/about" component={ About } />
+      <Route path="/login" component={ Authentication } onEnter={ redirectIfAuthenticated } />
+      <Route path="/register" component={ Register } onEnter={ redirectIfAuthenticated } />
+      <Route path="/account" component={ Account } onEnter={ redirectIfNotAuthenticated } />
+      <Route path="/verify/:token" component={ PortfolioRebalancer } onEnter={ onEnterVerify } />
+      <Route path="/reset/:token" component={ ResetPassword } onEnter={ onEnterReset } />
     </Route>
     );
 };

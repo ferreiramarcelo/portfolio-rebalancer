@@ -37,15 +37,15 @@ const muiTheme = getMuiTheme({
 });
 
 const App = ({children}) => {
-  return (<MuiThemeProvider muiTheme={muiTheme}>
-    <div className={cx('app')}>
-      <Navigation tab={children.props.location.pathname.slice(1, children.props.location.pathname.length)} />
-      <Message />
-      <div className={cx('app-children')}>
-        { children }
-      </div>
-    </div>
-  </MuiThemeProvider>);
+  return (<MuiThemeProvider muiTheme={ muiTheme }>
+            <div className={ cx('app') }>
+              <Navigation tab={ children.props.location.pathname.slice(1, children.props.location.pathname.length) } />
+              <Message />
+              <div className={ cx('app-children') }>
+                { children }
+              </div>
+            </div>
+          </MuiThemeProvider>);
 };
 
 App.propTypes = {

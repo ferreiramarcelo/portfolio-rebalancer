@@ -40,7 +40,10 @@ describe('Rebalancing Reducer', () => {
       cashStillMissing: 0,
       balanceByInvesting: [],
       balanceByDisvesting: [],
-      balanceByAdjusting: []
+      balanceByAdjusting: [],
+      valueAdditionPerSecurity: [],
+      valueReductionPerSecurity: [],
+      valueAdjustmentsPerSecurity: []
     }
   };
   it('REBALANCING 4: should handle GENERATE_STEPS with empty data provided', () => {
@@ -77,7 +80,10 @@ describe('Rebalancing Reducer', () => {
         1000
       ],
       balanceByDisvesting: [],
-      balanceByAdjusting: []
+      balanceByAdjusting: [],
+      valueAdditionPerSecurity: [10000],
+      valueReductionPerSecurity: [],
+      valueAdjustmentsPerSecurity: []
     }
   };
   it('REBALANCING 5: should handle GENERATE_STEPS with one security portfolio provided', () => {
@@ -130,7 +136,10 @@ describe('Rebalancing Reducer', () => {
       balanceByAdjusting: [
         547,
         -57
-      ]
+      ],
+      valueAdditionPerSecurity: [6343.23],
+      valueReductionPerSecurity: [],
+      valueAdjustmentsPerSecurity: []
     }
   };
   it('REBALANCING 6: should handle GENERATE_STEPS with positive investment and two security portfolio provided', () => {
@@ -197,7 +206,10 @@ describe('Rebalancing Reducer', () => {
         5365,
         -98873,
         95
-      ]
+      ],
+      valueAdditionPerSecurity: [],
+      valueReductionPerSecurity: [],
+      valueAdjustmentsPerSecurity: []
     }
   };
   it('REBALANCING 7: should handle GENERATE_STEPS with negative investment and two security portfolio provided', () => {
@@ -211,42 +223,42 @@ describe('Rebalancing Reducer', () => {
   });
 
   const portfolio8 = [
-      {
-        symbol: '1',
-        allocation: 0,
-        price: 10,
-        units: 35
-      },
-      {
-        symbol: '2',
-        allocation: 20,
-        price: 10,
-        units: 20
-      },
-      {
-        symbol: '3',
-        allocation: 20,
-        price: 20,
-        units: 8
-      },
-      {
-        symbol: '4',
-        allocation: 20,
-        price: 40,
-        units: 5
-      },
-      {
-        symbol: '5',
-        allocation: 20,
-        price: 5,
-        units: 40
-      },
-      {
-        symbol: '6',
-        allocation: 20,
-        price: 10,
-        units: 22
-      },
+    {
+      symbol: '1',
+      allocation: 0,
+      price: 10,
+      units: 35
+    },
+    {
+      symbol: '2',
+      allocation: 20,
+      price: 10,
+      units: 20
+    },
+    {
+      symbol: '3',
+      allocation: 20,
+      price: 20,
+      units: 8
+    },
+    {
+      symbol: '4',
+      allocation: 20,
+      price: 40,
+      units: 5
+    },
+    {
+      symbol: '5',
+      allocation: 20,
+      price: 5,
+      units: 40
+    },
+    {
+      symbol: '6',
+      allocation: 20,
+      price: 10,
+      units: 22
+    },
   ];
   const investmentAmount8 = 540;
   const portfolioResult8 = {
@@ -298,8 +310,7 @@ describe('Rebalancing Reducer', () => {
         20,
         8
       ],
-      balanceByDisvesting: [
-      ],
+      balanceByDisvesting: [],
       balanceByAdjusting: [
         -35,
         7,
@@ -307,7 +318,10 @@ describe('Rebalancing Reducer', () => {
         2,
         14,
         7
-      ]
+      ],
+      valueAdditionPerSecurity: [],
+      valueReductionPerSecurity: [],
+      valueAdjustmentsPerSecurity: []
     }
   };
   it('REBALANCING 8: should handle GENERATE_STEPS with positive investment and six security portfolio provided', () => {
@@ -321,30 +335,30 @@ describe('Rebalancing Reducer', () => {
   });
 
   const portfolio9 = [
-      {
-        symbol: 'A',
-        allocation: 94,
-        price: 10,
-        units: 7
-      },
-      {
-        symbol: 'B',
-        allocation: 2,
-        price: 4.5,
-        units: 54.34
-      },
-      {
-        symbol: 'C',
-        allocation: 3,
-        price: 1,
-        units: 32423
-      },
-      {
-        symbol: 'D',
-        allocation: 1,
-        price: 2,
-        units: 432
-      },
+    {
+      symbol: 'A',
+      allocation: 94,
+      price: 10,
+      units: 7
+    },
+    {
+      symbol: 'B',
+      allocation: 2,
+      price: 4.5,
+      units: 54.34
+    },
+    {
+      symbol: 'C',
+      allocation: 3,
+      price: 1,
+      units: 32423
+    },
+    {
+      symbol: 'D',
+      allocation: 1,
+      price: 2,
+      units: 432
+    },
   ];
   const investmentAmount9 = 0;
   const portfolioResult9 = {
@@ -376,16 +390,17 @@ describe('Rebalancing Reducer', () => {
         },
       ],
       cashStillMissing: 0,
-      balanceByInvesting: [
-      ],
-      balanceByDisvesting: [
-      ],
+      balanceByInvesting: [],
+      balanceByDisvesting: [],
       balanceByAdjusting: [
         3151,
         95,
         -31414,
         -263,
-      ]
+      ],
+      valueAdditionPerSecurity: [],
+      valueReductionPerSecurity: [],
+      valueAdjustmentsPerSecurity: []
     }
   };
   it('REBALANCING 8: should handle GENERATE_STEPS with zero investment and four security portfolio provided', () => {

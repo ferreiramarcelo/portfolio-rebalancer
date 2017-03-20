@@ -16,13 +16,9 @@ const InvestmentAmountTextField = ({value, dirty, errorText, hintText, onChange}
   };
 
   return (
-    <TextField
-             value={displayValue}
-             errorText={errorText}
-             hintText={hintText}
-             onChange={handleOnChange}
-             errorStyle={{ float: 'left' }} />
-  );
+    <TextField value={ displayValue } errorText={ errorText } hintText={ hintText } onChange={ handleOnChange } errorStyle={ { float: 'left' } }
+    />
+    );
 };
 
 InvestmentAmountTextField.propTypes = {

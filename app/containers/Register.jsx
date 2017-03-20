@@ -25,23 +25,12 @@ class Register extends React.Component {
     switch (this.props.authentication.registrationStatus) {
       case constants.IS_PROCESSING:
         return (<div>
-          <RaisedButton
-                                type="submit"
-                                label="REGISTERING..."
-                                fullWidth
-                                primary
-                                disabled
-                                className={cx('submit-button')} />
-          <LinearProgress mode="indeterminate" />
-        </div>);
+                  <RaisedButton type="submit" label="REGISTERING..." fullWidth primary disabled className={ cx('submit-button') } />
+                  <LinearProgress mode="indeterminate" />
+                </div>);
       case constants.NOT_PROCESSING:
       default:
-        return (<RaisedButton
-                              type="submit"
-                              label="REGISTER"
-                              fullWidth
-                              primary
-                              className={cx('submit-button')} />);
+        return (<RaisedButton type="submit" label="REGISTER" fullWidth primary className={ cx('submit-button') } />);
     }
   }
 
@@ -53,47 +42,30 @@ class Register extends React.Component {
   render() {
     return (
       <div>
-        <div className={cx('google-login-button-container')}>
-          <RaisedButton
-                      href="/auth/google"
-                      label="LOG IN WITH GOOGLE"
-                      primary
-                      fullWidth
-                      icon={<FontAwesome
-                                          name="google"
-                                          className={cx('google-icon')} />} />
+        <div className={ cx('google-login-button-container') }>
+          <RaisedButton href="/auth/google" label="LOG IN WITH GOOGLE" primary fullWidth icon={ <FontAwesome name="google" className={ cx('google-icon') } /> } />
         </div>
-        <p className={cx('or-prompt')}>
-        OR
-      </p>
-        <Paper className={cx('paper')}>
-          <div className={cx('paper-insides')}>
-            <form onSubmit={this.handleOnRegister}>
-              <span className={cx('sub-header-2')}>Register with email</span>
-              <RegistrationEmailTextField
-                                        emailTextField={this.props.authentication.emailTextField}
-                                        emailTextFieldSelect={this.props.authenticationSelect.registrationEmailTextFieldSelect}
-                                        onChange={this.props.emailTextFieldChange} />
-              <PasswordTextField
-                               passwordTextField={this.props.authentication.passwordTextField}
-                               passwordTextFieldSelect={this.props.authenticationSelect.passwordTextFieldSelect}
-                               onChange={this.props.passwordTextFieldChange}
-                               label={'Password'} />
-              <PasswordTextField
-                               passwordTextField={this.props.authentication.passwordConfirmationTextField}
-                               passwordTextFieldSelect={this.props.authenticationSelect.passwordConfirmationTextFieldSelect}
-                               onChange={this.props.passwordConfirmationTextFieldChange}
-                               label={'Confirm password'} />
-              <span
-className={cx('message', {
-                                'message-show': this.props.user.message.value && this.props.user.message.value.length > 0
-                              })}>{ this.props.user.message.value }</span>
+        <p className={ cx('or-prompt') }>
+          OR
+        </p>
+        <Paper className={ cx('paper') }>
+          <div className={ cx('paper-insides') }>
+            <form onSubmit={ this.handleOnRegister }>
+              <span className={ cx('sub-header-2') }>Register with email</span>
+              <RegistrationEmailTextField emailTextField={ this.props.authentication.emailTextField } emailTextFieldSelect={ this.props.authenticationSelect.registrationEmailTextFieldSelect } onChange={ this.props.emailTextFieldChange } />
+              <PasswordTextField passwordTextField={ this.props.authentication.passwordTextField } passwordTextFieldSelect={ this.props.authenticationSelect.passwordTextFieldSelect } onChange={ this.props.passwordTextFieldChange } label={ 'Password' }
+              />
+              <PasswordTextField passwordTextField={ this.props.authentication.passwordConfirmationTextField } passwordTextFieldSelect={ this.props.authenticationSelect.passwordConfirmationTextFieldSelect } onChange={ this.props.passwordConfirmationTextFieldChange } label={ 'Confirm password' }
+              />
+              <span className={ cx('message', {
+                                  'message-show': this.props.user.message.value && this.props.user.message.value.length > 0
+                                }) }>{ this.props.user.message.value }</span>
               { this.getRegisterButton() }
             </form>
           </div>
         </Paper>
       </div>
-    );
+      );
   }
 }
 

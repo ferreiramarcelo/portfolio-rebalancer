@@ -15,7 +15,6 @@ const StepsList = ({rebalancingSteps}) => {
       const investmentSteps = [];
       const disvestmentSteps = [];
       const adjustmentSteps = [];
-      stepsList.push(<h3 key={'stepsListHeader'}>Steps List</h3>);
 
       let invested = false;
       let disvested = false;
@@ -23,18 +22,21 @@ const StepsList = ({rebalancingSteps}) => {
       let stepNumber = 1;
       if (givenRebalancingSteps.cashStillMissing) {
         stepsList.push(<p key="sellEverythingStep">
-                          Sell the entire portfolio. You will still be missing $
-                          { formatMoneyAmount(givenRebalancingSteps.cashStillMissing) }.
-                        </p>);
+                         Sell the entire portfolio. You will still be missing $
+                         { formatMoneyAmount(givenRebalancingSteps.cashStillMissing) }.
+                       </p>);
         return stepsList;
       }
       if (givenRebalancingSteps.balanceByInvesting.length > 0) {
         for (let i = 0; i < givenRebalancingSteps.portfolio.length; i++) {
           if (givenRebalancingSteps.balanceByInvesting[i] > 0) {
-            investmentSteps.push(<p key={'investment' + i}>
-              { stepNumber }. Buy { formatUnitsAmount(givenRebalancingSteps.balanceByInvesting[i]) } unit{givenRebalancingSteps.balanceByInvesting[i] > 1 ? 's' : ''}
-               &nbsp;of { givenRebalancingSteps.portfolio[i].symbol } (Spend ${formatMoneyAmount(givenRebalancingSteps.valueAdditionPerSecurity[i])})
-            </p>);
+            investmentSteps.push(<p key={ 'investment' + i }>
+                                   { stepNumber }. {'Buy '}
+                                   { formatUnitsAmount(givenRebalancingSteps.balanceByInvesting[i]) } unit
+                                   { givenRebalancingSteps.balanceByInvesting[i] > 1 ? 's' : '' }  {'of '}
+                                   { givenRebalancingSteps.portfolio[i].symbol } (Spend $
+                                   { formatMoneyAmount(givenRebalancingSteps.valueAdditionPerSecurity[i]) })
+                                 </p>);
             stepNumber++;
           }
         }
@@ -46,10 +48,13 @@ const StepsList = ({rebalancingSteps}) => {
       if (givenRebalancingSteps.balanceByDisvesting.length > 0) {
         for (let i = 0; i < givenRebalancingSteps.portfolio.length; i++) {
           if (givenRebalancingSteps.balanceByDisvesting[i] > 0) {
-            disvestmentSteps.push(<p key={'disvestment' + i}>
-              { stepNumber }. Sell { formatUnitsAmount(givenRebalancingSteps.balanceByDisvesting[i]) } unit{givenRebalancingSteps.balanceByDisvesting[i] > 1 ? 's' : ''}
-               &nbsp;of { givenRebalancingSteps.portfolio[i].symbol } (Gain ${formatMoneyAmount(-givenRebalancingSteps.valueReductionPerSecurity[i])})
-            </p>);
+            disvestmentSteps.push(<p key={ 'disvestment' + i }>
+                                    { stepNumber }. {'Sell '}
+                                    { formatUnitsAmount(givenRebalancingSteps.balanceByDisvesting[i]) } unit
+                                    { givenRebalancingSteps.balanceByDisvesting[i] > 1 ? 's' : '' }  {'of '}
+                                    { givenRebalancingSteps.portfolio[i].symbol } (Gain $
+                                    { formatMoneyAmount(-givenRebalancingSteps.valueReductionPerSecurity[i]) })
+                                  </p>);
             stepNumber++;
           }
         }
@@ -61,19 +66,25 @@ const StepsList = ({rebalancingSteps}) => {
       if (givenRebalancingSteps.balanceByAdjusting.length > 0) {
         for (let i = 0; i < givenRebalancingSteps.portfolio.length; i++) {
           if (givenRebalancingSteps.balanceByAdjusting[i] < 0) {
-            adjustmentSteps.push(<p key={'positiveAdjustment' + i}>
-              { stepNumber }. Sell { formatUnitsAmount(-givenRebalancingSteps.balanceByAdjusting[i]) } unit{givenRebalancingSteps.balanceByAdjusting[i] < 1 ? 's' : ''}
-               &nbsp;of { givenRebalancingSteps.portfolio[i].symbol } (Gain ${formatMoneyAmount(-givenRebalancingSteps.valueAdjustmentsPerSecurity[i])})
-            </p>);
+            adjustmentSteps.push(<p key={ 'positiveAdjustment' + i }>
+                                   { stepNumber }. {'Sell '}
+                                   { formatUnitsAmount(-givenRebalancingSteps.balanceByAdjusting[i]) } unit
+                                   { givenRebalancingSteps.balanceByAdjusting[i] < 1 ? 's' : '' }  {'of '}
+                                   { givenRebalancingSteps.portfolio[i].symbol } (Gain $
+                                   { formatMoneyAmount(-givenRebalancingSteps.valueAdjustmentsPerSecurity[i]) })
+                                 </p>);
             stepNumber++;
           }
         }
         for (let i = 0; i < givenRebalancingSteps.portfolio.length; i++) {
           if (givenRebalancingSteps.balanceByAdjusting[i] > 0) {
-            adjustmentSteps.push(<p key={'negativeAdjustment' + i}>
-              { stepNumber }. Buy { formatUnitsAmount(givenRebalancingSteps.balanceByAdjusting[i]) } unit{givenRebalancingSteps.balanceByAdjusting[i] > 1 ? 's' : ''}
-               &nbsp;of { givenRebalancingSteps.portfolio[i].symbol } (Spend ${formatMoneyAmount(givenRebalancingSteps.valueAdjustmentsPerSecurity[i])})
-            </p>);
+            adjustmentSteps.push(<p key={ 'negativeAdjustment' + i }>
+                                   { stepNumber }. {'Buy '}
+                                   { formatUnitsAmount(givenRebalancingSteps.balanceByAdjusting[i]) } unit
+                                   { givenRebalancingSteps.balanceByAdjusting[i] > 1 ? 's' : '' }  {'of '}
+                                   { givenRebalancingSteps.portfolio[i].symbol } (Spend $
+                                   { formatMoneyAmount(givenRebalancingSteps.valueAdjustmentsPerSecurity[i]) })
+                                 </p>);
             stepNumber++;
           }
         }
@@ -112,7 +123,7 @@ const StepsList = ({rebalancingSteps}) => {
     <div>
       { stepsListElements }
     </div>
-  );
+    );
 };
 
 StepsList.propTypes = {

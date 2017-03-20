@@ -15,21 +15,14 @@ const DeleteModelPortfolioButton = ({id, deleteModelPortfolio, visibility}) => {
   const getDeleteModelPortfolioButton = function getDeleteModelPortfolioButton(givenVisbility, onClicktion) {
     switch (givenVisbility) {
       case 'visible':
-        return (<IconButton
-                    onClick={onClicktion}
-                    touch
-                    className={cx('delete-model-portfolio-button')}>
-          <ActionDeleteForever />
-        </IconButton>);
+        return (<IconButton onClick={ onClicktion } touch className={ cx('delete-model-portfolio-button') }>
+                  <ActionDeleteForever />
+                </IconButton>);
       case 'disabled':
-        return (<IconButton
-                    disabled
-                    onClick={onClicktion}
-                    touch
-                    className={cx('delete-model-portfolio-button')}>
-          <ActionDeleteForever />
-        </IconButton>
-        );
+        return (<IconButton disabled onClick={ onClicktion } touch className={ cx('delete-model-portfolio-button') }>
+                  <ActionDeleteForever />
+                </IconButton>
+          );
       case 'hidden':
       default:
         return null;
@@ -39,18 +32,15 @@ const DeleteModelPortfolioButton = ({id, deleteModelPortfolio, visibility}) => {
   const deleteModelPortfolioButton = getDeleteModelPortfolioButton(visibility, handleOnClick);
 
   return (
-    <div
-       data-tip
-       data-for="deleteModelPortfolioButtonTooltip"
-       className={cx('delete-model-portfolio-button-container')}>
+    <div data-tip data-for="deleteModelPortfolioButtonTooltip" className={ cx('delete-model-portfolio-button-container') }>
       { deleteModelPortfolioButton }
       <ReactTooltip id="deleteModelPortfolioButtonTooltip">
         <p>
-        Delete
-      </p>
+          Delete
+        </p>
       </ReactTooltip>
     </div>
-  );
+    );
 };
 
 DeleteModelPortfolioButton.propTypes = {

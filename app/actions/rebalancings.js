@@ -36,3 +36,21 @@ export function setScrolledToBttom() {
     type: types.SET_SCROLLED_TO_BOTTOM
   };
 }
+
+export function changeShowWholeUnits() {
+  return {
+    type: types.CHANGE_SHOW_WHOLE_UNITS
+  };
+}
+
+export function changeShowPartialUnits() {
+  return {
+    type: types.CHANGE_SHOW_PARTIAL_UNITS
+  };
+}
+
+export function changeShowCashAmounts() {
+  return {
+    type: types.CHANGE_SHOW_CASH_AMOUNTS
+  };
+}

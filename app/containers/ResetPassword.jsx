@@ -24,20 +24,13 @@ class ResetPassword extends React.Component {
 
   getChangePasswordForm() {
     return (
-      <Paper className={cx('paper')}>
-        <div className={cx('paper-insides')}>
-          <form onSubmit={this.handleOnChangePassword}>
+      <Paper className={ cx('paper') }>
+        <div className={ cx('paper-insides') }>
+          <form onSubmit={ this.handleOnChangePassword }>
             <span>Reset your password</span>
-            <PasswordTextField
-                             passwordTextField={this.props.authentication.passwordTextField}
-                             passwordTextFieldSelect={this.props.authenticationSelect.passwordTextFieldSelect}
-                             onChange={this.props.passwordTextFieldChange}
-                             label={'New password'} />
-            <PasswordTextField
-                             passwordTextField={this.props.authentication.passwordConfirmationTextField}
-                             passwordTextFieldSelect={this.props.authenticationSelect.passwordConfirmationTextFieldSelect}
-                             onChange={this.props.passwordConfirmationTextFieldChange}
-                             label={'Confirm new password'} />
+            <PasswordTextField passwordTextField={ this.props.authentication.passwordTextField } passwordTextFieldSelect={ this.props.authenticationSelect.passwordTextFieldSelect } onChange={ this.props.passwordTextFieldChange } label={ 'New password' } />
+            <PasswordTextField passwordTextField={ this.props.authentication.passwordConfirmationTextField } passwordTextFieldSelect={ this.props.authenticationSelect.passwordConfirmationTextFieldSelect } onChange={ this.props.passwordConfirmationTextFieldChange } label={ 'Confirm new password' }
+            />
             <span>{ this.props.user.message.value }</span>
             { this.getChangePasswordButton() }
           </form>
@@ -49,23 +42,12 @@ class ResetPassword extends React.Component {
     switch (this.props.authentication.passwordChangeStatus) {
       case constants.IS_PROCESSING:
         return (<div>
-          <RaisedButton
-                                type="submit"
-                                label="CHANGING PASSWORD..."
-                                fullWidth
-                                primary
-                                disabled
-                                className={cx('submit-button')} />
-          <LinearProgress mode="indeterminate" />
-        </div>);
+                  <RaisedButton type="submit" label="CHANGING PASSWORD..." fullWidth primary disabled className={ cx('submit-button') } />
+                  <LinearProgress mode="indeterminate" />
+                </div>);
       case constants.NOT_PROCESSING:
       default:
-        return (<RaisedButton
-                              type="submit"
-                              label="CHANGE PASSWORD"
-                              fullWidth
-                              primary
-                              className={cx('submit-button')} />);
+        return (<RaisedButton type="submit" label="CHANGE PASSWORD" fullWidth primary className={ cx('submit-button') } />);
     }
   }
 
@@ -77,24 +59,19 @@ class ResetPassword extends React.Component {
   render() {
     switch (this.props.authentication.getPasswordResetTokenValidityStatus) {
       case constants.IS_PROCESSING:
-        return (<Paper className={cx('paper')}>
-          <div className={cx('paper-insides')}>
-            <span className={cx('block')}>Verifying password reset token...</span>
-            <CircularProgress
-                                      size={100}
-                                      thickness={6} />
-          </div>
-        </Paper>);
+        return (<Paper className={ cx('paper') }>
+                  <div className={ cx('paper-insides') }>
+                    <span className={ cx('block') }>Verifying password reset token...</span>
+                    <CircularProgress size={ 100 } thickness={ 6 } />
+                  </div>
+                </Paper>);
       case constants.PROCESS_FAILED:
-        return (<Paper className={cx('paper')}>
-          <div className={cx('paper-insides')}>
-            <span>Password reset token appears to be expired.</span>
-            <FlatButton
-                                label="BACK TO LOGIN"
-                                secondary
-                                containerElement={<Link to="/login" />} />
-          </div>
-        </Paper>);
+        return (<Paper className={ cx('paper') }>
+                  <div className={ cx('paper-insides') }>
+                    <span>Password reset token appears to be expired.</span>
+                    <FlatButton label="BACK TO LOGIN" secondary containerElement={ <Link to="/login" /> } />
+                  </div>
+                </Paper>);
       case constants.PROCESS_SUCCEDEED:
         return this.getChangePasswordForm();
       case constants.NOT_PROCESSING:

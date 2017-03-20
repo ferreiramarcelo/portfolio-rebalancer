@@ -82,41 +82,29 @@ const ModelPortfoliosAutoComplete = ({searchText, onUpdateInput, modelPortfolios
       case 'USER_MODEL_PORTFOLIOS_GROUP':
         return {
           text: '',
-          value: (<MenuItem
-                            disabled
-                            primaryText="Custom Model Portfolios" />)
+          value: (<MenuItem disabled primaryText="Custom Model Portfolios" />)
         };
       case 'DEFAULT_MODEL_PORTFOLIOS_GROUP':
         return {
           text: '',
-          value: (<MenuItem
-                            disabled
-                            primaryText="Default Model Portfolios" />)
+          value: (<MenuItem disabled primaryText="Default Model Portfolios" />)
         };
       default:
         switch (modelPortfolio.isCustom) {
           case 0:
             return {
               text: modelPortfolio.name,
-              value: (<MenuItem
-                                primaryText={modelPortfolio.name}
-                                leftIcon={<ActionGroupWork />}
-                                className={cx('model-portfolios-auto-complete-menu-item')} />)
+              value: (<MenuItem primaryText={ modelPortfolio.name } leftIcon={ <ActionGroupWork /> } className={ cx('model-portfolios-auto-complete-menu-item') } />)
             };
           case 1:
             return {
               text: modelPortfolio.name,
-              value: (<MenuItem
-                                primaryText={modelPortfolio.name}
-                                leftIcon={<EditorModeEdit />}
-                                className={cx('model-portfolios-auto-complete-menu-item')} />)
+              value: (<MenuItem primaryText={ modelPortfolio.name } leftIcon={ <EditorModeEdit /> } className={ cx('model-portfolios-auto-complete-menu-item') } />)
             };
           default:
             return {
               text: modelPortfolio.name,
-              value: (<MenuItem
-                                primaryText={modelPortfolio.name}
-                                className={cx('model-portfolios-auto-complete-menu-item')} />)
+              value: (<MenuItem primaryText={ modelPortfolio.name } className={ cx('model-portfolios-auto-complete-menu-item') } />)
             };
         }
     }
@@ -138,18 +126,11 @@ const ModelPortfoliosAutoComplete = ({searchText, onUpdateInput, modelPortfolios
   };
 
   return (
-    <div className={cx('model-portfolios-auto-complete-container')}>
-      <AutoComplete
-                  searchText={searchText}
-                  onUpdateInput={onUpdateInput}
-                  dataSource={displayModelPortfoliosElements}
-                  onNewRequest={handleOnNewRequest}
-                  filter={AutoComplete.caseInsensitiveFilter}
-                  hintText="Select model portfolio..."
-                  openOnFocus
-                  fullWidth />
+    <div className={ cx('model-portfolios-auto-complete-container') }>
+      <AutoComplete searchText={ searchText } onUpdateInput={ onUpdateInput } dataSource={ displayModelPortfoliosElements } onNewRequest={ handleOnNewRequest } filter={ AutoComplete.caseInsensitiveFilter }
+        hintText="Select model portfolio..." openOnFocus fullWidth />
     </div>
-  );
+    );
 };
 
 ModelPortfoliosAutoComplete.propTypes = {

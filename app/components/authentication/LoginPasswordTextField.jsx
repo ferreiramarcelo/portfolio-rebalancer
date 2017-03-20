@@ -7,15 +7,9 @@ const LoginPasswordTextField = ({passwordTextField, passwordTextFieldSelect, onC
   };
 
   return (
-    <TextField
-             value={passwordTextField.value}
-             errorText={passwordTextFieldSelect.errorText}
-             onChange={handleOnChange}
-             floatingLabelText={label}
-             type="password"
-             fullWidth
-             errorStyle={{ float: 'left' }} />
-  );
+    <TextField value={ passwordTextField.value } errorText={ passwordTextFieldSelect.errorText } onChange={ handleOnChange } floatingLabelText={ label } type="password" fullWidth
+      errorStyle={ { float: 'left' } } />
+    );
 };
 
 LoginPasswordTextField.propTypes = {

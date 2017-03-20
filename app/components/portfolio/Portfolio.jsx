@@ -10,29 +10,18 @@ const cx = classNames.bind(styles);
 
 const Portfolio = ({selectedModelPortfolio, modelPortfolioNameTextFieldChange, portfolio, portfolioSelect, saveModelPortfolio, deleteModelPortfolio, addSecurity, removeSecurity, securityTextFieldChange, fetchPrice, currencies}) => {
   return (
-    <Paper className={cx('paper')}>
-      <div className={cx('portfolio-container')}>
-        <ModelPortfolioNameTextField
-                                   value={selectedModelPortfolio.name}
-                                   errorText={portfolioSelect.selectedModelPortfolioSelect.errorText}
-                                   onChange={modelPortfolioNameTextFieldChange} />
-        <PortfolioTable
-                      selectedModelPortfolio={selectedModelPortfolio}
-                      portfolio={portfolio}
-                      portfolioSelect={portfolioSelect}
-                      saveModelPortfolio={saveModelPortfolio}
-                      deleteModelPortfolio={deleteModelPortfolio}
-                      addSecurity={addSecurity}
-                      removeSecurity={removeSecurity}
-                      securityTextFieldChange={securityTextFieldChange}
-                      fetchPrice={fetchPrice}
-                      currencies={currencies} />
-        <div className={cx('add-security-container')}>
-          <AddSecurityButton addSecurity={addSecurity} />
+    <Paper className={ cx('paper') }>
+      <div className={ cx('portfolio-container') }>
+        <ModelPortfolioNameTextField value={ selectedModelPortfolio.name } errorText={ portfolioSelect.selectedModelPortfolioSelect.errorText } onChange={ modelPortfolioNameTextFieldChange } />
+        <PortfolioTable selectedModelPortfolio={ selectedModelPortfolio } portfolio={ portfolio } portfolioSelect={ portfolioSelect } saveModelPortfolio={ saveModelPortfolio }
+          deleteModelPortfolio={ deleteModelPortfolio } addSecurity={ addSecurity } removeSecurity={ removeSecurity } securityTextFieldChange={ securityTextFieldChange }
+          fetchPrice={ fetchPrice } currencies={ currencies } />
+        <div className={ cx('add-security-container') }>
+          <AddSecurityButton addSecurity={ addSecurity } />
         </div>
       </div>
     </Paper>
-  );
+    );
 };
 
 Portfolio.propTypes = {

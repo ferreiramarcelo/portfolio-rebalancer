@@ -19,15 +19,9 @@ const SymbolTextField = ({index, value, dirty, errorText, hintText, onChange}) =
   };
 
   return (
-    <TextField
-      id={'symbolTextField' + index}
-             value={displayValue}
-             errorText={errorText}
-             onChange={handleOnChange}
-             hintText={hintText}
-             errorStyle={{ float: 'left' }}
-             className={cx('security-text-field')} />
-  );
+    <TextField id={ 'symbolTextField' + index } value={ displayValue } errorText={ errorText } onChange={ handleOnChange } hintText={ hintText } errorStyle={ { float: 'left' } }
+      className={ cx('security-text-field') } />
+    );
 };
 
 SymbolTextField.propTypes = {

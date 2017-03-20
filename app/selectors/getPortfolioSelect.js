@@ -161,11 +161,11 @@ const getInvestmentAmountSelect = function getInvestmentAmountSelect(investmentA
   let hintText = '';
   let errorText = '';
   if (investmentAmount.value === '') {
-      errorText = 'Required';
-      valid = false;
+    errorText = 'Required';
+    valid = false;
   } else if (typeof number !== 'number' || isNaN(number) || !isFinite(number)) {
-      errorText = 'Number required';
-      valid = false;
+    errorText = 'Number required';
+    valid = false;
   }
   if (!investmentAmount.dirty) {
     hintText = '0';
@@ -194,7 +194,10 @@ const getSaveModelPortfolioButtonSelect = function getSaveModelPortfolioButtonSe
     visibility = 'visible';
     tooltip = 'Save';
   }
-  return {visibility, tooltip};
+  return {
+    visibility,
+    tooltip
+  };
 };
 
 const getDeleteModelPortfolioButtonVisibility = function getDeleteModelPortfolioButtonVisibility(authenticated, selectedModelPortfolio) {

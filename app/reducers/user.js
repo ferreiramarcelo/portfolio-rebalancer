@@ -25,11 +25,11 @@ const message = (state = {
             value: 'Invalid email and password comination.',
             type: constants.MESSAGE_FAILURE
           };
-          case constants.RESPONSE_LOG_IN_FAILURE_IS_GOOGLE:
-            return {
-              value: 'This account was registered through Google Sign In. Choose Continue with Google instead.  ',
-              type: constants.MESSAGE_FAILURE
-            };
+        case constants.RESPONSE_LOG_IN_FAILURE_IS_GOOGLE:
+          return {
+            value: 'This account was registered through Google Sign In. Choose Continue with Google instead.  ',
+            type: constants.MESSAGE_FAILURE
+          };
         default:
           return {
             value: 'Log in failed. Please try again later.',
@@ -56,11 +56,11 @@ const message = (state = {
             value: 'No account found for ' + action.email + '.',
             type: constants.MESSAGE_FAILURE
           };
-          case constants.RESPONSE_SEND_PASSWORD_RESET_IS_GOOGLE:
-            return {
-              value: action.email + ' was registered through Google Sign In. Continue with Google instead.',
-              type: constants.MESSAGE_FAILURE
-            };
+        case constants.RESPONSE_SEND_PASSWORD_RESET_IS_GOOGLE:
+          return {
+            value: action.email + ' was registered through Google Sign In. Continue with Google instead.',
+            type: constants.MESSAGE_FAILURE
+          };
         default:
           return {
             value: 'Failed to send the password reset email. Please try again later.',
@@ -89,10 +89,10 @@ const message = (state = {
             type: constants.MESSAGE_SUCCESS
           };
       }
-      case types.LOGIN_HASTY_USER:
-      case types.SIGNUP_HASTY_USER:
-      case types.SEND_PASSWORD_RESET_HASTY_USER:
-      case types.PASSWORD_CHANGE_HASTY_USER:
+    case types.LOGIN_HASTY_USER:
+    case types.SIGNUP_HASTY_USER:
+    case types.SEND_PASSWORD_RESET_HASTY_USER:
+    case types.PASSWORD_CHANGE_HASTY_USER:
       return {
         value: 'Please fill in the fields.',
         type: constants.MESSAGE_FAILURE

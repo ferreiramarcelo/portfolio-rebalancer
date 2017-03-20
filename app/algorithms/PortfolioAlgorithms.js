@@ -94,7 +94,7 @@ export function getValuesForDisvesting(investmentAmount, valuePerSecurityCurrent
       reductionPerSecurity = cashRemainingToGet / (lastSecurityToRemoveFromIndex + 1);
     }
     for (let currentSecurityToAddTo = 0; currentSecurityToAddTo <= lastSecurityToRemoveFromIndex; currentSecurityToAddTo++) {
-      valueDifferencePerSecurity[currentSecurityToAddTo][1] =  Number((valueDifferencePerSecurity[currentSecurityToAddTo][1] - reductionPerSecurity).toPrecision(12));
+      valueDifferencePerSecurity[currentSecurityToAddTo][1] = Number((valueDifferencePerSecurity[currentSecurityToAddTo][1] - reductionPerSecurity).toPrecision(12));
       valueReductionPerSecurity[valueDifferencePerSecurity[currentSecurityToAddTo][0]] -= reductionPerSecurity;
       cashRemainingToGet = Number((cashRemainingToGet - reductionPerSecurity).toPrecision(12));
     }

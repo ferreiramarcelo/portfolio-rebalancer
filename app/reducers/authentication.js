@@ -63,12 +63,12 @@ const emailTextField = (state = {
     case types.SIGNUP_SUCCESS_USER:
     case types.LOGOUT_SUCCESS_USER:
       return {
-          value: '',
-          dirty: false,
-          timeout: null,
-          validationStatus: constants.NOT_VALIDATING,
-          validatedOnce: false
-        };
+        value: '',
+        dirty: false,
+        timeout: null,
+        validationStatus: constants.NOT_VALIDATING,
+        validatedOnce: false
+      };
     default:
       return state;
   }
@@ -91,9 +91,9 @@ const passwordTextField = (state = {
         value: action.value,
         dirty: 1
       };
-      case types.LOGIN_SUCCESS_USER:
-      case types.SIGNUP_SUCCESS_USER:
-      case types.LOGOUT_SUCCESS_USER:
+    case types.LOGIN_SUCCESS_USER:
+    case types.SIGNUP_SUCCESS_USER:
+    case types.LOGOUT_SUCCESS_USER:
       return {
         value: '',
         dirty: 0
@@ -119,9 +119,9 @@ const passwordConfirmationTextField = (state = {
         value: action.value,
         dirty: 1
       };
-      case types.LOGIN_SUCCESS_USER:
-      case types.SIGNUP_SUCCESS_USER:
-      case types.LOGOUT_SUCCESS_USER:
+    case types.LOGIN_SUCCESS_USER:
+    case types.SIGNUP_SUCCESS_USER:
+    case types.LOGOUT_SUCCESS_USER:
       return {
         value: '',
         dirty: 0
@@ -148,9 +148,9 @@ const currentPasswordTextField = (state = {
         value: action.value,
         dirty: 1
       };
-      case types.LOGIN_SUCCESS_USER:
-      case types.SIGNUP_SUCCESS_USER:
-      case types.LOGOUT_SUCCESS_USER:
+    case types.LOGIN_SUCCESS_USER:
+    case types.SIGNUP_SUCCESS_USER:
+    case types.LOGOUT_SUCCESS_USER:
       return {
         value: '',
         dirty: 0

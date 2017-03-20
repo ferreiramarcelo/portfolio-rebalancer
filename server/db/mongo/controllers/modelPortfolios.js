@@ -1,6 +1,5 @@
 import _ from 'lodash';
 import ModelPortfolio from '../models/modelPortfolio';
-import ModelPortfolioGroup from '../models/modelPortfolioGroup';
 
 export function all(req, res) {
   ModelPortfolio.find({}).exec((err, modelPortfolios) => {

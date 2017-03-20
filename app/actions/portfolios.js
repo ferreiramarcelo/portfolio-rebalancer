@@ -48,14 +48,15 @@ function setPriceToNotFetching(index) {
   };
 }
 
-function setPriceFromFetch(index, price, currency, originalPrice, conversionRate) {
+function setPriceFromFetch(index, price, currency, originalPrice, conversionRate, portfolio) {
   return {
     type: types.SET_PRICE_FROM_FETCH,
     index,
     price,
     currency,
     originalPrice,
-    conversionRate
+    conversionRate,
+    portfolio
   };
 }
 
@@ -76,42 +77,42 @@ function selectModelPortfolioDispatch(selectedModelPortfolio) {
 function fetchSecurityPriceProces(symbol, index) {
   return (dispatch, getState) => {
     dispatch(setPriceToFetching(index));
-  fetchSecurityPrice(symbol)
-    .then(data => {
-      if (data.status === 200) {
-        const price = data.data.query.results.quote.LastTradePriceOnly;
-        const currency = data.data.query.results.quote.Currency;
-        const priceNumber = Number(price);
-        if (!price || typeof priceNumber !== 'number' || isNaN(priceNumber) || !isFinite(priceNumber)) {
-          return dispatch(setPriceToFetchFailed(index));
-        }
-        const {portfolio} = getState();
-        if (portfolio.currencies.tradingCurrency === null) {
-          dispatch(setTradingCurrency(currency));
-          return dispatch(setPriceFromFetch(index, price, currency, price));
-        } else if (currency === portfolio.currencies.tradingCurrency) {
-          return dispatch(setPriceFromFetch(index, price, currency, price));
-        }
-        fetchCurrencyConversion(currency, portfolio.currencies.tradingCurrency)
-        .then(data => {
-          if (data.status === 200) {
-            const rate = data.data.query.results.rate.Rate;
-            const rateNumber = Number(rate);
-            if (!rate || typeof rateNumber !== 'number' || isNaN(rateNumber) || !isFinite(rateNumber)) {
-              return dispatch(setPriceToFetchFailed(index));
-            }
-            const convertedPrice = (price * rate).toFixed(6);
-            return dispatch(setPriceFromFetch(index, convertedPrice, currency, price, rate));
+    fetchSecurityPrice(symbol)
+      .then(data => {
+        if (data.status === 200) {
+          const price = data.data.query.results.quote.LastTradePriceOnly;
+          const currency = data.data.query.results.quote.Currency;
+          const priceNumber = Number(price);
+          if (!price || typeof priceNumber !== 'number' || isNaN(priceNumber) || !isFinite(priceNumber)) {
+            return dispatch(setPriceToFetchFailed(index));
           }
-        })
-        .catch((jqxhr, textStatus, error) => {
-          return dispatch(setPriceToFetchFailed(index, textStatus, error));
-        });
-      }
-    })
-    .catch((jqxhr, textStatus, error) => {
-      return dispatch(setPriceToFetchFailed(index, textStatus, error));
-    });
+          const {portfolio} = getState();
+          if (portfolio.currencies.tradingCurrency === null) {
+            dispatch(setTradingCurrency(currency));
+            return dispatch(setPriceFromFetch(index, price, currency, price, 1, portfolio.portfolio));
+          } else if (currency === portfolio.currencies.tradingCurrency) {
+            return dispatch(setPriceFromFetch(index, price, currency, price, 1, portfolio.portfolio));
+          }
+          fetchCurrencyConversion(currency, portfolio.currencies.tradingCurrency)
+            .then(data => {
+              if (data.status === 200) {
+                const rate = data.data.query.results.rate.Rate;
+                const rateNumber = Number(rate);
+                if (!rate || typeof rateNumber !== 'number' || isNaN(rateNumber) || !isFinite(rateNumber)) {
+                  return dispatch(setPriceToFetchFailed(index));
+                }
+                const convertedPrice = (price * rate).toFixed(6);
+                return dispatch(setPriceFromFetch(index, convertedPrice, currency, price, rate, portfolio.portfolio));
+              }
+            })
+            .catch((jqxhr, textStatus, error) => {
+              return dispatch(setPriceToFetchFailed(index, textStatus, error));
+            });
+        }
+      })
+      .catch((jqxhr, textStatus, error) => {
+        return dispatch(setPriceToFetchFailed(index, textStatus, error));
+      });
   };
 }
 
@@ -151,19 +152,31 @@ export function addSecurity() {
   };
 }
 
-export function removeSecurity(index) {
+export function removeSecurityDispatch(index, portfolio) {
   return {
     type: types.REMOVE_SECURITY,
-    index
+    index,
+    portfolio
   };
 }
 
-function securityTextFieldChangeDispatch(index, column, value) {
+export function removeSecurity(index) {
+  return (dispatch, getState) => {
+    const {portfolio} = getState();
+  return dispatch(removeSecurityDispatch(
+    index,
+    portfolio.portfolio
+  ));
+}
+}
+
+function securityTextFieldChangeDispatch(index, column, value, portfolio) {
   return {
     type: types.SECURITY_TEXT_FIELD_CHANGE,
     index,
     column,
-    value
+    value,
+    portfolio
   };
 }
 
@@ -171,8 +184,9 @@ export function securityTextFieldChange(index, column, value) {
   if (column !== 'symbol') {
     return securityTextFieldChangeDispatch(index, column, value);
   } else {
-    return (dispatch) => {
-      dispatch(securityTextFieldChangeDispatch(index, column, value));
+    return (dispatch, getState) => {
+      const {portfolio} = getState();
+      dispatch(securityTextFieldChangeDispatch(index, column, value, portfolio.portfolio));
       if (!value) {
         return dispatch(setPriceToNotFetching(index));
       }
@@ -189,23 +203,23 @@ export function setTradingCurrency(newTradingCurrency) {
     }
     const arrayOfDistinctCurrencies = [];
     for (const distinctCurrency in portfolio.currencies.listOfDistinctCurrencies) {
-        if (portfolio.currencies.listOfDistinctCurrencies.hasOwnProperty(distinctCurrency)) {
-            arrayOfDistinctCurrencies.push(distinctCurrency);
-        }
+      if (portfolio.currencies.listOfDistinctCurrencies.hasOwnProperty(distinctCurrency)) {
+        arrayOfDistinctCurrencies.push(distinctCurrency);
+      }
     }
     fetchMassCurrencyConversion(arrayOfDistinctCurrencies, newTradingCurrency)
-    .then(data => {
-      if (data.status === 200) {
-        const newListOfDistinctCurrencies = {};
-        for (let i = 0; i < arrayOfDistinctCurrencies.length; i++) {
-          newListOfDistinctCurrencies[ arrayOfDistinctCurrencies[i] ] = data.data.query.results.rate[i].Rate;
+      .then(data => {
+        if (data.status === 200) {
+          const newListOfDistinctCurrencies = {};
+          for (let i = 0; i < arrayOfDistinctCurrencies.length; i++) {
+            newListOfDistinctCurrencies[arrayOfDistinctCurrencies[i]] = data.data.query.results.rate[i].Rate;
+          }
+          dispatch(setCurrencies(newTradingCurrency, newListOfDistinctCurrencies));
         }
-        dispatch(setCurrencies(newTradingCurrency, newListOfDistinctCurrencies));
-      }
-    })
-    .catch((jqxhr, textStatus, error) => {
-      console.log("hehe xd");
-    });
+      })
+      .catch((jqxhr, textStatus, error) => {
+        console.log("hehe xd");
+      });
   };
 }
 

@@ -1,0 +1,38 @@
+@import '../../common/typography';
+
+.steps-list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  @media (max-width: 767px) {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+.steps-list-header-text-container {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.steps-list-header-text {
+  @apply --subHeading;
+}
+
+
+.steps-list-header-checkboxes {
+  display: flex;
+  justify-content: space-between;
+  @media (max-width: 767px) {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+.checkbox {
+  display: inline-block !important;
+}
+
+.checkbox > div > label {
+  width: 105px !important;
+}

@@ -4,8 +4,8 @@ import * as constants from '../constants';
 const getAuthentication = (state) => state.authentication;
 
 function validateEmailAddress(emailAddress) {
-    const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return regex.test(emailAddress);
+  const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return regex.test(emailAddress);
 }
 
 const getRegistrationEmailTextFieldSelect = function getEmailTextFieldSelect(emailTextField) {
@@ -28,7 +28,10 @@ const getRegistrationEmailTextFieldSelect = function getEmailTextFieldSelect(ema
         errorText = 'Invalid format';
     }
   }
-  return {valid, errorText};
+  return {
+    valid,
+    errorText
+  };
 };
 
 const getLoginEmailTextFieldSelect = function getLoginEmailTextFieldSelect(emailTextField) {
@@ -51,7 +54,10 @@ const getLoginEmailTextFieldSelect = function getLoginEmailTextFieldSelect(email
         errorText = 'Invalid format';
     }
   }
-  return {valid, errorText};
+  return {
+    valid,
+    errorText
+  };
 };
 
 
@@ -59,7 +65,7 @@ const getPasswordTextFieldSelect = function getPasswordTextFieldSelect(passwordT
   let errorText = '';
   let valid = true;
   if (!passwordTextField.dirty) {
-   valid = false;
+    valid = false;
   } else if (!passwordTextField.value) {
     errorText = 'Required';
     valid = 0;
@@ -67,14 +73,17 @@ const getPasswordTextFieldSelect = function getPasswordTextFieldSelect(passwordT
     errorText = '6 characters min';
     valid = 0;
   }
-  return {errorText, valid};
+  return {
+    errorText,
+    valid
+  };
 };
 
 const getPasswordConfirmationTextFieldSelect = function getPasswordConfirmationTextFieldSelect(passwordTextField, passwordConfirmationTextField) {
   let errorText = '';
   let valid = true;
   if (!passwordConfirmationTextField.dirty) {
-   valid = false;
+    valid = false;
   } else if (!passwordConfirmationTextField.value) {
     errorText = 'Required';
     valid = 0;
@@ -82,19 +91,25 @@ const getPasswordConfirmationTextFieldSelect = function getPasswordConfirmationT
     errorText = 'Passwords do not match';
     valid = 0;
   }
-  return {errorText, valid};
+  return {
+    errorText,
+    valid
+  };
 };
 
 const getCurrentPasswordTextFieldSelect = function getCurrentPasswordTextFieldSelect(passwordTextField) {
   let errorText = '';
   let valid = true;
   if (!passwordTextField.dirty) {
-   valid = false;
+    valid = false;
   } else if (!passwordTextField.value) {
     errorText = 'Required';
     valid = 0;
   }
-  return {errorText, valid};
+  return {
+    errorText,
+    valid
+  };
 };
 
 const getLoginButtonVisibility = function getLoginButtonVisibility(emailTextFieldSelect, passwordTextFieldSelect) {

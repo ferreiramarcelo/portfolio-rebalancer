@@ -14,40 +14,29 @@ const SendVerificationEmailProgress = ({fetchStatus}) => {
   const getProgress = function getProgress(givenFetchStatus) {
     switch (givenFetchStatus) {
       case constants.IS_FETCHING:
-        return (<CircularProgress
-                                  size={20}
-                                  thickness={3}
-                                  className={cx('send-verification-email-progress')} />);
+        return (<CircularProgress size={ 20 } thickness={ 3 } className={ cx('send-verification-email-progress') } />);
       case constants.FETCH_SUCCEEDED:
         return (
           <ActionDone />
-        );
+          );
       case constants.FETCH_FAILED:
         return (<div>
-          <IconButton
-                              data-tip
-                              data-for="tooltipPriceFetchError">
-            <AlertErrorOutline />
-          </IconButton>
-          <ReactTooltip
-                                id="tooltipPriceFetchError"
-                                type="error">
-            <span>Failed to send the verification email. Please try again later.</span>
-          </ReactTooltip>
-        </div>);
+                  <IconButton data-tip data-for="tooltipPriceFetchError">
+                    <AlertErrorOutline />
+                  </IconButton>
+                  <ReactTooltip id="tooltipPriceFetchError" type="error">
+                    <span>Failed to send the verification email. Please try again later.</span>
+                  </ReactTooltip>
+                </div>);
       case constants.FETCH_FAILED_NOT_FOUND:
         return (<div>
-          <IconButton
-                              data-tip
-                              data-for="tooltipPriceFetchError">
-            <AlertErrorOutline />
-          </IconButton>
-          <ReactTooltip
-                                id="tooltipPriceFetchError"
-                                type="error">
-            <span>Failed to send the verification email because the account could not be found. Please try again later.</span>
-          </ReactTooltip>
-        </div>);
+                  <IconButton data-tip data-for="tooltipPriceFetchError">
+                    <AlertErrorOutline />
+                  </IconButton>
+                  <ReactTooltip id="tooltipPriceFetchError" type="error">
+                    <span>Failed to send the verification email because the account could not be found. Please try again later.</span>
+                  </ReactTooltip>
+                </div>);
       default:
         return null;
     }
@@ -59,7 +48,7 @@ const SendVerificationEmailProgress = ({fetchStatus}) => {
     <div>
       { progress }
     </div>
-  );
+    );
 };
 
 SendVerificationEmailProgress.propTypes = {

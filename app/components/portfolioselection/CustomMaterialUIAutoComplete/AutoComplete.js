@@ -76,7 +76,11 @@ const _propTypes = require('react');
 
 const _propTypes2 = _interopRequireDefault(_propTypes);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : {
+    default: obj
+  };
+}
 
 function getStyles(props, context, state) {
   const anchorEl = state.anchorEl;
@@ -110,15 +114,15 @@ function getStyles(props, context, state) {
   return styles;
 }
 
-const AutoComplete = (function (_Component) {
+const AutoComplete = (function(_Component) {
   (0, _inherits3.default)(AutoComplete, _Component);
 
   function AutoComplete() {
     let _ref;
 
     let _temp,
-_this,
-_ret;
+      _this,
+      _ret;
 
     (0, _classCallCheck3.default)(this, AutoComplete);
 
@@ -127,123 +131,123 @@ _ret;
     }
 
     return _ret = (_temp = (_this = (0, _possibleConstructorReturn3.default)(this, (_ref = AutoComplete.__proto__ || (0, _getPrototypeOf2.default)(AutoComplete)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
-      anchorEl: null,
-      focusTextField: true,
-      open: false,
-      searchText: undefined
-    }, _this.handleRequestClose = function () {
-      // Only take into account the Popover clickAway when we are
-      // not focusing the TextField.
-      if (!_this.state.focusTextField) {
-        _this.close();
-      }
-    }, _this.handleMouseDown = function (event) {
-      // Keep the TextField focused
-      event.preventDefault();
-    }, _this.handleItemTouchTap = function (event, child) {
-      if (child.props.isGroup) {
-        _this.state.focusTextField = false;
+        anchorEl: null,
+        focusTextField: true,
+        open: false,
+        searchText: undefined
+      }, _this.handleRequestClose = function() {
+        // Only take into account the Popover clickAway when we are
+        // not focusing the TextField.
+        if (!_this.state.focusTextField) {
+          _this.close();
+        }
+      }, _this.handleMouseDown = function(event) {
+        // Keep the TextField focused
         event.preventDefault();
-        return;
-      }
-      const dataSource = _this.props.dataSource;
+      }, _this.handleItemTouchTap = function(event, child) {
+        if (child.props.isGroup) {
+          _this.state.focusTextField = false;
+          event.preventDefault();
+          return;
+        }
+        const dataSource = _this.props.dataSource;
 
-      const index = parseInt(child.key, 10);
-      const chosenRequest = dataSource[index];
-      const searchText = '';
+        const index = parseInt(child.key, 10);
+        const chosenRequest = dataSource[index];
+        const searchText = '';
 
-      _this.setState({
-        searchText
-      }, () => {
-        _this.props.onUpdateInput(searchText, _this.props.dataSource, {
-          source: 'touchTap'
-        });
+        _this.setState({
+          searchText
+        }, () => {
+          _this.props.onUpdateInput(searchText, _this.props.dataSource, {
+            source: 'touchTap'
+          });
           _this.timerTouchTapCloseId = setTimeout(() => {
             _this.timerTouchTapCloseId = null;
-              _this.close();
+            _this.close();
             _this.props.onNewRequest(chosenRequest, index);
           }, _this.props.menuCloseDelay);
-      });
-    }, _this.chosenRequestText = function (chosenRequest) {
-      if (typeof chosenRequest === 'string') {
-        return chosenRequest;
-      } else {
-        return chosenRequest[_this.props.dataSourceConfig.text];
-      }
-    }, _this.handleEscKeyDown = function () {
-      _this.close();
-    }, _this.handleKeyDown = function (event) {
-      if (_this.props.onKeyDown) _this.props.onKeyDown(event);
-
-      switch ((0, _keycode2.default)(event)) {
-        case 'enter':
-          _this.close();
-          var searchText = _this.state.searchText;
-          if (searchText !== '') {
-            _this.props.onNewRequest(searchText, -1);
-          }
-          break;
-
-        case 'esc':
-          _this.close();
-          break;
-
-        case 'down':
-          event.preventDefault();
-          _this.setState({
-            open: true,
-            focusTextField: false,
-            anchorEl: _reactDom2.default.findDOMNode(_this.refs.searchTextField)
-          });
-          break;
-
-        default:
-          break;
-      }
-    }, _this.handleChange = function (event) {
-      const searchText = event.target.value;
-
-      // Make sure that we have a new searchText.
-      // Fix an issue with a Cordova Webview
-      if (searchText === _this.state.searchText) {
-        return;
-      }
-
-      _this.setState({
-        searchText,
-        open: true,
-        anchorEl: _reactDom2.default.findDOMNode(_this.refs.searchTextField)
-      }, () => {
-        _this.props.onUpdateInput(searchText, _this.props.dataSource, {
-          source: 'change'
         });
-      });
-    }, _this.handleBlur = function (event) {
-      if (_this.state.focusTextField && _this.timerTouchTapCloseId === null) {
-        _this.timerBlurClose = setTimeout(() => {
-          _this.close();
-        }, 0);
-      }
+      }, _this.chosenRequestText = function(chosenRequest) {
+        if (typeof chosenRequest === 'string') {
+          return chosenRequest;
+        } else {
+          return chosenRequest[_this.props.dataSourceConfig.text];
+        }
+      }, _this.handleEscKeyDown = function() {
+        _this.close();
+      }, _this.handleKeyDown = function(event) {
+        if (_this.props.onKeyDown) _this.props.onKeyDown(event);
 
-      if (_this.props.onBlur) {
-        _this.props.onBlur(event);
-      }
-    }, _this.handleFocus = function (event) {
-      if (!_this.state.open && _this.props.openOnFocus) {
+        switch ((0, _keycode2.default)(event)) {
+          case 'enter':
+            _this.close();
+            var searchText = _this.state.searchText;
+            if (searchText !== '') {
+              _this.props.onNewRequest(searchText, -1);
+            }
+            break;
+
+          case 'esc':
+            _this.close();
+            break;
+
+          case 'down':
+            event.preventDefault();
+            _this.setState({
+              open: true,
+              focusTextField: false,
+              anchorEl: _reactDom2.default.findDOMNode(_this.refs.searchTextField)
+            });
+            break;
+
+          default:
+            break;
+        }
+      }, _this.handleChange = function(event) {
+        const searchText = event.target.value;
+
+        // Make sure that we have a new searchText.
+        // Fix an issue with a Cordova Webview
+        if (searchText === _this.state.searchText) {
+          return;
+        }
+
         _this.setState({
+          searchText,
           open: true,
           anchorEl: _reactDom2.default.findDOMNode(_this.refs.searchTextField)
+        }, () => {
+          _this.props.onUpdateInput(searchText, _this.props.dataSource, {
+            source: 'change'
+          });
         });
-      }
+      }, _this.handleBlur = function(event) {
+        if (_this.state.focusTextField && _this.timerTouchTapCloseId === null) {
+          _this.timerBlurClose = setTimeout(() => {
+            _this.close();
+          }, 0);
+        }
 
-      _this.setState({
-        focusTextField: true
-      });
+        if (_this.props.onBlur) {
+          _this.props.onBlur(event);
+        }
+      }, _this.handleFocus = function(event) {
+        if (!_this.state.open && _this.props.openOnFocus) {
+          _this.setState({
+            open: true,
+            anchorEl: _reactDom2.default.findDOMNode(_this.refs.searchTextField)
+          });
+        }
 
-      if (_this.props.onFocus) {
-        _this.props.onFocus(event);
-      }
-    }, _temp), (0, _possibleConstructorReturn3.default)(_this, _ret);
+        _this.setState({
+          focusTextField: true
+        });
+
+        if (_this.props.onFocus) {
+          _this.props.onFocus(event);
+        }
+      }, _temp), (0, _possibleConstructorReturn3.default)(_this, _ret);
   }
 
   (0, _createClass3.default)(AutoComplete, [{
@@ -299,42 +303,42 @@ _ret;
       const _this2 = this;
 
       let _props = this.props,
-          anchorOrigin = _props.anchorOrigin,
-          animated = _props.animated,
-          animation = _props.animation,
-          dataSource = _props.dataSource,
-          dataSourceConfig = _props.dataSourceConfig,
-          disableFocusRipple = _props.disableFocusRipple,
-          errorStyle = _props.errorStyle,
-          floatingLabelText = _props.floatingLabelText,
-          filter = _props.filter,
-          fullWidth = _props.fullWidth,
-          style = _props.style,
-          hintText = _props.hintText,
-          maxSearchResults = _props.maxSearchResults,
-          menuCloseDelay = _props.menuCloseDelay,
-          textFieldStyle = _props.textFieldStyle,
-          menuStyle = _props.menuStyle,
-          menuProps = _props.menuProps,
-          listStyle = _props.listStyle,
-          targetOrigin = _props.targetOrigin,
-          onClose = _props.onClose,
-          onNewRequest = _props.onNewRequest,
-          onUpdateInput = _props.onUpdateInput,
-          openOnFocus = _props.openOnFocus,
-          popoverProps = _props.popoverProps,
-          searchTextProp = _props.searchText,
-          other = (0, _objectWithoutProperties3.default)(_props, ['anchorOrigin', 'animated', 'animation', 'dataSource', 'dataSourceConfig', 'disableFocusRipple', 'errorStyle', 'floatingLabelText', 'filter', 'fullWidth', 'style', 'hintText', 'maxSearchResults', 'menuCloseDelay', 'textFieldStyle', 'menuStyle', 'menuProps', 'listStyle', 'targetOrigin', 'onClose', 'onNewRequest', 'onUpdateInput', 'openOnFocus', 'popoverProps', 'searchText']);
+        anchorOrigin = _props.anchorOrigin,
+        animated = _props.animated,
+        animation = _props.animation,
+        dataSource = _props.dataSource,
+        dataSourceConfig = _props.dataSourceConfig,
+        disableFocusRipple = _props.disableFocusRipple,
+        errorStyle = _props.errorStyle,
+        floatingLabelText = _props.floatingLabelText,
+        filter = _props.filter,
+        fullWidth = _props.fullWidth,
+        style = _props.style,
+        hintText = _props.hintText,
+        maxSearchResults = _props.maxSearchResults,
+        menuCloseDelay = _props.menuCloseDelay,
+        textFieldStyle = _props.textFieldStyle,
+        menuStyle = _props.menuStyle,
+        menuProps = _props.menuProps,
+        listStyle = _props.listStyle,
+        targetOrigin = _props.targetOrigin,
+        onClose = _props.onClose,
+        onNewRequest = _props.onNewRequest,
+        onUpdateInput = _props.onUpdateInput,
+        openOnFocus = _props.openOnFocus,
+        popoverProps = _props.popoverProps,
+        searchTextProp = _props.searchText,
+        other = (0, _objectWithoutProperties3.default)(_props, ['anchorOrigin', 'animated', 'animation', 'dataSource', 'dataSourceConfig', 'disableFocusRipple', 'errorStyle', 'floatingLabelText', 'filter', 'fullWidth', 'style', 'hintText', 'maxSearchResults', 'menuCloseDelay', 'textFieldStyle', 'menuStyle', 'menuProps', 'listStyle', 'targetOrigin', 'onClose', 'onNewRequest', 'onUpdateInput', 'openOnFocus', 'popoverProps', 'searchText']);
 
       let _ref2 = popoverProps || {},
-          popoverStyle = _ref2.style,
-          popoverOther = (0, _objectWithoutProperties3.default)(_ref2, ['style']);
+        popoverStyle = _ref2.style,
+        popoverOther = (0, _objectWithoutProperties3.default)(_ref2, ['style']);
 
       let _state = this.state,
-          open = _state.open,
-          anchorEl = _state.anchorEl,
-          searchText = _state.searchText,
-          focusTextField = _state.focusTextField;
+        open = _state.open,
+        anchorEl = _state.anchorEl,
+        searchText = _state.searchText,
+        focusTextField = _state.focusTextField;
       const prepareStyles = this.context.muiTheme.prepareStyles;
 
       const styles = getStyles(this.props, this.context, this.state);
@@ -342,7 +346,8 @@ _ret;
       const requestsList = [];
 
       dataSource.every((item, index) => {
-        switch (typeof item === 'undefined' ? 'undefined' : (0, _typeof3.default)(item)) {
+        switch (
+        typeof item === 'undefined' ? 'undefined' : (0, _typeof3.default)(item)) {
           case 'string':
             if (filter(searchText, item, item)) {
               requestsList.push({
@@ -387,7 +392,7 @@ _ret;
             break;
 
           default:
-          // Do nothing
+        // Do nothing
         }
 
         return !(maxSearchResults && maxSearchResults > 0 && requestsList.length === maxSearchResults);
@@ -415,7 +420,9 @@ _ret;
 
       return _react2.default.createElement(
         'div',
-        { style: prepareStyles((0, _simpleAssign2.default)(styles.root, style)) },
+        {
+          style: prepareStyles((0, _simpleAssign2.default)(styles.root, style))
+        },
         _react2.default.createElement(_TextField2.default, (0, _extends3.default)({}, other, {
           ref: 'searchTextField',
           autoComplete: 'off',
@@ -620,7 +627,7 @@ process.env.NODE_ENV !== 'production' ? AutoComplete.propTypes = {
 } : void 0;
 
 
-AutoComplete.levenshteinDistance = function (searchText, key) {
+AutoComplete.levenshteinDistance = function(searchText, key) {
   const current = [];
   let prev = void 0;
   let value = void 0;
@@ -628,7 +635,9 @@ AutoComplete.levenshteinDistance = function (searchText, key) {
   for (let i = 0; i <= key.length; i++) {
     for (let j = 0; j <= searchText.length; j++) {
       if (i && j) {
-        if (searchText.charAt(j - 1) === key.charAt(i - 1)) value = prev; else value = Math.min(current[j], current[j - 1], prev) + 1;
+        if (searchText.charAt(j - 1) === key.charAt(i - 1))
+          value = prev; else
+          value = Math.min(current[j], current[j - 1], prev) + 1;
       } else {
         value = i + j;
       }
@@ -639,31 +648,31 @@ AutoComplete.levenshteinDistance = function (searchText, key) {
   return current.pop();
 };
 
-AutoComplete.noFilter = function () {
+AutoComplete.noFilter = function() {
   return true;
 };
 
-AutoComplete.defaultFilter = AutoComplete.caseSensitiveFilter = function (searchText, key) {
+AutoComplete.defaultFilter = AutoComplete.caseSensitiveFilter = function(searchText, key) {
   return searchText !== '' && key.indexOf(searchText) !== -1;
 };
 
-AutoComplete.caseInsensitiveFilter = function (searchText, key) {
+AutoComplete.caseInsensitiveFilter = function(searchText, key) {
   return key.toLowerCase().indexOf(searchText.toLowerCase()) !== -1;
 };
 
-AutoComplete.levenshteinDistanceFilter = function (distanceLessThan) {
+AutoComplete.levenshteinDistanceFilter = function(distanceLessThan) {
   if (distanceLessThan === undefined) {
     return AutoComplete.levenshteinDistance;
   } else if (typeof distanceLessThan !== 'number') {
     throw 'Error: AutoComplete.levenshteinDistanceFilter is a filter generator, not a filter!';
   }
 
-  return function (s, k) {
+  return function(s, k) {
     return AutoComplete.levenshteinDistance(s, k) < distanceLessThan;
   };
 };
 
-AutoComplete.fuzzyFilter = function (searchText, key) {
+AutoComplete.fuzzyFilter = function(searchText, key) {
   const compareString = key.toLowerCase();
   searchText = searchText.toLowerCase();
 

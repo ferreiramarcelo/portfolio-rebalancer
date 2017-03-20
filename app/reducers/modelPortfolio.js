@@ -1,4 +1,4 @@
-import { combineReducers} from 'redux';
+import { combineReducers } from 'redux';
 import * as types from '../types';
 
 const modelPortfoliosAutoCompleteSearchText = (state = '', action) => {
@@ -70,13 +70,17 @@ const modelPortfolios = (state = {}, action) => {
         userModelPortfolios,
         displayModelPortfolios: initialDisplayModelPortfolios
       };
-      case types.TOGGLE_MODEL_PORTFOLIO_GROUP_OPENNESS:
-        return {
-          ...state,
-          displayModelPortfolios: displayModelPortfolios(state.displayModelPortfolios, action)
-        };
+    case types.TOGGLE_MODEL_PORTFOLIO_GROUP_OPENNESS:
+      return {
+        ...state,
+        displayModelPortfolios: displayModelPortfolios(state.displayModelPortfolios, action)
+      };
     case types.CREATE_MODEL_PORTFOLIO_REQUEST:
-      return {...state, userModelPortfolios: [state.userModelPortfolios, modelPortfolio(undefined, action)], displayModelPortfolios: displayModelPortfolios(state.displayModelPortfolios, action)};
+      return {
+        ...state,
+        userModelPortfolios: [state.userModelPortfolios, modelPortfolio(undefined, action)],
+        displayModelPortfolios: displayModelPortfolios(state.displayModelPortfolios, action)
+      };
     case types.CREATE_MODEL_PORTFOLIO_FAILURE:
       return state.userModelPortfolios.filter(t => t.id !== action.id);
     case types.SAVE_MODEL_PORTFOLIO_REQUEST:
@@ -236,14 +240,14 @@ const displayModelPortfolios = (state = [], action) => {
       };
       state[action.position[0]] = displayModelPortfolioElement(state[action.position[0]], newAction);
       return state;
-      case types.CREATE_MODEL_PORTFOLIO_REQUEST:
-        // If length === 0, create Custom Model Portfolios section at very beginning
-        // Otherwise, add to Custom Model Portfolios group, resort alphabetically
-        case types.SAVE_MODEL_PORTFOLIO_REQUEST:
-          // Use position to overwrite, easy
-        case types.DELETE_MODEL_PORTFOLIO_REQUEST:
-        case types.SAVE_MODEL_PORTFOLIO_FAILURE:
-        // Find and delete it xD
+    case types.CREATE_MODEL_PORTFOLIO_REQUEST:
+    // If length === 0, create Custom Model Portfolios section at very beginning
+    // Otherwise, add to Custom Model Portfolios group, resort alphabetically
+    case types.SAVE_MODEL_PORTFOLIO_REQUEST:
+    // Use position to overwrite, easy
+    case types.DELETE_MODEL_PORTFOLIO_REQUEST:
+    case types.SAVE_MODEL_PORTFOLIO_FAILURE:
+    // Find and delete it xD
     default:
       return state;
   }
