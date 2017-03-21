@@ -9,7 +9,7 @@ const cx = classNames.bind(styles);
 const StepsListHeader = ({showWholeUnits, showPartialUnits, showCashAmounts, changeShowWholeUnits, changeShowPartialUnits, changeShowCashAmounts, rebalancingSteps}) => {
 
   const getStepsListHeaderElements = function getStepsListHeaderElements() {
-    return "ha";
+    return "test";
   };
   const stepsListHeaderElements = getStepsListHeaderElements();
 
