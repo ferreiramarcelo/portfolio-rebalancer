@@ -13,7 +13,9 @@ const StepsListHeader = ({showWholeUnits, showPartialUnits, showCashAmounts, cha
       return null;
     }
     return (<div>
-              
+              <div className={ cx('steps-list-header') }>
+              </div>
+              <StepsList rebalancingSteps={ rebalancingSteps } showWholeUnits={ showWholeUnits } showPartialUnits={ showPartialUnits } showCashAmounts={ showCashAmounts } />
             </div>);
   };
   const stepsListHeaderElements = getStepsListHeader();
