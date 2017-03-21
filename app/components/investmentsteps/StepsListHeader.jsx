@@ -8,7 +8,7 @@ const cx = classNames.bind(styles);
 
 const StepsListHeader = ({showWholeUnits, showPartialUnits, showCashAmounts, changeShowWholeUnits, changeShowPartialUnits, changeShowCashAmounts, rebalancingSteps}) => {
 
-  const getStepsListHeader = function getStepsListHeader() {
+  const getStepsListHeaderElements = function getStepsListHeaderElements() {
     if (!rebalancingSteps.balanceByInvesting) {
       return null;
     }
@@ -23,20 +23,26 @@ const StepsListHeader = ({showWholeUnits, showPartialUnits, showCashAmounts, cha
                   <Checkbox checked={ showCashAmounts } onCheck={ changeShowCashAmounts } label="Cash amounts" className={ cx('checkbox') } />
                 </div>
               </div>
-              <StepsList rebalancingSteps={ rebalancingSteps } showWholeUnits={ showWholeUnits } showPartialUnits={ showPartialUnits } showCashAmounts={ showCashAmounts }
-              />
+              <StepsList rebalancingSteps={ rebalancingSteps } showWholeUnits={ showWholeUnits } showPartialUnits={ showPartialUnits } showCashAmounts={ showCashAmounts } />
             </div>);
   };
-  const stepsListHeader = getStepsListHeader();
+  const stepsListHeaderElements = getStepsListHeaderElements();
 
   return (
     <div>
-      { stepsListHeader }
+      { stepsListHeaderElements }
     </div>
     );
 };
 
 StepsListHeader.propTypes = {
+  showWholeUnits: PropTypes.bool.isRequired,
+  showPartialUnits: PropTypes.bool.isRequired,
+  showCashAmounts: PropTypes.bool.isRequired,
+  changeShowWholeUnits: PropTypes.func.isRequired,
+  changeShowPartialUnits: PropTypes.func.isRequired,
+  changeShowCashAmounts: PropTypes.func.isRequired,
+  rebalancingSteps: PropTypes.object.isRequired,
 };
 
 export default StepsListHeader;
