@@ -30,7 +30,7 @@ const StepsListHeader = ({showWholeUnits, showPartialUnits, showCashAmounts, cha
 
   return (
     <div>
-      { stepsListHeaderElements }
+      <span>Hey!</span>
     </div>
     );
 };
