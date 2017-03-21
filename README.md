@@ -1,7 +1,7 @@
 # Portfolio Rebalancer
 Portfolio Rebalancer is a web application for streamlined portfolio rebalancing.
 
-Link: https://www.portfoliorebalancer.com
+Link: [**https://www.portfoliorebalancer.com**](https://www.portfoliorebalancer.com)
 
 # Features
 - Real-time prices from https://finance.yahoo.com
