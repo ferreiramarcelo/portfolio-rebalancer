@@ -1,14 +1,14 @@
 import React, { PropTypes } from 'react';
-import StepsList from './StepsList';
 import Checkbox from 'material-ui/Checkbox';
 import classNames from 'classnames/bind';
+import StepsList from './StepsList';
 import styles from '../../css/components/investmentsteps/steps-list-header';
 
 const cx = classNames.bind(styles);
 
 const StepsListHeader = ({showWholeUnits, showPartialUnits, showCashAmounts, changeShowWholeUnits, changeShowPartialUnits, changeShowCashAmounts, rebalancingSteps}) => {
 
-  const getStepsListHeaderElements = function getStepsListHeaderElements() {
+  const getStepsListHeaderElements = () => {
     if (!rebalancingSteps.balanceByInvesting) {
       return null;
     }
