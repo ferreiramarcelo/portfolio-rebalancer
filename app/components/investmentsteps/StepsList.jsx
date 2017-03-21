@@ -211,7 +211,6 @@ const StepsList = ({rebalancingSteps, showWholeUnits, showPartialUnits, showCash
     }
     return null;
   };
-
   const stepsListElements = generateStepsList(rebalancingSteps);
 
   return (

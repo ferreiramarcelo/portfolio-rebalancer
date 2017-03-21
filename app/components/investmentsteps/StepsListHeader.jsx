@@ -8,7 +8,7 @@ const cx = classNames.bind(styles);
 
 const StepsListHeader = ({showWholeUnits, showPartialUnits, showCashAmounts, changeShowWholeUnits, changeShowPartialUnits, changeShowCashAmounts, rebalancingSteps}) => {
 
-  const getStepsListHeader = function getStepsListHeader() {
+  const getStepsListHeader = function getStepsListHeader(givenRebalancingSteps, givenShowWholeUnits, givenShowPartialUnits, givenShowCashAmounts) {
     if (!rebalancingSteps.balanceByInvesting) {
       return null;
     }
@@ -23,9 +23,10 @@ const StepsListHeader = ({showWholeUnits, showPartialUnits, showCashAmounts, cha
                   <Checkbox checked={ showCashAmounts } onCheck={ changeShowCashAmounts } label="Cash amounts" className={ cx('checkbox') } />
                 </div>
               </div>
+              <StepsList rebalancingSteps={ givenRebalancingSteps } showWholeUnits={ givenShowWholeUnits } showPartialUnits={ givenShowPartialUnits } showCashAmounts={ givenShowCashAmounts } />
             </div>);
   };
-  const stepsListHeader = getStepsListHeader();
+  const stepsListHeader = getStepsListHeader(rebalancingSteps, showWholeUnits, showPartialUnits, showCashAmounts);
 
   return (
     <div>
