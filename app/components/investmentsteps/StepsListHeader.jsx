@@ -17,7 +17,7 @@ const StepsListHeader = ({showWholeUnits, showPartialUnits, showCashAmounts, cha
               </div>
             </div>);
   };
-  const stepsListHeaderElements = getStepsListHeader();
+  const stepsListHeader = getStepsListHeader();
 
   return (
     <div>
