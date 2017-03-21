@@ -8,9 +8,9 @@ const cx = classNames.bind(styles);
 
 const StepsListHeader = ({showWholeUnits, showPartialUnits, showCashAmounts, changeShowWholeUnits, changeShowPartialUnits, changeShowCashAmounts, rebalancingSteps}) => {
 
-  const getStepsListHeaderElements = () => {
+  const getStepsListHeaderElements = function getStepsListHeaderElements() {
     if (!rebalancingSteps.balanceByInvesting) {
-      return null;
+      return <div></div>;
     }
     return (<div>
               <div className={ cx('steps-list-header') }>
