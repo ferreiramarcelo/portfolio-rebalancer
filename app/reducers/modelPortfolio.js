@@ -18,6 +18,7 @@ const modelPortfolio = (state = {}, action) => {
       return {
         id: action.id,
         name: action.name,
+        displayName: action.name,
         email: action.email,
         securities: action.securities
       };
@@ -26,6 +27,7 @@ const modelPortfolio = (state = {}, action) => {
         return {
           id: action.id,
           name: action.name,
+          displayName: action.name,
           email: action.email,
           securities: action.securities
         };
@@ -40,11 +42,37 @@ const modelPortfolios = (state = {}, action) => {
   switch (action.type) {
     case types.REQUEST_SUCCESS:
       if (action.data) {
+        if (!state.email && state.email !== "") {
+          return {
+            modelPortfolios: action.data,
+            defaultModelPortfolios: [],
+            userModelPortfolios: [],
+            displayModelPortfolios: []
+          };
+        }
+        const userModelPortfolios = [];
+        const defaultModelPortfolios = [];
+        for (const requestedModelPortfolio of action.data) {
+          if (requestedModelPortfolio.email === state.email) {
+            userModelPortfolios.push(requestedModelPortfolio);
+          } else if (!requestedModelPortfolio.email) {
+            defaultModelPortfolios.push(requestedModelPortfolio);
+          }
+        }
+
+        const newAction = {
+          type: types.INITIALIZE_MODEL_PORTFOLIOS,
+          defaultModelPortfolios,
+          userModelPortfolios
+        };
+        const initialDisplayModelPortfolios = displayModelPortfolios(undefined, newAction);
+
         return {
-          modelPortfolios: action.data,
-          defaultModelPortfolios: [],
-          userModelPortfolios: [],
-          displayModelPortfolios: []
+          ...state,
+          email: action.email,
+          defaultModelPortfolios,
+          userModelPortfolios,
+          displayModelPortfolios: initialDisplayModelPortfolios
         };
       }
       return state;
@@ -59,13 +87,16 @@ const modelPortfolios = (state = {}, action) => {
         }
       }
 
-      const newAction = action;
-      newAction.defaultModelPortfolios = defaultModelPortfolios;
-      newAction.userModelPortfolios = userModelPortfolios;
+      const newAction = {
+        type: types.INITIALIZE_MODEL_PORTFOLIOS,
+        defaultModelPortfolios,
+        userModelPortfolios
+      };
       const initialDisplayModelPortfolios = displayModelPortfolios(undefined, newAction);
 
       return {
         ...state,
+        email: action.email,
         defaultModelPortfolios,
         userModelPortfolios,
         displayModelPortfolios: initialDisplayModelPortfolios
@@ -76,18 +107,34 @@ const modelPortfolios = (state = {}, action) => {
         displayModelPortfolios: displayModelPortfolios(state.displayModelPortfolios, action)
       };
     case types.CREATE_MODEL_PORTFOLIO_REQUEST:
-      return {
-        ...state,
-        userModelPortfolios: [state.userModelPortfolios, modelPortfolio(undefined, action)],
-        displayModelPortfolios: displayModelPortfolios(state.displayModelPortfolios, action)
-      };
-    case types.CREATE_MODEL_PORTFOLIO_FAILURE:
-      return state.userModelPortfolios.filter(t => t.id !== action.id);
     case types.SAVE_MODEL_PORTFOLIO_REQUEST:
-      return state.userModelPortfolios.map(t => modelPortfolio(t, action));
+    case types.CREATE_MODEL_PORTFOLIO_FAILURE:
     case types.DELETE_MODEL_PORTFOLIO_REQUEST:
     case types.SAVE_MODEL_PORTFOLIO_FAILURE:
-      return state.userModelPortfolios.filter(t => t.id !== action.id);
+      let newUserModelPortfolios = [];
+      if (action.type === types.CREATE_MODEL_PORTFOLIO_REQUEST) {
+        newUserModelPortfolios = [...state.userModelPortfolios, modelPortfolio(undefined, action)];
+      }
+      else if (action.type === types.SAVE_MODEL_PORTFOLIO_REQUEST) {
+        newUserModelPortfolios = state.userModelPortfolios.map(t => modelPortfolio(t, action));
+      }
+      else if (action.type === types.CREATE_MODEL_PORTFOLIO_FAILURE || action.type === types.DELETE_MODEL_PORTFOLIO_REQUEST || action.type === types.SAVE_MODEL_PORTFOLIO_FAILURE) {
+        newUserModelPortfolios = state.userModelPortfolios.filter(t => t.id !== action.id);
+      }
+      else {
+        return state;
+      }
+      const createModeLPortfolioAction = {
+        type: types.INITIALIZE_MODEL_PORTFOLIOS,
+        defaultModelPortfolios: state.defaultModelPortfolios,
+        userModelPortfolios: newUserModelPortfolios
+      };
+      const newDisplayModelPortfolios = displayModelPortfolios(undefined, createModeLPortfolioAction);
+      return {
+        ...state,
+        userModelPortfolios: newUserModelPortfolios,
+        displayModelPortfolios: newDisplayModelPortfolios
+      };
     default:
       return state;
   }
@@ -98,7 +145,7 @@ const displayModelPortfolioElement = (state = {}, action) => {
     case types.INITIALIZE_MODEL_PORTFOLIOS:
       const children = [];
       let modelPortfolio = null;
-      if (action.modelPortfolioElement.subGroups.length > 0) {
+      if (action.modelPortfolioElement.subGroups && action.modelPortfolioElement.subGroups.length > 0) {
         for (let i = 0; i < action.modelPortfolioElement.subGroups.length; i++) {
           const newPosition = action.position.slice(0);
           newPosition.push(i);
@@ -109,7 +156,7 @@ const displayModelPortfolioElement = (state = {}, action) => {
           };
           children.push(displayModelPortfolioElement(undefined, newAction));
         }
-      } else if (action.modelPortfolioElement.modelPortfolios.length) {
+      } else if (action.modelPortfolioElement.modelPortfolios && action.modelPortfolioElement.modelPortfolios.length) {
         for (let i = 0; i < action.modelPortfolioElement.modelPortfolios.length; i++) {
           const newPosition = action.position.slice(0);
           newPosition.push(i);
@@ -240,14 +287,6 @@ const displayModelPortfolios = (state = [], action) => {
       };
       state[action.position[0]] = displayModelPortfolioElement(state[action.position[0]], newAction);
       return state;
-    case types.CREATE_MODEL_PORTFOLIO_REQUEST:
-    // If length === 0, create Custom Model Portfolios section at very beginning
-    // Otherwise, add to Custom Model Portfolios group, resort alphabetically
-    case types.SAVE_MODEL_PORTFOLIO_REQUEST:
-    // Use position to overwrite, easy
-    case types.DELETE_MODEL_PORTFOLIO_REQUEST:
-    case types.SAVE_MODEL_PORTFOLIO_FAILURE:
-    // Find and delete it xD
     default:
       return state;
   }
@@ -262,8 +301,7 @@ const displayModelPortfolio = (state = {}, action) => {
 
 const modelPortfolioReducer = combineReducers({
   modelPortfoliosAutoCompleteSearchText,
-  modelPortfolios,
-  displayModelPortfolios
+  modelPortfolios
 });
 
 export default modelPortfolioReducer;

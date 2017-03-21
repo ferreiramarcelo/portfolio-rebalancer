@@ -22,7 +22,6 @@ class PortfolioRebalancer extends Component {
   constructor(props) {
     super(props);
     this.props.initializeModelPortfolios();
-
     this.handleOnGenerateSteps = this.handleOnGenerateSteps.bind(this);
   }
 
@@ -45,14 +44,9 @@ class PortfolioRebalancer extends Component {
             <InvestmentAmount investmentAmount={ this.props.investmentAmount } investmentAmountSelect={ this.props.portfolioSelect.investmentAmountSelect } investmentAmountTextFieldChange={ this.props.investmentAmountTextFieldChange } />
             <GenerateStepsButton visibility={ this.props.portfolioSelect.generateStepsButtonVisibility } generateSteps={ this.props.generateSteps } />
           </form>
-          <StepsListHeader showWholeUnits={this.props.rebalancing.showWholeUnits}
-            showPartialUnits={this.props.rebalancing.showPartialUnits}
-            showCashAmounts={this.props.rebalancing.showCashAmounts}
-            changeShowWholeUnits={this.props.changeShowWholeUnits}
-            changeShowWholeUnits={this.props.changeShowWholeUnits}
-            changeShowPartialUnits={this.props.changeShowPartialUnits}
-            changeShowCashAmounts={this.props.changeShowCashAmounts}
-            rebalancingSteps={ this.props.rebalancingSteps } />
+          <StepsListHeader showWholeUnits={ this.props.rebalancing.showWholeUnits } showPartialUnits={ this.props.rebalancing.showPartialUnits } showCashAmounts={ this.props.rebalancing.showCashAmounts } changeShowWholeUnits={ this.props.changeShowWholeUnits }
+            changeShowWholeUnits={ this.props.changeShowWholeUnits } changeShowPartialUnits={ this.props.changeShowPartialUnits } changeShowCashAmounts={ this.props.changeShowCashAmounts } rebalancingSteps={ this.props.rebalancingSteps }
+          />
         </div>
         );
     }

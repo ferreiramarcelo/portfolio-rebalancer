@@ -22,7 +22,7 @@ module.exports = function(config) {
 
     // Run karma through preprocessor plugins
     preprocessors: {
-      'tests.webpack.js': [ 'webpack', 'sourcemap' ]
+      'tests.webpack.js': ['webpack', 'sourcemap']
     },
 
     // Continuous Integration mode
@@ -54,8 +54,14 @@ module.exports = function(config) {
             include: path.join(__dirname, 'app'),
             exclude: path.join(__dirname, '/node_modules/')
           },
-          { test: /\.json$/, loader: 'json-loader' },
-          { test: /\.css$/, loader: 'null-loader' }
+          {
+            test: /\.json$/,
+            loader: 'json-loader'
+          },
+          {
+            test: /\.css$/,
+            loader: 'null-loader'
+          }
         ],
       },
       externals: {
@@ -77,8 +83,8 @@ module.exports = function(config) {
     },
 
     webpackMiddleware: {
-        // webpack-dev-middleware configuration
-        noInfo: true
+      // webpack-dev-middleware configuration
+      noInfo: true
     },
 
     webpackServer: {

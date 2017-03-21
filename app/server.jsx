@@ -51,7 +51,8 @@ export default function render(req, res) {
         .then(data => {
           store.dispatch({
             type: types.REQUEST_SUCCESS,
-            data
+            data,
+            pathname: req.url //To remove
           });
           const html = pageRenderer(store, props);
           res.status(200).send(html);

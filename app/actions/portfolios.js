@@ -163,11 +163,11 @@ export function removeSecurityDispatch(index, portfolio) {
 export function removeSecurity(index) {
   return (dispatch, getState) => {
     const {portfolio} = getState();
-  return dispatch(removeSecurityDispatch(
-    index,
-    portfolio.portfolio
-  ));
-}
+    return dispatch(removeSecurityDispatch(
+      index,
+      portfolio.portfolio
+    ));
+  }
 }
 
 function securityTextFieldChangeDispatch(index, column, value, portfolio) {

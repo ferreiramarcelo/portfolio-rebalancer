@@ -47,7 +47,7 @@ export function getValuesForInvesting(investmentAmount, valuePerSecurityCurrent,
   for (let i = 0; i < valueDifferencePerSecurity.length; i++) {
     valueAdditionPerSecurity.push(0);
   }
-  let additionPerSecurity;
+  let additionPerSecurity = 1;
   while (cashRemainingToSpend > 0 && additionPerSecurity > 0) {
     let lastSecurityToAddToIndex = 0;
     additionPerSecurity = 0;
@@ -63,8 +63,8 @@ export function getValuesForInvesting(investmentAmount, valuePerSecurityCurrent,
     additionPerSecurity = Number(additionPerSecurity.toPrecision(12));
     for (let currentSecurityToAddTo = 0; currentSecurityToAddTo <= lastSecurityToAddToIndex; currentSecurityToAddTo++) {
       valueDifferencePerSecurity[currentSecurityToAddTo][1] = Number((valueDifferencePerSecurity[currentSecurityToAddTo][1] + additionPerSecurity).toPrecision(12));
-      valueAdditionPerSecurity[valueDifferencePerSecurity[currentSecurityToAddTo][0]] = additionPerSecurity;
-      cashRemainingToSpend = Number((cashRemainingToSpend + additionPerSecurity).toPrecision(12));
+      valueAdditionPerSecurity[valueDifferencePerSecurity[currentSecurityToAddTo][0]] += additionPerSecurity;
+      cashRemainingToSpend = Number((cashRemainingToSpend - additionPerSecurity).toPrecision(12));
     }
   }
   return valueAdditionPerSecurity;
@@ -80,7 +80,7 @@ export function getValuesForDisvesting(investmentAmount, valuePerSecurityCurrent
   for (let i = 0; i < valueDifferencePerSecurity.length; i++) {
     valueReductionPerSecurity.push(0);
   }
-  let reductionPerSecurity;
+  let reductionPerSecurity = 1;
   while (cashRemainingToGet > 0 && reductionPerSecurity > 0) {
     let lastSecurityToRemoveFromIndex = 0;
     reductionPerSecurity = 0;
@@ -202,7 +202,7 @@ export function getUnitsForDisvesting(valueReductionPerSecurity, portfolio, disv
     const maxSellableUnits = Math.abs(Math.floor(currentCash / portfolio[index].price));
     const soldUnits = Math.min(wholeUnits, maxSellableUnits);
     currentCash += soldUnits * portfolio[index].price;
-    unitsReductionPerSecurity[index] = soldUnits;
+    unitsReductionPerSecurity[index] = -soldUnits;
     index++;
   }
   while (index < valueReductionPerSecurity.length) {
@@ -242,4 +242,12 @@ export function getUnitsForAdjusting(valuePerSecurity, portfolio, extraCash = 0)
     unitsAdjustmentsPerSecurity,
     extraCash: currentCash
   };
+}
+
+export function getPartialUnits(valuePerSecurity, portfolio) {
+  const partialUnits = [];
+  for (let i = 0; i < portfolio.length; i++) {
+    partialUnits.push(valuePerSecurity[i] / portfolio[i].price);
+  }
+  return partialUnits;
 }

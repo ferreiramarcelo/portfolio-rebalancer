@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import * as types from '../types';
-import { getValuesForInvesting, getValuesForDisvesting, getValueAdjustmentsPerSecurity, getUnitsForInvesting, getUnitsForDisvesting, getUnitsForAdjusting, getUpdatedValuePerSecurityForAdditions, getUpdatedValuePerSecurityForReductions } from '../algorithms/PortfolioAlgorithms';
+import { getValuesForInvesting, getValuesForDisvesting, getValueAdjustmentsPerSecurity, getUnitsForInvesting, getUnitsForDisvesting, getUnitsForAdjusting, getUpdatedValuePerSecurityForAdditions, getUpdatedValuePerSecurityForReductions, getPartialUnits } from '../algorithms/PortfolioAlgorithms';
 
 const rebalancingSteps = (state = {},
   action
@@ -15,6 +15,9 @@ const rebalancingSteps = (state = {},
       let balanceByAdjusting = [];
       let balanceByInvesting = [];
       let balanceByDisvesting = [];
+      let balanceByAdjustingPartial = [];
+      let balanceByInvestingPartial = [];
+      let balanceByDisvestingPartial = [];
       let cashStillMissing = 0;
       let extraCash = 0;
       /* Compute portfolio statistics */
@@ -43,26 +46,29 @@ const rebalancingSteps = (state = {},
           valueAdjustmentsPerSecurity = getValueAdjustmentsPerSecurity(valuePerSecurityCurrent, valuePerSecurityTotal);
           const balanceByAdjustingAndExtraCash = getUnitsForAdjusting(valueAdjustmentsPerSecurity, portfolio, 0);
           balanceByAdjusting = balanceByAdjustingAndExtraCash.unitsAdjustmentsPerSecurity;
+          balanceByAdjustingPartial = getPartialUnits(valueAdjustmentsPerSecurity, portfolio);
         } else if (investmentAmount > 0) {
           valueAdditionPerSecurity = getValuesForInvesting(investmentAmount, valuePerSecurityCurrent, valuePerSecurityTotal);
           const balanceByInvestingAndExtraCash = getUnitsForInvesting(valueAdditionPerSecurity, portfolio, investmentAmount);
           balanceByInvesting = balanceByInvestingAndExtraCash.unitsAdditionPerSecurity;
-          extraCash = balanceByInvestingAndExtraCash.extraCash;
+          balanceByInvestingPartial = getPartialUnits(valueAdditionPerSecurity, portfolio);
 
           valuePerSecurityCurrent = getUpdatedValuePerSecurityForAdditions(valuePerSecurityCurrent, balanceByInvesting, portfolio);
           valueAdjustmentsPerSecurity = getValueAdjustmentsPerSecurity(valuePerSecurityCurrent, valuePerSecurityTotal);
           const balanceByAdjustingAndExtraCash = getUnitsForAdjusting(valueAdjustmentsPerSecurity, portfolio, extraCash);
           balanceByAdjusting = balanceByAdjustingAndExtraCash.unitsAdjustmentsPerSecurity;
+          balanceByAdjustingPartial = getPartialUnits(valueAdjustmentsPerSecurity, portfolio);
         } else if (investmentAmount < 0) {
           valueReductionPerSecurity = getValuesForDisvesting(investmentAmount, valuePerSecurityCurrent, valuePerSecurityTotal);
           const balanceByDisvestingAndExtraCash = getUnitsForDisvesting(valueReductionPerSecurity, portfolio, investmentAmount);
           balanceByDisvesting = balanceByDisvestingAndExtraCash.unitsReductionPerSecurity;
-          extraCash = balanceByDisvestingAndExtraCash.extraCash;
+          balanceByDisvestingPartial = getPartialUnits(valueReductionPerSecurity, portfolio);
 
           valuePerSecurityCurrent = getUpdatedValuePerSecurityForReductions(valuePerSecurityCurrent, balanceByDisvesting, portfolio);
           valueAdjustmentsPerSecurity = getValueAdjustmentsPerSecurity(valuePerSecurityCurrent, valuePerSecurityTotal);
           const balanceByAdjustingAndExtraCash = getUnitsForAdjusting(valueAdjustmentsPerSecurity, portfolio, extraCash);
           balanceByAdjusting = balanceByAdjustingAndExtraCash.unitsAdjustmentsPerSecurity;
+          balanceByAdjustingPartial = getPartialUnits(valueAdjustmentsPerSecurity, portfolio);
         }
       }
       return {
@@ -73,7 +79,10 @@ const rebalancingSteps = (state = {},
         balanceByAdjusting,
         valueAdditionPerSecurity,
         valueReductionPerSecurity,
-        valueAdjustmentsPerSecurity
+        valueAdjustmentsPerSecurity,
+        balanceByInvestingPartial,
+        balanceByDisvestingPartial,
+        balanceByAdjustingPartial,
       };
     }
     case types.SELECT_MODEL_PORTFOLIO:

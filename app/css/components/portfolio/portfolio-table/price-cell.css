@@ -19,6 +19,9 @@
 }
 
 .conversion-indicator-container {
+  @media (max-width: 500px) {
+    width: 0px;
+  }
   align-self: center;
   justify-content: flex-start;
 }

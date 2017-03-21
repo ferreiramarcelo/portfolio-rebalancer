@@ -1,5 +1,49 @@
-@import '../common/typography';
+@import '../../common/typography';
 
-* {
-  font-family: var(--fontRoboto);
+.instruction-container {
+  display: flex;
+  justify-content: space-between;
+  @media (max-width: 767px) {
+    align-items: flex-start;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+  margin: 10px 0 10px 0;
+}
+
+.instruction-container-2-columns {
+  justify-content: flex-start;
+}
+
+.instruction-number {
+  @media (min-width: 767px) {
+    width: 21%;
+  }
+}
+.instruction-line {
+  @media (min-width: 767px) {
+    width: 28%;
+  }
+  display: flex;
+  justify-content: center;
+  @media (max-width: 767px) {
+    justify-content: flex-start !important;
+    margin: 4px 0 4px 0;
+  }
+}
+
+.instruction-line-second-of-two {
+  justify-content: flex-start;
+}
+
+.instruction-line-start {
+  justify-content: flex-start;
+}
+
+.instruction-line-center {
+  justify-content: center;
+}
+
+.instruction-line-end {
+  justify-content: flex-end;
 }
