@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
-import StepsList from './StepsList';
 import Checkbox from 'material-ui/Checkbox';
 import classNames from 'classnames/bind';
+import StepsList from './StepsList';
 import styles from '../../css/components/investmentsteps/steps-list-header';
 
 const cx = classNames.bind(styles);
@@ -15,7 +15,6 @@ const StepsListHeader = ({showWholeUnits, showPartialUnits, showCashAmounts, cha
     return (<div>
               <div className={ cx('steps-list-header') }>
               </div>
-              <StepsList rebalancingSteps={ rebalancingSteps } showWholeUnits={ showWholeUnits } showPartialUnits={ showPartialUnits } showCashAmounts={ showCashAmounts } />
             </div>);
   };
   const stepsListHeaderElements = getStepsListHeader();
