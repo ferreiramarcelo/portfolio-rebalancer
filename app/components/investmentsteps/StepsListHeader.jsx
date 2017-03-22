@@ -18,9 +18,9 @@ const StepsListHeader = ({showWholeUnits, showPartialUnits, showCashAmounts, cha
                   <span className={ cx('steps-list-header-text') }>Steps List</span>
                 </div>
                 <div className={ cx('steps-list-header-checkboxes') }>
-                  <Checkbox checked={ showWholeUnits } onCheck={ changeShowWholeUnits } label="Whole units" className={ cx('checkbox') } />
-                  <Checkbox checked={ showPartialUnits } onCheck={ changeShowPartialUnits } label="Partial units" className={ cx('checkbox') } />
-                  <Checkbox checked={ showCashAmounts } onCheck={ changeShowCashAmounts } label="Cash amounts" className={ cx('checkbox') } />
+                  <Checkbox checked={ givenShowWholeUnits } onCheck={ changeShowWholeUnits } label="Whole units" className={ cx('checkbox') } />
+                  <Checkbox checked={ givenShowPartialUnits } onCheck={ changeShowPartialUnits } label="Partial units" className={ cx('checkbox') } />
+                  <Checkbox checked={ givenShowCashAmounts } onCheck={ changeShowCashAmounts } label="Cash amounts" className={ cx('checkbox') } />
                 </div>
               </div>
               <StepsList rebalancingSteps={ givenRebalancingSteps } showWholeUnits={ givenShowWholeUnits } showPartialUnits={ givenShowPartialUnits } showCashAmounts={ givenShowCashAmounts } />

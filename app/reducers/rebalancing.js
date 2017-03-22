@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import * as types from '../types';
-import { getValuesForInvesting, getValuesForDisvesting, getValueAdjustmentsPerSecurity, getUnitsForInvesting, getUnitsForDisvesting, getUnitsForAdjusting, getUpdatedValuePerSecurityForAdditions, getUpdatedValuePerSecurityForReductions, getPartialUnits } from '../algorithms/PortfolioAlgorithms';
+import { getValuesForInvesting, getValuesForDisvesting, getValueAdjustmentsPerSecurity, getUnitsForInvesting, getUnitsForDisvesting, getUnitsForAdjusting, getUpdatedValuePerSecurity, getPartialUnits } from '../algorithms/PortfolioAlgorithms';
 
 const rebalancingSteps = (state = {},
   action
@@ -28,7 +28,7 @@ const rebalancingSteps = (state = {},
         for (const security of portfolio) {
           equityFromPortfolio += security.price * security.units;
         }
-        const totalEquity = investmentAmount + equityFromPortfolio;
+        const totalEquity = Number((investmentAmount + equityFromPortfolio)).toFixed(4);
         let valuePerSecurityCurrent = [];
         for (const security of portfolio) {
           valuePerSecurityCurrent.push(security.price * security.units);
@@ -36,7 +36,7 @@ const rebalancingSteps = (state = {},
         const valuePerSecurityTotal = [];
         for (const security of portfolio) {
           const allocationPercentage = security.allocation / 100;
-          valuePerSecurityTotal.push(Number((allocationPercentage * totalEquity).toPrecision(12)));
+          valuePerSecurityTotal.push(Number((allocationPercentage * totalEquity).toFixed(4)));
         }
         /* Compute balancing steps */
         if (totalEquity < 0) {
@@ -51,9 +51,10 @@ const rebalancingSteps = (state = {},
           valueAdditionPerSecurity = getValuesForInvesting(investmentAmount, valuePerSecurityCurrent, valuePerSecurityTotal);
           const balanceByInvestingAndExtraCash = getUnitsForInvesting(valueAdditionPerSecurity, portfolio, investmentAmount);
           balanceByInvesting = balanceByInvestingAndExtraCash.unitsAdditionPerSecurity;
+          extraCash = balanceByInvestingAndExtraCash.extraCash;
           balanceByInvestingPartial = getPartialUnits(valueAdditionPerSecurity, portfolio);
 
-          valuePerSecurityCurrent = getUpdatedValuePerSecurityForAdditions(valuePerSecurityCurrent, balanceByInvesting, portfolio);
+          valuePerSecurityCurrent = getUpdatedValuePerSecurity(valuePerSecurityCurrent, balanceByInvesting, portfolio);
           valueAdjustmentsPerSecurity = getValueAdjustmentsPerSecurity(valuePerSecurityCurrent, valuePerSecurityTotal);
           const balanceByAdjustingAndExtraCash = getUnitsForAdjusting(valueAdjustmentsPerSecurity, portfolio, extraCash);
           balanceByAdjusting = balanceByAdjustingAndExtraCash.unitsAdjustmentsPerSecurity;
@@ -62,9 +63,10 @@ const rebalancingSteps = (state = {},
           valueReductionPerSecurity = getValuesForDisvesting(investmentAmount, valuePerSecurityCurrent, valuePerSecurityTotal);
           const balanceByDisvestingAndExtraCash = getUnitsForDisvesting(valueReductionPerSecurity, portfolio, investmentAmount);
           balanceByDisvesting = balanceByDisvestingAndExtraCash.unitsReductionPerSecurity;
+          extraCash = balanceByDisvestingAndExtraCash.extraCash;
           balanceByDisvestingPartial = getPartialUnits(valueReductionPerSecurity, portfolio);
 
-          valuePerSecurityCurrent = getUpdatedValuePerSecurityForReductions(valuePerSecurityCurrent, balanceByDisvesting, portfolio);
+          valuePerSecurityCurrent = getUpdatedValuePerSecurity(valuePerSecurityCurrent, balanceByDisvesting, portfolio);
           valueAdjustmentsPerSecurity = getValueAdjustmentsPerSecurity(valuePerSecurityCurrent, valuePerSecurityTotal);
           const balanceByAdjustingAndExtraCash = getUnitsForAdjusting(valueAdjustmentsPerSecurity, portfolio, extraCash);
           balanceByAdjusting = balanceByAdjustingAndExtraCash.unitsAdjustmentsPerSecurity;
@@ -77,12 +79,12 @@ const rebalancingSteps = (state = {},
         balanceByInvesting,
         balanceByDisvesting,
         balanceByAdjusting,
-        valueAdditionPerSecurity,
-        valueReductionPerSecurity,
-        valueAdjustmentsPerSecurity,
         balanceByInvestingPartial,
         balanceByDisvestingPartial,
         balanceByAdjustingPartial,
+        valueAdditionPerSecurity,
+        valueReductionPerSecurity,
+        valueAdjustmentsPerSecurity,
       };
     }
     case types.SELECT_MODEL_PORTFOLIO:

@@ -218,7 +218,7 @@ export function setTradingCurrency(newTradingCurrency) {
         }
       })
       .catch((jqxhr, textStatus, error) => {
-        console.log("hehe xd");
+        console.log(error);
       });
   };
 }

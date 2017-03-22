@@ -4,7 +4,10 @@ import * as types from 'types';
 
 describe('Rebalancing Reducer', () => {
   const initialState = {
-    rebalancingSteps: {}
+    rebalancingSteps: {},
+    showWholeUnits: true,
+    showPartialUnits: false,
+    showCashAmounts: false
   };
 
   it('REBALANCING 1: should return the initial state', () => {
@@ -20,16 +23,16 @@ describe('Rebalancing Reducer', () => {
     expect(
       rebalancingReducer(undefined, {
         type: types.SELECT_MODEL_PORTFOLIO
-      })
-    ).toEqual(emptyState);
+      }).rebalancingSteps
+    ).toEqual(emptyState.rebalancingSteps);
   });
 
   it('REBALANCING 3: should handle CREATE_NEW_PORTFOLIO', () => {
     expect(
       rebalancingReducer(undefined, {
         type: types.CREATE_NEW_PORTFOLIO
-      })
-    ).toEqual(emptyState);
+      }).rebalancingSteps
+    ).toEqual(emptyState.rebalancingSteps);
   });
 
   const emptyPortfolio = [];
@@ -41,6 +44,9 @@ describe('Rebalancing Reducer', () => {
       balanceByInvesting: [],
       balanceByDisvesting: [],
       balanceByAdjusting: [],
+      balanceByInvestingPartial: [],
+      balanceByDisvestingPartial: [],
+      balanceByAdjustingPartial: [],
       valueAdditionPerSecurity: [],
       valueReductionPerSecurity: [],
       valueAdjustmentsPerSecurity: []
@@ -52,8 +58,8 @@ describe('Rebalancing Reducer', () => {
         type: types.GENERATE_STEPS,
         portfolio: emptyPortfolio,
         investmentAmount: emptyInvestmentAmount
-      })
-    ).toEqual(emptyPortfolioResult);
+      }).rebalancingSteps
+    ).toEqual(emptyPortfolioResult.rebalancingSteps);
   });
 
   const portfolio5 = [
@@ -81,9 +87,12 @@ describe('Rebalancing Reducer', () => {
       ],
       balanceByDisvesting: [],
       balanceByAdjusting: [],
+      balanceByInvestingPartial: [1000],
+      balanceByDisvestingPartial: [],
+      balanceByAdjustingPartial: [0],
       valueAdditionPerSecurity: [10000],
       valueReductionPerSecurity: [],
-      valueAdjustmentsPerSecurity: []
+      valueAdjustmentsPerSecurity: [0]
     }
   };
   it('REBALANCING 5: should handle GENERATE_STEPS with one security portfolio provided', () => {
@@ -92,8 +101,8 @@ describe('Rebalancing Reducer', () => {
         type: types.GENERATE_STEPS,
         portfolio: portfolio5,
         investmentAmount: investmentAmount5
-      })
-    ).toEqual(portfolioResult5);
+      }).rebalancingSteps
+    ).toEqual(portfolioResult5.rebalancingSteps);
   });
 
   const portfolio6 = [
@@ -137,9 +146,12 @@ describe('Rebalancing Reducer', () => {
         547,
         -57
       ],
-      valueAdditionPerSecurity: [6343.23],
+      balanceByInvestingPartial: [ 83.11360062893083, 0 ],
+      balanceByDisvestingPartial: [],
+      balanceByAdjustingPartial: [ 547.3671291928723, -57.23147976102386 ],
+      valueAdditionPerSecurity: [6343.23, 0],
       valueReductionPerSecurity: [],
-      valueAdjustmentsPerSecurity: []
+      valueAdjustmentsPerSecurity: [ 41775.05930000001, -41766.389299999995 ]
     }
   };
   it('REBALANCING 6: should handle GENERATE_STEPS with positive investment and two security portfolio provided', () => {
@@ -148,8 +160,8 @@ describe('Rebalancing Reducer', () => {
         type: types.GENERATE_STEPS,
         portfolio: portfolio6,
         investmentAmount: investmentAmount6
-      })
-    ).toEqual(portfolioResult6);
+      }).rebalancingSteps
+    ).toEqual(portfolioResult6.rebalancingSteps);
   });
 
   const portfolio7 = [
@@ -199,7 +211,7 @@ describe('Rebalancing Reducer', () => {
       balanceByInvesting: [],
       balanceByDisvesting: [
         0,
-        428,
+        -428,
         0
       ],
       balanceByAdjusting: [
@@ -207,9 +219,12 @@ describe('Rebalancing Reducer', () => {
         -98873,
         95
       ],
+      balanceByInvestingPartial: [],
+      balanceByDisvestingPartial: [ 0, -427.27700000000004, 0 ],
+      balanceByAdjustingPartial: [ 5365.866899977422, -98873.39924999997, 95.31060625 ],
       valueAdditionPerSecurity: [],
-      valueReductionPerSecurity: [],
-      valueAdjustmentsPerSecurity: []
+      valueReductionPerSecurity: [ 0, -8545.54, 0 ],
+      valueAdjustmentsPerSecurity: [ 1901233.96, -1977467.9849999994, 76248.485 ]
     }
   };
   it('REBALANCING 7: should handle GENERATE_STEPS with negative investment and two security portfolio provided', () => {
@@ -218,8 +233,8 @@ describe('Rebalancing Reducer', () => {
         type: types.GENERATE_STEPS,
         portfolio: portfolio7,
         investmentAmount: investmentAmount7
-      })
-    ).toEqual(portfolioResult7);
+      }).rebalancingSteps
+    ).toEqual(portfolioResult7.rebalancingSteps);
   });
 
   const portfolio8 = [
@@ -319,9 +334,12 @@ describe('Rebalancing Reducer', () => {
         14,
         7
       ],
-      valueAdditionPerSecurity: [],
+      balanceByInvestingPartial: [ 0, 10.4, 7.2, 2.6, 20.8, 8.4 ],
+      balanceByDisvestingPartial: [],
+      balanceByAdjustingPartial: [ -35, 7.4, 3.7, 2.35, 14.8, 7.4 ],
+      valueAdditionPerSecurity: [ 0, 104, 144, 104, 104, 84 ],
       valueReductionPerSecurity: [],
-      valueAdjustmentsPerSecurity: []
+      valueAdjustmentsPerSecurity: [ -350, 74, 74, 94, 74, 74 ]
     }
   };
   it('REBALANCING 8: should handle GENERATE_STEPS with positive investment and six security portfolio provided', () => {
@@ -330,8 +348,8 @@ describe('Rebalancing Reducer', () => {
         type: types.GENERATE_STEPS,
         portfolio: portfolio8,
         investmentAmount: investmentAmount8
-      })
-    ).toEqual(portfolioResult8);
+      }).rebalancingSteps
+    ).toEqual(portfolioResult8.rebalancingSteps);
   });
 
   const portfolio9 = [
@@ -398,18 +416,21 @@ describe('Rebalancing Reducer', () => {
         -31414,
         -263,
       ],
+      balanceByInvestingPartial: [],
+      balanceByDisvestingPartial: [],
+      balanceByAdjustingPartial: [ 3151.54382, 95.00013333333334, -31414.9541, -263.99235 ],
       valueAdditionPerSecurity: [],
       valueReductionPerSecurity: [],
-      valueAdjustmentsPerSecurity: []
+      valueAdjustmentsPerSecurity: [ 31515.4382, 427.5006, -31414.9541, -527.9847 ]
     }
   };
-  it('REBALANCING 8: should handle GENERATE_STEPS with zero investment and four security portfolio provided', () => {
+  it('REBALANCING 9: should handle GENERATE_STEPS with zero investment and four security portfolio provided', () => {
     expect(
       rebalancingReducer(undefined, {
         type: types.GENERATE_STEPS,
         portfolio: portfolio9,
         investmentAmount: investmentAmount9
-      })
-    ).toEqual(portfolioResult9);
+      }).rebalancingSteps
+    ).toEqual(portfolioResult9.rebalancingSteps);
   });
 });
