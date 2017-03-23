@@ -19,52 +19,30 @@ const StepsList = ({rebalancingSteps, showWholeUnits, showPartialUnits, showCash
     return parts.join(".");
   };
 
-  const getInstruction = function getInstruction(stepNumber, index, symbol, wholeUnits, partialUnits, cashAmount, isBuy, numColumns) {
+  const getInstruction = function getInstruction(stepNumber, index, symbol, wholeUnits, partialUnits, cashAmount, isBuy) {
     const instruction = [];
-    let displayClass = '';
-    let wholeUnitsDisplayClass = '';
-    let partialUnitsDisplayClass = '';
-    let cashAmountDisplayClass = '';
-    if (numColumns === 2) {
-      displayClass = 'instruction-line-start';
-    } else if (numColumns === 3) {
-      wholeUnitsDisplayClass = 'instruction-line-start';
-      if (showCashAmounts) {
-        cashAmountDisplayClass = 'instruction-line-end';
-      } else {
-        partialUnitsDisplayClass = 'instruction-line-end';
-      }
-    } else {
-      wholeUnitsDisplayClass = 'instruction-line-start';
-      partialUnitsDisplayClass = 'instruction-line-center';
-      cashAmountDisplayClass = 'instruction-line-end';
-    }
-
-    instruction.push(<span className={ cx('instruction-number', 'instruction-line-start') }>{ stepNumber }. { symbol } </span>);
+    instruction.push(<span className={ cx('instruction-number', 'instruction', ) }>{ stepNumber }. { symbol } </span>);
     if (showWholeUnits) {
-      instruction.push(<span key={ 'investmentWholeUnits' + index } className={ cx('instruction-line', displayClass, wholeUnitsDisplayClass) }>
+      instruction.push(<span key={ 'investmentWholeUnits' + index } className={ cx('instruction') }>
                                                     { isBuy ? 'Buy ' : 'Sell ' }
                                                     { isBuy ? formatUnitsAmount(wholeUnits) : formatUnitsAmount(-wholeUnits) } unit
                                                     { wholeUnits > 1 || wholeUnits < 1 ? 's' : '' }
                                                   </span>
-
       );
     }
     if (showPartialUnits) {
-      instruction.push(<span key={ 'investmentPartialUnits' + index } className={ cx('instruction-line', displayClass, partialUnitsDisplayClass) }>
+      instruction.push(<span key={ 'investmentPartialUnits' + index } className={ cx('instruction') }>
                                                     { isBuy ? 'Buy ' : 'Sell ' }
                                                     { isBuy ? formatPartialUnitsAmount(partialUnits) : formatPartialUnitsAmount(-partialUnits) } unit
                                                     { partialUnits > 1 || partialUnits < 1 ? 's' : '' }
                                                   </span>
-
       );
     }
     if (showCashAmounts) {
-      instruction.push(<span key={ 'investmentCashAmount' + index } className={ cx('instruction-line', displayClass, cashAmountDisplayClass) }>
+      instruction.push(<span key={ 'investmentCashAmount' + index } className={ cx('instruction') }>
                                { isBuy ? 'Spend $' : 'Get $' }
                                { isBuy ? formatMoneyAmount(cashAmount) : formatMoneyAmount(-cashAmount) }
                                                   </span>
-
       );
     }
     return instruction;
@@ -81,23 +59,14 @@ const StepsList = ({rebalancingSteps, showWholeUnits, showPartialUnits, showCash
       let disvested = false;
       let adjusted = false;
       let stepNumber = 1;
-      let numColumns = 1;
-      if (showWholeUnits) {
-        numColumns++;
-      }
-      if (showPartialUnits) {
-        numColumns++;
-      }
-      if (showCashAmounts) {
-        numColumns++;
-      }
       if (givenRebalancingSteps.cashStillMissing) {
-        stepsList.push(<p key="sellEverythingStep">
+        stepsList.push(<span key="sellEverythingStep">
                          Sell the entire portfolio. You will still be missing $
                          { formatMoneyAmount(givenRebalancingSteps.cashStillMissing) }.
-                       </p>);
+                       </span>);
         return stepsList;
       }
+      let instructionsList = [];
       if (givenRebalancingSteps.balanceByInvesting.length > 0) {
         for (let i = 0; i < givenRebalancingSteps.portfolio.length; i++) {
           if (givenRebalancingSteps.balanceByInvesting[i] > 0) {
@@ -108,20 +77,19 @@ const StepsList = ({rebalancingSteps, showWholeUnits, showPartialUnits, showCash
               givenRebalancingSteps.balanceByInvesting[i],
               givenRebalancingSteps.balanceByInvestingPartial[i],
               givenRebalancingSteps.valueAdditionPerSecurity[i],
-              true,
-              numColumns
+              true
             );
-            investmentSteps.push(<div className={ cx('instruction-container', 'instruction-container-' + numColumns + '-columns') }>
-                                   { instruction }
-                                 </div>);
+            instructionsList.push(<div className={ cx('instruction-container') }> {instruction} </div>);
             stepNumber++;
           }
         }
+        investmentSteps.push(<div className={ cx('instructions-container') }> {instructionsList} </div>)
         if (stepNumber > 1) {
           invested = true;
         }
         stepNumber = 1;
       }
+      instructionsList = [];
       if (givenRebalancingSteps.balanceByDisvesting.length > 0) {
         for (let i = 0; i < givenRebalancingSteps.portfolio.length; i++) {
           if (givenRebalancingSteps.balanceByDisvesting[i] < 0) {
@@ -132,20 +100,19 @@ const StepsList = ({rebalancingSteps, showWholeUnits, showPartialUnits, showCash
               givenRebalancingSteps.balanceByDisvesting[i],
               givenRebalancingSteps.balanceByDisvestingPartial[i],
               givenRebalancingSteps.valueReductionPerSecurity[i],
-              false,
-              numColumns
+              false
             );
-            disvestmentSteps.push(<div className={ cx('instruction-container', 'instruction-container-' + numColumns + '-columns') }>
-                                    { instruction }
-                                  </div>);
+            instructionsList.push(<div className={ cx('instruction-container') }> {instruction} </div>);
             stepNumber++;
           }
         }
+        disvestmentSteps.push(<div className={ cx('instructions-container') }> {instructionsList} </div>)
         if (stepNumber > 1) {
           disvested = true;
         }
         stepNumber = 1;
       }
+      instructionsList = [];
       if (givenRebalancingSteps.balanceByAdjusting.length > 0) {
         for (let i = 0; i < givenRebalancingSteps.portfolio.length; i++) {
           if (givenRebalancingSteps.balanceByAdjusting[i] < 0) {
@@ -156,12 +123,9 @@ const StepsList = ({rebalancingSteps, showWholeUnits, showPartialUnits, showCash
               givenRebalancingSteps.balanceByAdjusting[i],
               givenRebalancingSteps.balanceByAdjustingPartial[i],
               givenRebalancingSteps.valueAdjustmentsPerSecurity[i],
-              false,
-              numColumns
+              false
             );
-            adjustmentSteps.push(<div className={ cx('instruction-container', 'instruction-container-' + numColumns + '-columns') }>
-                                   { instruction }
-                                 </div>);
+            instructionsList.push(<div className={ cx('instruction-container') }> {instruction} </div>);
             stepNumber++;
           }
         }
@@ -174,22 +138,20 @@ const StepsList = ({rebalancingSteps, showWholeUnits, showPartialUnits, showCash
               givenRebalancingSteps.balanceByAdjusting[i],
               givenRebalancingSteps.balanceByAdjustingPartial[i],
               givenRebalancingSteps.valueAdjustmentsPerSecurity[i],
-              true,
-              numColumns
+              true
             );
-            adjustmentSteps.push(<div className={ cx('instruction-container', 'instruction-container-' + numColumns + '-columns') }>
-                                   { instruction }
-                                 </div>);
+            instructionsList.push(<div className={ cx('instruction-container') }> {instruction} </div>);
             stepNumber++;
           }
         }
+        adjustmentSteps.push(instructionsList);
         if (stepNumber > 1) {
           adjusted = true;
         }
       }
 
       if (!invested && !disvested && !adjusted) {
-        stepsList.push(<p key="noInvNoDisNoAdjStep">Not enough capital to rebalance or invest further.</p>);
+        stepsList.push(<span key="noInvNoDisNoAdjStep">Not enough capital to rebalance or invest further.</span>);
       } else if (invested && !adjusted) {
         stepsList.push(investmentSteps);
       } else if (disvested && !adjusted) {

@@ -1,49 +1,36 @@
 @import '../../common/typography';
 
-.instruction-container {
-  display: flex;
-  justify-content: space-between;
-  @media (max-width: 767px) {
-    align-items: flex-start;
-    flex-direction: column;
-    margin-bottom: 20px;
+.instructions-container {
+  @media (min-width: 767px) {
+    display: table;
+    width: 100%;
   }
-  margin: 10px 0 10px 0;
 }
 
-.instruction-container-2-columns {
-  justify-content: flex-start;
+.instruction-container {
+  margin: 0 0 30px 0;
+  @media (min-width: 767px) {
+    display: table-row;
+  }
 }
 
 .instruction-number {
+  white-space: nowrap;
   @media (min-width: 767px) {
-    width: 21%;
+    width: 1%;
+    padding-right: 30px;
   }
-}
-.instruction-line {
-  @media (min-width: 767px) {
-    width: 28%;
-  }
-  display: flex;
-  justify-content: center;
   @media (max-width: 767px) {
-    justify-content: flex-start !important;
-    margin: 4px 0 4px 0;
+    display: block;
   }
 }
 
-.instruction-line-second-of-two {
-  justify-content: flex-start;
-}
-
-.instruction-line-start {
-  justify-content: flex-start;
-}
-
-.instruction-line-center {
-  justify-content: center;
-}
-
-.instruction-line-end {
-  justify-content: flex-end;
+.instruction {
+  padding-bottom: 7px;
+  @media (min-width: 767px) {
+    display: table-cell;
+  }
+  @media (max-width: 767px) {
+    display: block;
+  }
 }
