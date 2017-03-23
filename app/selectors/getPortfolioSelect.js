@@ -14,10 +14,12 @@ const getSelectedModelPortfolioSelect = function getSelectedModelPortfolioSelect
     valid = false;
     errorText = 'Required';
   }
-  for (const userModelPortfolio of modelPortfolios.userModelPortfolios) {
-    if (userModelPortfolio.email === email && userModelPortfolio.name === selectedModelPortfolio.name && userModelPortfolio.id !== selectedModelPortfolio.id) {
-      valid = false;
-      errorText = 'Name already in use';
+  if (modelPortfolios.userModelPortfolios) {  
+    for (const userModelPortfolio of modelPortfolios.userModelPortfolios) {
+      if (userModelPortfolio.email === email && userModelPortfolio.name === selectedModelPortfolio.name && userModelPortfolio.id !== selectedModelPortfolio.id) {
+        valid = false;
+        errorText = 'Name already in use';
+      }
     }
   }
   return {

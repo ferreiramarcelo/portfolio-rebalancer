@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames/bind';
 import { investmentAmountTextFieldChange } from '../actions/investmentAmount';
-import { initializeModelPortfolios, changeAutocomplete, toggleModelPortfolioGroupOpenness, modelPortfoliosAutoCompleteSearchTextChange, createNewModelPortfolio, saveModelPortfolio, deleteModelPortfolio } from '../actions/modelPortfolios';
+import { changeAutocomplete, toggleModelPortfolioGroupOpenness, modelPortfoliosAutoCompleteSearchTextChange, createNewModelPortfolio, saveModelPortfolio, deleteModelPortfolio } from '../actions/modelPortfolios';
 import { selectModelPortfolio, modelPortfolioNameTextFieldChange, addSecurity, removeSecurity, securityTextFieldChange, fetchPrice, setTradingCurrency } from '../actions/portfolios';
 import { generateSteps, setScrolledToBttom, changeShowWholeUnits, changeShowPartialUnits, changeShowCashAmounts } from '../actions/rebalancings';
 import TestAutoComplete from '../components/portfolioselection/TestAutoComplete';
@@ -21,7 +21,6 @@ const cx = classNames.bind(styles);
 class PortfolioRebalancer extends Component {
   constructor(props) {
     super(props);
-    this.props.initializeModelPortfolios();
     this.handleOnGenerateSteps = this.handleOnGenerateSteps.bind(this);
   }
 
@@ -115,7 +114,6 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, {
-  initializeModelPortfolios,
   investmentAmountTextFieldChange,
   modelPortfoliosAutoCompleteSearchTextChange,
   createNewModelPortfolio,

@@ -13,7 +13,7 @@ axios.defaults.baseURL = `http://${host}:${port}`;
 export default function render(req, res) {
   const authenticated = req.isAuthenticated();
   const history = createMemoryHistory();
-  let email = '';
+  var email = '';
   let verified = false;
   let accountType = constants.ACCOUNT_TYPE_INTERNAL;
   if (req.user) {
@@ -52,7 +52,7 @@ export default function render(req, res) {
           store.dispatch({
             type: types.REQUEST_SUCCESS,
             data,
-            pathname: req.url //To remove
+            email
           });
           const html = pageRenderer(store, props);
           res.status(200).send(html);

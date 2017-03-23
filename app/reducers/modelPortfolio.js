@@ -38,22 +38,14 @@ const modelPortfolio = (state = {}, action) => {
   }
 };
 
-const modelPortfolios = (state = {}, action) => {
+const modelPortfolios = (state = {modelPortfolios: [], defaultModelPortfolios: [], userModelPortfolios: [], displayModelPortfolios: []}, action) => {
   switch (action.type) {
     case types.REQUEST_SUCCESS:
       if (action.data) {
-        if (!state.email && state.email !== "") {
-          return {
-            modelPortfolios: action.data,
-            defaultModelPortfolios: [],
-            userModelPortfolios: [],
-            displayModelPortfolios: []
-          };
-        }
         const userModelPortfolios = [];
         const defaultModelPortfolios = [];
         for (const requestedModelPortfolio of action.data) {
-          if (requestedModelPortfolio.email === state.email) {
+          if (action.email && requestedModelPortfolio.email === action.email) {
             userModelPortfolios.push(requestedModelPortfolio);
           } else if (!requestedModelPortfolio.email) {
             defaultModelPortfolios.push(requestedModelPortfolio);
@@ -69,38 +61,14 @@ const modelPortfolios = (state = {}, action) => {
 
         return {
           ...state,
-          email: action.email,
+          email: state.email,
+          modelPortfolios: action.data,
           defaultModelPortfolios,
           userModelPortfolios,
           displayModelPortfolios: initialDisplayModelPortfolios
         };
       }
       return state;
-    case types.INITIALIZE_MODEL_PORTFOLIOS:
-      const userModelPortfolios = [];
-      const defaultModelPortfolios = [];
-      for (const modelPortfolio of state.modelPortfolios) {
-        if (modelPortfolio.email === action.email) {
-          userModelPortfolios.push(modelPortfolio);
-        } else if (!modelPortfolio.email) {
-          defaultModelPortfolios.push(modelPortfolio);
-        }
-      }
-
-      const newAction = {
-        type: types.INITIALIZE_MODEL_PORTFOLIOS,
-        defaultModelPortfolios,
-        userModelPortfolios
-      };
-      const initialDisplayModelPortfolios = displayModelPortfolios(undefined, newAction);
-
-      return {
-        ...state,
-        email: action.email,
-        defaultModelPortfolios,
-        userModelPortfolios,
-        displayModelPortfolios: initialDisplayModelPortfolios
-      };
     case types.TOGGLE_MODEL_PORTFOLIO_GROUP_OPENNESS:
       return {
         ...state,

@@ -79,6 +79,9 @@ const TestAutoComplete = ({searchText, onUpdateInput, modelPortfolios, onItemTou
 
   const getDisplayModelPortfoliosComponents = function getDisplayModelPortfoliosComponents(givenSearchText, modelPortfolios) {
     const displayModelPortfolioComponents = [];
+    if (!modelPortfolios.displayModelPortfolios || !modelPortfolios.userModelPortfolios || !modelPortfolios.defaultModelPortfolios) {
+      return displayModelPortfolioComponents;
+    }
     if (!givenSearchText) {
       for (const displayModelPortfolio of modelPortfolios.displayModelPortfolios) {
         processDisplayModelPortfolioElementRecursiveEmptySearchText(displayModelPortfolio, 0, displayModelPortfolioComponents);

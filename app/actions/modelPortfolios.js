@@ -26,13 +26,6 @@ function initializeModelPortfoliosDispatch(email) {
   };
 }
 
-export function initializeModelPortfolios() {
-  return (dispatch, getState) => {
-    const {user} = getState();
-    return dispatch(initializeModelPortfoliosDispatch(user.email));
-  };
-}
-
 export function toggleModelPortfolioGroupOpenness(position) {
   return {
     type: types.TOGGLE_MODEL_PORTFOLIO_GROUP_OPENNESS,

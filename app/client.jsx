@@ -30,7 +30,8 @@ function onUpdate() {
     window.__INITIAL_STATE__ = null;
     return;
   }
-
+  const {user} = store.getState();
+  var email = user.email;
   store.dispatch({
     type: types.CREATE_REQUEST
   });
@@ -38,7 +39,8 @@ function onUpdate() {
     .then(data => {
       return store.dispatch({
         type: types.REQUEST_SUCCESS,
-        data
+        data,
+        email
       });
     });
 }
