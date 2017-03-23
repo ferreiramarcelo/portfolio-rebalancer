@@ -64,12 +64,9 @@ export function isEmailAddressAvailable(req, res, next) {
 }
 
 export function isPasswordResetTokenValid(req, res, next) {
-  console.log('TOKEN:' + req.params.token);
   PasswordResetToken.findOne({
     token: req.params.token
   }, (findErr, existingToken) => {
-    console.log('ERR:' + findErr, ' EXISTING TOKEN:' + existingToken);
-
     if (findErr) {
       return res.status(401).json({
         response: constants.RESPONSE_IS_PASSWORD_RESET_TOKEN_VALID_FAILURE,

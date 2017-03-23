@@ -22,6 +22,9 @@ function fetchCurrencyConversion(originalCurrency, tradingCurrency) {
 }
 
 function fetchMassCurrencyConversion(listOfDistinctCurrencies, tradingCurrency) {
+  //if (listOfDistinctCurrencies.length < 1) {
+    //return {status: 200};
+  //}
   const api = 'https://query.yahooapis.com/v1/public/yql';
   let listOfPairs = '';
   for (const distinctCurrency of listOfDistinctCurrencies) {
@@ -207,6 +210,7 @@ export function setTradingCurrency(newTradingCurrency) {
         arrayOfDistinctCurrencies.push(distinctCurrency);
       }
     }
+    if (arrayOfDistinctCurrencies.length > 1) {
     fetchMassCurrencyConversion(arrayOfDistinctCurrencies, newTradingCurrency)
       .then(data => {
         if (data.status === 200) {
@@ -220,7 +224,11 @@ export function setTradingCurrency(newTradingCurrency) {
       .catch((jqxhr, textStatus, error) => {
         console.log(error);
       });
-  };
+  }
+  else {
+    dispatch(setCurrencies(newTradingCurrency, {}));
+  }
+};
 }
 
 function setCurrencies(newTradingCurrency, newListOfDistinctCurrencies) {
