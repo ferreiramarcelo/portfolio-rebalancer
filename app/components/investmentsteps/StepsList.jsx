@@ -21,7 +21,7 @@ const StepsList = ({rebalancingSteps, showWholeUnits, showPartialUnits, showCash
 
   const getInstruction = function getInstruction(stepNumber, index, symbol, wholeUnits, partialUnits, cashAmount, isBuy) {
     const instruction = [];
-    instruction.push(<span className={ cx('instruction-number', 'instruction', ) }>{ stepNumber }. { symbol } </span>);
+    instruction.push(<span className={ cx('instruction', ) }>{ stepNumber }. { symbol } </span>);
     if (showWholeUnits) {
       instruction.push(<span key={ 'investmentWholeUnits' + index } className={ cx('instruction') }>
                                                     { isBuy ? 'Buy ' : 'Sell ' }

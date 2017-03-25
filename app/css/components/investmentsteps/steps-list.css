@@ -15,9 +15,11 @@
   }
 }
 
-.instruction-number {
+.instruction {
+  padding-bottom: 7px;
   white-space: nowrap;
   @media (min-width: 767px) {
+    display: table-cell;
     width: 1%;
     padding-right: 30px;
   }
@@ -26,12 +28,8 @@
   }
 }
 
-.instruction {
-  padding-bottom: 7px;
+.instruction:last-child {
   @media (min-width: 767px) {
-    display: table-cell;
-  }
-  @media (max-width: 767px) {
-    display: block;
+    width: 100%;
   }
 }
