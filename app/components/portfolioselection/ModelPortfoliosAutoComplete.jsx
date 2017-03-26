@@ -1,135 +1,106 @@
 import React, { PropTypes } from 'react';
-import AutoComplete from 'material-ui/AutoComplete';
 import MenuItem from 'material-ui/MenuItem';
-import ActionGroupWork from 'material-ui/svg-icons/action/group-work';
+import NavigationExpandMore from 'material-ui/svg-icons/navigation/expand-more';
+import NavigationExpandLess from 'material-ui/svg-icons/navigation/expand-less';
+import NavigationSubdirectoryArrowRight from 'material-ui/svg-icons/navigation/subdirectory-arrow-right';
+import SocialGroup from 'material-ui/svg-icons/social/group';
 import EditorModeEdit from 'material-ui/svg-icons/editor/mode-edit';
 import classNames from 'classnames/bind';
+import AutoComplete from './CustomMaterialUIAutoComplete';
 import styles from '../../css/components/portfolioselection/model-portfolios-auto-complete';
 
 const cx = classNames.bind(styles);
 
-const ModelPortfoliosAutoComplete = ({searchText, onUpdateInput, modelPortfolios, email, selectModelPortfolio}) => {
-  const getDefaultModelPortfolios = function getDefaultModelPortfolios(givenModelPortfolios) {
-    const defaultModelPortfolios = [];
-    for (let i = 0; i < givenModelPortfolios.length; i++) {
-      if (!givenModelPortfolios[i].email) {
-        defaultModelPortfolios.push(givenModelPortfolios[i]);
-      }
-    }
-    return defaultModelPortfolios;
-  };
-  const defaultModelPortfolios = getDefaultModelPortfolios(modelPortfolios);
-
-  const getUserModelPortfolios = function getUserModelPortfolios(givenModelPortfolios, givenEmail) {
-    const userModelPortfolios = [];
-    for (let i = 0; i < givenModelPortfolios.length; i++) {
-      if (givenModelPortfolios[i].email === givenEmail) {
-        userModelPortfolios.push(givenModelPortfolios[i]);
-      }
-    }
-    return userModelPortfolios;
-  };
-  const userModelPortfolios = getUserModelPortfolios(modelPortfolios, email);
-
-  const sortModelPortfoliosAlphabeticaly = function sortModelPortfoliosAlphabeticaly(modelPortfolioA, modelPortfolioB) {
-    const modelPortfolioNameA = modelPortfolioA.name.toUpperCase();
-    const modePortfolioNameB = modelPortfolioB.name.toUpperCase();
-    if (modelPortfolioNameA < modePortfolioNameB) {
-      return -1;
-    } else if (modelPortfolioNameA > modePortfolioNameB) {
-      return 1;
-    }
-    return 0;
+const ModelPortfoliosAutoComplete = ({searchText, onUpdateInput, modelPortfolios, onItemTouch, toggleModelPortfolioGroupOpenness}) => {
+  const handleOnNewRequest = function handleOnNewRequest(chosenRequest) {
+    return false;
   };
 
-  const generateDisplayModelPortfolios = function generateDisplayModelPortfolios(givenDefaultModelPortfolios, givenUserModelPorfolios) {
-    givenDefaultModelPortfolios.sort(sortModelPortfoliosAlphabeticaly);
-    givenUserModelPorfolios.sort(sortModelPortfoliosAlphabeticaly);
-    const displayModelPortfolios = [];
-    if (givenUserModelPorfolios.length === 0) {
-      for (let i = 0; i < givenDefaultModelPortfolios.length; i++) {
-        displayModelPortfolios.push({
-          name: givenDefaultModelPortfolios[i].name
-        });
+  const processDisplayModelPortfolioElementRecursiveEmptySearchText = function processDisplayModelPortfolioElementRecursiveEmptySearchText(displayModelPortfolioElement, depth, displayModelPortfolioComponents) {
+    let isGroup = false;
+    let onTouchTap = null;
+    let leftIcon = null;
+    let rightIcon = null;
+    let displayClass = '';
+    if (displayModelPortfolioElement.children.length > 0) {
+      isGroup = true;
+      onTouchTap = function onTouchTap() {
+        toggleModelPortfolioGroupOpenness(displayModelPortfolioElement.position);
+      };
+      if (displayModelPortfolioElement.open) {
+        rightIcon = <NavigationExpandLess />;
+      } else {
+        rightIcon = <NavigationExpandMore />;
       }
     } else {
-      displayModelPortfolios.push({
-        name: 'USER_MODEL_PORTFOLIOS_GROUP'
-      });
-      for (let i = 0; i < givenUserModelPorfolios.length; i++) {
-        displayModelPortfolios.push({
-          name: givenUserModelPorfolios[i].name,
-          isCustom: 1
-        });
-      }
-      displayModelPortfolios.push({
-        name: 'DEFAULT_MODEL_PORTFOLIOS_GROUP'
-      });
-      for (let i = 0; i < givenDefaultModelPortfolios.length; i++) {
-        displayModelPortfolios.push({
-          name: givenDefaultModelPortfolios[i].name,
-          isCustom: 0
-        });
-      }
+      onTouchTap = function onTouchTap() {
+        onItemTouch(displayModelPortfolioElement.modelPortfolio);
+      };
     }
-    return displayModelPortfolios;
-  };
-
-  const displayModelPortfolios = generateDisplayModelPortfolios(defaultModelPortfolios, userModelPortfolios);
-
-  const displayModelPortfoliosElements = displayModelPortfolios.map((modelPortfolio) => {
-    switch (modelPortfolio.name) {
-      case 'USER_MODEL_PORTFOLIOS_GROUP':
-        return {
-          text: '',
-          value: (<MenuItem disabled primaryText="Custom Model Portfolios" />)
-        };
-      case 'DEFAULT_MODEL_PORTFOLIOS_GROUP':
-        return {
-          text: '',
-          value: (<MenuItem disabled primaryText="Default Model Portfolios" />)
-        };
-      default:
-        switch (modelPortfolio.isCustom) {
-          case 0:
-            return {
-              text: modelPortfolio.name,
-              value: (<MenuItem primaryText={ modelPortfolio.name } leftIcon={ <ActionGroupWork /> } className={ cx('model-portfolios-auto-complete-menu-item') } />)
-            };
-          case 1:
-            return {
-              text: modelPortfolio.name,
-              value: (<MenuItem primaryText={ modelPortfolio.name } leftIcon={ <EditorModeEdit /> } className={ cx('model-portfolios-auto-complete-menu-item') } />)
-            };
-          default:
-            return {
-              text: modelPortfolio.name,
-              value: (<MenuItem primaryText={ modelPortfolio.name } className={ cx('model-portfolios-auto-complete-menu-item') } />)
-            };
+    if (displayModelPortfolioElement.position.length - 1 > 0) {
+      leftIcon = <NavigationSubdirectoryArrowRight />;
+      displayClass = 'model-portfolios-auto-complete-menu-item-nested';
+    }
+    displayModelPortfolioComponents.push({
+      text: '',
+      value: <MenuItem isGroup={ isGroup } onTouchTap={ onTouchTap } primaryText={ displayModelPortfolioElement.displayName } leftIcon={ leftIcon } rightIcon={ rightIcon }
+               className={ cx('model-portfolios-auto-complete-menu-item',
+                             'model-portfolios-auto-complete-menu-item-level-' + (displayModelPortfolioElement.position.length - 1).toString(),
+                             displayClass) } />
+    });
+    if (displayModelPortfolioElement.children) {
+      if (displayModelPortfolioElement.open) {
+        for (const child of displayModelPortfolioElement.children) {
+          processDisplayModelPortfolioElementRecursiveEmptySearchText(child, depth + 1, displayModelPortfolioComponents);
         }
-    }
-  });
-
-  const handleOnNewRequest = function handleOnNewRequest(chosenRequest) {
-    for (let i = 0; i < userModelPortfolios.length; i++) {
-      if (userModelPortfolios[i].name === chosenRequest.text) {
-        selectModelPortfolio(userModelPortfolios[i]);
-        return;
-      }
-    }
-    for (let i = 0; i < defaultModelPortfolios.length; i++) {
-      if (defaultModelPortfolios[i].name === chosenRequest.text) {
-        selectModelPortfolio(defaultModelPortfolios[i]);
-        return;
       }
     }
   };
 
+  const processDisplayModelPortfolioElementRecursiveWithSearchText = function processDisplayModelPortfolioElementRecursiveWithSearchText(modelPortfolio, isDefault, displayModelPortfolioComponents) {
+    if (isDefault && (modelPortfolio.subGroups.length > 0 || modelPortfolio.modelPortfolios.length > 0)) {
+      for (const subGroup of modelPortfolio.subGroups) {
+        processDisplayModelPortfolioElementRecursiveWithSearchText(subGroup, true, displayModelPortfolioComponents);
+      }
+      for (const modelPortfolio of modelPortfolio.modelPortfolios) {
+        processDisplayModelPortfolioElementRecursiveWithSearchText(modelPortfolio, true, displayModelPortfolioComponents);
+      }
+    } else {
+      const onTouchTap = function onTouchTap() {
+        onItemTouch(modelPortfolio);
+      };
+      const leftIcon = isDefault ? <SocialGroup /> : <EditorModeEdit />;
+      displayModelPortfolioComponents.push({
+        text: modelPortfolio.name,
+        value: <MenuItem onTouchTap={ onTouchTap } primaryText={ modelPortfolio.name } leftIcon={ leftIcon } className={ cx('model-portfolios-auto-complete-menu-item') } />
+      });
+    }
+  };
+
+  const getDisplayModelPortfoliosComponents = function getDisplayModelPortfoliosComponents(givenSearchText, modelPortfolios) {
+    const displayModelPortfolioComponents = [];
+    if (!modelPortfolios.displayModelPortfolios || !modelPortfolios.userModelPortfolios || !modelPortfolios.defaultModelPortfolios) {
+      return displayModelPortfolioComponents;
+    }
+    if (!givenSearchText) {
+      for (const displayModelPortfolio of modelPortfolios.displayModelPortfolios) {
+        processDisplayModelPortfolioElementRecursiveEmptySearchText(displayModelPortfolio, 0, displayModelPortfolioComponents);
+      }
+    } else {
+      for (const userModelPortfolio of modelPortfolios.userModelPortfolios) {
+        processDisplayModelPortfolioElementRecursiveWithSearchText(userModelPortfolio, false, displayModelPortfolioComponents);
+      }
+      for (const defaultModelPortfolio of modelPortfolios.defaultModelPortfolios) {
+        processDisplayModelPortfolioElementRecursiveWithSearchText(defaultModelPortfolio, true, displayModelPortfolioComponents);
+      }
+    }
+    return displayModelPortfolioComponents;
+  };
+  const displayModelPortfolioComponents = getDisplayModelPortfoliosComponents(searchText, modelPortfolios);
+//menuStyle={{maxHeight: '400px', overflowY: 'scroll'}}
   return (
-    <div className={ cx('model-portfolios-auto-complete-container') }>
-      <AutoComplete searchText={ searchText } onUpdateInput={ onUpdateInput } dataSource={ displayModelPortfoliosElements } onNewRequest={ handleOnNewRequest } filter={ AutoComplete.caseInsensitiveFilter }
-        hintText="Select model portfolio..." openOnFocus fullWidth />
-    </div>
+    <AutoComplete searchText={ searchText } onUpdateInput={ onUpdateInput } floatingLabelText="Select model portfolio..." filter={ AutoComplete.fuzzyFilter } menuCloseDelay={ 50 }
+      openOnFocus dataSource={ displayModelPortfolioComponents } open={ false } onNewRequest={ handleOnNewRequest } fullWidth menuStyle={{maxHeight: 'calc(100vh - 150px)', overflowY: 'scroll'}}/>
     );
 };
 

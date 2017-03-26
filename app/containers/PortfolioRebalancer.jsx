@@ -5,7 +5,6 @@ import { investmentAmountTextFieldChange } from '../actions/investmentAmount';
 import { changeAutocomplete, toggleModelPortfolioGroupOpenness, modelPortfoliosAutoCompleteSearchTextChange, createNewModelPortfolio, saveModelPortfolio, deleteModelPortfolio } from '../actions/modelPortfolios';
 import { selectModelPortfolio, modelPortfolioNameTextFieldChange, addSecurity, removeSecurity, securityTextFieldChange, fetchPrice, setTradingCurrency } from '../actions/portfolios';
 import { generateSteps, setScrolledToBttom, changeShowWholeUnits, changeShowPartialUnits, changeShowCashAmounts } from '../actions/rebalancings';
-import TestAutoComplete from '../components/portfolioselection/TestAutoComplete';
 import ModelPortfoliosAutoComplete from '../components/portfolioselection/ModelPortfoliosAutoComplete';
 import NewPortfolioButton from '../components/portfolioselection/NewPortfolioButton';
 import Portfolio from '../components/portfolio/Portfolio';
@@ -61,7 +60,7 @@ class PortfolioRebalancer extends Component {
     return (
       <div className={ cx('portfolio-rebalancer-container') }>
         <div className={ cx('model-portfolio-selector-container') }>
-          <TestAutoComplete searchText={ this.props.modelPortfoliosAutoCompleteSearchText } onUpdateInput={ this.props.modelPortfoliosAutoCompleteSearchTextChange } modelPortfolios={ this.props.modelPortfolios } onItemTouch={ this.props.selectModelPortfolio } onNewRequest={ this.props.changeAutocomplete }
+          <ModelPortfoliosAutoComplete searchText={ this.props.modelPortfoliosAutoCompleteSearchText } onUpdateInput={ this.props.modelPortfoliosAutoCompleteSearchTextChange } modelPortfolios={ this.props.modelPortfolios } onItemTouch={ this.props.selectModelPortfolio } onNewRequest={ this.props.changeAutocomplete }
             toggleModelPortfolioGroupOpenness={ this.props.toggleModelPortfolioGroupOpenness } />
           <NewPortfolioButton createNewModelPortfolio={ this.props.createNewModelPortfolio } />
         </div>

@@ -1,7 +1,7 @@
 {
   "name": "portfolio-rebalancer-dev",
   "description": "Investment portfolio rebalancing web app",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "engines": {
     "node": "6.9.5",
     "npm": "3.10.10"
