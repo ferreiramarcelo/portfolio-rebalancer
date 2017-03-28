@@ -3,6 +3,8 @@ Portfolio Rebalancer is a web application for streamlined portfolio rebalancing.
 
 Link: [**https://www.portfoliorebalancer.com**](https://www.portfoliorebalancer.com)
 
+<img src="https://i.imgur.com/SL04bIX.png" alt="Portfolio Rebalancer image">
+
 # Features
 - O(n) steps generation time
 - Selection of common model portfolios (e.g. Canadian Couch Potato)
