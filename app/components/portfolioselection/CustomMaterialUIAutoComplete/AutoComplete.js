@@ -264,7 +264,7 @@ const AutoComplete = (function(_Component) {
   {
     key: 'componentDidMount',
     value: function componentDidMount() {
-      this.handleFocus();
+      this.focus();
     }
   }, {
     key: 'componentWillReceiveProps',
