@@ -260,6 +260,12 @@ const AutoComplete = (function(_Component) {
       });
       this.timerTouchTapCloseId = null;
     }
+  },
+  {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.handleFocus();
+    }
   }, {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(nextProps) {

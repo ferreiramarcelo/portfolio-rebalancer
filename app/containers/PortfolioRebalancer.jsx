@@ -30,6 +30,11 @@ class PortfolioRebalancer extends Component {
     }
   }
 
+  componentDidMount() {
+    //this.nameInput.focus();
+
+  }
+
   getPortfolioView() {
     if (this.props.view.displayPortfolio) {
       return (
