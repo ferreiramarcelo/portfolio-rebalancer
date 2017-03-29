@@ -66,7 +66,7 @@ class PortfolioRebalancer extends Component {
       <div className={ cx('portfolio-rebalancer-container') }>
         <div className={ cx('model-portfolio-selector-container') }>
           <ModelPortfoliosAutoComplete searchText={ this.props.modelPortfoliosAutoCompleteSearchText } onUpdateInput={ this.props.modelPortfoliosAutoCompleteSearchTextChange } modelPortfolios={ this.props.modelPortfolios } onItemTouch={ this.props.selectModelPortfolio } onNewRequest={ this.props.changeAutocomplete }
-            toggleModelPortfolioGroupOpenness={ this.props.toggleModelPortfolioGroupOpenness } />
+            toggleModelPortfolioGroupOpenness={ this.props.toggleModelPortfolioGroupOpenness } shouldOpenMenu={ this.props.portfolio.length === 0} />
           <NewPortfolioButton createNewModelPortfolio={ this.props.createNewModelPortfolio } />
         </div>
         { this.getPortfolioView() }

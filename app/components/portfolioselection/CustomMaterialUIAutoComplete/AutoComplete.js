@@ -264,7 +264,9 @@ const AutoComplete = (function(_Component) {
   {
     key: 'componentDidMount',
     value: function componentDidMount() {
-      this.focus();
+      if (this.props.shouldOpenMenu) {
+        this.focus();
+      }
     }
   }, {
     key: 'componentWillReceiveProps',
@@ -334,7 +336,8 @@ const AutoComplete = (function(_Component) {
         openOnFocus = _props.openOnFocus,
         popoverProps = _props.popoverProps,
         searchTextProp = _props.searchText,
-        other = (0, _objectWithoutProperties3.default)(_props, ['anchorOrigin', 'animated', 'animation', 'dataSource', 'dataSourceConfig', 'disableFocusRipple', 'errorStyle', 'floatingLabelText', 'filter', 'fullWidth', 'style', 'hintText', 'maxSearchResults', 'menuCloseDelay', 'textFieldStyle', 'menuStyle', 'menuProps', 'listStyle', 'targetOrigin', 'onClose', 'onNewRequest', 'onUpdateInput', 'openOnFocus', 'popoverProps', 'searchText']);
+        shouldOpenMenu = _props.shouldOpenMenu,
+        other = (0, _objectWithoutProperties3.default)(_props, ['anchorOrigin', 'animated', 'animation', 'dataSource', 'dataSourceConfig', 'disableFocusRipple', 'errorStyle', 'floatingLabelText', 'filter', 'fullWidth', 'style', 'hintText', 'maxSearchResults', 'menuCloseDelay', 'textFieldStyle', 'menuStyle', 'menuProps', 'listStyle', 'targetOrigin', 'onClose', 'onNewRequest', 'onUpdateInput', 'openOnFocus', 'shouldOpenMenu', 'popoverProps', 'searchText']);
 
       let _ref2 = popoverProps || {},
         popoverStyle = _ref2.style,
@@ -490,7 +493,8 @@ AutoComplete.defaultProps = {
   targetOrigin: {
     vertical: 'top',
     horizontal: 'left'
-  }
+  },
+  shouldOpenMenu: false,
 };
 AutoComplete.contextTypes = {
   muiTheme: _react.PropTypes.object.isRequired
@@ -610,6 +614,10 @@ process.env.NODE_ENV !== 'production' ? AutoComplete.propTypes = {
    * If true, the list item is showed when a focus event triggers.
    */
   openOnFocus: _react.PropTypes.bool,
+  /**
+   * If true, the menu is opened after mounting.
+   */
+  shouldOpenMenu: _react.PropTypes.bool,
   /**
    * Props to be passed to popover.
    */

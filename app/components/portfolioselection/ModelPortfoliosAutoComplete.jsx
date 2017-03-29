@@ -11,7 +11,7 @@ import styles from '../../css/components/portfolioselection/model-portfolios-aut
 
 const cx = classNames.bind(styles);
 
-const ModelPortfoliosAutoComplete = ({searchText, onUpdateInput, modelPortfolios, onItemTouch, toggleModelPortfolioGroupOpenness}) => {
+const ModelPortfoliosAutoComplete = ({searchText, onUpdateInput, modelPortfolios, onItemTouch, toggleModelPortfolioGroupOpenness, shouldOpenMenu}) => {
   const handleOnNewRequest = function handleOnNewRequest(chosenRequest) {
     return false;
   };
@@ -97,10 +97,11 @@ const ModelPortfoliosAutoComplete = ({searchText, onUpdateInput, modelPortfolios
     return displayModelPortfolioComponents;
   };
   const displayModelPortfolioComponents = getDisplayModelPortfoliosComponents(searchText, modelPortfolios);
-//menuStyle={{maxHeight: '400px', overflowY: 'scroll'}}
+
   return (
     <AutoComplete searchText={ searchText } onUpdateInput={ onUpdateInput } floatingLabelText="Select model portfolio..." filter={ AutoComplete.fuzzyFilter } menuCloseDelay={ 50 }
-      openOnFocus dataSource={ displayModelPortfolioComponents } open={ false } onNewRequest={ handleOnNewRequest } fullWidth menuStyle={{maxHeight: 'calc(100vh - 150px)', overflowY: 'scroll'}}/>
+      openOnFocus dataSource={ displayModelPortfolioComponents } open={ false } onNewRequest={ handleOnNewRequest } fullWidth menuStyle={{maxHeight: 'calc(100vh - 150px)', overflowY: 'scroll'}}
+      shouldOpenMenu={shouldOpenMenu} />
     );
 };
 
