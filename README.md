@@ -37,6 +37,16 @@ Link: [**https://www.portfoliorebalancer.com**](https://www.portfoliorebalancer.
 - [**Google OpenID Connect**](https://developers.google.com/identity/protocols/OpenIDConnect) - Authentication
 - [**Nodemailer**](https://nodemailer.com) - Email sending
 
+# How to use
+With Git and Node.js installed:
+1. git clone https://github.com/AlexisDeschamps/portfolio-rebalancer
+2. cd portfolio-rebalancer
+3. npm install
+4. npm run dev
+5. (visit http://localhost:7500/)
+- To test: npm run test, npm run test:watch
+- To lint: npm run list, npm run lint:fix
+- To run as production: npm run start
 
 # License
 [**MIT**](https://raw.githubusercontent.com/AlexisDeschamps/portfolio-rebalancer/master/LICENSE.txt)

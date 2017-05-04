@@ -156,14 +156,20 @@ export function dbVerify(req, res) {
 
 function sendEmail(to, subject, text, html, callback) {
   const transporter = Nodemailer.createTransport({
-    service: 'Postmark',
+    service: 'Sparkpost',
     auth: {
-      user: process.env.POSTMARK_API_TOKEN,
-      pass: process.env.POSTMARK_API_TOKEN
+      user: process.env.SPARKPOST_SMTP_USERNAME,
+      pass: process.env.SPARKPOST_SMTP_PASSWORD
     }
   });
+
+  let sendingDomain = process.env.SPARKPOST_SMTP_USERNAME;
+  const prodSendingDomain = process.env.SPARKPOST_SANDBOX_DOMAIN;
+  if (prodSendingDomain) {
+    sendingDomain = prodSendingDomain;
+  }
   const mailOptions = {
-    from: '"Portfolio Rebalancer" <noreply@portfoliorebalancer.com>',
+    from: '"Portfolio Rebalancer" <noreply@' + sendingDomain + '>',
     to,
     subject,
     text,
