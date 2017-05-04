@@ -164,7 +164,7 @@ function sendEmail(to, subject, text, html, callback) {
   });
 
   let sendingDomain = process.env.SPARKPOST_SMTP_USERNAME;
-  const prodSendingDomain = process.env.SPARKPOST_SANDBOX_DOMAIN;
+  const prodSendingDomain = process.env.PRODUCTION_SENDING_DOMAIN;
   if (prodSendingDomain) {
     sendingDomain = prodSendingDomain;
   }
