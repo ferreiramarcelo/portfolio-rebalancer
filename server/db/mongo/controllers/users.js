@@ -175,6 +175,7 @@ function sendEmail(to, subject, text, html, callback) {
   return transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
       console.log('Failed to send email to ', to);
+      console.log(error);
       callback(false);
     }
     else {
