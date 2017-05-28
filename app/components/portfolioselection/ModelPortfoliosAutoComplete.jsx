@@ -43,10 +43,11 @@ const ModelPortfoliosAutoComplete = ({searchText, onUpdateInput, modelPortfolios
     }
     displayModelPortfolioComponents.push({
       text: '',
-      value: <MenuItem isGroup={ isGroup } onTouchTap={ onTouchTap } primaryText={ displayModelPortfolioElement.displayName } leftIcon={ leftIcon } rightIcon={ rightIcon }
-               className={ cx('model-portfolios-auto-complete-menu-item',
+      value: <MenuItem
+isGroup={isGroup} onTouchTap={onTouchTap} primaryText={displayModelPortfolioElement.displayName} leftIcon={leftIcon} rightIcon={rightIcon}
+               className={cx('model-portfolios-auto-complete-menu-item',
                              'model-portfolios-auto-complete-menu-item-level-' + (displayModelPortfolioElement.position.length - 1).toString(),
-                             displayClass) } />
+                             displayClass)} />
     });
     if (displayModelPortfolioElement.children) {
       if (displayModelPortfolioElement.open) {
@@ -72,7 +73,7 @@ const ModelPortfoliosAutoComplete = ({searchText, onUpdateInput, modelPortfolios
       const leftIcon = isDefault ? <SocialGroup /> : <EditorModeEdit />;
       displayModelPortfolioComponents.push({
         text: modelPortfolio.name,
-        value: <MenuItem onTouchTap={ onTouchTap } primaryText={ modelPortfolio.name } leftIcon={ leftIcon } className={ cx('model-portfolios-auto-complete-menu-item') } />
+        value: <MenuItem onTouchTap={onTouchTap} primaryText={modelPortfolio.name} leftIcon={leftIcon} className={cx('model-portfolios-auto-complete-menu-item')} />
       });
     }
   };
@@ -99,8 +100,9 @@ const ModelPortfoliosAutoComplete = ({searchText, onUpdateInput, modelPortfolios
   const displayModelPortfolioComponents = getDisplayModelPortfoliosComponents(searchText, modelPortfolios);
 
   return (
-    <AutoComplete searchText={ searchText } onUpdateInput={ onUpdateInput } floatingLabelText="Select model portfolio..." filter={ AutoComplete.fuzzyFilter } menuCloseDelay={ 50 }
-      openOnFocus dataSource={ displayModelPortfolioComponents } open={ false } onNewRequest={ handleOnNewRequest } fullWidth menuStyle={{maxHeight: 'calc(100vh - 150px)', overflowY: 'scroll'}}
+    <AutoComplete
+searchText={searchText} onUpdateInput={onUpdateInput} floatingLabelText="Select model portfolio..." filter={AutoComplete.fuzzyFilter} menuCloseDelay={50}
+      openOnFocus dataSource={displayModelPortfolioComponents} open={false} onNewRequest={handleOnNewRequest} fullWidth menuStyle={{maxHeight: 'calc(100vh - 150px)', overflowY: 'scroll'}}
       shouldOpenMenu={shouldOpenMenu} />
     );
 };

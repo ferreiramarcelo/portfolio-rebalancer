@@ -82,14 +82,11 @@ const modelPortfolios = (state = {modelPortfolios: [], defaultModelPortfolios: [
       let newUserModelPortfolios = [];
       if (action.type === types.CREATE_MODEL_PORTFOLIO_REQUEST) {
         newUserModelPortfolios = [...state.userModelPortfolios, modelPortfolio(undefined, action)];
-      }
-      else if (action.type === types.SAVE_MODEL_PORTFOLIO_REQUEST) {
+      } else if (action.type === types.SAVE_MODEL_PORTFOLIO_REQUEST) {
         newUserModelPortfolios = state.userModelPortfolios.map(t => modelPortfolio(t, action));
-      }
-      else if (action.type === types.CREATE_MODEL_PORTFOLIO_FAILURE || action.type === types.DELETE_MODEL_PORTFOLIO_REQUEST || action.type === types.SAVE_MODEL_PORTFOLIO_FAILURE) {
+      } else if (action.type === types.CREATE_MODEL_PORTFOLIO_FAILURE || action.type === types.DELETE_MODEL_PORTFOLIO_REQUEST || action.type === types.SAVE_MODEL_PORTFOLIO_FAILURE) {
         newUserModelPortfolios = state.userModelPortfolios.filter(t => t.id !== action.id);
-      }
-      else {
+      } else {
         return state;
       }
       const createModeLPortfolioAction = {

@@ -18,23 +18,23 @@ const PriceProgress = ({index, fetchStatus, onClick}) => {
     if (givenFetchStatus === 'NONE') {
       return null;
     } else if (givenFetchStatus === 'IN_PROGRESS') {
-      return (<CircularProgress onClick={ handleOnClick } size={ 20 } thickness={ 3 } className={ cx('price-progress') } />);
+      return (<CircularProgress onClick={handleOnClick} size={20} thickness={3} className={cx('price-progress')} />);
     } else if (givenFetchStatus === 'DONE') {
-      return (<IconButton onClick={ handleOnClick } className={ cx('price-progress') }>
-                <ActionDone />
-              </IconButton>);
+      return (<IconButton onClick={handleOnClick} className={cx('price-progress')}>
+        <ActionDone />
+      </IconButton>);
     } else if (givenFetchStatus === 'FAILED') {
       return (<div>
-                <IconButton onClick={ handleOnClick } data-tip data-for="tooltipPriceFetchError" className={ cx('price-progress') }>
-                  <AlertErrorOutline />
-                </IconButton>
-                <ReactTooltip id="tooltipPriceFetchError" type="error">
-                  <p>
+        <IconButton onClick={handleOnClick} data-tip data-for="tooltipPriceFetchError" className={cx('price-progress')}>
+          <AlertErrorOutline />
+        </IconButton>
+        <ReactTooltip id="tooltipPriceFetchError" type="error">
+          <p>
                     No valid price returned from https://finance.yahoo.com.
                     <br /> Make sure you account for differing symbols based on exchange.
                   </p>
-                </ReactTooltip>
-              </div>);
+        </ReactTooltip>
+      </div>);
     }
     return null;
   };
@@ -42,7 +42,7 @@ const PriceProgress = ({index, fetchStatus, onClick}) => {
   const progress = getProgress(fetchStatus);
 
   return (
-    <div className={ cx('price-progress-container') }>
+    <div className={cx('price-progress-container')}>
       { progress }
     </div>
     );

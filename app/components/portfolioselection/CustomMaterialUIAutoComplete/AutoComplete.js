@@ -114,7 +114,7 @@ function getStyles(props, context, state) {
   return styles;
 }
 
-const AutoComplete = (function(_Component) {
+const AutoComplete = (function (_Component) {
   (0, _inherits3.default)(AutoComplete, _Component);
 
   function AutoComplete() {
@@ -135,16 +135,16 @@ const AutoComplete = (function(_Component) {
         focusTextField: true,
         open: false,
         searchText: undefined
-      }, _this.handleRequestClose = function() {
+      }, _this.handleRequestClose = function () {
         // Only take into account the Popover clickAway when we are
         // not focusing the TextField.
         if (!_this.state.focusTextField) {
           _this.close();
         }
-      }, _this.handleMouseDown = function(event) {
+      }, _this.handleMouseDown = function (event) {
         // Keep the TextField focused
         event.preventDefault();
-      }, _this.handleItemTouchTap = function(event, child) {
+      }, _this.handleItemTouchTap = function (event, child) {
         if (child.props.isGroup) {
           _this.state.focusTextField = false;
           event.preventDefault();
@@ -168,15 +168,14 @@ const AutoComplete = (function(_Component) {
             _this.props.onNewRequest(chosenRequest, index);
           }, _this.props.menuCloseDelay);
         });
-      }, _this.chosenRequestText = function(chosenRequest) {
+      }, _this.chosenRequestText = function (chosenRequest) {
         if (typeof chosenRequest === 'string') {
           return chosenRequest;
-        } else {
-          return chosenRequest[_this.props.dataSourceConfig.text];
         }
-      }, _this.handleEscKeyDown = function() {
+          return chosenRequest[_this.props.dataSourceConfig.text];
+      }, _this.handleEscKeyDown = function () {
         _this.close();
-      }, _this.handleKeyDown = function(event) {
+      }, _this.handleKeyDown = function (event) {
         if (_this.props.onKeyDown) _this.props.onKeyDown(event);
 
         switch ((0, _keycode2.default)(event)) {
@@ -204,7 +203,7 @@ const AutoComplete = (function(_Component) {
           default:
             break;
         }
-      }, _this.handleChange = function(event) {
+      }, _this.handleChange = function (event) {
         const searchText = event.target.value;
 
         // Make sure that we have a new searchText.
@@ -222,7 +221,7 @@ const AutoComplete = (function(_Component) {
             source: 'change'
           });
         });
-      }, _this.handleBlur = function(event) {
+      }, _this.handleBlur = function (event) {
         if (_this.state.focusTextField && _this.timerTouchTapCloseId === null) {
           _this.timerBlurClose = setTimeout(() => {
             _this.close();
@@ -232,7 +231,7 @@ const AutoComplete = (function(_Component) {
         if (_this.props.onBlur) {
           _this.props.onBlur(event);
         }
-      }, _this.handleFocus = function(event) {
+      }, _this.handleFocus = function (event) {
         if (!_this.state.open && _this.props.openOnFocus) {
           _this.setState({
             open: true,
@@ -641,7 +640,7 @@ process.env.NODE_ENV !== 'production' ? AutoComplete.propTypes = {
 } : void 0;
 
 
-AutoComplete.levenshteinDistance = function(searchText, key) {
+AutoComplete.levenshteinDistance = function (searchText, key) {
   const current = [];
   let prev = void 0;
   let value = void 0;
@@ -649,9 +648,7 @@ AutoComplete.levenshteinDistance = function(searchText, key) {
   for (let i = 0; i <= key.length; i++) {
     for (let j = 0; j <= searchText.length; j++) {
       if (i && j) {
-        if (searchText.charAt(j - 1) === key.charAt(i - 1))
-          value = prev; else
-          value = Math.min(current[j], current[j - 1], prev) + 1;
+        if (searchText.charAt(j - 1) === key.charAt(i - 1)) { value = prev; } else { value = Math.min(current[j], current[j - 1], prev) + 1; }
       } else {
         value = i + j;
       }
@@ -662,31 +659,31 @@ AutoComplete.levenshteinDistance = function(searchText, key) {
   return current.pop();
 };
 
-AutoComplete.noFilter = function() {
+AutoComplete.noFilter = function () {
   return true;
 };
 
-AutoComplete.defaultFilter = AutoComplete.caseSensitiveFilter = function(searchText, key) {
+AutoComplete.defaultFilter = AutoComplete.caseSensitiveFilter = function (searchText, key) {
   return searchText !== '' && key.indexOf(searchText) !== -1;
 };
 
-AutoComplete.caseInsensitiveFilter = function(searchText, key) {
+AutoComplete.caseInsensitiveFilter = function (searchText, key) {
   return key.toLowerCase().indexOf(searchText.toLowerCase()) !== -1;
 };
 
-AutoComplete.levenshteinDistanceFilter = function(distanceLessThan) {
+AutoComplete.levenshteinDistanceFilter = function (distanceLessThan) {
   if (distanceLessThan === undefined) {
     return AutoComplete.levenshteinDistance;
   } else if (typeof distanceLessThan !== 'number') {
     throw 'Error: AutoComplete.levenshteinDistanceFilter is a filter generator, not a filter!';
   }
 
-  return function(s, k) {
+  return function (s, k) {
     return AutoComplete.levenshteinDistance(s, k) < distanceLessThan;
   };
 };
 
-AutoComplete.fuzzyFilter = function(searchText, key) {
+AutoComplete.fuzzyFilter = function (searchText, key) {
   const compareString = key.toLowerCase();
   searchText = searchText.toLowerCase();
 

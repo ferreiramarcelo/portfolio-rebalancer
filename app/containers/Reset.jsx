@@ -25,12 +25,12 @@ class Reset extends React.Component {
   render() {
     return (
       <div>
-        <Paper className={ cx('paper') }>
-          <form onSubmit={ this.handleOnLogin }>
+        <Paper className={cx('paper')}>
+          <form onSubmit={this.handleOnLogin}>
             <span>Reset your password</span>
-            <PasswordTextField value={ this.props.authentication.passwordTextField.value } errorText={ this.props.authenticationSelect.passwordTextFieldSelect.errorText } onChange={ this.props.passwordTextFieldChange } label="Password" />
-            <PasswordTextField value={ this.props.authentication.passwordConfirmationTextField.value } errorText={ this.props.authenticationSelect.passwordConfirmationTextFieldSelect.errorText } onChange={ this.props.passwordConfirmationTextFieldChange } label="Confirm password" />
-            <RaisedButton disabled={ this.props.authenticationSelect.loginButtonVisibility === 'disabled' } label="RESET" fullWidth primary type="submit" className={ cx('submit-button') } />
+            <PasswordTextField value={this.props.authentication.passwordTextField.value} errorText={this.props.authenticationSelect.passwordTextFieldSelect.errorText} onChange={this.props.passwordTextFieldChange} label="Password" />
+            <PasswordTextField value={this.props.authentication.passwordConfirmationTextField.value} errorText={this.props.authenticationSelect.passwordConfirmationTextFieldSelect.errorText} onChange={this.props.passwordConfirmationTextFieldChange} label="Confirm password" />
+            <RaisedButton disabled={this.props.authenticationSelect.loginButtonVisibility === 'disabled'} label="RESET" fullWidth primary type="submit" className={cx('submit-button')} />
           </form>
         </Paper>
       </div>

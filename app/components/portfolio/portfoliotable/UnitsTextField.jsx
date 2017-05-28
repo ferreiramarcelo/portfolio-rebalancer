@@ -20,8 +20,9 @@ const UnitsTextField = ({index, value, dirty, errorText, hintText, onChange}) =>
   };
 
   return (
-    <TextField value={ displayValue } errorText={ errorText } onChange={ handleOnChange } hintText={ hintText } errorStyle={ { float: 'left' } }
-      className={ cx('security-text-field') } />
+    <TextField
+value={displayValue} errorText={errorText} onChange={handleOnChange} hintText={hintText} errorStyle={{ float: 'left' }}
+      className={cx('security-text-field')} />
     );
 };
 

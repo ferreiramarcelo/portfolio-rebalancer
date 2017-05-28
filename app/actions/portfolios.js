@@ -22,9 +22,9 @@ function fetchCurrencyConversion(originalCurrency, tradingCurrency) {
 }
 
 function fetchMassCurrencyConversion(listOfDistinctCurrencies, tradingCurrency) {
-  //if (listOfDistinctCurrencies.length < 1) {
-    //return {status: 200};
-  //}
+  // if (listOfDistinctCurrencies.length < 1) {
+    // return {status: 200};
+  // }
   const api = 'https://query.yahooapis.com/v1/public/yql';
   let listOfPairs = '';
   for (const distinctCurrency of listOfDistinctCurrencies) {
@@ -170,7 +170,7 @@ export function removeSecurity(index) {
       index,
       portfolio.portfolio
     ));
-  }
+  };
 }
 
 function securityTextFieldChangeDispatch(index, column, value, portfolio) {
@@ -224,8 +224,7 @@ export function setTradingCurrency(newTradingCurrency) {
       .catch((jqxhr, textStatus, error) => {
         console.log(error);
       });
-  }
-  else {
+  } else {
     dispatch(setCurrencies(newTradingCurrency, {}));
   }
 };
@@ -236,5 +235,5 @@ function setCurrencies(newTradingCurrency, newListOfDistinctCurrencies) {
     type: types.SET_CURRENCIES,
     newTradingCurrency,
     newListOfDistinctCurrencies
-  }
+  };
 }

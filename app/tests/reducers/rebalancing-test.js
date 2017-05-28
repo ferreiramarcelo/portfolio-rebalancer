@@ -146,12 +146,12 @@ describe('Rebalancing Reducer', () => {
         547,
         -57
       ],
-      balanceByInvestingPartial: [ 83.11360062893083, 0 ],
+      balanceByInvestingPartial: [83.11360062893083, 0],
       balanceByDisvestingPartial: [],
-      balanceByAdjustingPartial: [ 547.3671291928723, -57.23147976102386 ],
+      balanceByAdjustingPartial: [547.3671291928723, -57.23147976102386],
       valueAdditionPerSecurity: [6343.23, 0],
       valueReductionPerSecurity: [],
-      valueAdjustmentsPerSecurity: [ 41775.05930000001, -41766.389299999995 ]
+      valueAdjustmentsPerSecurity: [41775.05930000001, -41766.389299999995]
     }
   };
   it('REBALANCING 6: should handle GENERATE_STEPS with positive investment and two security portfolio provided', () => {
@@ -220,11 +220,11 @@ describe('Rebalancing Reducer', () => {
         95
       ],
       balanceByInvestingPartial: [],
-      balanceByDisvestingPartial: [ 0, -427.27700000000004, 0 ],
-      balanceByAdjustingPartial: [ 5365.866899977422, -98873.39924999997, 95.31060625 ],
+      balanceByDisvestingPartial: [0, -427.27700000000004, 0],
+      balanceByAdjustingPartial: [5365.866899977422, -98873.39924999997, 95.31060625],
       valueAdditionPerSecurity: [],
-      valueReductionPerSecurity: [ 0, -8545.54, 0 ],
-      valueAdjustmentsPerSecurity: [ 1901233.96, -1977467.9849999994, 76248.485 ]
+      valueReductionPerSecurity: [0, -8545.54, 0],
+      valueAdjustmentsPerSecurity: [1901233.96, -1977467.9849999994, 76248.485]
     }
   };
   it('REBALANCING 7: should handle GENERATE_STEPS with negative investment and two security portfolio provided', () => {
@@ -334,12 +334,12 @@ describe('Rebalancing Reducer', () => {
         14,
         7
       ],
-      balanceByInvestingPartial: [ 0, 10.4, 7.2, 2.6, 20.8, 8.4 ],
+      balanceByInvestingPartial: [0, 10.4, 7.2, 2.6, 20.8, 8.4],
       balanceByDisvestingPartial: [],
-      balanceByAdjustingPartial: [ -35, 7.4, 3.7, 2.35, 14.8, 7.4 ],
-      valueAdditionPerSecurity: [ 0, 104, 144, 104, 104, 84 ],
+      balanceByAdjustingPartial: [-35, 7.4, 3.7, 2.35, 14.8, 7.4],
+      valueAdditionPerSecurity: [0, 104, 144, 104, 104, 84],
       valueReductionPerSecurity: [],
-      valueAdjustmentsPerSecurity: [ -350, 74, 74, 94, 74, 74 ]
+      valueAdjustmentsPerSecurity: [-350, 74, 74, 94, 74, 74]
     }
   };
   it('REBALANCING 8: should handle GENERATE_STEPS with positive investment and six security portfolio provided', () => {
@@ -418,10 +418,10 @@ describe('Rebalancing Reducer', () => {
       ],
       balanceByInvestingPartial: [],
       balanceByDisvestingPartial: [],
-      balanceByAdjustingPartial: [ 3151.54382, 95.00013333333334, -31414.9541, -263.99235 ],
+      balanceByAdjustingPartial: [3151.54382, 95.00013333333334, -31414.9541, -263.99235],
       valueAdditionPerSecurity: [],
       valueReductionPerSecurity: [],
-      valueAdjustmentsPerSecurity: [ 31515.4382, 427.5006, -31414.9541, -527.9847 ]
+      valueAdjustmentsPerSecurity: [31515.4382, 427.5006, -31414.9541, -527.9847]
     }
   };
   it('REBALANCING 9: should handle GENERATE_STEPS with zero investment and four security portfolio provided', () => {

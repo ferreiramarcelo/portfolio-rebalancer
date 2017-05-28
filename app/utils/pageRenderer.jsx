@@ -22,7 +22,7 @@ const createTrackingScript = function createTrackingScript(givenTrackingID) {
 const analyticsScript = createTrackingScript(trackingID);
 
 const createApp = (store, props) => renderToString(
-  <Provider store={ store }>
+  <Provider store={store}>
     <RouterContext {...props} />
   </Provider>
 );

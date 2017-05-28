@@ -20,8 +20,9 @@ const AllocationTextField = ({index, value, dirty, errorText, hintText, onChange
   };
 
   return (
-    <TextField id={ 'allocationTextField' + index } value={ displayValue } errorText={ errorText } onChange={ handleOnChange } hintText={ hintText } errorStyle={ { float: 'left' } }
-      className={ cx('security-text-field') } />
+    <TextField
+id={'allocationTextField' + index} value={displayValue} errorText={errorText} onChange={handleOnChange} hintText={hintText} errorStyle={{ float: 'left' }}
+      className={cx('security-text-field')} />
     );
 };
 

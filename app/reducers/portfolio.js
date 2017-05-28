@@ -151,7 +151,7 @@ const price = (state = {
       const conversionRate = action.newListOfDistinctCurrencies[state.currency];
       let newPrice = Number(state.originalPrice);
       if (conversionRate !== null) {
-        newPrice = newPrice * conversionRate;
+        newPrice *= conversionRate;
       }
       return {
         ...state,

@@ -6,5 +6,4 @@ public
 compiled
 .swp
 .vscode
-server/config/secrets.js
 npm-debug

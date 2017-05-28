@@ -14,7 +14,7 @@ const PasswordTextField = ({passwordTextField, passwordTextFieldSelect, onChange
   const getIndicator = function getIndicator() {
     switch (passwordTextFieldSelect.valid) {
       case true:
-        return <ActionDone className={ cx('indicator') } />;
+        return <ActionDone className={cx('indicator')} />;
       default:
         return null;
     }
@@ -22,9 +22,10 @@ const PasswordTextField = ({passwordTextField, passwordTextFieldSelect, onChange
   const indicator = getIndicator();
 
   return (
-    <div className={ cx('flex') }>
-      <TextField value={ passwordTextField.value } errorText={ passwordTextFieldSelect.errorText } onChange={ handleOnChange } floatingLabelText={ label } type="password" fullWidth
-        errorStyle={ { float: 'left' } } />
+    <div className={cx('flex')}>
+      <TextField
+value={passwordTextField.value} errorText={passwordTextFieldSelect.errorText} onChange={handleOnChange} floatingLabelText={label} type="password" fullWidth
+        errorStyle={{ float: 'left' }} />
       { indicator }
     </div>
     );

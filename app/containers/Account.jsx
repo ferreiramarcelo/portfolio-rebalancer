@@ -25,21 +25,21 @@ class Account extends React.Component {
 
   getEmailInfo() {
     if (this.props.user.accountType === constants.ACCOUNT_TYPE_GOOGLE) {
-      return (<div className={ cx('paper-insides', 'flex') }>
-                <FontAwesome name="google" className={ cx('google-icon') } />
-                <span>Logged in through Google Sign-In</span>
-              </div>);
+      return (<div className={cx('paper-insides', 'flex')}>
+        <FontAwesome name="google" className={cx('google-icon')} />
+        <span>Logged in through Google Sign-In</span>
+      </div>);
     }
     if (!this.props.user.verified) {
-      return (<div className={ cx('paper-insides', 'flex') }>
-                <div className={ cx('flex-left') }>
-                  <span>Not verified</span>
-                </div>
-                <div className={ cx('flex-right') }>
-                  <SendVerificationEmailProgress fetchStatus={ this.props.account.verificationEmailSendingStatus } />
-                  <FlatButton label="RESEND EMAIL" secondary onTouchTap={ this.props.sendVerificationEmail } />
-                </div>
-              </div>);
+      return (<div className={cx('paper-insides', 'flex')}>
+        <div className={cx('flex-left')}>
+          <span>Not verified</span>
+        </div>
+        <div className={cx('flex-right')}>
+          <SendVerificationEmailProgress fetchStatus={this.props.account.verificationEmailSendingStatus} />
+          <FlatButton label="RESEND EMAIL" secondary onTouchTap={this.props.sendVerificationEmail} />
+        </div>
+      </div>);
     }
     return null;
   }
@@ -48,12 +48,12 @@ class Account extends React.Component {
     switch (this.props.authentication.passwordChangeStatus) {
       case constants.IS_PROCESSING:
         return (<div>
-                  <RaisedButton type="submit" label="CHANGING PASSWORD..." fullWidth primary disabled className={ cx('submit-button') } />
-                  <LinearProgress mode="indeterminate" />
-                </div>);
+          <RaisedButton type="submit" label="CHANGING PASSWORD..." fullWidth primary disabled className={cx('submit-button')} />
+          <LinearProgress mode="indeterminate" />
+        </div>);
       case constants.NOT_PROCESSING:
       default:
-        return (<RaisedButton type="submit" label="CHANGE PASSWORD" fullWidth primary className={ cx('submit-button', 'submit-button-not-loading') } />);
+        return (<RaisedButton type="submit" label="CHANGE PASSWORD" fullWidth primary className={cx('submit-button', 'submit-button-not-loading')} />);
     }
   }
 
@@ -64,19 +64,22 @@ class Account extends React.Component {
 
   getChangePasswordForm() {
     if (this.props.user.accountType === constants.ACCOUNT_TYPE_INTERNAL) {
-      return (<Paper className={ cx('paper') }>
-                <form onSubmit={ this.handleOnChangePassword } className={ cx('paper-insides') }>
-                  <span className={ cx('section-header') }>Change password</span>
-                  <LoginPasswordTextField passwordTextField={ this.props.authentication.currentPasswordTextField } passwordTextFieldSelect={ this.props.authenticationSelect.currentPasswordTextFieldSelect } onChange={ this.props.currentPasswordTextFieldChange } label={ 'Current password' }
+      return (<Paper className={cx('paper')}>
+        <form onSubmit={this.handleOnChangePassword} className={cx('paper-insides')}>
+          <span className={cx('section-header')}>Change password</span>
+          <LoginPasswordTextField
+passwordTextField={this.props.authentication.currentPasswordTextField} passwordTextFieldSelect={this.props.authenticationSelect.currentPasswordTextFieldSelect} onChange={this.props.currentPasswordTextFieldChange} label={'Current password'}
                   />
-                  <PasswordTextField passwordTextField={ this.props.authentication.passwordTextField } passwordTextFieldSelect={ this.props.authenticationSelect.passwordTextFieldSelect } onChange={ this.props.passwordTextFieldChange } label={ 'New password' }
+          <PasswordTextField
+passwordTextField={this.props.authentication.passwordTextField} passwordTextFieldSelect={this.props.authenticationSelect.passwordTextFieldSelect} onChange={this.props.passwordTextFieldChange} label={'New password'}
                   />
-                  <PasswordTextField passwordTextField={ this.props.authentication.passwordConfirmationTextField } passwordTextFieldSelect={ this.props.authenticationSelect.passwordConfirmationTextFieldSelect } onChange={ this.props.passwordConfirmationTextFieldChange } label={ 'Confirm new password' }
+          <PasswordTextField
+passwordTextField={this.props.authentication.passwordConfirmationTextField} passwordTextFieldSelect={this.props.authenticationSelect.passwordConfirmationTextFieldSelect} onChange={this.props.passwordConfirmationTextFieldChange} label={'Confirm new password'}
                   />
-                  <span className={ cx('message', this.props.user.message.type) }>{ this.props.user.message.value }</span>
-                  { this.getChangePasswordButton() }
-                </form>
-              </Paper>);
+          <span className={cx('message', this.props.user.message.type)}>{ this.props.user.message.value }</span>
+          { this.getChangePasswordButton() }
+        </form>
+      </Paper>);
     }
     return null;
   }
@@ -84,10 +87,10 @@ class Account extends React.Component {
   render() {
     return (
       <div>
-        <Paper className={ cx('paper') }>
-          <div className={ cx('paper-insides', 'flex') }>
-            <span className={ cx('section-header') }>Email</span>
-            <span className={ cx('user-email-address') }>{ this.props.user.email }</span>
+        <Paper className={cx('paper')}>
+          <div className={cx('paper-insides', 'flex')}>
+            <span className={cx('section-header')}>Email</span>
+            <span className={cx('user-email-address')}>{ this.props.user.email }</span>
           </div>
           { this.getEmailInfo() }
         </Paper>

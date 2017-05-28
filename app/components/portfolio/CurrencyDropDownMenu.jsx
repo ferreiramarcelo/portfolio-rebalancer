@@ -15,7 +15,7 @@ const CurrencyDropDownMenu = ({currencies, setTradingCurrency}) => {
       const dropDownMenuItems = [];
       for (const currency in givenCurrencies.listOfDistinctCurrencies) {
         if (givenCurrencies.listOfDistinctCurrencies.hasOwnProperty(currency)) {
-          dropDownMenuItems.push(<MenuItem value={ currency } primaryText={ currency } />);
+          dropDownMenuItems.push(<MenuItem value={currency} primaryText={currency} />);
         }
       }
       return dropDownMenuItems;
@@ -26,9 +26,9 @@ const CurrencyDropDownMenu = ({currencies, setTradingCurrency}) => {
       setTradingCurrency(value);
     };
     return (
-      <div className={ cx('currency-drop-down-menu-container') }>
-        <span className={ cx('trading-currency-prompt') }>Trading currency:</span>
-        <DropDownMenu value={ currencies.tradingCurrency } onChange={ handleChange }>
+      <div className={cx('currency-drop-down-menu-container')}>
+        <span className={cx('trading-currency-prompt')}>Trading currency:</span>
+        <DropDownMenu value={currencies.tradingCurrency} onChange={handleChange}>
           { dropDownMenuItems }
         </DropDownMenu>
       </div>

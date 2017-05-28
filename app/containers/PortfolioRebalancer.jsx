@@ -31,7 +31,7 @@ class PortfolioRebalancer extends Component {
   }
 
   componentDidMount() {
-    //this.nameInput.focus();
+    // this.nameInput.focus();
 
   }
 
@@ -39,16 +39,18 @@ class PortfolioRebalancer extends Component {
     if (this.props.view.displayPortfolio) {
       return (
         <div>
-          <Portfolio selectedModelPortfolio={ this.props.selectedModelPortfolio } modelPortfolioNameTextFieldChange={ this.props.modelPortfolioNameTextFieldChange } portfolio={ this.props.portfolio } portfolioSelect={ this.props.portfolioSelect }
-            saveModelPortfolio={ this.props.saveModelPortfolio } deleteModelPortfolio={ this.props.deleteModelPortfolio } addSecurity={ this.props.addSecurity } removeSecurity={ this.props.removeSecurity } securityTextFieldChange={ this.props.securityTextFieldChange }
-            fetchPrice={ this.props.fetchPrice } currencies={ this.props.currencies } />
-          <form onSubmit={ this.handleOnGenerateSteps }>
-            <CurrencyDropDownMenu currencies={ this.props.currencies } setTradingCurrency={ this.props.setTradingCurrency } />
-            <InvestmentAmount investmentAmount={ this.props.investmentAmount } investmentAmountSelect={ this.props.portfolioSelect.investmentAmountSelect } investmentAmountTextFieldChange={ this.props.investmentAmountTextFieldChange } />
-            <GenerateStepsButton visibility={ this.props.portfolioSelect.generateStepsButtonVisibility } generateSteps={ this.props.generateSteps } />
+          <Portfolio
+selectedModelPortfolio={this.props.selectedModelPortfolio} modelPortfolioNameTextFieldChange={this.props.modelPortfolioNameTextFieldChange} portfolio={this.props.portfolio} portfolioSelect={this.props.portfolioSelect}
+            saveModelPortfolio={this.props.saveModelPortfolio} deleteModelPortfolio={this.props.deleteModelPortfolio} addSecurity={this.props.addSecurity} removeSecurity={this.props.removeSecurity} securityTextFieldChange={this.props.securityTextFieldChange}
+            fetchPrice={this.props.fetchPrice} currencies={this.props.currencies} />
+          <form onSubmit={this.handleOnGenerateSteps}>
+            <CurrencyDropDownMenu currencies={this.props.currencies} setTradingCurrency={this.props.setTradingCurrency} />
+            <InvestmentAmount investmentAmount={this.props.investmentAmount} investmentAmountSelect={this.props.portfolioSelect.investmentAmountSelect} investmentAmountTextFieldChange={this.props.investmentAmountTextFieldChange} />
+            <GenerateStepsButton visibility={this.props.portfolioSelect.generateStepsButtonVisibility} generateSteps={this.props.generateSteps} />
           </form>
-          <StepsListHeader showWholeUnits={ this.props.rebalancing.showWholeUnits } showPartialUnits={ this.props.rebalancing.showPartialUnits } showCashAmounts={ this.props.rebalancing.showCashAmounts } changeShowWholeUnits={ this.props.changeShowWholeUnits }
-            changeShowWholeUnits={ this.props.changeShowWholeUnits } changeShowPartialUnits={ this.props.changeShowPartialUnits } changeShowCashAmounts={ this.props.changeShowCashAmounts } rebalancingSteps={ this.props.rebalancingSteps }
+          <StepsListHeader
+showWholeUnits={this.props.rebalancing.showWholeUnits} showPartialUnits={this.props.rebalancing.showPartialUnits} showCashAmounts={this.props.rebalancing.showCashAmounts} changeShowWholeUnits={this.props.changeShowWholeUnits}
+            changeShowWholeUnits={this.props.changeShowWholeUnits} changeShowPartialUnits={this.props.changeShowPartialUnits} changeShowCashAmounts={this.props.changeShowCashAmounts} rebalancingSteps={this.props.rebalancingSteps}
           />
         </div>
         );
@@ -63,11 +65,12 @@ class PortfolioRebalancer extends Component {
 
   render() {
     return (
-      <div className={ cx('portfolio-rebalancer-container') }>
-        <div className={ cx('model-portfolio-selector-container') }>
-          <ModelPortfoliosAutoComplete searchText={ this.props.modelPortfoliosAutoCompleteSearchText } onUpdateInput={ this.props.modelPortfoliosAutoCompleteSearchTextChange } modelPortfolios={ this.props.modelPortfolios } onItemTouch={ this.props.selectModelPortfolio } onNewRequest={ this.props.changeAutocomplete }
-            toggleModelPortfolioGroupOpenness={ this.props.toggleModelPortfolioGroupOpenness } shouldOpenMenu={ this.props.portfolio.length === 0} />
-          <NewPortfolioButton createNewModelPortfolio={ this.props.createNewModelPortfolio } />
+      <div className={cx('portfolio-rebalancer-container')}>
+        <div className={cx('model-portfolio-selector-container')}>
+          <ModelPortfoliosAutoComplete
+searchText={this.props.modelPortfoliosAutoCompleteSearchText} onUpdateInput={this.props.modelPortfoliosAutoCompleteSearchTextChange} modelPortfolios={this.props.modelPortfolios} onItemTouch={this.props.selectModelPortfolio} onNewRequest={this.props.changeAutocomplete}
+            toggleModelPortfolioGroupOpenness={this.props.toggleModelPortfolioGroupOpenness} shouldOpenMenu={this.props.portfolio.length === 0} />
+          <NewPortfolioButton createNewModelPortfolio={this.props.createNewModelPortfolio} />
         </div>
         { this.getPortfolioView() }
       </div>

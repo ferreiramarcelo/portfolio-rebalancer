@@ -4,7 +4,8 @@ import ActionBuild from 'material-ui/svg-icons/action/build';
 
 const GenerateStepsButton = ({visibility, generateSteps}) => {
   return (
-    <RaisedButton disabled={ visibility === 'disabled' } onClick={ generateSteps } primary fullWidth label="GENERATE STEPS" labelPosition="before" icon={ <ActionBuild /> }
+    <RaisedButton
+disabled={visibility === 'disabled'} onClick={generateSteps} primary fullWidth label="GENERATE STEPS" labelPosition="before" icon={<ActionBuild />}
     />
     );
 };

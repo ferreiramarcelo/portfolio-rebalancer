@@ -34,27 +34,28 @@ class Authentication extends React.Component {
     switch (this.props.authentication.loginStatus) {
       case constants.IS_PROCESSING:
         return (<div>
-                  <RaisedButton type="submit" label="LOGGING IN..." fullWidth primary disabled className={ cx('submit-button') } />
-                  <LinearProgress mode="indeterminate" className={ cx('loading-indicator') } />
-                </div>);
+          <RaisedButton type="submit" label="LOGGING IN..." fullWidth primary disabled className={cx('submit-button')} />
+          <LinearProgress mode="indeterminate" className={cx('loading-indicator')} />
+        </div>);
       case constants.NOT_PROCESSING:
       default:
-        return (<RaisedButton type="submit" label="LOG IN" fullWidth primary className={ cx('submit-button', 'submit-button-not-loading') } />);
+        return (<RaisedButton type="submit" label="LOG IN" fullWidth primary className={cx('submit-button', 'submit-button-not-loading')} />);
     }
   }
 
   getLoginForm() {
     return (
-      <div className={ cx('paper-insides') }>
-        <span className={ cx('sub-header-2') }>Log in with email</span>
-        <form onSubmit={ this.handleOnLogin }>
-          <LoginEmailTextField emailTextField={ this.props.authentication.emailTextField } emailTextFieldSelect={ this.props.authenticationSelect.loginEmailTextFieldSelect } onChange={ this.props.emailTextFieldChange } />
-          <LoginPasswordTextField passwordTextField={ this.props.authentication.currentPasswordTextField } passwordTextFieldSelect={ this.props.authenticationSelect.currentPasswordTextFieldSelect } onChange={ this.props.currentPasswordTextFieldChange } label={ 'Current password' }
+      <div className={cx('paper-insides')}>
+        <span className={cx('sub-header-2')}>Log in with email</span>
+        <form onSubmit={this.handleOnLogin}>
+          <LoginEmailTextField emailTextField={this.props.authentication.emailTextField} emailTextFieldSelect={this.props.authenticationSelect.loginEmailTextFieldSelect} onChange={this.props.emailTextFieldChange} />
+          <LoginPasswordTextField
+passwordTextField={this.props.authentication.currentPasswordTextField} passwordTextFieldSelect={this.props.authenticationSelect.currentPasswordTextFieldSelect} onChange={this.props.currentPasswordTextFieldChange} label={'Current password'}
           />
-          <span className={ cx('message') }>{ this.props.user.message.value }</span>
+          <span className={cx('message')}>{ this.props.user.message.value }</span>
           { this.getLoginButton() }
           <span>Forgot your password?</span>
-          <FlatButton label="RESET PASSWORD" secondary onTouchTap={ this.props.toggleAuthenticationMode } />
+          <FlatButton label="RESET PASSWORD" secondary onTouchTap={this.props.toggleAuthenticationMode} />
         </form>
       </div>
       );
@@ -64,25 +65,25 @@ class Authentication extends React.Component {
     switch (this.props.authentication.sendPasswordResetStatus) {
       case constants.IS_PROCESSING:
         return (<div>
-                  <RaisedButton type="submit" label="SENDING EMAIL..." fullWidth primary disabled className={ cx('submit-button') } />
-                  <LinearProgress mode="indeterminate" className={ cx('loading-indicator') } />
-                </div>);
+          <RaisedButton type="submit" label="SENDING EMAIL..." fullWidth primary disabled className={cx('submit-button')} />
+          <LinearProgress mode="indeterminate" className={cx('loading-indicator')} />
+        </div>);
       case constants.NOT_PROCESSING:
       default:
-        return (<RaisedButton type="submit" label="SEND RESET EMAIL" fullWidth primary className={ cx('submit-button', 'submit-button-not-loading') } />);
+        return (<RaisedButton type="submit" label="SEND RESET EMAIL" fullWidth primary className={cx('submit-button', 'submit-button-not-loading')} />);
     }
   }
 
   getPasswordResetForm() {
     return (
-      <div className={ cx('paper-insides') }>
-        <form onSubmit={ this.handleOnSendPasswordReset }>
-          <span className={ cx('sub-header-2') }>Reset password</span>
-          <LoginEmailTextField emailTextField={ this.props.authentication.emailTextField } emailTextFieldSelect={ this.props.authenticationSelect.loginEmailTextFieldSelect } onChange={ this.props.emailTextFieldChange } />
-          <span className={ cx('message') }>{ this.props.user.message.value }</span>
+      <div className={cx('paper-insides')}>
+        <form onSubmit={this.handleOnSendPasswordReset}>
+          <span className={cx('sub-header-2')}>Reset password</span>
+          <LoginEmailTextField emailTextField={this.props.authentication.emailTextField} emailTextFieldSelect={this.props.authenticationSelect.loginEmailTextFieldSelect} onChange={this.props.emailTextFieldChange} />
+          <span className={cx('message')}>{ this.props.user.message.value }</span>
           { this.getPasswordResetButton() }
           <span>Have your password?</span>
-          <FlatButton label="LOG IN" secondary onTouchTap={ this.props.toggleAuthenticationMode } />
+          <FlatButton label="LOG IN" secondary onTouchTap={this.props.toggleAuthenticationMode} />
         </form>
       </div>
       );
@@ -101,13 +102,13 @@ class Authentication extends React.Component {
   render() {
     return (
       <div>
-        <div className={ cx('google-login-button-container') }>
-          <RaisedButton href="/auth/google" label="LOG IN WITH GOOGLE" primary fullWidth icon={ <FontAwesome name="google" className={ cx('google-icon') } /> } />
+        <div className={cx('google-login-button-container')}>
+          <RaisedButton href="/auth/google" label="LOG IN WITH GOOGLE" primary fullWidth icon={<FontAwesome name="google" className={cx('google-icon')} />} />
         </div>
-        <p className={ cx('or-prompt') }>
+        <p className={cx('or-prompt')}>
           OR
         </p>
-        <Paper className={ cx('paper') }>
+        <Paper className={cx('paper')}>
           { this.getAuthenticationForm() }
         </Paper>
       </div>

@@ -31,7 +31,7 @@ function onUpdate() {
     return;
   }
   const {user} = store.getState();
-  var email = user.email;
+  const email = user.email;
   store.dispatch({
     type: types.CREATE_REQUEST
   });
@@ -49,8 +49,8 @@ function onUpdate() {
 // Router converts <Route> element hierarchy to a route config:
 // Read more https://github.com/rackt/react-router/blob/latest/docs/Glossary.md#routeconfig
 render(
-  <Provider store={ store }>
-    <Router history={ history } onUpdate={ onUpdate }>
+  <Provider store={store}>
+    <Router history={history} onUpdate={onUpdate}>
       { routes }
     </Router>
   </Provider>, document.getElementById('app'));

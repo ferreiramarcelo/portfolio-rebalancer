@@ -17,19 +17,20 @@ const RegistrationEmailTextField = ({emailTextField, emailTextFieldSelect, onCha
   const getIndicator = function getIndicator() {
     switch (emailTextField.validationStatus) {
       case constants.VALIDATION_NO_CONFLICT:
-        return <ActionDone className={ cx('indicator') } />;
+        return <ActionDone className={cx('indicator')} />;
       case constants.VALIDATION_CONFLICT:
-        return <AlertErrorOutline className={ cx('indicator') } />;
+        return <AlertErrorOutline className={cx('indicator')} />;
       case constants.IS_VALIDATING:
-        return (<CircularProgress size={ 20 } thickness={ 3 } className={ cx('indicator') } />);
+        return (<CircularProgress size={20} thickness={3} className={cx('indicator')} />);
       default:
         return null;
     }
   };
   const indicator = getIndicator();
   return (
-    <div className={ cx('flex') }>
-      <TextField value={ emailTextField.value } errorText={ emailTextFieldSelect.errorText } onChange={ handleOnChange } floatingLabelText="Email" primary fullWidth errorStyle={ { float: 'left' } }
+    <div className={cx('flex')}>
+      <TextField
+value={emailTextField.value} errorText={emailTextFieldSelect.errorText} onChange={handleOnChange} floatingLabelText="Email" primary fullWidth errorStyle={{ float: 'left' }}
       />
       { indicator }
     </div>

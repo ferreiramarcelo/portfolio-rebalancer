@@ -74,8 +74,9 @@ const Message = ({open, response, email, requestClose, sendVerificationEmail, se
 
   const getSnackbar = function getSnackbar() {
     if (message.length > 0) {
-      return (<Snackbar open={ open } message={ message } autoHideDuration={ 4000 } onRequestClose={ requestClose } action={ actionLabel }
-                onActionTouchTap={ handleOnAction } />);
+      return (<Snackbar
+open={open} message={message} autoHideDuration={4000} onRequestClose={requestClose} action={actionLabel}
+                onActionTouchTap={handleOnAction} />);
     }
     return null;
   };

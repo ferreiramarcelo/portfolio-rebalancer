@@ -10,7 +10,6 @@ import styles from '../../../css/components/portfolio/portfolio-table/price-cell
 const cx = classNames.bind(styles);
 
 const PriceCell = ({currencies, fetchPrice, index, price, priceSelect, securityTextFieldChange}) => {
-
   const getDisplayValue = function getDisplayValue(givenValue, givenSetOnce) {
     if (givenSetOnce) {
       return givenValue;
@@ -28,10 +27,10 @@ const PriceCell = ({currencies, fetchPrice, index, price, priceSelect, securityT
       return null;
     }
     return (
-      <div className={ cx('conversion-indicator-container') }>
-        <div className={ cx('price-progress') }>
-          <EditorMoneyOff data-tip="data-tip" data-for={ 'tooltipSecurityConverted' + price.index } />
-          <ReactTooltip id={ 'tooltipSecurityConverted' + price.index }>
+      <div className={cx('conversion-indicator-container')}>
+        <div className={cx('price-progress')}>
+          <EditorMoneyOff data-tip="data-tip" data-for={'tooltipSecurityConverted' + price.index} />
+          <ReactTooltip id={'tooltipSecurityConverted' + price.index}>
             <span>Price converted from { price.currency } to { givenCurrencies.tradingCurrency } at a { currencies.listOfDistinctCurrencies[price.currency] } exchange rate</span>
           </ReactTooltip>
         </div>
@@ -41,10 +40,11 @@ const PriceCell = ({currencies, fetchPrice, index, price, priceSelect, securityT
   const convertedIndicator = getConvertedIndicator(price, currencies);
 
   return (
-    <div className={ cx('price-text-field') }>
-      <TextField id={ 'priceTextField' + index } value={ displayValue } errorText={ priceSelect.errorText } onChange={ handleOnChange } hintText={ priceSelect.hintText } errorStyle={ { float: 'left' } }
+    <div className={cx('price-text-field')}>
+      <TextField
+id={'priceTextField' + index} value={displayValue} errorText={priceSelect.errorText} onChange={handleOnChange} hintText={priceSelect.hintText} errorStyle={{ float: 'left' }}
       />
-      <PriceProgress index={ index } fetchStatus={ price.fetchStatus } onClick={ fetchPrice } />
+      <PriceProgress index={index} fetchStatus={price.fetchStatus} onClick={fetchPrice} />
       { convertedIndicator }
     </div>
     );

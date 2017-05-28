@@ -7,8 +7,8 @@ const cx = classNames.bind(styles);
 
 const NewPortfolioButton = ({createNewModelPortfolio}) => {
   return (
-    <div className={ cx('new-portfolio-button-container') }>
-      <FlatButton onClick={ createNewModelPortfolio } label="NEW" labelPosition="before" secondary />
+    <div className={cx('new-portfolio-button-container')}>
+      <FlatButton onClick={createNewModelPortfolio} label="NEW" labelPosition="before" secondary />
     </div>
 
     );
