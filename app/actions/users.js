@@ -258,7 +258,7 @@ export function manualLogin() {
     dispatch(beginLogin());
     const {authentication} = getState();
     const data = {
-      email: authentication.emailTextField.value,
+      email: authentication.emailTextField.value.toLowerCase(),
       password: authentication.currentPasswordTextField.value
     };
     return makeUserRequest('post', data, '/login')
@@ -281,7 +281,7 @@ export function register() {
     dispatch(beginSignUp());
     const {authentication} = getState();
     const data = {
-      email: authentication.emailTextField.value,
+      email: authentication.emailTextField.value.toLowerCase(),
       password: authentication.passwordTextField.value
     };
     return makeUserRequest('post', data, '/register')
