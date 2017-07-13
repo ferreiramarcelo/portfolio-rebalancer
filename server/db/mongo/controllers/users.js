@@ -176,12 +176,14 @@ function sendEmail(to, subject, text, html, callback) {
     html
   };
   return transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
+    if (!error) {
       console.log('Failed to send email to ', to);
-      callback(false);
-    }
-    console.log('Succeeded in sending email to ', to);
-    callback(true);
+      callback(true);
+    }/*
+    else {
+      console.log('Succeeded in sending email to ', to);
+      callback(true);
+    } */
   });
 }
 
@@ -201,7 +203,7 @@ function sendVerificationEmailInternal(req, callback) {
     }
     verificationToken.setToken(token);
     const verificationURL = req.protocol + '://' + req.get('host') + '/verify/' + token;
-    return sendEmail(req.body.email,
+    sendEmail(req.body.email,
       'Verify your Portfolio Rebalancer email address',
       'Thanks for using PortfolioRebalancer.com. Click the following link to verify your email address: ' + verificationURL + '. This link will expire within 24 hours.',
       '<p>Thanks for using <a href=https://www.portfoliorebalancer.com>PortfolioRebalancer.com</a>.</p>'
@@ -229,9 +231,11 @@ export function sendVerificationEmail(req, res, next) {
           response: constants.RESPONSE_SEND_VERIFICATION_EMAIL_FAILURE
         });
       }
-      return res.status(200).json({
-        response: constants.RESPONSE_SEND_VERIFICATION_EMAIL_SUCCESS
-      });
+      else {
+        return res.status(200).json({
+          response: constants.RESPONSE_SEND_VERIFICATION_EMAIL_SUCCESS
+        });
+      }
     });
   });
 }
