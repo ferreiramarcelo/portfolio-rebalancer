@@ -163,34 +163,25 @@ function sendEmail(to, subject, text, html, callback) {
     }
   });
 
-  const sendingDomain = process.env.SENDING_DOMAIN;
-  const from = '"Portfolio Rebalancer" <noreply@' + sendingDomain + '>';
+  let sendingDomain = process.env.SPARKPOST_SMTP_USERNAME;
+  const prodSendingDomain = process.env.PRODUCTION_SENDING_DOMAIN;
+  if (prodSendingDomain) {
+    sendingDomain = prodSendingDomain;
+  }
   const mailOptions = {
-    from,
+    from: '"Portfolio Rebalancer" <noreply@' + sendingDomain + '>',
     to,
     subject,
     text,
     html
   };
   return transporter.sendMail(mailOptions, (error, info) => {
-    if (!error) {
+    if (error) {
       console.log('Failed to send email to ', to);
-<<<<<<< HEAD
-      callback(true);
-    }/*
-    else {
-      console.log('Succeeded in sending email to ', to);
-      callback(true);
-    } */
-=======
-      console.log(error);
       callback(false);
     }
-    else {
-      console.log('Succeeded in sending email to ', to);
-      callback(true);
-    }
->>>>>>> 3d1cebead061e9f866236a52e49ce03236ddb433
+    console.log('Succeeded in sending email to ', to);
+    callback(true);
   });
 }
 
@@ -210,7 +201,7 @@ function sendVerificationEmailInternal(req, callback) {
     }
     verificationToken.setToken(token);
     const verificationURL = req.protocol + '://' + req.get('host') + '/verify/' + token;
-    sendEmail(req.body.email,
+    return sendEmail(req.body.email,
       'Verify your Portfolio Rebalancer email address',
       'Thanks for using PortfolioRebalancer.com. Click the following link to verify your email address: ' + verificationURL + '. This link will expire within 24 hours.',
       '<p>Thanks for using <a href=https://www.portfoliorebalancer.com>PortfolioRebalancer.com</a>.</p>'
@@ -238,11 +229,9 @@ export function sendVerificationEmail(req, res, next) {
           response: constants.RESPONSE_SEND_VERIFICATION_EMAIL_FAILURE
         });
       }
-      else {
-        return res.status(200).json({
-          response: constants.RESPONSE_SEND_VERIFICATION_EMAIL_SUCCESS
-        });
-      }
+      return res.status(200).json({
+        response: constants.RESPONSE_SEND_VERIFICATION_EMAIL_SUCCESS
+      });
     });
   });
 }

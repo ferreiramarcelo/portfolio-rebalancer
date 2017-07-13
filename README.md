@@ -46,7 +46,7 @@ With Git and Node.js installed:
 5. (visit http://localhost:7500/)
 - To test: npm run test, npm run test:watch
 - To lint: npm run list, npm run lint:fix
-- To run as production: npm run start
+- You can check out other scripts in package.json
 
 # License
 [**MIT**](https://raw.githubusercontent.com/AlexisDeschamps/portfolio-rebalancer/master/LICENSE.txt)

@@ -163,10 +163,13 @@ function sendEmail(to, subject, text, html, callback) {
     }
   });
 
-  const sendingDomain = process.env.SENDING_DOMAIN;
-  const from = '"Portfolio Rebalancer" <noreply@' + sendingDomain + '>';
+  let sendingDomain = process.env.SPARKPOST_SMTP_USERNAME;
+  const prodSendingDomain = process.env.PRODUCTION_SENDING_DOMAIN;
+  if (prodSendingDomain) {
+    sendingDomain = prodSendingDomain;
+  }
   const mailOptions = {
-    from,
+    from: '"Portfolio Rebalancer" <noreply@' + sendingDomain + '>',
     to,
     subject,
     text,
@@ -175,22 +178,12 @@ function sendEmail(to, subject, text, html, callback) {
   return transporter.sendMail(mailOptions, (error, info) => {
     if (!error) {
       console.log('Failed to send email to ', to);
-<<<<<<< HEAD
       callback(true);
     }/*
     else {
       console.log('Succeeded in sending email to ', to);
       callback(true);
     } */
-=======
-      console.log(error);
-      callback(false);
-    }
-    else {
-      console.log('Succeeded in sending email to ', to);
-      callback(true);
-    }
->>>>>>> 3d1cebead061e9f866236a52e49ce03236ddb433
   });
 }
 
