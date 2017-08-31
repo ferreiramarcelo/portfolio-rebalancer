@@ -44,7 +44,6 @@ const CurrencyDropDownMenu = ({currencies, setTradingCurrency}) => {
 };
 
 CurrencyDropDownMenu.propTypes = {
-  createNewModelPortfolio: PropTypes.func.isRequired
 };
 
 export default CurrencyDropDownMenu;

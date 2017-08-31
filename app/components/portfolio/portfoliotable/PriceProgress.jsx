@@ -9,9 +9,9 @@ import styles from '../../../css/components/portfolio/portfolio-table/price-cell
 
 const cx = classNames.bind(styles);
 
-const PriceProgress = ({index, fetchStatus, onClick}) => {
+const PriceProgress = ({index, fetchStatus, onClick, symbol}) => {
   const handleOnClick = function handleOnClick() {
-    onClick(index);
+    onClick(symbol, index);
   };
 
   const getProgress = function getProgress(givenFetchStatus) {

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import classNames from 'classnames/bind';
 import { investmentAmountTextFieldChange } from '../actions/investmentAmount';
 import { changeAutocomplete, toggleModelPortfolioGroupOpenness, modelPortfoliosAutoCompleteSearchTextChange, createNewModelPortfolio, saveModelPortfolio, deleteModelPortfolio } from '../actions/modelPortfolios';
-import { selectModelPortfolio, modelPortfolioNameTextFieldChange, addSecurity, removeSecurity, securityTextFieldChange, fetchPrice, setTradingCurrency } from '../actions/portfolios';
+import { selectModelPortfolio, modelPortfolioNameTextFieldChange, addSecurity, removeSecurity, securityTextFieldChange, fetchSecurityPriceProcess, setTradingCurrency } from '../actions/portfolios';
 import { generateSteps, setScrolledToBttom, changeShowWholeUnits, changeShowPartialUnits, changeShowCashAmounts } from '../actions/rebalancings';
 import ModelPortfoliosAutoComplete from '../components/portfolioselection/ModelPortfoliosAutoComplete';
 import NewPortfolioButton from '../components/portfolioselection/NewPortfolioButton';
@@ -30,11 +30,6 @@ class PortfolioRebalancer extends Component {
     }
   }
 
-  componentDidMount() {
-    // this.nameInput.focus();
-
-  }
-
   getPortfolioView() {
     if (this.props.view.displayPortfolio) {
       return (
@@ -42,7 +37,7 @@ class PortfolioRebalancer extends Component {
           <Portfolio
 selectedModelPortfolio={this.props.selectedModelPortfolio} modelPortfolioNameTextFieldChange={this.props.modelPortfolioNameTextFieldChange} portfolio={this.props.portfolio} portfolioSelect={this.props.portfolioSelect}
             saveModelPortfolio={this.props.saveModelPortfolio} deleteModelPortfolio={this.props.deleteModelPortfolio} addSecurity={this.props.addSecurity} removeSecurity={this.props.removeSecurity} securityTextFieldChange={this.props.securityTextFieldChange}
-            fetchPrice={this.props.fetchPrice} currencies={this.props.currencies} />
+            fetchPrice={this.props.fetchSecurityPriceProcess} currencies={this.props.currencies} />
           <form onSubmit={this.handleOnGenerateSteps}>
             <CurrencyDropDownMenu currencies={this.props.currencies} setTradingCurrency={this.props.setTradingCurrency} />
             <InvestmentAmount investmentAmount={this.props.investmentAmount} investmentAmountSelect={this.props.portfolioSelect.investmentAmountSelect} investmentAmountTextFieldChange={this.props.investmentAmountTextFieldChange} />
@@ -80,7 +75,7 @@ searchText={this.props.modelPortfoliosAutoCompleteSearchText} onUpdateInput={thi
 
 PortfolioRebalancer.propTypes = {
   modelPortfoliosAutoCompleteSearchText: PropTypes.string.isRequired,
-  modelPortfolios: PropTypes.array.isRequired,
+  modelPortfolios: PropTypes.object.isRequired,
   email: PropTypes.string.isRequired,
   selectedModelPortfolio: PropTypes.object.isRequired,
   view: PropTypes.object.isRequired,
@@ -98,7 +93,7 @@ PortfolioRebalancer.propTypes = {
   addSecurity: PropTypes.func.isRequired,
   removeSecurity: PropTypes.func.isRequired,
   securityTextFieldChange: PropTypes.func.isRequired,
-  fetchPrice: PropTypes.func.isRequired,
+  fetchSecurityPriceProcess: PropTypes.func.isRequired,
   generateSteps: PropTypes.func.isRequired,
   setScrolledToBttom: PropTypes.func.isRequired,
 };
@@ -131,7 +126,7 @@ export default connect(mapStateToProps, {
   addSecurity,
   removeSecurity,
   securityTextFieldChange,
-  fetchPrice,
+  fetchSecurityPriceProcess,
   generateSteps,
   setScrolledToBttom,
   changeAutocomplete,

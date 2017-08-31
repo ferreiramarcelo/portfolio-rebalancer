@@ -110,9 +110,7 @@ searchText={searchText} onUpdateInput={onUpdateInput} floatingLabelText="Select 
 ModelPortfoliosAutoComplete.propTypes = {
   searchText: PropTypes.string.isRequired,
   onUpdateInput: PropTypes.func.isRequired,
-  modelPortfolios: PropTypes.array.isRequired,
-  email: PropTypes.string.isRequired,
-  selectModelPortfolio: PropTypes.func.isRequired
+  modelPortfolios: PropTypes.object.isRequired,
 };
 
 export default ModelPortfoliosAutoComplete;

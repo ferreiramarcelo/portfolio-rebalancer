@@ -231,11 +231,10 @@ export function sendVerificationEmail(req, res, next) {
           response: constants.RESPONSE_SEND_VERIFICATION_EMAIL_FAILURE
         });
       }
-      else {
+
         return res.status(200).json({
           response: constants.RESPONSE_SEND_VERIFICATION_EMAIL_SUCCESS
         });
-      }
     });
   });
 }

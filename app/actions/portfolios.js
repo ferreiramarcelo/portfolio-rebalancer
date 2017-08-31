@@ -8,7 +8,7 @@ polyfill();
 function fetchSecurityPrice(symbol) {
   const api = 'https://query.yahooapis.com/v1/public/yql';
   const query = encodeURIComponent('select LastTradePriceOnly, Currency from yahoo.finance.quotes where symbol in ("' + symbol + '")');
-  const yqlStatement = 'q=' + query + '&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys';
+  const yqlStatement = 'q=' + query + '&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&env=http://datatables.org/alltables.env';
   const uri = api + '?' + yqlStatement;
   return request.get(uri);
 }
@@ -22,9 +22,6 @@ function fetchCurrencyConversion(originalCurrency, tradingCurrency) {
 }
 
 function fetchMassCurrencyConversion(listOfDistinctCurrencies, tradingCurrency) {
-  // if (listOfDistinctCurrencies.length < 1) {
-    // return {status: 200};
-  // }
   const api = 'https://query.yahooapis.com/v1/public/yql';
   let listOfPairs = '';
   for (const distinctCurrency of listOfDistinctCurrencies) {
@@ -77,7 +74,7 @@ function selectModelPortfolioDispatch(selectedModelPortfolio) {
   };
 }
 
-function fetchSecurityPriceProces(symbol, index) {
+export function fetchSecurityPriceProcess(symbol, index) {
   return (dispatch, getState) => {
     dispatch(setPriceToFetching(index));
     fetchSecurityPrice(symbol)
@@ -114,6 +111,9 @@ function fetchSecurityPriceProces(symbol, index) {
         }
       })
       .catch((jqxhr, textStatus, error) => {
+        if (jqxhr.response.data.error.description === 'No definition found for Table yahoo.finance.quotes') {
+          return dispatch(fetchSecurityPriceProcess(symbol, index));
+        }
         return dispatch(setPriceToFetchFailed(index, textStatus, error));
       });
   };
@@ -124,7 +124,7 @@ export function selectModelPortfolio(selectedModelPortfolio) {
     dispatch(selectModelPortfolioDispatch(selectedModelPortfolio));
     const {portfolio} = getState();
     for (const security of portfolio.portfolio) {
-      dispatch(fetchSecurityPriceProces(security.symbol.value, security.index));
+      dispatch(fetchSecurityPriceProcess(security.symbol.value, security.index));
     }
   };
 }
@@ -193,7 +193,7 @@ export function securityTextFieldChange(index, column, value) {
       if (!value) {
         return dispatch(setPriceToNotFetching(index));
       }
-      return dispatch(fetchSecurityPriceProces(value, index));
+      return dispatch(fetchSecurityPriceProcess(value, index));
     };
   }
 }
@@ -222,6 +222,9 @@ export function setTradingCurrency(newTradingCurrency) {
         }
       })
       .catch((jqxhr, textStatus, error) => {
+        if (jqxhr.response.data.error.description === 'No definition found for Table yahoo.finance.xchange') {
+          return dispatch(setTradingCurrency(newTradingCurrency));
+        }
         console.log(error);
       });
   } else {

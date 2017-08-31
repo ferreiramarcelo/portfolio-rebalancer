@@ -177,8 +177,7 @@ function sendEmail(to, subject, text, html, callback) {
       console.log('Failed to send email to ', to);
       console.log(error);
       callback(false);
-    }
-    else {
+    } else {
       console.log('Succeeded in sending email to ', to);
       callback(true);
     }
