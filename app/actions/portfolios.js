@@ -106,7 +106,7 @@ export function fetchSecurityPriceProcess(symbol, index) {
               }
             })
             .catch((jqxhr, textStatus, error) => {
-              if (jqxhr.response.data.error.description === 'No definition found for Table yahoo.finance.quotes') {
+              if (jqxhr.response.data.error.description === 'No definition found for Table yahoo.finance.xchange') {
                 return dispatch(fetchSecurityPriceProcess(symbol, index));
               }
               return dispatch(setPriceToFetchFailed(index, textStatus, error));
