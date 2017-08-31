@@ -44,8 +44,8 @@ With Git and Node.js installed:
 3. npm install
 4. npm run dev
 5. (visit http://localhost:7500/)
-- To test: npm run test, npm run test:watch
-- To lint: npm run list, npm run lint:fix
+- To test: npm run test or npm run test:watch
+- To lint: npm run list or npm run lint:fix
 - You can check out other scripts in package.json
 
 # License
