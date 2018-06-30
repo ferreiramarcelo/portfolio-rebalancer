@@ -24,7 +24,7 @@ key={index} security={security} securitySelect={portfolioSelect.securitiesSelect
             Symbol
             <ReactTooltip id="tooltipColumnHeaderSymbol">
               <p>
-                Ticker symbol as shown on https://finance.yahoo.com.
+                Ticker symbol.
               </p>
             </ReactTooltip>
           </TableHeaderColumn>
@@ -41,7 +41,6 @@ key={index} security={security} securitySelect={portfolioSelect.securitiesSelect
             <ReactTooltip id="tooltipColumnHeaderPrice">
               <p>
                 Price at which each unit will bought/sold.
-                <br /> Prices are fetched from https://finance.yahoo.com.
               </p>
             </ReactTooltip>
           </TableHeaderColumn>

@@ -12,7 +12,7 @@ const cx = classNames.bind(styles);
 const PriceCell = ({currencies, fetchPrice, index, price, priceSelect, securityTextFieldChange, symbol}) => {
   const getDisplayValue = function getDisplayValue(givenValue, givenSetOnce) {
     if (givenSetOnce) {
-      return givenValue;
+      return Number(givenValue).toFixed(2);
     }
     return '';
   };

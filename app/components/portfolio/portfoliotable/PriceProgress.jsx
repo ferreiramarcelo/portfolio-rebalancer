@@ -29,10 +29,10 @@ const PriceProgress = ({index, fetchStatus, onClick, symbol}) => {
           <AlertErrorOutline />
         </IconButton>
         <ReactTooltip id="tooltipPriceFetchError" type="error">
-          <p>
-                    No valid price returned from https://finance.yahoo.com.
-                    <br /> Make sure you account for differing symbols based on exchange.
-                  </p>
+          <p> No valid price returned.
+          <br /> Make sure you account for differing symbols based on exchange.
+          <br /> E.g. 'TSX:XEC' or 'XEC.TO'
+          </p>
         </ReactTooltip>
       </div>);
     }

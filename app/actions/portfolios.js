@@ -5,10 +5,9 @@ import * as types from '../types';
 
 polyfill();
 const ALPHA_VANTAGE_API = 'https://www.alphavantage.co/query?function=';
-const ALPHA_VANTAGE_API_KEY = 'PAUE1PO6HEG3HK70';
 
 function fetchDailySecurityPrice(symbol) {
-  const uri = `${ALPHA_VANTAGE_API}TIME_SERIES_DAILY&symbol=${symbol}&apikey=${ALPHA_VANTAGE_API_KEY}&outputsize=compact`;
+  const uri = `${ALPHA_VANTAGE_API}TIME_SERIES_DAILY&symbol=${symbol}&apikey=${process.env.ALPHA_VANTAGE_API_KEY}&outputsize=compact`;
   return request.get(uri);
 }
 
@@ -16,7 +15,7 @@ function fetchSecurityPrice(symbol) {
   if (symbol.indexOf('.') !== -1 || symbol.indexOf(':') !== -1) {
     return fetchDailySecurityPrice(symbol);
   }
-  const uri = `${ALPHA_VANTAGE_API}TIME_SERIES_INTRADAY&symbol=${symbol}&interval=1min&apikey=${ALPHA_VANTAGE_API_KEY}&outputsize=compact`;
+  const uri = `${ALPHA_VANTAGE_API}TIME_SERIES_INTRADAY&symbol=${symbol}&interval=1min&apikey=${process.env.ALPHA_VANTAGE_API_KEY}&outputsize=compact`;
   return request.get(uri);
 }
 
@@ -87,16 +86,18 @@ export function fetchSecurityPriceProcess(symbol, index) {
     fetchSecurityPrice(symbol)
       .then(data => {
         if (data.status === 200) {
-          const series = data.data['Time Series (1min)'] || data.data['Time Series (Daily)'];
-          const latestPrices = Object.values(series)[0];
-          const price = latestPrices['1. open'];
-          // const currency = data.data.query.results.quote.Currency;
-          const priceNumber = Number(price);
-          if (!price || typeof priceNumber !== 'number' || isNaN(priceNumber) || !isFinite(priceNumber)) {
-            return dispatch(setPriceToFetchFailed(index));
-          }
-          const { portfolio } = getState();
-          return dispatch(setPriceFromFetch(index, price, null, price, 1, portfolio.portfolio));
+          try {
+            const series = data.data['Time Series (1min)'] || data.data['Time Series (Daily)'];
+            const latestPrices = Object.values(series)[0];
+            const price = latestPrices['1. open'];
+            // const currency = data.data.query.results.quote.Currency;
+            const priceNumber = Number(price);
+            if (!price || typeof priceNumber !== 'number' || isNaN(priceNumber) || !isFinite(priceNumber)) {
+              return dispatch(setPriceToFetchFailed(index));
+            }
+            const { portfolio } = getState();
+            return dispatch(setPriceFromFetch(index, price, null, price, 1, portfolio.portfolio));
+          } catch (error) { dispatch(setPriceToFetchFailed(index, error, error)); }
         }
       })
       .catch((jqxhr, textStatus, error) => {
