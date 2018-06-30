@@ -61,6 +61,10 @@ showWholeUnits={this.props.rebalancing.showWholeUnits} showPartialUnits={this.pr
   render() {
     return (
       <div className={cx('portfolio-rebalancer-container')}>
+        <div>
+          You can now get prices for non-US securities by specifying the exchange. E.g. for "XEC", use "TSX:XEC" or "XEC.TO" to get Toronto Stock Exchange prices.
+          Non-US prices are daily rather than real-time and may be outdated by at most 24 hours.
+        </div>
         <div className={cx('model-portfolio-selector-container')}>
           <ModelPortfoliosAutoComplete
 searchText={this.props.modelPortfoliosAutoCompleteSearchText} onUpdateInput={this.props.modelPortfoliosAutoCompleteSearchTextChange} modelPortfolios={this.props.modelPortfolios} onItemTouch={this.props.selectModelPortfolio} onNewRequest={this.props.changeAutocomplete}

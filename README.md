@@ -10,7 +10,7 @@ Link: [**https://www.portfoliorebalancer.com**](https://www.portfoliorebalancer.
 - Selection of common model portfolios (e.g. Canadian Couch Potato)
 - Model portfolio customization
 - Model portfolio saving for reuse
-- Real-time prices and currency exchange rates from [**https://finance.yahoo.com**](https://finance.yahoo.com)
+- Real-time prices and currency exchange rates from [**https://www.alphavantage.co/**](https://www.alphavantage.co/)
 - Calculations for taking out cash as well as investing
 - Responsive design
 - Trading currency selection
@@ -38,14 +38,14 @@ Link: [**https://www.portfoliorebalancer.com**](https://www.portfoliorebalancer.
 - [**Nodemailer**](https://nodemailer.com) - Email sending
 
 # How to use
-With Git and Node.js installed:
+With git and yarn installed:
 1. git clone https://github.com/AlexisDeschamps/portfolio-rebalancer
 2. cd portfolio-rebalancer
-3. npm install
-4. npm run dev
+3. yarn install
+4. yarn dev
 5. (visit http://localhost:7500/)
-- To test: npm run test or npm run test:watch
-- To lint: npm run list or npm run lint:fix
+- To test: yarn test or yarn test:watch
+- To lint: yarn lint or yarn lint:fix
 - You can check out other scripts in package.json
 
 # License

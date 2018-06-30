@@ -20,9 +20,11 @@ const About = () => {
         <p>
           First, recreate your model portfolio either by using one of the default model portfolios available, or by starting from scratch. For each security, enter the symbol
           and the target allocation in the first two columns. If your allocations do not add up to 100, they will be normalized.
-          <br /> Prices will automatically be fetched from <a href="https://finance.yahoo.com/">finance.yahoo.com</a> based on the symbols provided. Be sure to account for
-          different exchanges, e.g. "Vanguard FTSE Global All Cap ex Canada Index ETF" has the symbol "VXC.TO" on Yahoo Finance. Then, enter the number of units you
-          currently have of each security in the last column.
+          <br /> Prices will automatically be fetched from <a href="https://www.alphavantage.co/">www.alphavantage.co</a> based on the symbols provided. Be sure to account for different exchanges.
+          For example, the symbol "XEC" is "Cimarex Energy Co" on The New York Stock Exchange.
+          To get "ISHARES CORE MSCI EMG MKTS IMI ETF", which has the same symbol, on The Toronto Stock Exchange, specify the exchange by entering "TSX:XEC" or "XEC.TO". Prices from exchanges other than the default ones will be daily rather than real-time, so they may be oudated by at most 24 hours.
+
+          Finally, enter the number of units you currently have of each security in the last column.
         </p>
         <p>
           Finally, enter how much cash you wish to invest or take out and press the "Generate Steps" button. A list of steps for rebalancing your portfolio will be generated.

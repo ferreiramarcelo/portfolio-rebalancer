@@ -4,12 +4,18 @@ import request from 'axios';
 import * as types from '../types';
 
 polyfill();
+const ALPHA_VANTAGE_API = 'https://www.alphavantage.co/query?function=';
+
+function fetchDailySecurityPrice(symbol) {
+  const uri = `${ALPHA_VANTAGE_API}TIME_SERIES_DAILY&symbol=${symbol}&apikey=${process.env.ALPHA_VANTAGE_API_KEY}&outputsize=compact`;
+  return request.get(uri);
+}
 
 function fetchSecurityPrice(symbol) {
-  const api = 'https://query.yahooapis.com/v1/public/yql';
-  const query = encodeURIComponent('select LastTradePriceOnly, Currency from yahoo.finance.quotes where symbol in ("' + symbol + '")');
-  const yqlStatement = 'q=' + query + '&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&env=http://datatables.org/alltables.env';
-  const uri = api + '?' + yqlStatement;
+  if (symbol.indexOf('.') !== -1 || symbol.indexOf(':') !== -1) {
+    return fetchDailySecurityPrice(symbol);
+  }
+  const uri = `${ALPHA_VANTAGE_API}TIME_SERIES_INTRADAY&symbol=${symbol}&interval=1min&apikey=${process.env.ALPHA_VANTAGE_API_KEY}&outputsize=compact`;
   return request.get(uri);
 }
 
@@ -80,37 +86,18 @@ export function fetchSecurityPriceProcess(symbol, index) {
     fetchSecurityPrice(symbol)
       .then(data => {
         if (data.status === 200) {
-          const price = data.data.query.results.quote.LastTradePriceOnly;
-          const currency = data.data.query.results.quote.Currency;
-          const priceNumber = Number(price);
-          if (!price || typeof priceNumber !== 'number' || isNaN(priceNumber) || !isFinite(priceNumber)) {
-            return dispatch(setPriceToFetchFailed(index));
-          }
-          const {portfolio} = getState();
-          if (portfolio.currencies.tradingCurrency === null) {
-            dispatch(setTradingCurrency(currency));
-            return dispatch(setPriceFromFetch(index, price, currency, price, 1, portfolio.portfolio));
-          } else if (currency === portfolio.currencies.tradingCurrency) {
-            return dispatch(setPriceFromFetch(index, price, currency, price, 1, portfolio.portfolio));
-          }
-          fetchCurrencyConversion(currency, portfolio.currencies.tradingCurrency)
-            .then(data => {
-              if (data.status === 200) {
-                const rate = data.data.query.results.rate.Rate;
-                const rateNumber = Number(rate);
-                if (!rate || typeof rateNumber !== 'number' || isNaN(rateNumber) || !isFinite(rateNumber)) {
-                  return dispatch(setPriceToFetchFailed(index));
-                }
-                const convertedPrice = (price * rate).toFixed(6);
-                return dispatch(setPriceFromFetch(index, convertedPrice, currency, price, rate, portfolio.portfolio));
-              }
-            })
-            .catch((jqxhr, textStatus, error) => {
-              if (jqxhr.response.data.error.description === 'No definition found for Table yahoo.finance.xchange') {
-                return dispatch(fetchSecurityPriceProcess(symbol, index));
-              }
-              return dispatch(setPriceToFetchFailed(index, textStatus, error));
-            });
+          try {
+            const series = data.data['Time Series (1min)'] || data.data['Time Series (Daily)'];
+            const latestPrices = Object.values(series)[0];
+            const price = latestPrices['1. open'];
+            // const currency = data.data.query.results.quote.Currency;
+            const priceNumber = Number(price);
+            if (!price || typeof priceNumber !== 'number' || isNaN(priceNumber) || !isFinite(priceNumber)) {
+              return dispatch(setPriceToFetchFailed(index));
+            }
+            const { portfolio } = getState();
+            return dispatch(setPriceFromFetch(index, price, null, price, 1, portfolio.portfolio));
+          } catch (error) { dispatch(setPriceToFetchFailed(index, error, error)); }
         }
       })
       .catch((jqxhr, textStatus, error) => {

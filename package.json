@@ -3,8 +3,7 @@
   "description": "Investment portfolio rebalancing web app",
   "version": "1.1.0",
   "engines": {
-    "node": "8.1.4",
-    "npm": "5.0.3"
+    "node": "10.5.0"
   },
   "repository": "https://github.com/AlexisDeschamps/portfolio-rebalancer",
   "main": "index.js",
