@@ -98,7 +98,7 @@
     "passport-local": "^1.0.0",
     "pg": "^6.4.2",
     "pg-hstore": "^2.3.2",
-    "postcss-cssnext": "^2.9.0",
+    "postcss-cssnext": "^3.0.0",
     "postcss-import": "^9.0.0",
     "postcss-loader": "^1.2.1",
     "postcss-reporter": "^3.0.0",
