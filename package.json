@@ -18,7 +18,9 @@
     "test": "cross-env NODE_ENV=test karma start",
     "test:watch": "cross-env NODE_ENV=test npm test -- --watch --no-single-run",
     "postinstall": "npm run build",
-    "keep-green": "git merge master && rm -rf node_modules && npm install && npm start"
+    "keep-green": "git merge master && rm -rf node_modules && npm install && npm start",
+    "prepare": "yarn run snyk-protect",
+    "snyk-protect": "snyk-protect"
   },
   "author": "Alexis Deschamps",
   "license": "MIT",
@@ -88,7 +90,7 @@
     "helmet": "^2.1.2",
     "inline-environment-variables-webpack-plugin": "1.1.0",
     "json-loader": "^0.5.7",
-    "lodash": "^4.16.2",
+    "lodash": "^4.17.16",
     "material-ui": "^0.17.0",
     "method-override": "^2.3.5",
     "mongoose": "^4.11.9",
@@ -126,6 +128,8 @@
     "url-loader": "^0.5.7",
     "webpack": "^1.13.2",
     "webpack-dev-middleware": "^1.12.0",
-    "webpack-hot-middleware": "^2.12.2"
-  }
+    "webpack-hot-middleware": "^2.12.2",
+    "@snyk/protect": "latest"
+  },
+  "snyk": true
 }
