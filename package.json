@@ -49,7 +49,7 @@
     "redux-mock-store": "1.1.2",
     "sinon": "^1.17.5",
     "stylelint": "^7.1.0",
-    "stylelint-webpack-plugin": "^0.4.2"
+    "stylelint-webpack-plugin": "^0.9.0"
   },
   "dependencies": {
     "autoprefixer": "^6.4.0",
@@ -73,7 +73,7 @@
     "classnames": "^2.2.3",
     "compression": "^1.6.2",
     "connect-mongo": "^1.3.2",
-    "connect-pg-simple": "^3.1.0",
+    "connect-pg-simple": "^6.2.0",
     "cross-env": "^2.0.1",
     "css": "^2.2.1",
     "css-loader": "^0.28.11",
@@ -96,7 +96,7 @@
     "passport": "^0.3.2",
     "passport-google-oauth": "^1.0.0",
     "passport-local": "^1.0.0",
-    "pg": "^6.4.2",
+    "pg": "^8.4.0",
     "pg-hstore": "^2.3.2",
     "postcss-cssnext": "^2.9.0",
     "postcss-import": "^9.0.0",
@@ -122,7 +122,7 @@
     "rimraf": "^2.5.4",
     "spark-md5": "^2.0.2",
     "style-loader": "^0.23.1",
-    "stylelint-webpack-plugin": "^0.4.2",
+    "stylelint-webpack-plugin": "^0.9.0",
     "url-loader": "^0.5.7",
     "webpack": "^1.13.2",
     "webpack-dev-middleware": "^1.12.0",
