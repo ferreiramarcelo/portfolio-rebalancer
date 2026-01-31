@@ -124,7 +124,7 @@
     "style-loader": "^0.23.1",
     "stylelint-webpack-plugin": "^0.4.2",
     "url-loader": "^0.5.7",
-    "webpack": "^1.13.2",
+    "webpack": "^2.2.0",
     "webpack-dev-middleware": "^1.12.0",
     "webpack-hot-middleware": "^2.12.2"
   }
